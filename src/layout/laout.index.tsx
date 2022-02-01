@@ -1,6 +1,6 @@
 import Header from "components/templates/header/index.header";
 
-export default function Layout({ children }: any) {
+export default function Laout({ children }: any) {
   return (
     <>
       <Header />

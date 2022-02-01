@@ -3,10 +3,13 @@ import { MainSettingsTemplate } from "types/types.mainSettingsTemplate";
 const settings: MainSettingsTemplate = {
   // settings color
   colorText: "#DDDEE1",
+  colorTextDesactive: "#969BA1",
   colorLink: "#E8EAED",
   colorLinkActive: "#93B3F2",
   colorMainBg: "#202024",
   colorBorder: "#5F6367",
+  colorInputBg: "#303133",
+  colorButtonBg: "#303134",
 
   // settings break
   break: { small: "0.75rem", main: "1.5rem", big: "3rem" },

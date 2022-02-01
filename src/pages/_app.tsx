@@ -1,3 +1,4 @@
+import Laout from "layout/laout.index";
 import type { AppProps } from "next/app";
 import settings from "assets/style/settings";
 import { ThemeProvider } from "styled-components";
@@ -7,7 +8,9 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider theme={settings}>
       <GlobalStyle />
-      <Component {...pageProps} />
+      <Laout>
+        <Component {...pageProps} />
+      </Laout>
     </ThemeProvider>
   );
 }

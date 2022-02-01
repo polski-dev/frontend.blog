@@ -27,8 +27,7 @@ const GlobalStyle = styled.createGlobalStyle<GlobalStyleProps>`
     font-weight: normal;
     color: ${({ theme }) => theme.colorText};
     background-color: ${({ theme }) => theme.colorMainBg};
-    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
-      Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji",
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji",
       "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   }
 
@@ -59,14 +58,47 @@ const GlobalStyle = styled.createGlobalStyle<GlobalStyleProps>`
     font-weight: bold;
   }
 
+  h1 {
+    font-size: 3.8rem;
+  }
+
+  h2 {
+    font-size: 3.5rem;
+  }
+
+  h3 {
+    font-size: 2.8rem;
+  }
+
+  h4 {
+    font-size: 2.5rem;
+  }
+
+  h5 {
+    font-size: 1.8rem;
+  }
+
+  h6 {
+    font-size: 1.5rem;
+  }
+
   a {
     opacity: 1;
     transition: all 0.3s;
     text-decoration: none;
     color: ${({ theme }) => theme.colorLink};
 
+    svg {
+      transition: all 0.3s;
+      fill: ${({ theme }) => theme.colorLink};
+    }
+
     &:hover {
       color: ${({ theme }) => theme.colorLinkActive};
+
+      svg {
+        fill: ${({ theme }) => theme.colorLinkActive};
+      }
     }
   }
 
