@@ -13,7 +13,6 @@ import { Row, Col, Container } from "components/orgamis/flexboxgrid/index.flexbo
 
 const HeaderComponent = () => {
   const { pathname } = useRouter();
-  console.log(pathname);
 
   return (
     <>

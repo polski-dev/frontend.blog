@@ -29,8 +29,6 @@ export default function SearchBar() {
     };
   }, [queryTag]);
 
-  console.log(sugest);
-
   return (
     <Form
       style={{
