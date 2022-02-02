@@ -1,37 +1,46 @@
-import lodash, { result } from "lodash";
 import Link from "next/link";
-import React, { useState, useRef, useEffect } from "react";
+import { url } from "inspector";
+import lodash, { result } from "lodash";
 import Hash from "assets/icon/hash.svg";
 import News from "assets/icon/news.svg";
 import Search from "assets/icon/search.svg";
+import React, { useState, useRef, useEffect } from "react";
 import { Form, Input, Button, SugestBox, Item, IconBox, ContentBox, ContentTitle, ContentTags, ContentTag } from "./component.searchBar.style";
-import { url } from "inspector";
 
 export default function SearchBar() {
   const [focus, setFocus] = useState(false);
   const [queryTag, setQueryTag] = useState("");
   const [sugest, setSugest] = useState([]);
 
-  useEffect(() => {
-    let pushQuery = setTimeout(() => {}, 300);
-
-    if (queryTag.length) {
-      pushQuery = setTimeout(async () => {
-        await fetch(`/api/search/${queryTag}`)
-          .then((data) => data.json())
-          .then((result) => setSugest(result))
-          .catch((err) => {
-            setSugest([]);
-            console.log({ err: err });
-          });
-      }, 300);
-    } else {
-      setSugest([]);
+  const typeLink = (type: string) => {
+    switch (type) {
+      case "article":
+        return "/a/";
+      case "tag":
+        return "/t/";
+      case "video":
+        return "/v/";
     }
+  };
 
-    return () => {
-      clearTimeout(pushQuery);
-    };
+  useEffect(() => {
+    let pushQuery = setTimeout(() => null, 300);
+
+    if (queryTag.length)
+      pushQuery = setTimeout(
+        async () =>
+          await fetch(`/api/search/${queryTag}`)
+            .then((data) => data.json())
+            .then((result) => setSugest(result))
+            .catch((err) => {
+              setSugest([]);
+              console.log({ err: err });
+            }),
+        300
+      );
+    else setSugest([]);
+
+    return () => clearTimeout(pushQuery);
   }, [queryTag]);
 
   return (
@@ -61,12 +70,12 @@ export default function SearchBar() {
         {sugest.length ? (
           <>
             {sugest.map((item: { title: string; cover: { formats: { thumbnail: { url: string } } }; type: string; tags: { title: string }[] }, i: number) => {
-              console.log(item.cover);
+              console.log(item);
               return (
                 <Item key={i}>
-                  <Link href={`/w/${lodash.kebabCase(lodash.deburr(item.title.toLowerCase()))}`}>
+                  <Link href={`${typeLink(item.type)}${lodash.kebabCase(lodash.deburr(item.title.toLowerCase()))}`}>
                     <a>
-                      {!!item.cover.formats?.thumbnail.url ? (
+                      {!!item.cover?.formats?.thumbnail.url ? (
                         <IconBox style={{ backgroundImage: `url(${item.cover.formats.thumbnail.url})` }} />
                       ) : (
                         <IconBox>
