@@ -89,9 +89,9 @@ export const Menu = styled.ul`
   @media all and (min-width: 768px) {
     order: 1;
     flex: auto;
+    padding-top: 0;
     overflow-y: auto;
     margin-left: 19.5rem;
-    padding-top: ${({ theme }) => theme.break.main};
   }
 `;
 
