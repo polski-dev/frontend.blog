@@ -1,27 +1,32 @@
-import lodash from "lodash";
+import lodash, { result } from "lodash";
 import Link from "next/link";
 import React, { useState, useRef, useEffect } from "react";
 import Hash from "assets/icon/hash.svg";
 import News from "assets/icon/news.svg";
 import Search from "assets/icon/search.svg";
-import { Form, Input, Button, SugestBox, Item } from "./component.searchBar.style";
+import { Form, Input, Button, SugestBox, Item, IconBox, ContentBox, ContentTitle, ContentTags, ContentTag } from "./component.searchBar.style";
+import { url } from "inspector";
 
 export default function SearchBar() {
   const [focus, setFocus] = useState(false);
   const [queryTag, setQueryTag] = useState("");
-  const [sugest, setSugest] = useState({ article: [], tag: [] });
+  const [sugest, setSugest] = useState([]);
 
   useEffect(() => {
     let pushQuery = setTimeout(() => {}, 300);
 
     if (queryTag.length) {
       pushQuery = setTimeout(async () => {
-        const res = await fetch(`/api/search/${queryTag}`);
-        const data = await res.json();
-        setSugest(data);
+        await fetch(`/api/search/${queryTag}`)
+          .then((data) => data.json())
+          .then((result) => setSugest(result))
+          .catch((err) => {
+            setSugest([]);
+            console.log({ err: err });
+          });
       }, 300);
     } else {
-      setSugest({ article: [], tag: [] });
+      setSugest([]);
     }
 
     return () => {
@@ -33,7 +38,7 @@ export default function SearchBar() {
     <Form
       style={{
         boxShadow: focus ? "0 0 6px rgba(0, 0, 0, 0.6)" : "0 0 6px rgba(0, 0, 0, 0)",
-        height: focus && (sugest.article.length || sugest.tag.length) ? "auto" : "3rem",
+        height: focus && sugest.length ? "auto" : "3rem",
       }}
     >
       <Input
@@ -41,8 +46,8 @@ export default function SearchBar() {
         onBlur={() => setFocus(false)}
         onChange={(e) => setQueryTag(e.target.value)}
         style={{
-          borderBottomLeftRadius: focus && (sugest.article.length || sugest.tag.length) ? "0" : "0.6rem",
-          borderBottomRightRadius: focus && (sugest.article.length || sugest.tag.length) ? "0" : "0.6rem",
+          borderBottomLeftRadius: focus && sugest.length ? "0" : "0.6rem",
+          borderBottomRightRadius: focus && sugest.length ? "0" : "0.6rem",
         }}
       />
       <Button type="submit">
@@ -50,36 +55,44 @@ export default function SearchBar() {
       </Button>
       <SugestBox
         style={{
-          opacity: focus && (sugest.article.length || sugest.tag.length) ? "1" : "0",
+          opacity: focus && sugest.length ? "1" : "0",
         }}
       >
-        {sugest.article.length ? (
+        {sugest.length ? (
           <>
-            {sugest.article.map((art: { title: string }, i: number) => (
-              <Item key={i}>
-                <Link href={`/w/${lodash.kebabCase(lodash.deburr(art.title.toLowerCase()))}`}>
-                  <a>
-                    <News />
-                    {art.title}
-                  </a>
-                </Link>
-              </Item>
-            ))}
-          </>
-        ) : null}
-
-        {sugest.tag.length ? (
-          <>
-            {sugest.tag.map((tag: { title: string }, i: number) => (
-              <Item key={i}>
-                <Link href={`/t/${lodash.kebabCase(lodash.deburr(tag.title.toLowerCase()))}`}>
-                  <a>
-                    <Hash />
-                    {tag.title}
-                  </a>
-                </Link>
-              </Item>
-            ))}
+            {sugest.map((item: { title: string; cover: { formats: { thumbnail: { url: string } } }; type: string; tags: { title: string }[] }, i: number) => {
+              console.log(item.cover);
+              return (
+                <Item key={i}>
+                  <Link href={`/w/${lodash.kebabCase(lodash.deburr(item.title.toLowerCase()))}`}>
+                    <a>
+                      {!!item.cover.formats?.thumbnail.url ? (
+                        <IconBox style={{ backgroundImage: `url(${item.cover.formats.thumbnail.url})` }} />
+                      ) : (
+                        <IconBox>
+                          <Search />
+                        </IconBox>
+                      )}
+                      <ContentBox>
+                        <ContentTitle>{item.title}</ContentTitle>
+                        <ContentTags>
+                          {item.tags &&
+                            item.tags.map((tag, i: number) => {
+                              return (
+                                <ContentTag key={i}>
+                                  <span>#</span>
+                                  {tag.title}
+                                  <span>,</span>
+                                </ContentTag>
+                              );
+                            })}
+                        </ContentTags>
+                      </ContentBox>
+                    </a>
+                  </Link>
+                </Item>
+              );
+            })}
           </>
         ) : null}
       </SugestBox>

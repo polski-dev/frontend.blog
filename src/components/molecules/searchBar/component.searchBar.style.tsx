@@ -16,6 +16,7 @@ export const Input = styled.input`
   border: none;
   height: 3rem;
   max-width: 100%;
+  font-size: 1.5rem;
   border-radius: 0.6rem;
   color: ${({ theme }) => theme.colorText};
   padding: ${({ theme }) => theme.break.main};
@@ -46,31 +47,92 @@ export const SugestBox = styled.ul`
   max-width: 100%;
   position: relative;
   transition: all 0.3s;
-  padding: ${({ theme }) => theme.break.main};
+  padding: ${({ theme }) => theme.break.main} 0;
   background-color: ${({ theme }) => theme.colorInputBg};
+
+  &::before {
+    top: 0.5rem;
+    content: "";
+    left: 1.5rem;
+    z-index: 9999;
+    display: block;
+    height: 0.1rem;
+    position: absolute;
+    width: calc(100% - 3rem);
+    background-color: ${({ theme }) => theme.colorBorder};
+  }
 `;
 
 export const Item = styled.li`
-  padding: 0.3rem;
-
   svg {
-    top: 0.2rem;
-    height: 1.2rem;
+    height: 2rem;
     position: relative;
-    margin-right: 0.5rem;
   }
 
   a {
     width: 100%;
-    display: block;
+    display: flex;
+    align-items: center;
+    padding: ${({ theme }) => theme.break.small} ${({ theme }) => theme.break.main};
+
     svg {
       stroke: ${({ theme }) => theme.colorLink};
     }
 
     &:hover {
+      background-color: #3d4043;
+
       svg {
         stroke: ${({ theme }) => theme.colorLinkActive};
       }
     }
+  }
+`;
+
+export const IconBox = styled.div`
+  width: 32px;
+  height: 32px;
+  display: flex;
+  position: relative;
+  align-items: center;
+  border-radius: 0.6rem;
+  background-size: cover;
+  justify-content: center;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin-right: ${({ theme }) => theme.break.small};
+`;
+
+export const ContentBox = styled.div`
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  overflow: hidden;
+  position: relative;
+`;
+export const ContentTitle = styled.div`
+  flex: 100%;
+  max-width: 100%;
+`;
+export const ContentTags = styled.ul`
+  flex: 100%;
+  display: flex;
+  max-width: 100%;
+`;
+export const ContentTag = styled.li`
+  font-size: 1.2rem;
+  color: ${({ theme }) => theme.colorTextDesactive};
+  padding-right: ${({ theme }) => theme.break.small};
+
+  &:last-of-type {
+    span {
+      &:last-of-type {
+        display: none;
+      }
+    }
+  }
+
+  span {
+    opacity: 0.3;
   }
 `;
