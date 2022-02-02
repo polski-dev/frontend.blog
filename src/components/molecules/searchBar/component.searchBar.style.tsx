@@ -46,14 +46,12 @@ export const SugestBox = styled.ul`
   max-width: 100%;
   position: relative;
   transition: all 0.3s;
-  padding-bottom: ${({ theme }) => theme.break.big};
-  padding-right: ${({ theme }) => theme.break.main};
-  padding-left: ${({ theme }) => theme.break.main};
+  padding: ${({ theme }) => theme.break.main};
   background-color: ${({ theme }) => theme.colorInputBg};
 `;
 
 export const Item = styled.li`
-  font-size: 1.2rem;
+  padding: 0.3rem;
 
   svg {
     top: 0.2rem;
@@ -63,6 +61,8 @@ export const Item = styled.li`
   }
 
   a {
+    width: 100%;
+    display: block;
     svg {
       stroke: ${({ theme }) => theme.colorLink};
     }
@@ -72,10 +72,5 @@ export const Item = styled.li`
         stroke: ${({ theme }) => theme.colorLinkActive};
       }
     }
-  }
-
-  h6 {
-    padding: ${({ theme }) => theme.break.big} 0 ${({ theme }) => theme.break.small} 0;
-    ${({ theme }) => theme.colorTextDesactive};
   }
 `;

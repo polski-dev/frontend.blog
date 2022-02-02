@@ -55,9 +55,6 @@ export default function SearchBar() {
       >
         {sugest.article.length ? (
           <>
-            <Item>
-              <h6>Wpisy</h6>
-            </Item>
             {sugest.article.map((art: { title: string }, i: number) => (
               <Item key={i}>
                 <Link href={`/w/${lodash.kebabCase(lodash.deburr(art.title.toLowerCase()))}`}>
@@ -73,9 +70,6 @@ export default function SearchBar() {
 
         {sugest.tag.length ? (
           <>
-            <Item>
-              <h6>Tagi</h6>
-            </Item>
             {sugest.tag.map((tag: { title: string }, i: number) => (
               <Item key={i}>
                 <Link href={`/t/${lodash.kebabCase(lodash.deburr(tag.title.toLowerCase()))}`}>
