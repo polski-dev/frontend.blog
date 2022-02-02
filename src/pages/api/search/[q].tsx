@@ -15,7 +15,5 @@ export default async function handler(req: any, res: any) {
     res.status(200).json(lodash.orderBy(content, ["views"], ["desc"]).splice(0, 6));
   });
 
-  data.catch((err) => {
-    res.status(500).json({ err: "Internal Server Error" });
-  });
+  data.catch((err) => res.status(500).json({ err: "Internal Server Error" }));
 }
