@@ -1,12 +1,7 @@
 import type { NextPage } from "next";
-import Laout from "layout/laout.index";
 
 const Home: NextPage = () => {
-  return (
-    <Laout>
-      <h2>ok</h2>
-    </Laout>
-  );
+  return <h2>Blog</h2>;
 };
 
 export default Home;
