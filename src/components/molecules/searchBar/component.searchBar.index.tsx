@@ -33,7 +33,7 @@ export default function SearchBar() {
     <Form
       style={{
         boxShadow: focus ? "0 0 6px rgba(0, 0, 0, 0.6)" : "0 0 6px rgba(0, 0, 0, 0)",
-        height: sugest.article.length || sugest.tag.length ? "auto" : "3rem",
+        height: focus && (sugest.article.length || sugest.tag.length) ? "auto" : "3rem",
       }}
     >
       <Input
@@ -41,8 +41,8 @@ export default function SearchBar() {
         onBlur={() => setFocus(false)}
         onChange={(e) => setQueryTag(e.target.value)}
         style={{
-          borderBottomLeftRadius: sugest.article.length || sugest.tag.length ? "0" : "0.6rem",
-          borderBottomRightRadius: sugest.article.length || sugest.tag.length ? "0" : "0.6rem",
+          borderBottomLeftRadius: focus && (sugest.article.length || sugest.tag.length) ? "0" : "0.6rem",
+          borderBottomRightRadius: focus && (sugest.article.length || sugest.tag.length) ? "0" : "0.6rem",
         }}
       />
       <Button type="submit">
@@ -50,7 +50,7 @@ export default function SearchBar() {
       </Button>
       <SugestBox
         style={{
-          opacity: sugest.article.length || sugest.tag.length ? "1" : "0",
+          opacity: focus && (sugest.article.length || sugest.tag.length) ? "1" : "0",
         }}
       >
         {sugest.article.length ? (
