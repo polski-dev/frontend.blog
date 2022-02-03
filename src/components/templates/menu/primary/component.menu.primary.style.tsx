@@ -6,6 +6,7 @@ export const BoxMenu = styled.div`
   flex-wrap: wrap;
   overflow: hidden;
   position: relative;
+  height: max-content;
   padding: ${({ theme }) => theme.break.big} ${({ theme }) => theme.break.main};
 
   ${({ theme }) => css`

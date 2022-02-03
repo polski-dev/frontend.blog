@@ -13,9 +13,10 @@ import { BoxMenu, Title, List, Tag, SocialMedia, BoxState, DateState } from "./c
 
 type MenuPrimaryType = {
   tags: { id: number; attributes: { title: string } }[];
+  stats: { contentBest: number; contentWaitingroom: number; contentCommentAll: number };
 };
 
-export default function MenuPrimary({ tags }: MenuPrimaryType) {
+export default function MenuPrimary({ tags, stats }: MenuPrimaryType) {
   return (
     <BoxMenu>
       <Title>Top tagi</Title>
@@ -63,16 +64,16 @@ export default function MenuPrimary({ tags }: MenuPrimaryType) {
       </List>
       <BoxState>
         <DateState>
-          <Up />0 na głownej
+          <Up />
+          {stats.contentBest} na głownej
         </DateState>
         <DateState>
-          <Time />0 w poczekalni
+          <Time />
+          {stats.contentWaitingroom} w poczekalni
         </DateState>
         <DateState>
-          <User />0 użytkowników
-        </DateState>
-        <DateState>
-          <Comment />0 komentarzy
+          <Comment />
+          {stats.contentCommentAll} komentarzy
         </DateState>
       </BoxState>
     </BoxMenu>
