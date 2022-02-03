@@ -66,6 +66,7 @@ export default function SearchBar() {
         style={{
           opacity: focus && sugest.length ? "1" : "0",
         }}
+        onFocus={() => setFocus(true)}
       >
         {sugest.length ? (
           <>

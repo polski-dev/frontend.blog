@@ -1,6 +1,4 @@
 import styled from "styled-components";
-import Link from "next/link";
-import { type } from "os";
 
 export const Header = styled.header`
   width: 100%;
