@@ -26,13 +26,19 @@ import {
 } from "./content.shortArticle.style";
 
 export default function sectionShortArticle({ data, slug, title }: any) {
-  console.log(data);
+  //   const countDays = (date: Date) => {
+  //     const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+  //     const actualDate = new Date();
+  //     const diffDays = Math.round(Math.abs((actualDate - date) / oneDay));
+  //   };
+
   return (
     <Section>
       <Title>{title}</Title>
       <Options></Options>
       {data.map((art: any, i: number) => {
-        console.log(art.attributes);
+        console.log(art.attributes.author);
+        console.log(art.attributes.grades.data.filter((voice: any) => voice.attributes.voice === "best").length);
         return (
           <Article key={i}>
             <Link href={`/${slug}/${lodash.kebabCase(lodash.deburr(art.attributes.title.toLowerCase()))}`} passHref>
@@ -46,7 +52,12 @@ export default function sectionShortArticle({ data, slug, title }: any) {
                   <Image src={art.attributes.cover.data.attributes.url} width={42} height={42} alt={art.attributes.author.data.attributes.username} />
                 </BoxAuthorImg>
                 <AuthorData>
-                  <AuthorName>{art.attributes.author.data.attributes.username}</AuthorName>
+                  <Link href={`/u/${lodash.kebabCase(lodash.deburr(art.attributes.author.data.attributes.username.toLowerCase()))}`}>
+                    <a title={art.attributes.author.data.attributes.username}>
+                      <AuthorName>{art.attributes.author.data.attributes.username}</AuthorName>
+                    </a>
+                  </Link>
+
                   <DateAdded>16 Stycznia ( 5 dni temu )</DateAdded>
                 </AuthorData>
               </BoxAuthor>
@@ -72,22 +83,22 @@ export default function sectionShortArticle({ data, slug, title }: any) {
               <ListStats>
                 <Item>
                   <Best />
-                  <span>3431</span>
+                  <span>{art.attributes.grades.data.filter((voice: any) => voice.attributes.voice === "best").length}</span>
                 </Item>
                 <Item>
                   <Wow />
-                  <span>3431</span>
+                  <span>{art.attributes.grades.data.filter((voice: any) => voice.attributes.voice === "wow").length}</span>
                 </Item>
                 <Item>
                   <Wrr />
-                  <span>3431</span>
+                  <span>{art.attributes.grades.data.filter((voice: any) => voice.attributes.voice === "wrr").length}</span>
                 </Item>
                 <Item>
                   <Comment />
                   <span>{art.attributes.comments.data.length}</span>
                 </Item>
               </ListStats>
-              <ButtonInLink href="/l" title="zaloguj">
+              <ButtonInLink href={`/${slug}/${lodash.kebabCase(lodash.deburr(art.attributes.title.toLowerCase()))}`} title="więcej">
                 Więcej
               </ButtonInLink>
             </BoxContent>

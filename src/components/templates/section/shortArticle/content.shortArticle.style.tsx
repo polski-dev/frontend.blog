@@ -63,6 +63,12 @@ export const AuthorData = styled.div`
   flex-direction: column;
   justify-content: center;
   padding-left: ${({ theme }) => theme.break.small};
+
+  a {
+    width: 100%;
+    display: flex;
+    height: max-content;
+  }
 `;
 
 export const AuthorName = styled.strong`
@@ -114,14 +120,15 @@ export const Tag = styled.li`
 `;
 
 export const ListStats = styled.ul`
-  width: 50%;
   display: flex;
   flex-wrap: wrap;
   padding-left: 4.95rem;
+  width: calc(100% - 8rem);
 `;
 
 export const Item = styled.li`
   display: flex;
+  align-items: center;
   color: ${({ theme }) => theme.colorTextDesactive};
   padding-right: ${({ theme }) => theme.break.main};
 
