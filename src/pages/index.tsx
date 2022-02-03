@@ -3,6 +3,7 @@ import { MenuPrimary } from "components/templates/menu/component.menu.index";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
 
 const Home: NextPage = ({ tags }: any) => {
+  // console.log(stats);
   return (
     <Container>
       <Row>
@@ -19,19 +20,25 @@ const Home: NextPage = ({ tags }: any) => {
 };
 
 export async function getStaticProps() {
-  const queryTag = 1;
   // Top Tags
   const tagsResponse = await fetch(`https://www.polski.dev/api/tags/1`);
   const tags = await tagsResponse.json();
 
   // Stats
+  const contentBestResponse = await fetch(`https://www.polski.dev/api/count/content/best`);
+  const contentBest = await contentBestResponse.json();
+  const contentWaitingroomResponse = await fetch(`https://www.polski.dev/api/count/content/waitingroom`);
+  const contentWaitingroom = await contentWaitingroomResponse.json();
+  const contentCommentAllResponse = await fetch(`https://www.polski.dev/api/count/comment/all`);
+  const contentCommentAll = await contentCommentAllResponse.json();
 
-  // Fetch data from external API
-  // const res = await fetch(`https://.../data`);
-  // const data = await res.json();
+  console.log(contentCommentAll);
 
-  // Pass data to the page via props
-  return { props: { tags } };
+  console.log({ contentBest: contentBest.count, contentWaitingroom: contentWaitingroom.count, contentCommentAll: contentCommentAll.count });
+
+  return {
+    props: { tags },
+  };
 }
 
 export default Home;
