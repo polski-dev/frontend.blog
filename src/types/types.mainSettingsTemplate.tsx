@@ -1,5 +1,6 @@
 export type MainSettingsTemplate = {
   colorText: string;
+  colorPostBg: string;
   colorTextDesactive: string;
   colorLink: string;
   colorLinkActive: string;

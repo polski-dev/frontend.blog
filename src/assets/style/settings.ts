@@ -10,6 +10,7 @@ const settings: MainSettingsTemplate = {
   colorBorder: "#5F6367",
   colorInputBg: "#303133",
   colorButtonBg: "#303134",
+  colorPostBg: "#2D2E30",
 
   // settings break
   break: { small: "0.75rem", main: "1.5rem", big: "3rem" },

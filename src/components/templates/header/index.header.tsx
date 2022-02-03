@@ -20,8 +20,8 @@ const HeaderComponent = () => {
         <Container>
           <Row>
             <Logo>
-              <Link href="/" passHref>
-                <a>
+              <Link href="/">
+                <a title="polski.dev">
                   <Brand />
                 </a>
               </Link>
@@ -30,13 +30,15 @@ const HeaderComponent = () => {
               <SearchBar />
             </SerachBox>
             <UserPanelBox>
-              <ButtonInLink href="/l">Zaloguj</ButtonInLink>
+              <ButtonInLink href="/l" title="zaloguj">
+                Zaloguj
+              </ButtonInLink>
             </UserPanelBox>
 
             <Menu>
               <Item active={pathname === "/" ? true : false}>
                 <Link href="/">
-                  <a>
+                  <a title="wszystko">
                     <Search />
                     Wszystko
                   </a>
@@ -44,7 +46,7 @@ const HeaderComponent = () => {
               </Item>
               <Item active={pathname === "/w" ? true : false}>
                 <Link href="/w">
-                  <a>
+                  <a title="poczekalnia">
                     <Time />
                     Poczekalnia
                   </a>
@@ -52,7 +54,7 @@ const HeaderComponent = () => {
               </Item>
               <Item active={pathname === "/b" ? true : false}>
                 <Link href="/b">
-                  <a>
+                  <a title="najlepsze">
                     <Up />
                     Najlepsze
                   </a>
@@ -60,7 +62,7 @@ const HeaderComponent = () => {
               </Item>
               <Item active={pathname === "/c" ? true : false}>
                 <Link href="/c">
-                  <a>
+                  <a title="kontakt">
                     <Comment />
                     Kontakt
                   </a>

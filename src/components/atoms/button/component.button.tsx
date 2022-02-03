@@ -3,12 +3,12 @@ import Link from "next/link";
 
 import { ButtonLink } from "./component.button.style";
 
-type ButtonInLinkType = { children: any; href: string };
+type ButtonInLinkType = { children: JSX.Element | string; href: string; title: string };
 
-export const ButtonInLink = ({ children, href }: ButtonInLinkType) => {
+export const ButtonInLink = ({ children, href, title }: ButtonInLinkType) => {
   return (
     <Link href={href} passHref>
-      <ButtonLink>{children}</ButtonLink>
+      <ButtonLink title={title}>{children}</ButtonLink>
     </Link>
   );
 };

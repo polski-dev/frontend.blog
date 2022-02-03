@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { url } from "inspector";
-import lodash, { result } from "lodash";
+import lodash from "lodash";
 import Hash from "assets/icon/hash.svg";
 import News from "assets/icon/news.svg";
 import Search from "assets/icon/search.svg";
@@ -59,7 +59,7 @@ export default function SearchBar() {
           borderBottomRightRadius: focus && sugest.length ? "0" : "0.6rem",
         }}
       />
-      <Button type="submit">
+      <Button type="submit" title="szukaj">
         <Search />
       </Button>
       <SugestBox
