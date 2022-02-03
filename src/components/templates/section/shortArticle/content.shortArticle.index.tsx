@@ -32,6 +32,7 @@ export default function sectionShortArticle({ data, slug, title }: any) {
       <Title>{title}</Title>
       <Options></Options>
       {data.map((art: any, i: number) => {
+        console.log(art.attributes);
         return (
           <Article key={i}>
             <Link href={`/${slug}/${lodash.kebabCase(lodash.deburr(art.attributes.title.toLowerCase()))}`} passHref>
@@ -83,7 +84,7 @@ export default function sectionShortArticle({ data, slug, title }: any) {
                 </Item>
                 <Item>
                   <Comment />
-                  <span>3431</span>
+                  <span>{art.attributes.comments.data.length}</span>
                 </Item>
               </ListStats>
               <ButtonInLink href="/l" title="zaloguj">

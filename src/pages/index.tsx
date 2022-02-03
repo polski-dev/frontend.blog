@@ -36,6 +36,8 @@ export async function getStaticProps() {
   const aticleResponse = await fetch(`https://www.polski.dev/api/articles/1`);
   const aticle = await aticleResponse.json();
 
+  console.log(aticle);
+
   return {
     props: {
       tags,
