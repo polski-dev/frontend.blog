@@ -142,8 +142,12 @@ export const Logo = styled.div`
   }
 
   svg {
-    height: 2rem;
+    height: 1.7rem;
     fill: ${({ theme }) => theme.colorLink};
+
+    @media all and (min-width: 768px) {
+      height: 2rem;
+    }
   }
   &:hover {
     svg {
