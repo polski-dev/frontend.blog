@@ -3,22 +3,29 @@ import Up from "assets/icon/up.svg";
 import Time from "assets/icon/time.svg";
 import { useRouter } from "next/router";
 import Brand from "assets/icon/logo.svg";
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import Search from "assets/icon/search.svg";
 import Comment from "assets/icon/comment.svg";
 import { ButtonInLink } from "components/atoms/button/component.button";
-import { Header, Logo, SerachBox, UserPanelBox, Menu, Item } from "./index.header.style";
+import { Header, Hambuger, Logo, SerachBox, UserPanelBox, Menu, Item } from "./index.header.style";
 import SearchBar from "components/molecules/searchBar/component.searchBar.index";
 import { Row, Col, Container } from "components/orgamis/flexboxgrid/index.flexboxgrid";
+import { MenuContext } from "providers/providers.menu";
 
 const HeaderComponent = () => {
   const { pathname } = useRouter();
+  const { modeMenu, powerMenu, setPowerMenu } = useContext(MenuContext);
 
   return (
     <>
       <Header>
         <Container>
           <Row>
+            <Hambuger mode={modeMenu} onClick={() => setPowerMenu(true)}>
+              <span></span>
+              <span></span>
+              <span></span>
+            </Hambuger>
             <Logo>
               <Link href="/">
                 <a title="polski.dev">

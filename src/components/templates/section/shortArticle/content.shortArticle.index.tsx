@@ -74,13 +74,22 @@ export default function sectionShortArticle({ data, slug, title }: any) {
           <Article key={i}>
             <Link href={`/${slug}/${lodash.kebabCase(lodash.deburr(art.attributes.title.toLowerCase()))}`} passHref>
               <a title={art.attributes.title}>
-                <Image src={art.attributes.cover.data.attributes.url} width={930} height={300} alt={art.attributes.title} />
+                <Image
+                  placeholder="blur"
+                  blurDataURL="./img/blur.png"
+                  src={art.attributes.cover.data.attributes.url}
+                  width={930}
+                  height={300}
+                  alt={art.attributes.title}
+                />
               </a>
             </Link>
             <BoxContent>
               <BoxAuthor>
                 <BoxAuthorImg>
                   <Image
+                    placeholder="blur"
+                    blurDataURL="./img/blur.png"
                     src={art.attributes.author.data.attributes.avatar.data.attributes.url}
                     width={42}
                     height={42}

@@ -1,4 +1,5 @@
-import styled from "styled-components";
+import { Mode } from "fs";
+import styled, { css } from "styled-components";
 
 export const Header = styled.header`
   width: 100%;
@@ -6,6 +7,117 @@ export const Header = styled.header`
   padding: ${({ theme }) => theme.break.small} 0;
   background: ${({ theme }) => theme.colorMainBg};
   border-bottom: 1px solid ${({ theme }) => theme.colorBorder};
+`;
+
+type HambugerType = {
+  mode: string;
+};
+
+export const Hambuger = styled.button<HambugerType>`
+  padding: 0;
+  width: 2.5rem;
+  height: 2rem;
+  border: none;
+  display: flex;
+  cursor: pointer;
+  position: relative;
+  margin-top: 0.5rem;
+  flex-direction: column;
+  background-color: transparent;
+  justify-content: space-between;
+  margin-left: ${({ theme }) => theme.break.main};
+
+  ${({ mode }) =>
+    mode !== "hide" &&
+    css`
+      @media all and (min-width: 768px) {
+        display: none;
+      }
+    `}
+
+  span {
+    left: 0;
+    width: 100%;
+    height: 0.2rem;
+    transition: all 0.3s;
+    background-color: ${({ theme }) => theme.colorLink};
+  }
+
+  &:hover {
+    span {
+      background-color: ${({ theme }) => theme.colorLinkActive};
+
+      &:nth-child(1) {
+        animation-duration: 2s;
+        animation-name: hambugerFirstLine;
+        animation-iteration-count: infinite;
+
+        @keyframes hambugerFirstLine {
+          0% {
+            width: 100%;
+          }
+          25% {
+            width: 10%;
+          }
+          50% {
+            width: 100%;
+          }
+          75% {
+            width: 70%;
+          }
+          100% {
+            width: 100%;
+          }
+        }
+      }
+      &:nth-child(2) {
+        animation-duration: 1.3s;
+        animation-name: hambugerSecondLine;
+        animation-iteration-count: infinite;
+
+        @keyframes hambugerSecondLine {
+          0% {
+            width: 100%;
+          }
+          25% {
+            width: 20%;
+          }
+          50% {
+            width: 100%;
+          }
+          75% {
+            width: 50%;
+          }
+          100% {
+            width: 100%;
+          }
+        }
+      }
+      &:nth-child(3) {
+        animation-duration: 1.3s;
+        animation-name: hambugerThirdLine;
+        animation-iteration-count: infinite;
+
+        @keyframes hambugerThirdLine {
+          0% {
+            width: 100%;
+          }
+          25% {
+            width: 10%;
+          }
+          50% {
+            width: 100%;
+          }
+          75% {
+            width: 90%;
+          }
+          100% {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
 `;
 
 export const Logo = styled.div`
@@ -56,9 +168,9 @@ export const SerachBox = styled.div`
 
 export const UserPanelBox = styled.div`
   order: 0;
-  flex: 50%;
   display: flex;
   margin-left: auto;
+  flex: calc(50% - 5rem);
   justify-content: flex-end;
   padding: 0 ${({ theme }) => theme.break.main};
 
