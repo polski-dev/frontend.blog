@@ -19,6 +19,16 @@ const buttonwholestyle = css`
   }
 `;
 
-export const ButtonLink = styled.a`
+type ButtonLinkType = {
+  active?: boolean;
+};
+
+export const ButtonLink = styled.a<ButtonLinkType>`
   ${buttonwholestyle}
+  ${({ theme, active }) =>
+    active &&
+    css`
+      color: ${({ theme }) => theme.colorLinkActive};
+      background-color: ${({ theme }) => theme.colorMainBg};
+    `}
 `;

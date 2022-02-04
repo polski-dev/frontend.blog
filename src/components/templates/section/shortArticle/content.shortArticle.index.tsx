@@ -26,19 +26,50 @@ import {
 } from "./content.shortArticle.style";
 
 export default function sectionShortArticle({ data, slug, title }: any) {
-  //   const countDays = (date: Date) => {
-  //     const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
-  //     const actualDate = new Date();
-  //     const diffDays = Math.round(Math.abs((actualDate - date) / oneDay));
-  //   };
+  const nameOfTheMonths = (date: Date) => {
+    const dateStart = new Date(date);
+
+    switch (dateStart.getMonth()) {
+      case 0:
+        return `${dateStart.getDay()} Stycznia`;
+      case 1:
+        return `${dateStart.getDay()} Lutego`;
+      case 2:
+        return `${dateStart.getDay()} Marca`;
+      case 3:
+        return `${dateStart.getDay()} Kwietnia`;
+      case 4:
+        return `${dateStart.getDay()} Maja`;
+      case 5:
+        return `${dateStart.getDay()} Czerwca`;
+      case 6:
+        return `${dateStart.getDay()} Lipca`;
+      case 7:
+        return `${dateStart.getDay()} Sierpnia`;
+      case 8:
+        return `${dateStart.getDay()} Września`;
+      case 9:
+        return `${dateStart.getDay()} Października`;
+      case 10:
+        return `${dateStart.getDay()} Listopada`;
+      case 11:
+        return `${dateStart.getDay()} Grudnia`;
+    }
+  };
+
+  const countDays = (date: Date) => {
+    const oneDay = 24 * 60 * 60 * 1000;
+    const daysHavePassed = Math.round(Math.abs((new Date(date).getTime() - new Date().getTime()) / oneDay));
+    if (daysHavePassed <= 31) return `${daysHavePassed === 0 ? `dziś` : `${daysHavePassed} dni temu`}`;
+    if (daysHavePassed > 31 && daysHavePassed < 365) return `${daysHavePassed / 30 === 1 ? "miesiąc" : `${daysHavePassed / 30} miesięcy`} temu`;
+    if (daysHavePassed >= 365) return `${daysHavePassed / 365 === 1 ? `rok` : `${daysHavePassed / 365} lata`} temu`;
+  };
 
   return (
     <Section>
       <Title>{title}</Title>
       <Options></Options>
       {data.map((art: any, i: number) => {
-        console.log(art.attributes.author);
-        console.log(art.attributes.grades.data.filter((voice: any) => voice.attributes.voice === "best").length);
         return (
           <Article key={i}>
             <Link href={`/${slug}/${lodash.kebabCase(lodash.deburr(art.attributes.title.toLowerCase()))}`} passHref>
@@ -49,7 +80,12 @@ export default function sectionShortArticle({ data, slug, title }: any) {
             <BoxContent>
               <BoxAuthor>
                 <BoxAuthorImg>
-                  <Image src={art.attributes.cover.data.attributes.url} width={42} height={42} alt={art.attributes.author.data.attributes.username} />
+                  <Image
+                    src={art.attributes.author.data.attributes.avatar.data.attributes.url}
+                    width={42}
+                    height={42}
+                    alt={art.attributes.author.data.attributes.username}
+                  />
                 </BoxAuthorImg>
                 <AuthorData>
                   <Link href={`/u/${lodash.kebabCase(lodash.deburr(art.attributes.author.data.attributes.username.toLowerCase()))}`}>
@@ -58,7 +94,9 @@ export default function sectionShortArticle({ data, slug, title }: any) {
                     </a>
                   </Link>
 
-                  <DateAdded>16 Stycznia ( 5 dni temu )</DateAdded>
+                  <DateAdded>
+                    {nameOfTheMonths(art.attributes.createdAt)} ( {countDays(art.attributes.createdAt)} )
+                  </DateAdded>
                 </AuthorData>
               </BoxAuthor>
               <Link href={`/${slug}/${lodash.kebabCase(lodash.deburr(art.attributes.title.toLowerCase()))}`} passHref>

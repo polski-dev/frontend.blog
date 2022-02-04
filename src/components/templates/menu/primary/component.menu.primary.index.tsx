@@ -3,79 +3,81 @@ import Link from "next/link";
 import Up from "assets/icon/up.svg";
 import User from "assets/icon/user.svg";
 import Time from "assets/icon/time.svg";
+import { useRouter } from "next/router";
 import Github from "assets/icon/github.svg";
 import Tiktok from "assets/icon/tiktok.svg";
 import Youtube from "assets/icon/youtube.svg";
 import Comment from "assets/icon/comment.svg";
 import Instagram from "assets/icon/instagram.svg";
 import { Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
-import { BoxMenu, Title, List, Tag, SocialMedia, BoxState, DateState } from "./component.menu.primary.style";
+import { ButtonInLink } from "components/atoms/button/component.button";
+import { BoxMenu, BoxContent, BoxTypeContent, Title, List, Tag, SocialMedia } from "./component.menu.primary.style";
 
 type MenuPrimaryType = {
   tags: { id: number; attributes: { title: string } }[];
-  stats: { contentBest: number; contentWaitingroom: number; contentCommentAll: number };
 };
 
-export default function MenuPrimary({ tags, stats }: MenuPrimaryType) {
+export default function MenuPrimary({ tags }: MenuPrimaryType) {
+  const { pathname } = useRouter();
+
+  console.log(pathname);
+
   return (
     <BoxMenu>
-      <Title>Top tagi</Title>
-      <List>
-        {tags.map((tag, i: number) => (
-          <Tag key={i}>
-            <Link href={`/t/${lodash.kebabCase(lodash.deburr(tag.attributes.title.toLowerCase()))}`}>
-              <a title={tag.attributes.title}>
-                <span>#</span>
-                {tag.attributes.title}
+      <BoxContent>
+        <Title>Zobacz</Title>
+        <BoxTypeContent>
+          <ButtonInLink href="/" title="blog" active={pathname === "/" ? true : false}>
+            Blog
+          </ButtonInLink>
+          <ButtonInLink href="/video" title="video" active={pathname === "/video" ? true : false}>
+            Video
+          </ButtonInLink>
+        </BoxTypeContent>
+        <Title>Top tagi</Title>
+        <List>
+          {tags.map((tag, i: number) => (
+            <Tag key={i}>
+              <Link href={`/t/${lodash.kebabCase(lodash.deburr(tag.attributes.title.toLowerCase()))}`}>
+                <a title={tag.attributes.title}>
+                  <span>#</span>
+                  {tag.attributes.title}
+                </a>
+              </Link>
+            </Tag>
+          ))}
+        </List>
+        <List>
+          <SocialMedia>
+            <Link href="https://www.youtube.com">
+              <a title="YouTube">
+                <Youtube />
               </a>
             </Link>
-          </Tag>
-        ))}
-      </List>
-      <List>
-        <SocialMedia>
-          <Link href="https://www.youtube.com">
-            <a>
-              <Youtube />
-            </a>
-          </Link>
-        </SocialMedia>
-        <SocialMedia>
-          <Link href="https://www.youtube.com">
-            <a>
-              <Tiktok />
-            </a>
-          </Link>
-        </SocialMedia>
-        <SocialMedia>
-          <Link href="https://www.youtube.com">
-            <a>
-              <Instagram />
-            </a>
-          </Link>
-        </SocialMedia>
-        <SocialMedia>
-          <Link href="https://www.youtube.com">
-            <a>
-              <Github />
-            </a>
-          </Link>
-        </SocialMedia>
-      </List>
-      <BoxState>
-        <DateState>
-          <Up />
-          {stats.contentBest} na głownej
-        </DateState>
-        <DateState>
-          <Time />
-          {stats.contentWaitingroom} w poczekalni
-        </DateState>
-        <DateState>
-          <Comment />
-          {stats.contentCommentAll} komentarzy
-        </DateState>
-      </BoxState>
+          </SocialMedia>
+          <SocialMedia>
+            <Link href="https://www.youtube.com">
+              <a title="TikTok">
+                <Tiktok />
+              </a>
+            </Link>
+          </SocialMedia>
+          <SocialMedia>
+            <Link href="https://www.youtube.com">
+              <a title="Instagram">
+                <Instagram />
+              </a>
+            </Link>
+          </SocialMedia>
+          <SocialMedia>
+            <Link href="https://www.youtube.com">
+              <a title="Instagram">
+                <Github />
+              </a>
+            </Link>
+          </SocialMedia>
+        </List>
+      </BoxContent>
     </BoxMenu>
   );
 }

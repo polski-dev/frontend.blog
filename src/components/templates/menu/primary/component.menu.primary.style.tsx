@@ -2,11 +2,7 @@ import styled, { css } from "styled-components";
 
 export const BoxMenu = styled.div`
   width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  overflow: hidden;
   position: relative;
-  height: max-content;
   padding: ${({ theme }) => theme.break.big} ${({ theme }) => theme.break.main};
 
   ${({ theme }) => css`
@@ -22,6 +18,21 @@ export const BoxMenu = styled.div`
       max-width: ${(100 * 2) / theme.gridCol}%;
     }
   `}
+`;
+
+export const BoxContent = styled.div`
+  position: sticky;
+  top: ${({ theme }) => theme.break.big};
+`;
+
+export const BoxTypeContent = styled.div`
+  padding-bottom: ${({ theme }) => theme.break.big};
+
+  a {
+    width: 100%;
+    text-align: center;
+    margin-bottom: ${({ theme }) => theme.break.small};
+  }
 `;
 
 export const Title = styled.h5`
@@ -59,36 +70,5 @@ export const SocialMedia = styled.li`
     svg {
       height: 1.5rem;
     }
-  }
-`;
-
-export const BoxState = styled.div`
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  overflow: hidden;
-  position: relative;
-  border-radius: 0.6rem;
-  background-color: ${({ theme }) => theme.colorPostBg};
-  padding: ${({ theme }) => theme.break.big} ${({ theme }) => theme.break.main};
-`;
-
-export const DateState = styled.p`
-  width: 100%;
-  display: flex;
-  font-size: 1.2rem;
-  white-space: nowrap;
-  color: ${({ theme }) => theme.colorTextDesactive};
-  padding-bottom: ${({ theme }) => theme.break.small};
-
-  svg {
-    height: 1.2rem;
-    display: block;
-    padding-right: ${({ theme }) => theme.break.small};
-    fill: ${({ theme }) => theme.colorTextDesactive};
-  }
-
-  &:last-of-type {
-    padding-bottom: 0;
   }
 `;

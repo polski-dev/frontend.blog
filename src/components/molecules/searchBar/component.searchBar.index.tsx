@@ -71,7 +71,6 @@ export default function SearchBar() {
         {sugest.length ? (
           <>
             {sugest.map((item: { title: string; cover: { formats: { thumbnail: { url: string } } }; type: string; tags: { title: string }[] }, i: number) => {
-              console.log(item);
               return (
                 <Item key={i}>
                   <Link href={`${typeLink(item.type)}${lodash.kebabCase(lodash.deburr(item.title.toLowerCase()))}`}>
