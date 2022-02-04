@@ -37,9 +37,13 @@ export const BoxContent = styled.div`
   flex-wrap: wrap;
   padding: ${({ theme }) => theme.break.main};
 
-  a {
-    height: 3rem;
+  .btnMore {
     margin-left: auto;
+    margin-top: ${({ theme }) => theme.break.big};
+
+    @media all and (min-width: 768px) {
+      margin-top: 0;
+    }
   }
 `;
 export const BoxAuthor = styled.div`
@@ -85,15 +89,21 @@ export const TitleArticle = styled.h3`
   width: 100%;
   display: block;
   position: relative;
-  padding-left: 4.95rem;
+
+  @media all and (min-width: 768px) {
+    padding-left: 4.95rem;
+  }
 `;
 
 export const ListTags = styled.ul`
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  padding-left: 4.95rem;
   padding-bottom: ${({ theme }) => theme.break.big};
+
+  @media all and (min-width: 768px) {
+    padding-left: 4.95rem;
+  }
 `;
 export const Tag = styled.li`
   width: max-content;
@@ -120,10 +130,14 @@ export const Tag = styled.li`
 `;
 
 export const ListStats = styled.ul`
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
-  padding-left: 4.95rem;
-  width: calc(100% - 8rem);
+
+  @media all and (min-width: 768px) {
+    width: calc(100% - 8rem);
+    padding-left: 4.95rem;
+  }
 `;
 
 export const Item = styled.li`

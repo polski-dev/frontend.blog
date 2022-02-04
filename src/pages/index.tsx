@@ -4,15 +4,15 @@ import { MenuPrimary, MenuTable } from "components/templates/menu/component.menu
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
 
 const Home: NextPage = ({ tags, videos, aticles }: any) => {
+  if (tags?.err || aticles?.err || videos?.err) return <>Mamy problem z wczytaniem tego widoku spróbuj za 1h</>;
   return (
     <Container>
       <Row>
-        {tags?.err ? <>Nie mogę wczytać komponentu spróbuj za 1h</> : <MenuPrimary tags={tags.data} />}
-
+        <MenuPrimary tags={tags.data} />
         <Col xs={12} md={9} xl={8}>
-          {aticles?.err ? <>Nie mogę wczytać komponentu spróbuj za 1h</> : <ShortArticle data={aticles.data} slug="a" title="Blog" />}
+          <ShortArticle data={aticles.data} slug="a" title="Blog" />
         </Col>
-        <Col xl={2}>{videos?.err ? <>Nie mogę wczytać komponentu spróbuj za 1h</> : <MenuTable />}</Col>
+        <MenuTable data={videos.data} title="video" slug="v" />
       </Row>
     </Container>
   );
@@ -26,6 +26,7 @@ export async function getStaticProps() {
   // video
   const videosResponse = await fetch(`https://www.polski.dev/api/videos/1`);
   const videos = await videosResponse.json().catch((err) => ({ err: true }));
+  console.log({ videos, ok: "ok" });
 
   // aticle
   const aticlesResponse = await fetch(`https://www.polski.dev/api/articles/1`);

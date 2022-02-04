@@ -1,14 +1,26 @@
 import styled, { css } from "styled-components";
 
 export const BoxMenu = styled.div`
-  width: 100%;
-  position: relative;
+  top: 0;
+  left: -30rem;
+  width: 30rem;
+  z-index: 999;
+  height: 100vh;
+  position: fixed;
+  overflow: hidden;
+  background-color: black;
   padding: ${({ theme }) => theme.break.big} ${({ theme }) => theme.break.main};
 
   ${({ theme }) => css`
     @media all and (min-width: ${theme.breakPoint[theme.breakPoint.findIndex((item: any) => item.type === "md")].break}) {
+      left: 0;
+      width: auto;
+      overflow: unset;
+      position: relative;
+      background-color: transparent;
       flex: ${(100 * 3) / theme.gridCol}%;
       max-width: ${(100 * 3) / theme.gridCol}%;
+      padding: ${({ theme }) => theme.break.big} 0 ${({ theme }) => theme.break.big} ${({ theme }) => theme.break.main};
     }
   `}
 

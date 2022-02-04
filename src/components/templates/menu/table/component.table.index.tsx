@@ -1,51 +1,35 @@
+import lodash from "lodash";
 import Link from "next/link";
-import { Table, Heder, Title, List, Item } from "./component.table.style";
+import { Table, BoxContent, Heder, Title, List, Item } from "./component.table.style";
 
-export default function MenuTable() {
+export default function MenuTable({ data, title, slug }: any) {
   return (
     <Table>
-      <Heder>
-        <Title>
-          <span>#</span>video
-        </Title>
-        <Link href="/">
-          <a>wszystkie</a>
-        </Link>
-      </Heder>
-      <List>
-        <Item>
-          <Link href="/">
-            <a>
-              <h6>25 FREE CSS Tools/Resources That You Should Bookmark</h6>
-              <p>Paweł Niedźwiecki</p>
-            </a>
+      <BoxContent>
+        <Heder>
+          <Title>
+            <span>#</span>
+            {title}
+          </Title>
+          <Link href={`/${slug}`}>
+            <a>wszystkie</a>
           </Link>
-        </Item>
-        <Item>
-          <Link href="/">
-            <a>
-              <h6>25 FREE CSS Tools/Resources That You Should Bookmark</h6>
-              <p>Paweł Niedźwiecki</p>
-            </a>
-          </Link>
-        </Item>
-        <Item>
-          <Link href="/">
-            <a>
-              <h6>25 FREE CSS Tools/Resources That You Should Bookmark</h6>
-              <p>Paweł Niedźwiecki</p>
-            </a>
-          </Link>
-        </Item>
-        <Item>
-          <Link href="/">
-            <a>
-              <h6>25 FREE CSS Tools/Resources That You Should Bookmark</h6>
-              <p>Paweł Niedźwiecki</p>
-            </a>
-          </Link>
-        </Item>
-      </List>
+        </Heder>
+        <List>
+          {data.map((item: any, i: number) => {
+            return (
+              <Item key={i}>
+                <Link href={`/${slug}/${lodash.kebabCase(lodash.deburr(item.attributes.title.toLowerCase()))}`}>
+                  <a>
+                    <h6>{item.attributes.title}</h6>
+                    <p>{item.attributes.author.data.attributes.username}</p>
+                  </a>
+                </Link>
+              </Item>
+            );
+          })}
+        </List>
+      </BoxContent>
     </Table>
   );
 }

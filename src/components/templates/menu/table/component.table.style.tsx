@@ -1,13 +1,27 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const Table = styled.div`
+  display: none;
+
+  ${({ theme }) => css`
+    @media all and (min-width: ${theme.breakPoint[theme.breakPoint.findIndex((item: any) => item.type === "xl")].break}) {
+      display: block;
+      position: relative;
+      flex: ${(100 * 2) / theme.gridCol}%;
+      max-width: ${(100 * 2) / theme.gridCol}%;
+      margin-top: ${({ theme }) => theme.break.big};
+      padding-right: ${({ theme }) => theme.break.main};
+    }
+  `}
+`;
+
+export const BoxContent = styled.div`
   width: 100%;
-  display: block;
   position: relative;
   border-radius: 0.6rem;
-  margin-top: ${({ theme }) => theme.break.big};
   border: 0.1rem solid ${({ theme }) => theme.colorBorder};
 `;
+
 export const Heder = styled.div`
   width: 100%;
   display: flex;

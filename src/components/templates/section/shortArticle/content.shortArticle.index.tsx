@@ -136,7 +136,7 @@ export default function sectionShortArticle({ data, slug, title }: any) {
                   <span>{art.attributes.comments.data.length}</span>
                 </Item>
               </ListStats>
-              <ButtonInLink href={`/${slug}/${lodash.kebabCase(lodash.deburr(art.attributes.title.toLowerCase()))}`} title="więcej">
+              <ButtonInLink href={`/${slug}/${lodash.kebabCase(lodash.deburr(art.attributes.title.toLowerCase()))}`} title="więcej" className="btnMore">
                 Więcej
               </ButtonInLink>
             </BoxContent>
