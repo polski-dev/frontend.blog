@@ -7,42 +7,27 @@ import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexbo
 
 import { RootState } from "store/store.index";
 import { useSelector, useDispatch } from "react-redux";
-import { addArticleBest } from "store/slice/store.slice.article";
+import { addArticleBest, countPageArticleBest } from "store/slice/store.slice.article";
 
-const Home: NextPage = ({ tags, videos, aticles }: any) => {
-  const story = useSelector((state: RootState) => state);
+const Home: NextPage = ({ tags, videos, aticles, quantityContent }: any) => {
   const dispatch = useDispatch();
-
   const { setModeMenu } = useContext(MenuContext);
-  useEffect(() => {
-    setModeMenu("display");
-  }, [setModeMenu]);
+  const story = useSelector((state: RootState) => state);
 
+  useEffect(() => setModeMenu("display"), [setModeMenu]);
   useEffect(() => {
-    console.log(aticles.data);
+    dispatch(countPageArticleBest({ quantity: quantityContent.article }));
     dispatch(addArticleBest({ data: aticles.data }));
-    console.log(story);
-  }, [aticles, dispatch]);
-
-  useEffect(() => {
-    console.log(story);
-  }, [story]);
+  }, [dispatch, quantityContent, aticles]);
 
   if (tags?.err || aticles?.err || videos?.err) return <>Mamy problem z wczytaniem tego widoku spróbuj za 1h</>;
 
   return (
     <Container>
-      <div>
-        <div>
-          <button aria-label="Increment value" onClick={() => dispatch(addArticleBest({ data: [{ kupa: "spoko" }] }))}>
-            Increment
-          </button>
-        </div>
-      </div>
       <Row>
         <MenuPrimary tags={tags.data} />
         <Col xs={12} md={9} xl={8}>
-          <ShortArticle data={aticles.data} slug="a" title="Blog" api="https://www.polski.dev/api/articles/" />
+          <ShortArticle data={aticles.data} type="article" title="Blog" api="https://www.polski.dev/api/articles/" />
         </Col>
         <MenuTable data={videos.data} title="video" slug="v" />
       </Row>
@@ -63,11 +48,16 @@ export async function getStaticProps() {
   const aticlesResponse = await fetch(`https://www.polski.dev/api/articles/1`);
   const aticles = await aticlesResponse.json().catch((err) => ({ err: true }));
 
+  // count content
+  const quantityContentResponse = await fetch(`https://www.polski.dev/api/count/content/best`);
+  const quantityContent = await quantityContentResponse.json().catch((err) => ({ err: true }));
+
   return {
     props: {
       tags,
       videos,
       aticles,
+      quantityContent,
     },
   };
 }

@@ -32,29 +32,92 @@ import {
   Info,
 } from "./content.shortArticle.style";
 
-const SectionShortArticle = ({ data, slug, title }: any) => {
+import { RootState, store } from "store/store.index";
+import { useSelector, useDispatch } from "react-redux";
+import { addArticleBest, countPageArticleBest } from "store/slice/store.slice.article";
+
+const SectionShortArticle = ({ data, type, title }: any) => {
+  const dispatch = useDispatch();
   const { width, height } = useWindowData();
-  const [nextPage, setNextPage] = useState(2);
+  const [displayArticles, setDisplayArticles] = useState([]);
   const { countDays, nameOfTheMonths } = CountTime;
   const articeRef = useRef<HTMLInputElement>(null);
+  const [isAnyNextContent, setIsAnyNextContent] = useState(false);
   const [iAmWaitingForAnswer, setIamWaitingForAnswer] = useState(false);
+  const story = useSelector((state: RootState) => state);
+
+  const setData = (type: string, story: any) => {
+    switch (type) {
+      case "article":
+        return story.article.best.articles;
+      default:
+        return [];
+    }
+  };
+
+  const setSlug = (type: string) => {
+    switch (type) {
+      case "article":
+        return "a";
+    }
+  };
+
+  const slug = setSlug(type);
+
+  const addBest = (story: any) => {};
+
+  const checkIsAnyNextContent = (type: string, story: any) => {
+    switch (type) {
+      case "article":
+        if (story.article.best.pageActive >= story.article.best.pages) return false;
+        return true;
+      default:
+        new Error('I not understand type in function ,,checkIsAnyNextContent"');
+        return false;
+    }
+  };
+
+  useEffect(() => setDisplayArticles(setData(type, story)), [story, type]);
 
   useEffect(() => {
-    !iAmWaitingForAnswer &&
-      document.addEventListener("scroll", () => {
-        const heightEl: any = articeRef?.current?.getBoundingClientRect().y;
-        if (heightEl - height < 0) {
-          setIamWaitingForAnswer(true);
-          setNextPage(nextPage + 1);
-        }
+    if (checkIsAnyNextContent(type, story) === true) !isAnyNextContent && setIsAnyNextContent(true);
+    else isAnyNextContent && setIsAnyNextContent(false);
+  }, [story, type, isAnyNextContent]);
+
+  useEffect(() => {
+    function loadArticle() {
+      const heightEl: any = articeRef?.current?.getBoundingClientRect().y;
+      if (isAnyNextContent && !iAmWaitingForAnswer && heightEl - height < 0) setIamWaitingForAnswer(true);
+    }
+
+    document.addEventListener("scroll", loadArticle);
+
+    return () => document.removeEventListener("scroll", loadArticle);
+  }, [articeRef, height, iAmWaitingForAnswer, story, isAnyNextContent]);
+
+  useEffect(() => {
+    const downloadNewContent = async (type: string, story: any) => {
+      switch (type) {
+        case "article":
+          const request = await fetch(`/api/articles/${story.article.best.pageActive + 1}`);
+          return await request.json();
+        default:
+          return new Error('I not understand type in function ,,downloadNewContent"');
+      }
+    };
+
+    if (iAmWaitingForAnswer)
+      downloadNewContent(type, story).then((r) => {
+        if (!!r.data.length) dispatch(addArticleBest({ data: r.data }));
+        setIamWaitingForAnswer(false);
       });
-  }, [articeRef, height, iAmWaitingForAnswer, nextPage]);
+  }, [story, type, dispatch, iAmWaitingForAnswer, setIamWaitingForAnswer]);
 
   return (
     <Section>
       <Title>{title}</Title>
       <Options></Options>
-      {data.map((art: any, i: number) => {
+      {displayArticles.map((art: any, i: number) => {
         return (
           <Article key={i} ref={articeRef}>
             <Link href={`/${slug}/${lodash.kebabCase(lodash.deburr(art.attributes.title.toLowerCase()))}`} passHref>
@@ -99,7 +162,7 @@ const SectionShortArticle = ({ data, slug, title }: any) => {
                 </a>
               </Link>
               <ListTags>
-                {art.attributes.tags.data.map((tag: any, i: number) => {
+                {art.attributes.tags?.data?.map((tag: any, i: number) => {
                   return (
                     <Tag key={i}>
                       <Link href={`/t/${lodash.kebabCase(lodash.deburr(tag.attributes.title.toLowerCase()))}`}>
@@ -131,7 +194,7 @@ const SectionShortArticle = ({ data, slug, title }: any) => {
                 </Item>
               </ListStats>
               <ButtonInLink href={`/${slug}/${lodash.kebabCase(lodash.deburr(art.attributes.title.toLowerCase()))}`} title="więcej" className="btnMore">
-                Więcej
+                więcej
               </ButtonInLink>
             </BoxContent>
           </Article>
