@@ -39,7 +39,7 @@ import { addArticleBest, countPageArticleBest } from "store/slice/store.slice.ar
 const SectionShortArticle = ({ data, type, title }: any) => {
   const dispatch = useDispatch();
   const { width, height } = useWindowData();
-  const [displayArticles, setDisplayArticles] = useState([]);
+  const [displayArticles, setDisplayArticles] = useState(data);
   const { countDays, nameOfTheMonths } = CountTime;
   const articeRef = useRef<HTMLInputElement>(null);
   const [isAnyNextContent, setIsAnyNextContent] = useState(false);
