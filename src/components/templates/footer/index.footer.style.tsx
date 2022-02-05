@@ -13,12 +13,18 @@ export const Logo = styled.div`
   order: 0;
   flex: 50%;
   display: flex;
+  margin: 0 auto;
   max-width: 50%;
   cursor: pointer;
   width: max-content;
   position: relative;
   align-items: center;
-  padding: 0 ${({ theme }) => theme.break.main};
+  padding: ${({ theme }) => theme.break.main};
+
+  @media all and (min-width: 768px) {
+    margin: 0;
+    padding: 0 ${({ theme }) => theme.break.main};
+  }
 
   a {
     display: flex;
@@ -41,9 +47,15 @@ export const Logo = styled.div`
 
 export const Menu = styled.ul`
   display: flex;
-  margin-left: auto;
+  margin: 0 auto;
   width: max-content;
-  padding: 0 ${({ theme }) => theme.break.main};
+  padding: 0 ${({ theme }) => theme.break.main} ${({ theme }) => theme.break.main} ${({ theme }) => theme.break.main};
+
+  @media all and (min-width: 768px) {
+    margin-right: 0;
+    margin-left: auto;
+    padding: 0 ${({ theme }) => theme.break.main} 0 ${({ theme }) => theme.break.main};
+  }
 `;
 
 export const Item = styled.li`

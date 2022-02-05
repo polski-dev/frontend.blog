@@ -137,6 +137,7 @@ const SectionShortArticle = ({ data, type, title }: any) => {
               <BoxAuthor>
                 <BoxAuthorImg>
                   <Image
+                    layout="fill"
                     placeholder="blur"
                     blurDataURL="./img/blur.png"
                     src={art.attributes.author.data.attributes.avatar.data.attributes.url}
