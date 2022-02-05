@@ -44,7 +44,7 @@ export async function getStaticProps() {
   const videosResponse = await fetch(`https://www.polski.dev/api/videos/1`);
   const videos = await videosResponse.json().catch((err) => ({ err: true }));
 
-  // aticle
+  // aticle new
   const aticlesResponse = await fetch(`https://www.polski.dev/api/articles/1`);
   const aticles = await aticlesResponse.json().catch((err) => ({ err: true }));
 
