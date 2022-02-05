@@ -42,6 +42,7 @@ export const BoxMenu = styled.div<PowerType>`
     mode === "hide" &&
     css`
       @media all and (min-width: 768px) {
+        z-index: 999 !important;
         width: 30rem !important;
         height: 100vh !important;
         position: fixed !important;
@@ -55,6 +56,7 @@ export const BoxMenu = styled.div<PowerType>`
   ${({ theme }) => css`
     @media all and (min-width: ${theme.breakPoint[theme.breakPoint.findIndex((item: any) => item.type === "md")].break}) {
       left: 0;
+      z-index: 0;
       width: auto;
       height: auto;
       overflow: unset;

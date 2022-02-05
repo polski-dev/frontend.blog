@@ -11,6 +11,7 @@ const settings: MainSettingsTemplate = {
   colorInputBg: "#303133",
   colorButtonBg: "#303134",
   colorPostBg: "#2D2E30",
+  colorFooterBg: "#171717",
 
   // settings break
   break: { small: "0.75rem", main: "1.5rem", big: "3rem" },

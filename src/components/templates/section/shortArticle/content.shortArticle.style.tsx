@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Section = styled.section`
   display: flex;
   flex-wrap: wrap;
-  padding: ${({ theme }) => theme.break.big} 0;
+  padding-top: ${({ theme }) => theme.break.big};
 `;
 
 export const Title = styled.h5`
@@ -23,6 +23,16 @@ export const Article = styled.article`
   margin-bottom: ${({ theme }) => theme.break.big};
   padding-bottom: ${({ theme }) => theme.break.main};
   background-color: ${({ theme }) => theme.colorPostBg};
+
+  .img {
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
 
   .titleArticle {
     width: 100%;
@@ -152,4 +162,20 @@ export const Item = styled.li`
     fill: ${({ theme }) => theme.colorTextDesactive};
     padding-right: ${({ theme }) => theme.break.small};
   }
+`;
+
+export const BoxInformation = styled.div`
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  padding: 0 ${({ theme }) => theme.break.main};
+`;
+
+export const Info = styled.h4`
+  max-width: 50rem;
+  text-align: center;
 `;

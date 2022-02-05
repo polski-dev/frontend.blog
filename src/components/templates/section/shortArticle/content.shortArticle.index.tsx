@@ -1,12 +1,17 @@
-import { map } from "lodash";
 import lodash from "lodash";
-import Image from "next/image";
+import { map } from "lodash";
 import Link from "next/link";
-import Best from "assets/icon/best.svg";
+import Image from "next/image";
 import Wow from "assets/icon/wow.svg";
 import Wrr from "assets/icon/wrr.svg";
+import Confetti from "react-confetti";
+import Best from "assets/icon/best.svg";
 import Comment from "assets/icon/comment.svg";
+import useWindowData from "hooks/hooks.windowData";
+import CountTime from "function/function.countTime";
+import { useEffect, useRef, useState, useReducer } from "react";
 import { ButtonInLink } from "components/atoms/button/component.button";
+import { SquareShortArticle } from "components/atoms/animation/comonent.animation.index";
 import {
   Section,
   Title,
@@ -23,47 +28,27 @@ import {
   Tag,
   ListStats,
   Item,
+  BoxInformation,
+  Info,
 } from "./content.shortArticle.style";
 
-export default function sectionShortArticle({ data, slug, title }: any) {
-  const nameOfTheMonths = (date: Date) => {
-    const dateStart = new Date(date);
+const SectionShortArticle = ({ data, slug, title }: any) => {
+  const { width, height } = useWindowData();
+  const [nextPage, setNextPage] = useState(2);
+  const { countDays, nameOfTheMonths } = CountTime;
+  const articeRef = useRef<HTMLInputElement>(null);
+  const [iAmWaitingForAnswer, setIamWaitingForAnswer] = useState(false);
 
-    switch (dateStart.getMonth()) {
-      case 0:
-        return `${dateStart.getDay()} Stycznia`;
-      case 1:
-        return `${dateStart.getDay()} Lutego`;
-      case 2:
-        return `${dateStart.getDay()} Marca`;
-      case 3:
-        return `${dateStart.getDay()} Kwietnia`;
-      case 4:
-        return `${dateStart.getDay()} Maja`;
-      case 5:
-        return `${dateStart.getDay()} Czerwca`;
-      case 6:
-        return `${dateStart.getDay()} Lipca`;
-      case 7:
-        return `${dateStart.getDay()} Sierpnia`;
-      case 8:
-        return `${dateStart.getDay()} Września`;
-      case 9:
-        return `${dateStart.getDay()} Października`;
-      case 10:
-        return `${dateStart.getDay()} Listopada`;
-      case 11:
-        return `${dateStart.getDay()} Grudnia`;
-    }
-  };
-
-  const countDays = (date: Date) => {
-    const oneDay = 24 * 60 * 60 * 1000;
-    const daysHavePassed = Math.round(Math.abs((new Date(date).getTime() - new Date().getTime()) / oneDay));
-    if (daysHavePassed <= 31) return `${daysHavePassed === 0 ? `dziś` : `${daysHavePassed} dni temu`}`;
-    if (daysHavePassed > 31 && daysHavePassed < 365) return `${daysHavePassed / 30 === 1 ? "miesiąc" : `${daysHavePassed / 30} miesięcy`} temu`;
-    if (daysHavePassed >= 365) return `${daysHavePassed / 365 === 1 ? `rok` : `${daysHavePassed / 365} lata`} temu`;
-  };
+  useEffect(() => {
+    !iAmWaitingForAnswer &&
+      document.addEventListener("scroll", () => {
+        const heightEl: any = articeRef?.current?.getBoundingClientRect().y;
+        if (heightEl - height < 0) {
+          setIamWaitingForAnswer(true);
+          setNextPage(nextPage + 1);
+        }
+      });
+  }, [articeRef, height, iAmWaitingForAnswer, nextPage]);
 
   return (
     <Section>
@@ -71,9 +56,9 @@ export default function sectionShortArticle({ data, slug, title }: any) {
       <Options></Options>
       {data.map((art: any, i: number) => {
         return (
-          <Article key={i}>
+          <Article key={i} ref={articeRef}>
             <Link href={`/${slug}/${lodash.kebabCase(lodash.deburr(art.attributes.title.toLowerCase()))}`} passHref>
-              <a title={art.attributes.title}>
+              <a title={art.attributes.title} className="img">
                 <Image
                   placeholder="blur"
                   blurDataURL="./img/blur.png"
@@ -152,6 +137,20 @@ export default function sectionShortArticle({ data, slug, title }: any) {
           </Article>
         );
       })}
+      {iAmWaitingForAnswer ? (
+        <>
+          {new Array(10).fill(undefined).map((val, i) => (
+            <SquareShortArticle key={i} last={new Array(10).length - 1 === i} />
+          ))}
+        </>
+      ) : (
+        <BoxInformation>
+          <Info>Właśnie dotarłeś do końca internetów, brawo :)</Info>
+          <Confetti width={width} height={2 * height} style={{ width: "100%", position: "absolute" }} />
+        </BoxInformation>
+      )}
     </Section>
   );
-}
+};
+
+export default SectionShortArticle;

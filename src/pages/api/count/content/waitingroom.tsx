@@ -12,5 +12,5 @@ export default async function handler(req: any, res: any) {
     .then((r) => r.articles)
     .catch(() => 0);
 
-  res.status(200).json({ count: video + article });
+  res.status(200).json({ together: video + article, video, article });
 }

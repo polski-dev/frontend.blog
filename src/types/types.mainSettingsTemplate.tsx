@@ -8,6 +8,7 @@ export type MainSettingsTemplate = {
   colorBorder: string;
   colorInputBg: string;
   colorButtonBg: string;
+  colorFooterBg: string;
   break: {};
   breakPoint: {}[];
   gridCol: number;
