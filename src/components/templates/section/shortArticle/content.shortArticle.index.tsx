@@ -128,6 +128,7 @@ const SectionShortArticle = ({ data, type, title }: any) => {
                   src={art.attributes.cover.data.attributes.url}
                   width={930}
                   height={300}
+                  priority
                   alt={art.attributes.title}
                 />
               </a>
@@ -141,6 +142,7 @@ const SectionShortArticle = ({ data, type, title }: any) => {
                     src={art.attributes.author.data.attributes.avatar.data.attributes.url}
                     width={42}
                     height={42}
+                    priority
                     alt={art.attributes.author.data.attributes.username}
                   />
                 </BoxAuthorImg>
