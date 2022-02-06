@@ -7,7 +7,7 @@ import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexbo
 
 import { RootState } from "store/store.index";
 import { useSelector, useDispatch } from "react-redux";
-import { addArticleBest, countPageArticleBest } from "store/slice/store.slice.article";
+import { addArticleAll, countPageArticleAll } from "store/slice/store.slice.article";
 
 const Home: NextPage = ({ tags, videos, aticles, quantityContent }: any) => {
   const dispatch = useDispatch();
@@ -16,9 +16,9 @@ const Home: NextPage = ({ tags, videos, aticles, quantityContent }: any) => {
 
   useEffect(() => setModeMenu("display"), [setModeMenu]);
   useEffect(() => {
-    dispatch(countPageArticleBest({ quantity: quantityContent.article }));
-    dispatch(addArticleBest({ data: aticles.data }));
-  }, [dispatch, quantityContent, aticles]);
+    !story.article.all.articles.length && dispatch(countPageArticleAll({ quantity: quantityContent.article }));
+    !story.article.all.articles.length && dispatch(addArticleAll({ data: aticles.data }));
+  }, [dispatch, quantityContent, aticles, story]);
 
   if (tags?.err || aticles?.err || videos?.err) return <>Mamy problem z wczytaniem tego widoku spróbuj za 1h</>;
 
@@ -27,7 +27,7 @@ const Home: NextPage = ({ tags, videos, aticles, quantityContent }: any) => {
       <Row>
         <MenuPrimary tags={tags.data} />
         <Col xs={12} md={9} xl={8}>
-          <ShortArticle data={aticles.data} type="article" title="Blog" api="https://www.polski.dev/api/articles/" />
+          <ShortArticle data={aticles.data} type="article" title="Blog" />
         </Col>
         <MenuTable data={videos.data} title="video" slug="v" />
       </Row>

@@ -1,13 +1,13 @@
 import type { NextPage } from "next";
 import { useContext, useEffect } from "react";
 import { MenuContext } from "providers/providers.menu";
-import { ShortArticle } from "components/templates/section/component.section.index";
+import { ShortVideo } from "components/templates/section/component.section.index";
 import { MenuPrimary, MenuTable } from "components/templates/menu/component.menu.index";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
 
 import { RootState } from "store/store.index";
 import { useSelector, useDispatch } from "react-redux";
-import { addArticleBest, countPageArticleBest } from "store/slice/store.slice.article";
+import { addVideoAll, countPageVideoAll } from "store/slice/store.slice.video";
 
 const Home: NextPage = ({ tags, videos, aticles, quantityContent }: any) => {
   const dispatch = useDispatch();
@@ -16,9 +16,9 @@ const Home: NextPage = ({ tags, videos, aticles, quantityContent }: any) => {
 
   useEffect(() => setModeMenu("display"), [setModeMenu]);
   useEffect(() => {
-    dispatch(countPageArticleBest({ quantity: quantityContent.article }));
-    dispatch(addArticleBest({ data: aticles.data }));
-  }, [dispatch, quantityContent, aticles]);
+    !story.video.all.videos.length && dispatch(countPageVideoAll({ quantity: quantityContent.video }));
+    !story.video.all.videos.length && dispatch(addVideoAll({ data: videos.data }));
+  }, [dispatch, story, quantityContent, videos]);
 
   if (tags?.err || aticles?.err || videos?.err) return <>Mamy problem z wczytaniem tego widoku spróbuj za 1h</>;
 
@@ -27,9 +27,9 @@ const Home: NextPage = ({ tags, videos, aticles, quantityContent }: any) => {
       <Row>
         <MenuPrimary tags={tags.data} />
         <Col xs={12} md={9} xl={8}>
-          <ShortArticle data={aticles.data} type="article" title="Blog" api="https://www.polski.dev/api/articles/" />
+          <ShortVideo data={aticles.data} type="video" />
         </Col>
-        <MenuTable data={videos.data} title="video" slug="v" />
+        <MenuTable data={aticles.data} title="artykuły" slug="/" />
       </Row>
     </Container>
   );

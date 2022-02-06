@@ -16,7 +16,7 @@ export default function MenuTable({ data, title, slug }: any) {
           </Link>
         </Heder>
         <List>
-          {data.map((item: any, i: number) => {
+          {data.slice(0, 5).map((item: any, i: number) => {
             return (
               <Item key={i}>
                 <Link href={`/${slug}/${lodash.kebabCase(lodash.deburr(item.attributes.title.toLowerCase()))}`}>

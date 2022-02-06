@@ -13,6 +13,8 @@ class setSlug {
         return "u";
       case "tag":
         return "t";
+      case "video":
+        return "v";
     }
   }
 
@@ -20,6 +22,8 @@ class setSlug {
     switch (this._type) {
       case "article":
         return "/api/articles/";
+      case "video":
+        return "/api/videos/";
     }
   }
 }

@@ -8,7 +8,9 @@ class dataFromStory {
   readData(story: any) {
     switch (this._type) {
       case "article":
-        return story.article.best.articles;
+        return story.article.all.articles;
+      case "video":
+        return story.video.all.videos;
       default:
         return [];
     }
@@ -17,7 +19,10 @@ class dataFromStory {
   checkIsAnyNextContent(story: any) {
     switch (this._type) {
       case "article":
-        if (story.article.best.pageActive >= story.article.best.pages) return false;
+        if (story.article.all.pageActive >= story.article.all.pages) return false;
+        return true;
+      case "video":
+        if (story.video.all.pageActive >= story.video.all.pages) return false;
         return true;
       default:
         new Error('I not understand type in function ,,checkIsAnyNextContent"');
