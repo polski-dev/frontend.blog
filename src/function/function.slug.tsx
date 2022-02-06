@@ -22,6 +22,8 @@ class setSlug {
     switch (this._type) {
       case "article":
         return "/api/articles/";
+      case "articleWaitingRoom":
+        return "/api/articles/waitingroom/";
       case "video":
         return "/api/videos/";
     }

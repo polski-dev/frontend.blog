@@ -30,15 +30,22 @@ export const videoSlice = createSlice({
       state.all.videos = [...state.all.videos, ...action.payload.data];
       state.all.pageActive += 1;
     },
+    addVideoWaitingRoom: (state, action: any) => {
+      state.waitingRoom.videos = [...state.waitingRoom.videos, ...action.payload.data];
+      state.waitingRoom.pageActive += 1;
+    },
     countPageVideoBest: (state, action: any) => {
       state.best.pages = Math.ceil(action.payload.quantity / 10);
     },
     countPageVideoAll: (state, action: any) => {
       state.all.pages = Math.ceil(action.payload.quantity / 10);
     },
+    countPageVideoWaitingRoom: (state, action: any) => {
+      state.waitingRoom.pages = Math.ceil(action.payload.quantity / 10);
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { addVideoBest, addVideoAll, countPageVideoBest, countPageVideoAll } = videoSlice.actions;
+export const { addVideoBest, addVideoAll, addVideoWaitingRoom, countPageVideoBest, countPageVideoAll, countPageVideoWaitingRoom } = videoSlice.actions;
 export default videoSlice.reducer;

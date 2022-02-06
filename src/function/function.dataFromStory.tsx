@@ -9,6 +9,8 @@ class dataFromStory {
     switch (this._type) {
       case "article":
         return story.article.all.articles;
+      case "articleWaitingRoom":
+        return story.article.waitingRoom.articles;
       case "video":
         return story.video.all.videos;
       default:
@@ -20,6 +22,9 @@ class dataFromStory {
     switch (this._type) {
       case "article":
         if (story.article.all.pageActive >= story.article.all.pages) return false;
+        return true;
+      case "articleWaitingRoom":
+        if (story.article.waitingRoom.pageActive >= story.article.waitingRoom.pages) return false;
         return true;
       case "video":
         if (story.video.all.pageActive >= story.video.all.pages) return false;

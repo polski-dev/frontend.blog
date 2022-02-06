@@ -30,15 +30,22 @@ export const articleSlice = createSlice({
       state.all.articles = [...state.all.articles, ...action.payload.data];
       state.all.pageActive += 1;
     },
+    addArticleWaitingRoom: (state, action: any) => {
+      state.waitingRoom.articles = [...state.waitingRoom.articles, ...action.payload.data];
+      state.waitingRoom.pageActive += 1;
+    },
     countPageArticleBest: (state, action: any) => {
       state.best.pages = Math.ceil(action.payload.quantity / 10);
     },
     countPageArticleAll: (state, action: any) => {
       state.all.pages = Math.ceil(action.payload.quantity / 10);
     },
+    countPageArticleWaitingRoom: (state, action: any) => {
+      state.waitingRoom.pages = Math.ceil(action.payload.quantity / 10);
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { addArticleBest, addArticleAll, countPageArticleBest, countPageArticleAll } = articleSlice.actions;
+export const { addArticleBest, addArticleAll, addArticleWaitingRoom, countPageArticleBest, countPageArticleAll, countPageArticleWaitingRoom } = articleSlice.actions;
 export default articleSlice.reducer;

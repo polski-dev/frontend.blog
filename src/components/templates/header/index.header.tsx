@@ -43,7 +43,7 @@ const HeaderComponent = () => {
             </UserPanelBox>
 
             <Menu>
-              <Item active={pathname === "/" ? true : false}>
+              <Item active={pathname === "/" || pathname === "/v" ? true : false}>
                 <Link href="/">
                   <a title="wszystko">
                     <Search />
@@ -51,7 +51,7 @@ const HeaderComponent = () => {
                   </a>
                 </Link>
               </Item>
-              <Item active={pathname === "/w" ? true : false}>
+              <Item active={pathname === "/w" || pathname === "/w/v" ? true : false}>
                 <Link href="/w">
                   <a title="poczekalnia">
                     <Time />
@@ -59,7 +59,7 @@ const HeaderComponent = () => {
                   </a>
                 </Link>
               </Item>
-              <Item active={pathname === "/b" ? true : false}>
+              <Item active={pathname === "/b" || pathname === "/b/v" ? true : false}>
                 <Link href="/b">
                   <a title="najlepsze">
                     <Up />
