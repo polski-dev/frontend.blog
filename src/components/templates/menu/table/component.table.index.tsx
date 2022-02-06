@@ -1,8 +1,10 @@
 import lodash from "lodash";
 import Link from "next/link";
+import { setSlug } from "function/function.index";
 import { Table, BoxContent, Heder, Title, List, Item } from "./component.table.style";
 
-export default function MenuTable({ data, title, slug }: any) {
+export default function MenuTable({ data, title, type }: any) {
+  const slug = new setSlug(type);
   return (
     <Table>
       <BoxContent>

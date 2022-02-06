@@ -66,7 +66,7 @@ const SectionShortArticle = ({ data, type }: any) => {
       {displayArticles.map((art: any, i: number) => {
         return (
           <Article key={i} ref={articeRef}>
-            <Link href={`/${slug.setContent}/${lodash.kebabCase(lodash.deburr(art.attributes.title.toLowerCase()))}`} passHref>
+            <Link href={`${slug.setContent}/${lodash.kebabCase(lodash.deburr(art.attributes.title.toLowerCase()))}`} passHref>
               <a title={art.attributes.title} className="img">
                 <Image placeholder="blur" blurDataURL="./img/blur.png" src={art.attributes.cover.data.attributes.url} width={930} height={300} alt={art.attributes.title} />
               </a>
@@ -84,7 +84,7 @@ const SectionShortArticle = ({ data, type }: any) => {
                   />
                 </BoxAuthorImg>
                 <AuthorData>
-                  <Link href={`/${new setSlug("user").setContent}/${lodash.kebabCase(lodash.deburr(art.attributes.author.data.attributes.username.toLowerCase()))}`}>
+                  <Link href={`${new setSlug("user").setContent}/${lodash.kebabCase(lodash.deburr(art.attributes.author.data.attributes.username.toLowerCase()))}`}>
                     <a title={art.attributes.author.data.attributes.username}>
                       <AuthorName>{art.attributes.author.data.attributes.username}</AuthorName>
                     </a>
@@ -95,7 +95,7 @@ const SectionShortArticle = ({ data, type }: any) => {
                   </DateAdded>
                 </AuthorData>
               </BoxAuthor>
-              <Link href={`/${slug.setContent}/${lodash.kebabCase(lodash.deburr(art.attributes.title.toLowerCase()))}`} passHref>
+              <Link href={`${slug.setContent}/${lodash.kebabCase(lodash.deburr(art.attributes.title.toLowerCase()))}`} passHref>
                 <a title={art.attributes.title} className="titleArticle">
                   <TitleArticle>{art.attributes.title}</TitleArticle>
                 </a>
@@ -104,7 +104,7 @@ const SectionShortArticle = ({ data, type }: any) => {
                 {art.attributes.tags?.data?.map((tag: any, i: number) => {
                   return (
                     <Tag key={i}>
-                      <Link href={`/${slug.setContent}/${lodash.kebabCase(lodash.deburr(tag.attributes.title.toLowerCase()))}`}>
+                      <Link href={`${slug.setContent}/${lodash.kebabCase(lodash.deburr(tag.attributes.title.toLowerCase()))}`}>
                         <a>
                           <span>#</span>
                           {tag.attributes.title}
@@ -132,7 +132,7 @@ const SectionShortArticle = ({ data, type }: any) => {
                   <span>{art.attributes.comments.data.length}</span>
                 </Item>
               </ListStats>
-              <ButtonInLink href={`/${slug.setContent}/${lodash.kebabCase(lodash.deburr(art.attributes.title.toLowerCase()))}`} title="więcej" className="btnMore">
+              <ButtonInLink href={`${slug.setContent}/${lodash.kebabCase(lodash.deburr(art.attributes.title.toLowerCase()))}`} title="więcej" className="btnMore">
                 więcej
               </ButtonInLink>
             </BoxContent>
