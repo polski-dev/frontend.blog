@@ -68,7 +68,7 @@ const SectionShortVideo = ({ data, type }: any) => {
           <Article key={i} ref={articeRef}>
             <Link href={`/${slug.setContent}/${lodash.kebabCase(lodash.deburr(art.attributes.title.toLowerCase()))}`} passHref>
               <a title={art.attributes.title} className="img">
-                <Image placeholder="blur" blurDataURL="./img/blur.png" src={art.attributes.cover.data.attributes.url} width={930} height={300} alt={art.attributes.title} />
+                <Image placeholder="blur" blurDataURL="../img/blur.png" src={art.attributes.cover.data.attributes.url} width={930} height={300} alt={art.attributes.title} />
               </a>
             </Link>
             <BoxContent>
@@ -76,7 +76,7 @@ const SectionShortVideo = ({ data, type }: any) => {
                 <BoxAuthorImg>
                   <Image
                     placeholder="blur"
-                    blurDataURL="./img/blur.png"
+                    blurDataURL="../img/blur.png"
                     src={art.attributes.author.data.attributes.avatar.data.attributes.url}
                     width={42}
                     height={42}

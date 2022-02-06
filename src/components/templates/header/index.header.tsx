@@ -52,7 +52,7 @@ const HeaderComponent = () => {
                 </Link>
               </Item>
               <Item active={pathname === "/w" || pathname === "/w/v" ? true : false}>
-                <Link href={pathname === "/w" ? "/w" : "/w/v"}>
+                <Link href={pathname === "/w/v" ? "/w/v" : "/w"}>
                   <a title={pathname === "/w" ? "poczekalnia artykułów" : "poczekalnia video"}>
                     <Time />
                     Poczekalnia
