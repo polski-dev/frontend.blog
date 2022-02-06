@@ -15,7 +15,7 @@ import { SquareShortArticle } from "components/atoms/animation/comonent.animatio
 import { Section, Title, Options, Article, BoxContent, BoxAuthor, BoxAuthorImg, AuthorData, AuthorName, DateAdded, TitleArticle, ListTags, Tag, ListStats, Item, BoxInformation, Info } from "./../style/content.style";
 import { RootState, store } from "store/store.index";
 import { useSelector, useDispatch } from "react-redux";
-import { addArticleBest, addArticleAll, addArticleWaitingRoom, countPageArticleBest, countPageArticleAll, countPageArticleWaitingRoom } from "store/slice/store.slice.article";
+import { addArticleAll, addArticleWaitingRoom, countPageArticleAll, countPageArticleWaitingRoom } from "store/slice/store.slice.article";
 
 const SectionShortArticle = ({ data, type }: any) => {
   const dispatch = useDispatch();
@@ -46,10 +46,10 @@ const SectionShortArticle = ({ data, type }: any) => {
 
   useEffect(() => {
     if (iAmWaitingForAnswer) {
-      fetch(`${slug.setContentApi}${(type === "article" ? story.article.all.pageActive : type === "articleWaitingRoom" ? story.article.waitingRoom.pageActive : story.article.best.pageActive) + 1}`)
+      fetch(`${slug.setContentApi}${(type === "article" ? story.article.all.pageActive : story.article.waitingRoom.pageActive) + 1}`)
         .then((r) => r.json())
         .then((d) => {
-          if (!!d.data.length) dispatch(type === "article" ? addArticleAll({ data: d.data }) : type === "articleWaitingRoom" ? addArticleWaitingRoom({ data: d.data }) : addArticleBest({ data: d.data }));
+          if (!!d.data.length) dispatch(type === "article" ? addArticleAll({ data: d.data }) : addArticleWaitingRoom({ data: d.data }));
           setIamWaitingForAnswer(false);
         })
         .catch(() => {
@@ -104,7 +104,7 @@ const SectionShortArticle = ({ data, type }: any) => {
                 {art.attributes.tags?.data?.map((tag: any, i: number) => {
                   return (
                     <Tag key={i}>
-                      <Link href={`${slug.setContent}/${lodash.kebabCase(lodash.deburr(tag.attributes.title.toLowerCase()))}`}>
+                      <Link href={`${new setSlug("tag").setContent}/${lodash.kebabCase(lodash.deburr(tag.attributes.title.toLowerCase()))}`}>
                         <a>
                           <span>#</span>
                           {tag.attributes.title}

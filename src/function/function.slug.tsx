@@ -18,6 +18,17 @@ class setSlug {
     }
   }
 
+  get setPage() {
+    switch (this._type) {
+      case "article":
+        return "";
+      case "video":
+        return "v";
+      case "tag":
+        return "t";
+    }
+  }
+
   get setContentApi() {
     switch (this._type) {
       case "article":
@@ -26,6 +37,8 @@ class setSlug {
         return "/api/articles/waitingroom/";
       case "video":
         return "/api/videos/";
+      case "videoWaitingRoom":
+        return "/api/videos/waitingroom/";
     }
   }
 }

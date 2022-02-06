@@ -15,7 +15,7 @@ import { SquareShortArticle } from "components/atoms/animation/comonent.animatio
 import { Section, Title, Options, Article, BoxContent, BoxAuthor, BoxAuthorImg, AuthorData, AuthorName, DateAdded, TitleArticle, ListTags, Tag, ListStats, Item, BoxInformation, Info } from "./../style/content.style";
 import { RootState, store } from "store/store.index";
 import { useSelector, useDispatch } from "react-redux";
-import { addVideoBest, addVideoAll, countPageVideoBest, countPageVideoAll } from "store/slice/store.slice.video";
+import { addVideoWaitingRoom, addVideoAll, countPageVideoWaitingRoom, countPageVideoAll } from "store/slice/store.slice.video";
 
 const SectionShortVideo = ({ data, type }: any) => {
   const dispatch = useDispatch();
@@ -46,10 +46,10 @@ const SectionShortVideo = ({ data, type }: any) => {
 
   useEffect(() => {
     if (iAmWaitingForAnswer) {
-      fetch(`${slug.setContentApi}${story.video.all.pageActive + 1}`)
+      fetch(`${slug.setContentApi}${(type === "video" ? story.video.all.pageActive : story.video.waitingRoom.pageActive) + 1}`)
         .then((r) => r.json())
         .then((d) => {
-          if (!!d.data.length) dispatch(addVideoAll({ data: d.data }));
+          if (!!d.data.length) dispatch(type === "video" ? addVideoAll({ data: d.data }) : addVideoWaitingRoom({ data: d.data }));
           setIamWaitingForAnswer(false);
         })
         .catch(() => {

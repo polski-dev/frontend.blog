@@ -27,9 +27,9 @@ const Home: NextPage = ({ tags, videos, aticles, quantityContent }: any) => {
       <Row>
         <MenuPrimary tags={tags.data} />
         <Col xs={12} md={9} xl={8}>
-          <ShortArticle data={aticles.data} type="video" />
+          <ShortArticle data={aticles.data} type="articleWaitingRoom" />
         </Col>
-        <MenuTable data={aticles.data} title="artykuły" type="articleWaitingRoom" />
+        <MenuTable data={aticles.data} title="artykuły" type="article" />
       </Row>
     </Container>
   );

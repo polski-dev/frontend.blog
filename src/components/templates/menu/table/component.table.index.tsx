@@ -13,7 +13,7 @@ export default function MenuTable({ data, title, type }: any) {
             <span>#</span>
             {title}
           </Title>
-          <Link href={`/${slug}`}>
+          <Link href={`/${slug.setPage}`}>
             <a>wszystkie</a>
           </Link>
         </Heder>
@@ -21,7 +21,7 @@ export default function MenuTable({ data, title, type }: any) {
           {data.slice(0, 5).map((item: any, i: number) => {
             return (
               <Item key={i}>
-                <Link href={`/${slug}/${lodash.kebabCase(lodash.deburr(item.attributes.title.toLowerCase()))}`}>
+                <Link href={`/${slug.setContent}/${lodash.kebabCase(lodash.deburr(item.attributes.title.toLowerCase()))}`}>
                   <a>
                     <h6>{item.attributes.title}</h6>
                     <p>{item.attributes.author.data.attributes.username}</p>

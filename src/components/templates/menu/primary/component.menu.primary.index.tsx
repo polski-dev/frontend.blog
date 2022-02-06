@@ -23,6 +23,8 @@ export default function MenuPrimary({ tags }: MenuPrimaryType) {
   const { pathname } = useRouter();
   const { modeMenu, powerMenu, setPowerMenu } = useContext(MenuContext);
 
+  console.log(pathname);
+
   return (
     <>
       <GlobalStyle power={powerMenu} />
@@ -35,10 +37,10 @@ export default function MenuPrimary({ tags }: MenuPrimaryType) {
         <BoxContent>
           <Title>Zobacz</Title>
           <BoxTypeContent>
-            <ButtonInLink href="/" title="blog" active={pathname === "/" ? true : false}>
+            <ButtonInLink href={pathname === "/w" || pathname === "/w/v" ? "/w" : "/"} title="blog" active={pathname === "/" || pathname === "/w" ? true : false}>
               Blog
             </ButtonInLink>
-            <ButtonInLink href="/v" title="video" active={pathname === "/v" ? true : false}>
+            <ButtonInLink href={pathname === "/w" || pathname === "/w/v" ? "/w/v" : "/v"} title="video" active={pathname === "/v" || pathname === "/w/v" ? true : false}>
               Video
             </ButtonInLink>
           </BoxTypeContent>

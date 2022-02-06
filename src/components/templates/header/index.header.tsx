@@ -47,23 +47,15 @@ const HeaderComponent = () => {
                 <Link href="/">
                   <a title="wszystko">
                     <Search />
-                    Wszystko
+                    Strona główna
                   </a>
                 </Link>
               </Item>
               <Item active={pathname === "/w" || pathname === "/w/v" ? true : false}>
-                <Link href="/w">
-                  <a title="poczekalnia">
+                <Link href={pathname === "/w" ? "/w" : "/w/v"}>
+                  <a title={pathname === "/w" ? "poczekalnia artykułów" : "poczekalnia video"}>
                     <Time />
                     Poczekalnia
-                  </a>
-                </Link>
-              </Item>
-              <Item active={pathname === "/b" || pathname === "/b/v" ? true : false}>
-                <Link href="/b">
-                  <a title="najlepsze">
-                    <Up />
-                    Najlepsze
                   </a>
                 </Link>
               </Item>

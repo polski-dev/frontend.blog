@@ -13,6 +13,8 @@ class dataFromStory {
         return story.article.waitingRoom.articles;
       case "video":
         return story.video.all.videos;
+      case "videoWaitingRoom":
+        return story.video.waitingRoom.videos;
       default:
         return [];
     }
@@ -28,6 +30,9 @@ class dataFromStory {
         return true;
       case "video":
         if (story.video.all.pageActive >= story.video.all.pages) return false;
+        return true;
+      case "videoWaitingRoom":
+        if (story.video.waitingRoom.pageActive >= story.video.waitingRoom.pages) return false;
         return true;
       default:
         new Error('I not understand type in function ,,checkIsAnyNextContent"');
