@@ -38,7 +38,7 @@ export default function MenuPrimary({ tags }: MenuPrimaryType) {
             <ButtonInLink href="/" title="blog" active={pathname === "/" ? true : false}>
               Blog
             </ButtonInLink>
-            <ButtonInLink href="/video" title="video" active={pathname === "/video" ? true : false}>
+            <ButtonInLink href="/v" title="video" active={pathname === "/v" ? true : false}>
               Video
             </ButtonInLink>
           </BoxTypeContent>

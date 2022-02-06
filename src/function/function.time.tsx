@@ -1,4 +1,4 @@
-class CountTime {
+class time {
   nameOfTheMonths = (date: Date) => {
     const dateStart = new Date(date);
 
@@ -39,4 +39,4 @@ class CountTime {
   };
 }
 
-export default new CountTime();
+export default new time();
