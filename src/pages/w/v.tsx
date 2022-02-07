@@ -1,3 +1,4 @@
+import Head from "next/head";
 import type { NextPage } from "next";
 import { useContext, useEffect } from "react";
 import { MenuContext } from "providers/providers.menu";
@@ -9,7 +10,7 @@ import { RootState } from "store/store.index";
 import { useSelector, useDispatch } from "react-redux";
 import { addVideoWaitingRoom, countPageVideoWaitingRoom } from "store/slice/store.slice.video";
 
-const Home: NextPage = ({ tags, videos, aticles, quantityContent }: any) => {
+const VideoWaitingRoom: NextPage = ({ tags, videos, aticles, quantityContent }: any) => {
   const dispatch = useDispatch();
   const { setModeMenu } = useContext(MenuContext);
   const story = useSelector((state: RootState) => state);
@@ -23,19 +24,24 @@ const Home: NextPage = ({ tags, videos, aticles, quantityContent }: any) => {
   if (tags?.err || aticles?.err || videos?.err) return <>Mamy problem z wczytaniem tego widoku spróbuj za 1h</>;
 
   return (
-    <Container>
-      <Row>
-        <MenuPrimary tags={tags.data} />
-        <Col xs={12} md={9} xl={8}>
-          <ShortVideo data={aticles.data} type="videoWaitingRoom" />
-        </Col>
-        <MenuTable data={aticles.data} title="blog" type="article" />
-      </Row>
-    </Container>
+    <>
+      <Head>
+        <title>Poczekalnia video | POLSKI.DEV 👩‍💻👨‍💻</title>
+      </Head>
+      <Container>
+        <Row>
+          <MenuPrimary tags={tags.data} />
+          <Col xs={12} md={9} xl={8}>
+            <ShortVideo data={aticles.data} type="videoWaitingRoom" />
+          </Col>
+          <MenuTable data={aticles.data} title="blog" type="article" />
+        </Row>
+      </Container>
+    </>
   );
 };
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   // top tags
   const tagsResponse = await fetch(`https://www.polski.dev/api/tags/1`);
   const tags = await tagsResponse.json().catch((err) => ({ err: true }));
@@ -62,4 +68,4 @@ export async function getStaticProps() {
   };
 }
 
-export default Home;
+export default VideoWaitingRoom;

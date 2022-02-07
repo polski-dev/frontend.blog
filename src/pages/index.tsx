@@ -1,3 +1,4 @@
+import Head from "next/head";
 import type { NextPage } from "next";
 import { useContext, useEffect } from "react";
 import { MenuContext } from "providers/providers.menu";
@@ -23,15 +24,20 @@ const Home: NextPage = ({ tags, videos, aticles, quantityContent }: any) => {
   if (tags?.err || aticles?.err || videos?.err) return <>Mamy problem z wczytaniem tego widoku spróbuj za 1h</>;
 
   return (
-    <Container>
-      <Row>
-        <MenuPrimary tags={tags.data} />
-        <Col xs={12} md={9} xl={8}>
-          <ShortArticle data={aticles.data} type="article" />
-        </Col>
-        <MenuTable data={videos.data} title="video" type="video" />
-      </Row>
-    </Container>
+    <>
+      <Head>
+        <title>Blog | POLSKI.DEV 👩‍💻👨‍💻</title>
+      </Head>
+      <Container>
+        <Row>
+          <MenuPrimary tags={tags.data} />
+          <Col xs={12} md={9} xl={8}>
+            <ShortArticle data={aticles.data} type="article" />
+          </Col>
+          <MenuTable data={videos.data} title="video" type="video" />
+        </Row>
+      </Container>
+    </>
   );
 };
 
