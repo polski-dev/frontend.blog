@@ -1,13 +1,13 @@
-import { Dispatch, SetStateAction, createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect } from "react";
 
-export type GlobalContent = {
+export type GlobalContentMenu = {
   modeMenu: string;
   setModeMenu: (state: string) => void;
   powerMenu: boolean;
   setPowerMenu: (state: boolean) => void;
 };
 
-export const MenuContext = createContext<GlobalContent>({
+export const MenuContext = createContext<GlobalContentMenu>({
   modeMenu: "hidde",
   setModeMenu: () => {},
   powerMenu: false,

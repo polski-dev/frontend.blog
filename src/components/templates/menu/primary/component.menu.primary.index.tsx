@@ -38,6 +38,9 @@ export default function MenuPrimary({ tags }: MenuPrimaryType) {
             <ButtonInLink onClick={() => setPowerMenu(false)} href={pathname === "/w" || pathname === "/w/v" ? "/w" : "/"} title="blog" active={pathname === "/" || pathname === "/w" ? true : false}>
               Blog
             </ButtonInLink>
+            <ButtonInLink onClick={() => setPowerMenu(false)} href={pathname === "/w" || pathname === "/w/v" ? "/w" : "/"} title="blog" active={pathname === "/" || pathname === "/w" ? true : false}>
+              Blog
+            </ButtonInLink>
             <ButtonInLink onClick={() => setPowerMenu(false)} href={pathname === "/w" || pathname === "/w/v" ? "/w/v" : "/v"} title="video" active={pathname === "/v" || pathname === "/w/v" ? true : false}>
               Video
             </ButtonInLink>

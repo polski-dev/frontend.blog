@@ -1,16 +1,24 @@
 import Link from "next/link";
 import { url } from "inspector";
 import lodash from "lodash";
+import { useRouter } from "next/router";
+import { useContext } from "react";
 import Hash from "assets/icon/hash.svg";
 import News from "assets/icon/news.svg";
 import Search from "assets/icon/search.svg";
+import { SearchContext } from "providers/providers.search";
 import React, { useState, useRef, useEffect } from "react";
 import { Form, Input, Button, SugestBox, Item, IconBox, ContentBox, ContentTitle, ContentTags, ContentTag } from "./component.searchBar.style";
 
 export default function SearchBar() {
+  const router = useRouter();
   const [focus, setFocus] = useState(false);
-  const [queryTag, setQueryTag] = useState("");
-  const [sugest, setSugest] = useState([]);
+  const { searchQuery, setSearchQuery, searchContent, setSearchContent } = useContext(SearchContext);
+
+  const search = (event: any) => {
+    event.preventDefault();
+    router.push(`/search/${searchQuery}`);
+  };
 
   const typeLink = (type: string) => {
     switch (type) {
@@ -26,37 +34,43 @@ export default function SearchBar() {
   useEffect(() => {
     let pushQuery = setTimeout(() => null, 300);
 
-    if (queryTag.length)
+    if (searchQuery.length)
       pushQuery = setTimeout(
         async () =>
-          await fetch(`/api/search/${queryTag}`)
+          await fetch(`/api/search/${searchQuery}`)
             .then((data) => data.json())
-            .then((result) => setSugest(result))
+            .then((result) => {
+              console.log(result);
+              setSearchContent(result);
+            })
             .catch((err) => {
-              setSugest([]);
+              setSearchContent([]);
               console.log({ err: err });
             }),
         300
       );
-    else setSugest([]);
+    else setSearchContent([]);
 
     return () => clearTimeout(pushQuery);
-  }, [queryTag]);
+  }, [setSearchContent, searchQuery]);
 
   return (
     <Form
+      onSubmit={search}
       style={{
         boxShadow: focus ? "0 0 6px rgba(0, 0, 0, 0.6)" : "0 0 6px rgba(0, 0, 0, 0)",
-        height: focus && sugest.length ? "auto" : "3rem",
+        height: focus && searchContent.length ? "auto" : "3rem",
       }}
     >
       <Input
+        name="query"
+        value={searchQuery}
         onFocus={() => setFocus(true)}
         onBlur={() => setFocus(false)}
-        onChange={(e) => setQueryTag(e.target.value)}
+        onChange={(e) => setSearchQuery(e.target.value)}
         style={{
-          borderBottomLeftRadius: focus && sugest.length ? "0" : "0.6rem",
-          borderBottomRightRadius: focus && sugest.length ? "0" : "0.6rem",
+          borderBottomLeftRadius: focus && searchContent.length ? "0" : "0.6rem",
+          borderBottomRightRadius: focus && searchContent.length ? "0" : "0.6rem",
         }}
       />
       <Button type="submit" title="szukaj">
@@ -64,13 +78,13 @@ export default function SearchBar() {
       </Button>
       <SugestBox
         style={{
-          opacity: focus && sugest.length ? "1" : "0",
+          opacity: focus && searchContent.length ? "1" : "0",
         }}
         onFocus={() => setFocus(true)}
       >
-        {sugest.length ? (
+        {searchContent.length && (
           <>
-            {sugest.map((item: { title: string; cover: { formats: { thumbnail: { url: string } } }; type: string; tags: { title: string }[] }, i: number) => {
+            {searchContent.map((item: { title: string; cover: { formats: { thumbnail: { url: string } } }; type: string; tags: { title: string }[] }, i: number) => {
               return (
                 <Item key={i}>
                   <Link href={`${typeLink(item.type)}${lodash.kebabCase(lodash.deburr(item.title.toLowerCase()))}`}>
@@ -103,7 +117,7 @@ export default function SearchBar() {
               );
             })}
           </>
-        ) : null}
+        )}
       </SugestBox>
     </Form>
   );

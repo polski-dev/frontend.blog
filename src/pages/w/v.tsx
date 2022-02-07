@@ -41,7 +41,7 @@ const VideoWaitingRoom: NextPage = ({ tags, videos, aticles, quantityContent }: 
   );
 };
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   // top tags
   const tagsResponse = await fetch(`https://www.polski.dev/api/tags/1`);
   const tags = await tagsResponse.json().catch((err) => ({ err: true }));

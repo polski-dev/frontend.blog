@@ -12,7 +12,7 @@ export default async function handler(req: any, res: any) {
     r.video.forEach((art: any) => (art.type = "video"));
     r.tag.forEach((art: any) => (art.type = "tag"));
     content = [...r.article, ...r.video, ...r.tag];
-    res.status(200).json(lodash.orderBy(content, ["views"], ["desc"]).splice(0, 6));
+    res.status(200).json(lodash.orderBy(content, ["views"], ["desc"]));
   });
 
   data.catch((err) => res.status(500).json({ err: "Internal Server Error" }));
