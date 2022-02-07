@@ -13,7 +13,7 @@ import Instagram from "assets/icon/instagram.svg";
 import { MenuContext } from "providers/providers.menu";
 import { Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
 import { ButtonInLink } from "components/atoms/button/component.button";
-import { GlobalStyle, Bg, BoxMenu, OffMenu, BoxContent, BoxTypeContent, Title, List, Tag, SocialMedia } from "./component.menu.primary.style";
+import { GlobalStyle, Bg, BoxMenu, OffMenu, BoxContent, BoxTypeContent, BoxTypeContentQuantity, Title, List, Tag, SocialMedia } from "./component.menu.primary.style";
 
 type MenuPrimaryType = {
   tags: { id: number; attributes: { title: string } }[];
@@ -33,17 +33,20 @@ export default function MenuPrimary({ tags }: MenuPrimaryType) {
           <span></span>
         </OffMenu>
         <BoxContent>
-          <Title>Zobacz</Title>
+          <Title>Wybierz</Title>
           <BoxTypeContent>
+            <ButtonInLink onClick={() => setPowerMenu(false)} href={pathname === "/search" || pathname === "/w/v" ? "/w" : "/"} title="blog" active={pathname === "/" || pathname === "/w" ? true : false}>
+              Wszystko
+            </ButtonInLink>
+            <BoxTypeContentQuantity>0</BoxTypeContentQuantity>
             <ButtonInLink onClick={() => setPowerMenu(false)} href={pathname === "/w" || pathname === "/w/v" ? "/w" : "/"} title="blog" active={pathname === "/" || pathname === "/w" ? true : false}>
               Blog
             </ButtonInLink>
-            <ButtonInLink onClick={() => setPowerMenu(false)} href={pathname === "/w" || pathname === "/w/v" ? "/w" : "/"} title="blog" active={pathname === "/" || pathname === "/w" ? true : false}>
-              Blog
-            </ButtonInLink>
+            <BoxTypeContentQuantity>0</BoxTypeContentQuantity>
             <ButtonInLink onClick={() => setPowerMenu(false)} href={pathname === "/w" || pathname === "/w/v" ? "/w/v" : "/v"} title="video" active={pathname === "/v" || pathname === "/w/v" ? true : false}>
               Video
             </ButtonInLink>
+            <BoxTypeContentQuantity>0</BoxTypeContentQuantity>
           </BoxTypeContent>
           <Title>Top tagi</Title>
           <List>

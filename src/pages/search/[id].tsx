@@ -11,24 +11,24 @@ const Search: NextPage = ({ tags, aticles }: any) => {
   const { id }: any = router.query;
   const { searchQuery, setSearchQuery, searchContent, setSearchContent } = useContext(SearchContext);
 
-  // useEffect(() => {
-  //   if (id !== searchQuery && id?.length) {
-  //     async () =>
-  //       await fetch(`/api/search/${id}`)
-  //         .then((data) => data.json())
-  //         .then((result) => {
-  //           console.log(id);
-  //           setSearchContent(result);
-  //           setSearchQuery(id);
-  //         })
-  //         .catch((err) => {
-  //           console.log("err");
-  //           setSearchQuery(id);
-  //           setSearchContent([]);
-  //           console.log({ err: err });
-  //         });
-  //   }
-  // }, [searchQuery, router, setSearchQuery, setSearchContent, id]);
+  useEffect(() => {
+    if (!searchQuery.length && !!id.length) {
+      const sendQuery = async () =>
+        await fetch(`/api/search/${id}`)
+          .then((data) => data.json())
+          .then((result) => {
+            setSearchQuery(id);
+            setSearchContent(result);
+          })
+          .catch((err) => {
+            setSearchQuery(id);
+            setSearchContent([]);
+            console.log({ err: err });
+          });
+
+      sendQuery();
+    }
+  }, [searchQuery, router, setSearchQuery, setSearchContent, id]);
 
   return (
     <>

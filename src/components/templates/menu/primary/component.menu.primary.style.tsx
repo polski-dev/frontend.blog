@@ -130,13 +130,25 @@ export const OffMenu = styled.button<ModeType>`
 `;
 
 export const BoxTypeContent = styled.div`
+  display: flex;
+  flex-wrap: wrap;
   padding-bottom: ${({ theme }) => theme.break.big};
 
   a {
-    width: 100%;
     text-align: center;
+    width: calc(100% - 5rem);
     margin-bottom: ${({ theme }) => theme.break.small};
   }
+`;
+
+export const BoxTypeContentQuantity = styled.div`
+  flex: 5rem;
+  width: 5rem;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  justify-content: center;
 `;
 
 export const Title = styled.h5`

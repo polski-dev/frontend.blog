@@ -18,6 +18,7 @@ export default function SearchBar() {
   const search = (event: any) => {
     event.preventDefault();
     router.push(`/search/${searchQuery}`);
+    setFocus(false);
   };
 
   const typeLink = (type: string) => {
@@ -65,6 +66,7 @@ export default function SearchBar() {
       <Input
         name="query"
         value={searchQuery}
+        autoFocus={focus}
         onFocus={() => setFocus(true)}
         onBlur={() => setFocus(false)}
         onChange={(e) => setSearchQuery(e.target.value)}
