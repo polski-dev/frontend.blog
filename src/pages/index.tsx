@@ -8,7 +8,7 @@ import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexbo
 
 import { RootState } from "store/store.index";
 import { useSelector, useDispatch } from "react-redux";
-import { addArticleAll, countPageArticleAll } from "store/slice/store.slice.article";
+import { addContentAllHome } from "store/slice/content/store.slice.content";
 
 const Home: NextPage = ({ tags, videos, aticles, quantityContent }: any) => {
   const dispatch = useDispatch();
@@ -17,8 +17,7 @@ const Home: NextPage = ({ tags, videos, aticles, quantityContent }: any) => {
 
   useEffect(() => setModeMenu("display"), [setModeMenu]);
   useEffect(() => {
-    !story.article.all.articles.length && dispatch(countPageArticleAll({ quantity: quantityContent.article }));
-    !story.article.all.articles.length && dispatch(addArticleAll({ data: aticles.data }));
+    // !story.content.all.home.data.length && dispatch(addContentAllHome({ quantity: quantityContent.article }));
   }, [dispatch, quantityContent, aticles, story]);
 
   if (tags?.err || aticles?.err || videos?.err) return <>Mamy problem z wczytaniem tego widoku spróbuj za 1h</>;
@@ -32,7 +31,7 @@ const Home: NextPage = ({ tags, videos, aticles, quantityContent }: any) => {
         <Row>
           <MenuPrimary tags={tags.data} />
           <Col xs={12} md={9} xl={8}>
-            <ShortArticle data={aticles.data} type="article" />
+            {/* <ShortArticle data={aticles.data} type="article" /> */}
           </Col>
           <MenuTable data={videos.data} title="video" type="video" />
         </Row>

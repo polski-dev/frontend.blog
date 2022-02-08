@@ -8,27 +8,27 @@ import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexbo
 
 const Search: NextPage = ({ tags, aticles }: any) => {
   const router = useRouter();
-  const { id }: any = router.query;
+  const { query }: any = router.query;
   const { searchQuery, setSearchQuery, searchContent, setSearchContent } = useContext(SearchContext);
-
+  console.log(tags);
   useEffect(() => {
-    if (!searchQuery.length && !!id.length) {
+    if (!searchQuery.length && !!query.length) {
       const sendQuery = async () =>
-        await fetch(`/api/search/${id}`)
+        await fetch(`/api/search/${query}`)
           .then((data) => data.json())
           .then((result) => {
-            setSearchQuery(id);
+            setSearchQuery(query);
             setSearchContent(result);
           })
           .catch((err) => {
-            setSearchQuery(id);
+            setSearchQuery(query);
             setSearchContent([]);
             console.log({ err: err });
           });
 
       sendQuery();
     }
-  }, [searchQuery, router, setSearchQuery, setSearchContent, id]);
+  }, [searchQuery, router, setSearchQuery, setSearchContent, query]);
 
   return (
     <>
@@ -37,6 +37,7 @@ const Search: NextPage = ({ tags, aticles }: any) => {
       </Head>
       <Container>
         <Row>
+          <MenuPrimary tags={tags.data} />
           <Col xs={12} md={9} xl={8}>
             <p>ok</p>
           </Col>

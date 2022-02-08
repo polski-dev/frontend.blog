@@ -32,13 +32,13 @@ class setSlug {
   get setContentApi() {
     switch (this._type) {
       case "article":
-        return "/api/articles/";
+        return "/api/article/";
       case "articleWaitingRoom":
-        return "/api/articles/waitingroom/";
+        return "/api/article/waitingroom/";
       case "video":
-        return "/api/videos/";
+        return "/api/video/";
       case "videoWaitingRoom":
-        return "/api/videos/waitingroom/";
+        return "/api/video/waitingroom/";
     }
   }
 }

@@ -18,7 +18,7 @@ export default function SearchBar() {
 
   const search = (event: any) => {
     event.preventDefault();
-    router.push(`/search${searchQuery}`);
+    router.push(`/search/${searchQuery}`);
     setFocus(false);
   };
 

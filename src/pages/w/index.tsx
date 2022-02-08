@@ -8,7 +8,7 @@ import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexbo
 
 import { RootState } from "store/store.index";
 import { useSelector, useDispatch } from "react-redux";
-import { addArticleWaitingRoom, countPageArticleWaitingRoom } from "store/slice/store.slice.article";
+import { addArticleWaitingRoom, countPageArticleWaitingRoom } from "store/slice/store.slice.content";
 
 const HomeWaitingRoom: NextPage = ({ tags, videos, aticles, quantityContent }: any) => {
   const dispatch = useDispatch();

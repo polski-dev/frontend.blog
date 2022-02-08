@@ -13,7 +13,7 @@ class dataFromStory {
         return story.article.waitingRoom.articles;
       case "video":
         return story.video.all.videos;
-      case "videoWaitingRoom":
+      case "videoWaitingRoompage":
         return story.video.waitingRoom.videos;
       default:
         return [];
