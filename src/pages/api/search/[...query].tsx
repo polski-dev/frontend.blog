@@ -4,9 +4,6 @@ import lodash, { merge } from "lodash";
 export default async function handler(req: any, res: any) {
   const { query } = req.query;
 
-  console.log(query[0]);
-  console.log(query[1]);
-
   const standardMessage = {
     data: [],
     meta: {
@@ -24,8 +21,11 @@ export default async function handler(req: any, res: any) {
   )
     .then((r) => r.json())
     .then((d) => {
-      if (!!d.data.length) return d;
-      return standardMessage;
+      if (!!d.data.length) {
+        d.data.forEach((item: any) => (item.type = "article"));
+        return d;
+      }
+      return Object.assign({ type: "article" }, standardMessage);
     })
     .catch((err) => Object.assign({ err: true, message: err }, standardMessage));
 
@@ -34,15 +34,19 @@ export default async function handler(req: any, res: any) {
   )
     .then((r) => r.json())
     .then((d) => {
-      if (!!d.data.length) return d;
-      return standardMessage;
+      if (!!d.data.length) {
+        d.data.forEach((item: any) => (item.type = "video"));
+        return d;
+      }
+      return Object.assign({ type: "video" }, standardMessage);
     })
     .catch((err) => Object.assign({ err: true, message: err }, standardMessage));
 
   const users = await fetch(`${process.env.URL_API}/api/users?pagination[page]=${query[0]}&pagination[pageSize]=10&populate=avatar&sort[1]=createdAt%3Adesc&filters[username][$containsi]=${query[1]}`)
     .then((r) => r.json())
     .then((d) => {
-      if (!!d.length)
+      if (!!d.length) {
+        d.forEach((item: any) => (item.type = "user"));
         return {
           data: d,
           meta: {
@@ -54,15 +58,19 @@ export default async function handler(req: any, res: any) {
             },
           },
         };
-      return standardMessage;
+      }
+      return Object.assign({ type: "user" }, standardMessage);
     })
     .catch((err) => Object.assign({ err: true, message: err }, standardMessage));
 
   const tags = await fetch(`${process.env.URL_API}/api/tag?pagination[page]=${query[0]}&pagination[pageSize]=10&populate=cover&sort[1]=createdAt%3Adesc&filters[title][$containsi]=${query[1]}`)
     .then((r) => r.json())
     .then((d) => {
-      if (!!d.data.length) return d;
-      return standardMessage;
+      if (!!d.data.length) {
+        d.data.forEach((item: any) => (item.type = "tags"));
+        return d;
+      }
+      return Object.assign({ type: "tags" }, standardMessage);
     })
     .catch((err) => Object.assign({ err: true, message: err }, standardMessage));
 
