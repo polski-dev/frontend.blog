@@ -102,7 +102,7 @@ class dataFromAPI {
 
       switch (this._type) {
         case "all":
-          linkAPI = `${this._urlAPI}/api/tag?pagination[page]=${this._page}&pagination[pageSize]=10&populate=cover&sort[1]=createdAt%3Adesc`;
+          linkAPI = `${this._urlAPI}/api/tag?pagination[page]=${this._page}&pagination[pageSize]=10&populate=cover&sort=views%3Adesc`;
           break;
       }
 

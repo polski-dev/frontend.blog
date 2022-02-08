@@ -30,21 +30,21 @@ const Contact: NextPage = ({ tags, aticles }: any) => {
   );
 };
 
-// export async function getStaticProps() {
-//   // top tags
-//   const tagsResponse = await fetch(`https://www.polski.dev/api/tags/1`);
-//   const tags = await tagsResponse.json().catch((err) => ({ err: true }));
+export async function getStaticProps() {
+  // tag
+  const tagsResponse = await fetch(`https://www.polski.dev/api/tag/1`);
+  const tags = await tagsResponse.json().catch((err) => ({ err: true }));
 
-//   // aticle new
-//   const aticlesResponse = await fetch(`https://www.polski.dev/api/articles/1`);
-//   const aticles = await aticlesResponse.json().catch((err) => ({ err: true }));
+  // content
+  const contentResponse = await fetch(`https://www.polski.dev/api/content/1`);
+  const aticles = await contentResponse.json().catch((err) => ({ err: true }));
 
-//   return {
-//     props: {
-//       tags,
-//       aticles,
-//     },
-//   };
-// }
+  return {
+    props: {
+      tags,
+      aticles,
+    },
+  };
+}
 
 export default Contact;
