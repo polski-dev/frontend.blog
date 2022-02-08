@@ -31,7 +31,7 @@ const Video: NextPage = ({ tags, videos, aticles, quantityContent }: any) => {
         <Row>
           {/* <MenuPrimary tags={tags.data} /> */}
           <Col xs={12} md={9} xl={8}>
-            <ShortVideo data={aticles.data} type="video" />
+            {/* <ShortVideo data={aticles.data} type="video" /> */}
           </Col>
           {/* <MenuTable data={aticles.data} title="blog" type="article" /> */}
         </Row>
