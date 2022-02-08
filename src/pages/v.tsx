@@ -8,7 +8,6 @@ import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexbo
 
 import { RootState } from "store/store.index";
 import { useSelector, useDispatch } from "react-redux";
-import { addVideoAll, countPageVideoAll } from "store/slice/store.slice.video";
 
 const Video: NextPage = ({ tags, videos, aticles, quantityContent }: any) => {
   const dispatch = useDispatch();
@@ -16,10 +15,10 @@ const Video: NextPage = ({ tags, videos, aticles, quantityContent }: any) => {
   const story = useSelector((state: RootState) => state);
 
   useEffect(() => setModeMenu("display"), [setModeMenu]);
-  useEffect(() => {
-    !story.video.all.videos.length && dispatch(countPageVideoAll({ quantity: quantityContent.video }));
-    !story.video.all.videos.length && dispatch(addVideoAll({ data: videos.data }));
-  }, [dispatch, story, quantityContent, videos]);
+  // useEffect(() => {
+  //   !story.video.all.videos.length && dispatch(countPageVideoAll({ quantity: quantityContent.video }));
+  //   !story.video.all.videos.length && dispatch(addVideoAll({ data: videos.data }));
+  // }, [dispatch, story, quantityContent, videos]);
 
   if (tags?.err || aticles?.err || videos?.err) return <>Mamy problem z wczytaniem tego widoku spróbuj za 1h</>;
 
