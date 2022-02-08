@@ -1,7 +1,7 @@
 require("dotenv").config();
 import lodash, { merge } from "lodash";
 
-export default async function handler(req: any, res: any) {
+export default async function searchAPI(req: any, res: any) {
   const { query } = req.query;
 
   const standardMessage = {

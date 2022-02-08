@@ -14,6 +14,7 @@ const Home: NextPage = ({ tags, videos, aticles, quantityContent }: any) => {
   const dispatch = useDispatch();
   const { setModeMenu } = useContext(MenuContext);
   const story = useSelector((state: RootState) => state);
+  console.log(story);
 
   useEffect(() => setModeMenu("display"), [setModeMenu]);
   useEffect(() => {
@@ -29,11 +30,11 @@ const Home: NextPage = ({ tags, videos, aticles, quantityContent }: any) => {
       </Head>
       <Container>
         <Row>
-          <MenuPrimary tags={tags.data} />
+          {/* <MenuPrimary tags={tags.data} /> */}
           <Col xs={12} md={9} xl={8}>
             {/* <ShortArticle data={aticles.data} type="article" /> */}
           </Col>
-          <MenuTable data={videos.data} title="video" type="video" />
+          {/* <MenuTable data={videos.data} title="video" type="video" /> */}
         </Row>
       </Container>
     </>
