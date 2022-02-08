@@ -86,23 +86,23 @@ export default function SearchBar() {
       >
         {searchContent.all.data.length && (
           <>
-            {searchContent.all.data.map((item: { title: string; cover: { formats: { thumbnail: { url: string } } }; type: string; tags: { title: string }[] }, i: number) => {
+            {searchContent.all.data.slice(0, 5).map((item: any, i: number) => {
               return (
                 <Item key={i}>
-                  <Link href={`${typeLink(item.type)}${lodash.kebabCase(lodash.deburr(item.title.toLowerCase()))}`}>
+                  <Link href={`${typeLink(item.type)}${item.type === "user" ? lodash.kebabCase(lodash.deburr(item.username.toLowerCase())) : lodash.kebabCase(lodash.deburr(item.attributes.title.toLowerCase()))}`}>
                     <a>
-                      {!!item.cover?.formats?.thumbnail.url ? (
-                        <IconBox style={{ backgroundImage: `url(${item.cover.formats.thumbnail.url})` }} />
+                      {!!item?.attributes?.cover?.data?.attributes?.formats?.thumbnail?.url ? (
+                        <IconBox style={{ backgroundImage: `url(${item.attributes.cover.data.attributes.formats.thumbnail.url})` }} />
                       ) : (
                         <IconBox>
                           <Search />
                         </IconBox>
                       )}
                       <ContentBox>
-                        <ContentTitle>{item.title}</ContentTitle>
+                        <ContentTitle>{item.type === "user" ? item.username : item.attributes.title}</ContentTitle>
                         <ContentTags>
                           {item.tags &&
-                            item.tags.map((tag, i: number) => {
+                            item.tags.map((tag: any, i: number) => {
                               return (
                                 <ContentTag key={i}>
                                   <span>#</span>
