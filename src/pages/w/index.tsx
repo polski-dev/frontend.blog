@@ -31,7 +31,7 @@ const HomeWaitingRoom: NextPage = ({ tags, videos, aticles, quantityContent }: a
         <Row>
           {/* <MenuPrimary tags={tags.data} /> */}
           <Col xs={12} md={9} xl={8}>
-            <ShortArticle data={aticles.data} type="articleWaitingRoom" />
+            {/* <ShortArticle data={aticles.data} type="articleWaitingRoom" /> */}
           </Col>
           {/* <MenuTable data={aticles.data} title="video" type="video" /> */}
         </Row>
