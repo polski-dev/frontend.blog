@@ -29,42 +29,42 @@ const VideoWaitingRoom: NextPage = ({ tags, videos, aticles, quantityContent }: 
       </Head>
       <Container>
         <Row>
-          <MenuPrimary tags={tags.data} />
+          {/* <MenuPrimary tags={tags.data} /> */}
           <Col xs={12} md={9} xl={8}>
-            <ShortVideo data={aticles.data} type="videoWaitingRoom" />
+            {/* <ShortVideo data={aticles.data} type="videoWaitingRoom" /> */}
           </Col>
-          <MenuTable data={aticles.data} title="blog" type="article" />
+          {/* <MenuTable data={aticles.data} title="blog" type="article" /> */}
         </Row>
       </Container>
     </>
   );
 };
 
-export async function getStaticProps() {
-  // top tags
-  const tagsResponse = await fetch(`https://www.polski.dev/api/tags/1`);
-  const tags = await tagsResponse.json().catch((err) => ({ err: true }));
+// export async function getStaticProps() {
+//   // top tags
+//   const tagsResponse = await fetch(`https://www.polski.dev/api/tags/1`);
+//   const tags = await tagsResponse.json().catch((err) => ({ err: true }));
 
-  // video
-  const videosResponse = await fetch(`https://www.polski.dev/api/videos/waitingroom/1`);
-  const videos = await videosResponse.json().catch((err) => ({ err: true }));
+//   // video
+//   const videosResponse = await fetch(`https://www.polski.dev/api/videos/waitingroom/1`);
+//   const videos = await videosResponse.json().catch((err) => ({ err: true }));
 
-  // aticle new
-  const aticlesResponse = await fetch(`https://www.polski.dev/api/articles/1`);
-  const aticles = await aticlesResponse.json().catch((err) => ({ err: true }));
+//   // aticle new
+//   const aticlesResponse = await fetch(`https://www.polski.dev/api/articles/1`);
+//   const aticles = await aticlesResponse.json().catch((err) => ({ err: true }));
 
-  // count content
-  const quantityContentResponse = await fetch(`https://www.polski.dev/api/count/content/waitingroom`);
-  const quantityContent = await quantityContentResponse.json().catch((err) => ({ err: true }));
+//   // count content
+//   const quantityContentResponse = await fetch(`https://www.polski.dev/api/count/content/waitingroom`);
+//   const quantityContent = await quantityContentResponse.json().catch((err) => ({ err: true }));
 
-  return {
-    props: {
-      tags,
-      videos,
-      aticles,
-      quantityContent,
-    },
-  };
-}
+//   return {
+//     props: {
+//       tags,
+//       videos,
+//       aticles,
+//       quantityContent,
+//     },
+//   };
+// }
 
 export default VideoWaitingRoom;

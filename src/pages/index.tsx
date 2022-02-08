@@ -14,7 +14,6 @@ const Home: NextPage = ({ tags, videos, aticles, quantityContent }: any) => {
   const dispatch = useDispatch();
   const { setModeMenu } = useContext(MenuContext);
   const story = useSelector((state: RootState) => state);
-  console.log(story);
 
   useEffect(() => setModeMenu("display"), [setModeMenu]);
   useEffect(() => {
@@ -41,31 +40,31 @@ const Home: NextPage = ({ tags, videos, aticles, quantityContent }: any) => {
   );
 };
 
-export async function getStaticProps() {
-  // top tags
-  const tagsResponse = await fetch(`https://www.polski.dev/api/tags/1`);
-  const tags = await tagsResponse.json().catch((err) => ({ err: true }));
+// export async function getStaticProps() {
+//   // top tags
+//   const tagsResponse = await fetch(`https://www.polski.dev/api/tags/1`);
+//   const tags = await tagsResponse.json().catch((err) => ({ err: true }));
 
-  // video
-  const videosResponse = await fetch(`https://www.polski.dev/api/videos/1`);
-  const videos = await videosResponse.json().catch((err) => ({ err: true }));
+//   // video
+//   const videosResponse = await fetch(`https://www.polski.dev/api/videos/1`);
+//   const videos = await videosResponse.json().catch((err) => ({ err: true }));
 
-  // aticle new
-  const aticlesResponse = await fetch(`https://www.polski.dev/api/articles/1`);
-  const aticles = await aticlesResponse.json().catch((err) => ({ err: true }));
+//   // aticle new
+//   const aticlesResponse = await fetch(`https://www.polski.dev/api/articles/1`);
+//   const aticles = await aticlesResponse.json().catch((err) => ({ err: true }));
 
-  // count content
-  const quantityContentResponse = await fetch(`https://www.polski.dev/api/count/content/best`);
-  const quantityContent = await quantityContentResponse.json().catch((err) => ({ err: true }));
+//   // count content
+//   const quantityContentResponse = await fetch(`https://www.polski.dev/api/count/content/best`);
+//   const quantityContent = await quantityContentResponse.json().catch((err) => ({ err: true }));
 
-  return {
-    props: {
-      tags,
-      videos,
-      aticles,
-      quantityContent,
-    },
-  };
-}
+//   return {
+//     props: {
+//       tags,
+//       videos,
+//       aticles,
+//       quantityContent,
+//     },
+//   };
+// }
 
 export default Home;

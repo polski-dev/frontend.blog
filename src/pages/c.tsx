@@ -11,7 +11,7 @@ const Contact: NextPage = ({ tags, aticles }: any) => {
       </Head>
       <Container>
         <Row>
-          <MenuPrimary tags={tags.data} />
+          {/* <MenuPrimary tags={tags.data} /> */}
           <Col xs={12} md={9} xl={8}>
             <h5 style={{ marginTop: "3rem", paddingBottom: "1.5rem" }}>Kontakt</h5>
             <div style={{ padding: "3rem 1.5rem", background: "#2D2E30", borderRadius: "0.6rem", display: "flex", alignItems: "center", justifyContent: "center", height: "80vh", marginBottom: "3rem" }}>
@@ -23,28 +23,28 @@ const Contact: NextPage = ({ tags, aticles }: any) => {
               </div>
             </div>
           </Col>
-          <MenuTable data={aticles.data} title="blog" type="article" />
+          {/* <MenuTable data={aticles.data} title="blog" type="article" /> */}
         </Row>
       </Container>
     </>
   );
 };
 
-export async function getStaticProps() {
-  // top tags
-  const tagsResponse = await fetch(`https://www.polski.dev/api/tags/1`);
-  const tags = await tagsResponse.json().catch((err) => ({ err: true }));
+// export async function getStaticProps() {
+//   // top tags
+//   const tagsResponse = await fetch(`https://www.polski.dev/api/tags/1`);
+//   const tags = await tagsResponse.json().catch((err) => ({ err: true }));
 
-  // aticle new
-  const aticlesResponse = await fetch(`https://www.polski.dev/api/articles/1`);
-  const aticles = await aticlesResponse.json().catch((err) => ({ err: true }));
+//   // aticle new
+//   const aticlesResponse = await fetch(`https://www.polski.dev/api/articles/1`);
+//   const aticles = await aticlesResponse.json().catch((err) => ({ err: true }));
 
-  return {
-    props: {
-      tags,
-      aticles,
-    },
-  };
-}
+//   return {
+//     props: {
+//       tags,
+//       aticles,
+//     },
+//   };
+// }
 
 export default Contact;
