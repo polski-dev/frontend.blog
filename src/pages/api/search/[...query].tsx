@@ -67,7 +67,7 @@ export default async function handler(req: any, res: any) {
     .then((r) => r.json())
     .then((d) => {
       if (!!d.data.length) {
-        d.data.forEach((item: any) => (item.type = "tags"));
+        d.data.forEach((item: any) => (item.type = "tag"));
         return d;
       }
       return Object.assign({ type: "tags" }, standardMessage);

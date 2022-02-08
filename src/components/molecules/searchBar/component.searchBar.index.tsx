@@ -5,6 +5,7 @@ import { useContext } from "react";
 import { useRouter } from "next/router";
 import Hash from "assets/icon/hash.svg";
 import News from "assets/icon/news.svg";
+import getSlug from "function/function.slug";
 import Search from "assets/icon/search.svg";
 import { SearchContext, initialContextSearch } from "providers/providers.search";
 import React, { useState, useRef, useEffect } from "react";
@@ -19,17 +20,6 @@ export default function SearchBar() {
     event.preventDefault();
     router.push(`/search${searchQuery}`);
     setFocus(false);
-  };
-
-  const typeLink = (type: string) => {
-    switch (type) {
-      case "article":
-        return "/a/";
-      case "tag":
-        return "/t/";
-      case "video":
-        return "/v/";
-    }
   };
 
   useEffect(() => {
@@ -87,9 +77,14 @@ export default function SearchBar() {
         {searchContent.all.data.length && (
           <>
             {searchContent.all.data.slice(0, 5).map((item: any, i: number) => {
+              console.log(item.type);
               return (
                 <Item key={i}>
-                  <Link href={`${typeLink(item.type)}${item.type === "user" ? lodash.kebabCase(lodash.deburr(item.username.toLowerCase())) : lodash.kebabCase(lodash.deburr(item.attributes.title.toLowerCase()))}`}>
+                  <Link
+                    href={`${new getSlug(item.type).setContent}/${
+                      item.type === "user" ? lodash.kebabCase(lodash.deburr(item.username.toLowerCase())) : lodash.kebabCase(lodash.deburr(item.attributes.title.toLowerCase()))
+                    }`}
+                  >
                     <a>
                       {!!item?.attributes?.cover?.data?.attributes?.formats?.thumbnail?.url ? (
                         <IconBox style={{ backgroundImage: `url(${item.attributes.cover.data.attributes.formats.thumbnail.url})` }} />
