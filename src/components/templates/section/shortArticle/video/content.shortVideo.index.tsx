@@ -15,7 +15,6 @@ import { SquareShortArticle } from "components/atoms/animation/comonent.animatio
 import { Section, Title, Options, Article, BoxContent, BoxAuthor, BoxAuthorImg, AuthorData, AuthorName, DateAdded, TitleArticle, ListTags, Tag, ListStats, Item, BoxInformation, Info } from "./../style/content.style";
 import { RootState, store } from "store/store.index";
 import { useSelector, useDispatch } from "react-redux";
-import { addVideoWaitingRoom, addVideoAll, countPageVideoWaitingRoom, countPageVideoAll } from "store/slice/store.slice.video";
 
 const SectionShortVideo = ({ data, type }: any) => {
   const dispatch = useDispatch();
@@ -44,20 +43,20 @@ const SectionShortVideo = ({ data, type }: any) => {
     return () => document.removeEventListener("scroll", loadArticle);
   }, [articeRef, height, iAmWaitingForAnswer, story, isAnyNextContent]);
 
-  useEffect(() => {
-    if (iAmWaitingForAnswer) {
-      fetch(`${slug.setContentApi}${(type === "video" ? story.video.all.pageActive : story.video.waitingRoom.pageActive) + 1}`)
-        .then((r) => r.json())
-        .then((d) => {
-          if (!!d.data.length) dispatch(type === "video" ? addVideoAll({ data: d.data }) : addVideoWaitingRoom({ data: d.data }));
-          setIamWaitingForAnswer(false);
-        })
-        .catch(() => {
-          alert("Wystąpił problem z pobraniem danych odśwież stronę");
-          setIamWaitingForAnswer(false);
-        });
-    }
-  }, [story, type, dispatch, iAmWaitingForAnswer, setIamWaitingForAnswer, slug]);
+  // useEffect(() => {
+  //   if (iAmWaitingForAnswer) {
+  //     fetch(`${slug.setContentApi}${(type === "video" ? story.video.all.pageActive : story.video.waitingRoom.pageActive) + 1}`)
+  //       .then((r) => r.json())
+  //       .then((d) => {
+  //         if (!!d.data.length) dispatch(type === "video" ? addVideoAll({ data: d.data }) : addVideoWaitingRoom({ data: d.data }));
+  //         setIamWaitingForAnswer(false);
+  //       })
+  //       .catch(() => {
+  //         alert("Wystąpił problem z pobraniem danych odśwież stronę");
+  //         setIamWaitingForAnswer(false);
+  //       });
+  //   }
+  // }, [story, type, dispatch, iAmWaitingForAnswer, setIamWaitingForAnswer, slug]);
 
   return (
     <Section>
