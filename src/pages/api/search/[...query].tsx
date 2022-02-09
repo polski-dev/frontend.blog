@@ -17,7 +17,7 @@ export default async function searchAPI(req: any, res: any) {
   };
 
   const article = await fetch(
-    `${process.env.URL_API}/api/article?pagination[page]=${query[0]}&pagination[pageSize]=10&populate=cover&populate=comments&populate=grades&populate=tags&populate=author&populate[1]=author.avatar&sort[1]=createdAt%3Adesc&filters[title][$containsi]=${query[1]}`
+    `${process.env.URL_API}/api/article?pagination[page]=${query[0]}&pagination[pageSize]=10&populate=cover&populate=comments&populate=grades&populate=tags&populate=author&populate[1]=author.avatar&sort=views%3Adesc&filters[title][$containsi]=${query[1]}`
   )
     .then((r) => r.json())
     .then((d) => {
@@ -30,7 +30,7 @@ export default async function searchAPI(req: any, res: any) {
     .catch((err) => Object.assign({ err: true, message: err }, standardMessage));
 
   const video = await fetch(
-    `${process.env.URL_API}/api/videos?pagination[page]=${query[0]}&pagination[pageSize]=10&populate=cover&populate=comments&populate=grades&populate=tags&populate=author&populate[1]=author.avatar&sort[1]=createdAt%3Adesc&filters[title][$containsi]=${query[1]}`
+    `${process.env.URL_API}/api/videos?pagination[page]=${query[0]}&pagination[pageSize]=10&populate=cover&populate=comments&populate=grades&populate=tags&populate=author&populate[1]=author.avatar&sort=views%3Adesc&filters[title][$containsi]=${query[1]}`
   )
     .then((r) => r.json())
     .then((d) => {
@@ -42,7 +42,7 @@ export default async function searchAPI(req: any, res: any) {
     })
     .catch((err) => Object.assign({ err: true, message: err }, standardMessage));
 
-  const users = await fetch(`${process.env.URL_API}/api/users?pagination[page]=${query[0]}&pagination[pageSize]=10&populate=avatar&sort[1]=createdAt%3Adesc&filters[username][$containsi]=${query[1]}`)
+  const users = await fetch(`${process.env.URL_API}/api/users?pagination[page]=${query[0]}&pagination[pageSize]=10&populate=avatar&sort=views%3Adesc&filters[username][$containsi]=${query[1]}`)
     .then((r) => r.json())
     .then((d) => {
       if (!!d.length) {
@@ -63,7 +63,7 @@ export default async function searchAPI(req: any, res: any) {
     })
     .catch((err) => Object.assign({ err: true, message: err }, standardMessage));
 
-  const tags = await fetch(`${process.env.URL_API}/api/tag?pagination[page]=${query[0]}&pagination[pageSize]=10&populate=cover&sort[1]=createdAt%3Adesc&filters[title][$containsi]=${query[1]}`)
+  const tags = await fetch(`${process.env.URL_API}/api/tag?pagination[page]=${query[0]}&pagination[pageSize]=10&populate=cover&sort=views%3Adesc&filters[title][$containsi]=${query[1]}`)
     .then((r) => r.json())
     .then((d) => {
       if (!!d.data.length) {

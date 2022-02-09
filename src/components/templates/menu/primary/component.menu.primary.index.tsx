@@ -1,4 +1,4 @@
-import lodash from "lodash";
+import { kebabCase, deburr } from "lodash";
 import Link from "next/link";
 import { useContext } from "react";
 import Up from "assets/icon/up.svg";
@@ -9,18 +9,22 @@ import Github from "assets/icon/github.svg";
 import Tiktok from "assets/icon/tiktok.svg";
 import Youtube from "assets/icon/youtube.svg";
 import Comment from "assets/icon/comment.svg";
+import { RootState } from "store/store.index";
 import Instagram from "assets/icon/instagram.svg";
+import { useSelector, useDispatch } from "react-redux";
 import { MenuContext } from "providers/providers.menu";
 import { Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
 import { ButtonInLink } from "components/atoms/button/component.button";
-import { GlobalStyle, Bg, BoxMenu, OffMenu, BoxContent, BoxTypeContent, BoxTypeContentQuantity, Title, List, Tag, SocialMedia } from "./component.menu.primary.style";
+import { GlobalStyle, Bg, BoxMenu, OffMenu, BoxContent, FiltrListContent, FiltrListContentItem, BoxTypeContentQuantity, Title, List, Tag, SocialMedia } from "./component.menu.primary.style";
 
-type MenuPrimaryType = {
-  tags: { id: number; attributes: { title: string } }[];
+type menuPromaryType = {
+  title: string;
+  data: { slug: string; title: string; quantity: number }[];
 };
 
-export default function MenuPrimary({ tags }: MenuPrimaryType) {
+export default function MenuPrimary({ title, data }: menuPromaryType) {
   const { pathname } = useRouter();
+  const story = useSelector((state: RootState) => state);
   const { modeMenu, powerMenu, setPowerMenu } = useContext(MenuContext);
 
   return (
@@ -33,34 +37,38 @@ export default function MenuPrimary({ tags }: MenuPrimaryType) {
           <span></span>
         </OffMenu>
         <BoxContent>
-          <Title>Wybierz</Title>
-          <BoxTypeContent>
-            <ButtonInLink onClick={() => setPowerMenu(false)} href={pathname === "/search" || pathname === "/w/v" ? "/w" : "/"} title="blog" active={pathname === "/" || pathname === "/w" ? true : false}>
-              Wszystko
-            </ButtonInLink>
-            <BoxTypeContentQuantity>0</BoxTypeContentQuantity>
-            <ButtonInLink onClick={() => setPowerMenu(false)} href={pathname === "/w" || pathname === "/w/v" ? "/w" : "/"} title="blog" active={pathname === "/" || pathname === "/w" ? true : false}>
-              Blog
-            </ButtonInLink>
-            <BoxTypeContentQuantity>0</BoxTypeContentQuantity>
-            <ButtonInLink onClick={() => setPowerMenu(false)} href={pathname === "/w" || pathname === "/w/v" ? "/w/v" : "/v"} title="video" active={pathname === "/v" || pathname === "/w/v" ? true : false}>
-              Video
-            </ButtonInLink>
-            <BoxTypeContentQuantity>0</BoxTypeContentQuantity>
-          </BoxTypeContent>
-          <Title>Top tagi</Title>
-          <List>
-            {tags.map((tag, i: number) => (
-              <Tag key={i}>
-                <Link href={`/t/${lodash.kebabCase(lodash.deburr(tag.attributes.title.toLowerCase()))}`}>
-                  <a title={tag.attributes.title}>
-                    <span>#</span>
-                    {tag.attributes.title}
-                  </a>
-                </Link>
-              </Tag>
-            ))}
-          </List>
+          <Title>{title}</Title>
+          <FiltrListContent>
+            {!!data?.length &&
+              data.map((item, i: number) => {
+                return (
+                  <FiltrListContentItem key={i}>
+                    <ButtonInLink onClick={() => setPowerMenu(false)} href={item.slug} title={item.title}>
+                      {item.title}
+                    </ButtonInLink>
+                    <BoxTypeContentQuantity>{item.quantity}</BoxTypeContentQuantity>
+                  </FiltrListContentItem>
+                );
+              })}
+          </FiltrListContent>
+
+          {!!story.tag.all.home.data.length && (
+            <>
+              <Title>Top tagi</Title>
+              <List>
+                {story.tag.all.home.data.map((tag, i: number) => (
+                  <Tag key={i}>
+                    <Link href={`/t/${kebabCase(deburr(tag.attributes.title.toLowerCase()))}`}>
+                      <a title={tag.attributes.title}>
+                        <span>#</span>
+                        {tag.attributes.title}
+                      </a>
+                    </Link>
+                  </Tag>
+                ))}
+              </List>
+            </>
+          )}
           <List>
             <SocialMedia>
               <Link href="https://www.youtube.com">

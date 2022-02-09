@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import initialState from "./store.slice.search.initialState";
 
 export const searchSlice = createSlice({
-  name: " search",
+  name: "search",
   initialState,
   reducers: {
     searchQuery: (state, action: any) => {

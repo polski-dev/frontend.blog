@@ -129,7 +129,7 @@ export const OffMenu = styled.button<ModeType>`
   }
 `;
 
-export const BoxTypeContent = styled.div`
+export const FiltrListContent = styled.div`
   display: flex;
   flex-wrap: wrap;
   padding-bottom: ${({ theme }) => theme.break.big};
@@ -139,6 +139,12 @@ export const BoxTypeContent = styled.div`
     width: calc(100% - 5rem);
     margin-bottom: ${({ theme }) => theme.break.small};
   }
+`;
+
+export const FiltrListContentItem = styled.div`
+  width: 100%;
+  display: flex;
+  position: relative;
 `;
 
 export const BoxTypeContentQuantity = styled.div`

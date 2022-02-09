@@ -8,20 +8,22 @@ import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexbo
 
 import { RootState } from "store/store.index";
 import { useSelector, useDispatch } from "react-redux";
+import { addTag } from "store/slice/tag/store.slice.tag";
 import { addContentAllHome } from "store/slice/content/store.slice.content";
 
-const Home: NextPage = ({ tags, videos, aticles, quantityContent }: any) => {
+const Home: NextPage = ({ tag, content }: any) => {
   const dispatch = useDispatch();
   const { setModeMenu } = useContext(MenuContext);
   const story = useSelector((state: RootState) => state);
 
   useEffect(() => setModeMenu("display"), [setModeMenu]);
   useEffect(() => {
-    // !story.content.all.home.data.length && dispatch(addContentAllHome({ quantity: quantityContent.article }));
-  }, [dispatch, quantityContent, aticles, story]);
+    !story.tag.all.home.data.length && dispatch(addTag({ all: tag }));
+    !story.content.all.home.data.length && dispatch(addContentAllHome(content));
+  }, [dispatch, content, tag, story]);
 
-  if (tags?.err || aticles?.err || videos?.err) return <>Mamy problem z wczytaniem tego widoku spróbuj za 1h</>;
-
+  if (content?.err || tag?.err) return <>Mamy problem z wczytaniem tego widoku spróbuj za 1h</>;
+  console.log(content.all.meta.pagination.total);
   return (
     <>
       <Head>
@@ -29,7 +31,14 @@ const Home: NextPage = ({ tags, videos, aticles, quantityContent }: any) => {
       </Head>
       <Container>
         <Row>
-          {/* <MenuPrimary tags={tags.data} /> */}
+          <MenuPrimary
+            title="Sortuj"
+            data={[
+              { slug: "/", title: "Wszystko", quantity: content.all.meta.pagination.total },
+              { slug: "/a", title: "Artykuły", quantity: content.article.meta.pagination.total },
+              { slug: "/v", title: "Video", quantity: content.video.meta.pagination.total },
+            ]}
+          />
           <Col xs={12} md={9} xl={8}>
             {/* <ShortArticle data={aticles.data} type="article" /> */}
           </Col>
@@ -40,31 +49,21 @@ const Home: NextPage = ({ tags, videos, aticles, quantityContent }: any) => {
   );
 };
 
-// export async function getStaticProps() {
-//   // top tags
-//   const tagsResponse = await fetch(`https://www.polski.dev/api/tags/1`);
-//   const tags = await tagsResponse.json().catch((err) => ({ err: true }));
+export async function getStaticProps() {
+  // tag
+  const tagResponse = await fetch(`https://www.polski.dev/api/tag/1`);
+  const tag = await tagResponse.json().catch((err) => ({ err: true }));
 
-//   // video
-//   const videosResponse = await fetch(`https://www.polski.dev/api/videos/1`);
-//   const videos = await videosResponse.json().catch((err) => ({ err: true }));
+  // content
+  const contentResponse = await fetch(`https://www.polski.dev/api/content/1`);
+  const content = await contentResponse.json().catch((err) => ({ err: true }));
 
-//   // aticle new
-//   const aticlesResponse = await fetch(`https://www.polski.dev/api/articles/1`);
-//   const aticles = await aticlesResponse.json().catch((err) => ({ err: true }));
-
-//   // count content
-//   const quantityContentResponse = await fetch(`https://www.polski.dev/api/count/content/best`);
-//   const quantityContent = await quantityContentResponse.json().catch((err) => ({ err: true }));
-
-//   return {
-//     props: {
-//       tags,
-//       videos,
-//       aticles,
-//       quantityContent,
-//     },
-//   };
-// }
+  return {
+    props: {
+      tag,
+      content,
+    },
+  };
+}
 
 export default Home;

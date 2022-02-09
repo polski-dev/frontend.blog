@@ -1,9 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
+import tagReducer from "./slice/tag/store.slice.tag";
 import searchReducer from "./slice/search/store.slice.search";
 import contentReducer from "./slice/content/store.slice.content";
 
 export const store = configureStore({
-  reducer: { search: searchReducer, content: contentReducer },
+  reducer: { search: searchReducer, content: contentReducer, tag: tagReducer },
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
