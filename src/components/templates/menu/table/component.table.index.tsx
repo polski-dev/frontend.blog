@@ -1,4 +1,4 @@
-import lodash from "lodash";
+import { kebabCase, deburr } from "lodash";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { RootState } from "store/store.index";
@@ -41,7 +41,7 @@ export default function MenuTable({ type }: { type: string }) {
           {data.slice(0, 5).map((item: any, i: number) => {
             return (
               <Item key={i}>
-                <Link href={`/${slug.setContent}/${lodash.kebabCase(lodash.deburr(item.attributes.title.toLowerCase()))}`}>
+                <Link href={`/${slug.setContent}/${kebabCase(deburr(item.attributes.title.toLowerCase()))}`}>
                   <a>
                     <h6>{item.attributes.title}</h6>
                     <p>{item.attributes.author.data.attributes.username}</p>
