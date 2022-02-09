@@ -5,8 +5,8 @@ export default async function contantWaitingroomAPI(req: any, res: any) {
   const { page } = req.query;
   if (!parseInt(page)) res.status(500).json({ err: "wrong page number" });
 
-  const video = await new dataFromAPI(process.env.URL_API, "videoWaitingRoom", parseInt(page)).contentQueryAPI;
-  const article = await new dataFromAPI(process.env.URL_API, "articleWaitingRoom", parseInt(page)).contentQueryAPI;
+  const video = await new dataFromAPI(process.env.URL_API, "videoWaitingRoom").contentQueryAPI(parseInt(page));
+  const article = await new dataFromAPI(process.env.URL_API, "articleWaitingRoom").contentQueryAPI(parseInt(page));
 
   res.status(200).json({
     all: {

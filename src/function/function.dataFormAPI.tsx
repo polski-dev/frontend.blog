@@ -1,3 +1,5 @@
+import { type } from "os";
+
 const standardMessageInitial = {
   data: [],
   meta: {
@@ -23,19 +25,17 @@ type standardMessageType = {
 };
 
 class dataFromAPI {
-  _urlAPI?: string;
   _type: string;
-  _page: number;
+  _urlAPI?: string;
   _standardMessage: standardMessageType;
 
-  constructor(urlAPI: string = "", type: string, page: number) {
-    this._urlAPI = urlAPI;
+  constructor(urlAPI: string = "https://www.polski.dev", type: string) {
     this._type = type;
-    this._page = page;
+    this._urlAPI = urlAPI;
     this._standardMessage = standardMessageInitial;
   }
 
-  async response(link: string) {
+  async queryAPI(link: string) {
     const response = await fetch(link)
       .then((r) => r.json())
       .then((d) => {
@@ -50,63 +50,63 @@ class dataFromAPI {
     return response;
   }
 
-  get contentQuery() {
-    return (async () => {
-      let linkAPI = "";
+  async query(link: string) {
+    const response = await fetch(link)
+      .then((r) => r.json())
+      .then((d) => d)
+      .catch((err) => Object.assign({ err: true, message: err }, this._standardMessage));
 
-      switch (this._type) {
-        case "article":
-          linkAPI = `${this._urlAPI}/api/article?pagination[page]=${this._page}&pagination[pageSize]=10&populate=cover&populate=comments&populate=grades&populate=tags&populate=author&populate[1]=author.avatar&sort[1]=createdAt%3Adesc&filters[waitingroom][$eq]=false`;
-          break;
-        case "articleWaitingRoom":
-          linkAPI = `${this._urlAPI}/api/article?pagination[page]=${this._page}&pagination[pageSize]=10&populate=cover&populate=comments&populate=grades&populate=tags&populate=author&populate[1]=author.avatar&sort[1]=createdAt%3Adesc&filters[waitingroom][$eq]=true`;
-          break;
-        case "video":
-          linkAPI = `${this._urlAPI}/api/videos?pagination[page]=${this._page}&pagination[pageSize]=10&populate=cover&populate=comments&populate=grades&populate=tags&populate=author&populate[1]=author.avatar&sort[1]=createdAt%3Adesc&filters[waitingroom][$eq]=false`;
-          break;
-        case "videoWaitingRoom":
-          linkAPI = `${this._urlAPI}/api/videos?pagination[page]=${this._page}&pagination[pageSize]=10&populate=cover&populate=comments&populate=grades&populate=tags&populate=author&populate[1]=author.avatar&sort[1]=createdAt%3Adesc&filters[waitingroom][$eq]=true`;
-          break;
-      }
-
-      return this.response(linkAPI);
-    })();
+    return response;
   }
 
-  get contentQueryAPI() {
-    return (async () => {
-      let linkAPI = "";
-
-      switch (this._type) {
-        case "article":
-          linkAPI = `${this._urlAPI}/api/article?pagination[page]=${this._page}&pagination[pageSize]=10&populate=cover&populate=comments&populate=grades&populate=tags&populate=author&populate[1]=author.avatar&sort[1]=createdAt%3Adesc&filters[waitingroom][$eq]=false`;
-          break;
-        case "articleWaitingRoom":
-          linkAPI = `${this._urlAPI}/api/article?pagination[page]=${this._page}&pagination[pageSize]=10&populate=cover&populate=comments&populate=grades&populate=tags&populate=author&populate[1]=author.avatar&sort[1]=createdAt%3Adesc&filters[waitingroom][$eq]=true`;
-          break;
-        case "video":
-          linkAPI = `${this._urlAPI}/api/videos?pagination[page]=${this._page}&pagination[pageSize]=10&populate=cover&populate=comments&populate=grades&populate=tags&populate=author&populate[1]=author.avatar&sort[1]=createdAt%3Adesc&filters[waitingroom][$eq]=false`;
-          break;
-        case "videoWaitingRoom":
-          linkAPI = `${this._urlAPI}/api/videos?pagination[page]=${this._page}&pagination[pageSize]=10&populate=cover&populate=comments&populate=grades&populate=tags&populate=author&populate[1]=author.avatar&sort[1]=createdAt%3Adesc&filters[waitingroom][$eq]=true`;
-          break;
-      }
-
-      return this.response(linkAPI);
-    })();
-  }
-
-  get tagQueryAPI() {
+  contentQuery(page: number) {
     return (async () => {
       let linkAPI = "";
 
       switch (this._type) {
         case "all":
-          linkAPI = `${this._urlAPI}/api/tag?pagination[page]=${this._page}&pagination[pageSize]=10&populate=cover&sort=views%3Adesc`;
+          linkAPI = `/api/content/${page}`;
           break;
       }
 
-      return this.response(linkAPI);
+      return this.query(linkAPI);
+    })();
+  }
+
+  contentQueryAPI(page: number) {
+    return (async () => {
+      let linkAPI = "";
+
+      switch (this._type) {
+        case "article":
+          linkAPI = `${this._urlAPI}/api/article?pagination[page]=${page}&pagination[pageSize]=10&populate=cover&populate=comments&populate=grades&populate=tags&populate=author&populate[1]=author.avatar&sort[1]=createdAt%3Adesc&filters[waitingroom][$eq]=false`;
+          break;
+        case "articleWaitingRoom":
+          linkAPI = `${this._urlAPI}/api/article?pagination[page]=${page}&pagination[pageSize]=10&populate=cover&populate=comments&populate=grades&populate=tags&populate=author&populate[1]=author.avatar&sort[1]=createdAt%3Adesc&filters[waitingroom][$eq]=true`;
+          break;
+        case "video":
+          linkAPI = `${this._urlAPI}/api/videos?pagination[page]=${page}&pagination[pageSize]=10&populate=cover&populate=comments&populate=grades&populate=tags&populate=author&populate[1]=author.avatar&sort[1]=createdAt%3Adesc&filters[waitingroom][$eq]=false`;
+          break;
+        case "videoWaitingRoom":
+          linkAPI = `${this._urlAPI}/api/videos?pagination[page]=${page}&pagination[pageSize]=10&populate=cover&populate=comments&populate=grades&populate=tags&populate=author&populate[1]=author.avatar&sort[1]=createdAt%3Adesc&filters[waitingroom][$eq]=true`;
+          break;
+      }
+
+      return this.queryAPI(linkAPI);
+    })();
+  }
+
+  tagQueryAPI(page: number) {
+    return (async () => {
+      let linkAPI = "";
+
+      switch (this._type) {
+        case "all":
+          linkAPI = `${this._urlAPI}/api/tag?pagination[page]=${page}&pagination[pageSize]=10&populate=cover&sort=views%3Adesc`;
+          break;
+      }
+
+      return this.queryAPI(linkAPI);
     })();
   }
 }

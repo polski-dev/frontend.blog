@@ -1,3 +1,3 @@
-import { ShortArticle, ShortVideo } from "./shortArticle/content.shortArticle.index";
+import ListShortArticle from "./listShortArticle/content.listShortArticle.index";
 
-export { ShortArticle, ShortVideo };
+export { ListShortArticle };

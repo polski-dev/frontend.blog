@@ -1,15 +1,14 @@
 import Head from "next/head";
-import type { NextPage } from "next";
+import { NextPage } from "next";
 import { useContext, useEffect } from "react";
-import { MenuContext } from "providers/providers.menu";
-import { ShortArticle } from "components/templates/section/component.section.index";
-import { MenuPrimary, MenuTable } from "components/templates/menu/component.menu.index";
-import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
-
 import { RootState } from "store/store.index";
+import { MenuContext } from "providers/providers.menu";
 import { useSelector, useDispatch } from "react-redux";
 import { addTag } from "store/slice/tag/store.slice.tag";
 import { addContentAllHome } from "store/slice/content/store.slice.content";
+import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
+import { ListShortArticle } from "components/templates/section/component.section.index";
+import { MenuPrimary, MenuTable } from "components/templates/menu/component.menu.index";
 
 const Home: NextPage = ({ tag, content }: any) => {
   const dispatch = useDispatch();
@@ -23,7 +22,7 @@ const Home: NextPage = ({ tag, content }: any) => {
   }, [dispatch, content, tag, story]);
 
   if (content?.err || tag?.err) return <>Mamy problem z wczytaniem tego widoku spróbuj za 1h</>;
-  console.log(content.all.meta.pagination.total);
+
   return (
     <>
       <Head>
@@ -40,7 +39,7 @@ const Home: NextPage = ({ tag, content }: any) => {
             ]}
           />
           <Col xs={12} md={9} xl={8}>
-            {/* <ShortArticle data={aticles.data} type="article" /> */}
+            <ListShortArticle data={content.all.data} type="all" />
           </Col>
           <MenuTable type="video" />
         </Row>

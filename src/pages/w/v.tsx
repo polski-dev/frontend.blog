@@ -2,7 +2,6 @@ import Head from "next/head";
 import type { NextPage } from "next";
 import { useContext, useEffect } from "react";
 import { MenuContext } from "providers/providers.menu";
-import { ShortVideo } from "components/templates/section/component.section.index";
 import { MenuPrimary, MenuTable } from "components/templates/menu/component.menu.index";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
 
