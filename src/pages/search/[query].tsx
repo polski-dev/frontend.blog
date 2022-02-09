@@ -10,7 +10,7 @@ const Search: NextPage = ({ tags, aticles }: any) => {
   const router = useRouter();
   const { query }: any = router.query;
   const { searchQuery, setSearchQuery, searchContent, setSearchContent } = useContext(SearchContext);
-  console.log(tags);
+
   useEffect(() => {
     if (!searchQuery.length && !!query.length) {
       const sendQuery = async () =>
@@ -37,11 +37,11 @@ const Search: NextPage = ({ tags, aticles }: any) => {
       </Head>
       <Container>
         <Row>
-          <MenuPrimary tags={tags.data} />
+          {/* <MenuPrimary title=""/> */}
           <Col xs={12} md={9} xl={8}>
             <p>ok</p>
           </Col>
-          <MenuTable data={aticles.data} title="blog" type="article" />
+          {/* <MenuTable type="article" /> */}
         </Row>
       </Container>
     </>

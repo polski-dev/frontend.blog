@@ -42,7 +42,7 @@ const Home: NextPage = ({ tag, content }: any) => {
           <Col xs={12} md={9} xl={8}>
             {/* <ShortArticle data={aticles.data} type="article" /> */}
           </Col>
-          {/* <MenuTable data={videos.data} title="video" type="video" /> */}
+          <MenuTable type="video" />
         </Row>
       </Container>
     </>

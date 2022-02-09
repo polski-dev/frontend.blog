@@ -43,7 +43,7 @@ export default function MenuPrimary({ title, data }: menuPromaryType) {
               data.map((item, i: number) => {
                 return (
                   <FiltrListContentItem key={i}>
-                    <ButtonInLink onClick={() => setPowerMenu(false)} href={item.slug} title={item.title}>
+                    <ButtonInLink onClick={() => setPowerMenu(false)} href={item.slug} title={item.title} active={pathname === item.slug ? true : false}>
                       {item.title}
                     </ButtonInLink>
                     <BoxTypeContentQuantity>{item.quantity}</BoxTypeContentQuantity>
