@@ -39,10 +39,27 @@ class dataFromAPI {
     const response = await fetch(link)
       .then((r) => r.json())
       .then((d) => {
+        if (this._type === "searchUser") {
+          let user = {
+            data: d,
+            meta: {
+              pagination: {
+                page: 1,
+                pageSize: 10,
+                pageCount: Math.ceil(d.length / 10),
+                total: d.length,
+              },
+            },
+          };
+
+          user.data.forEach((item: any) => (item.type = "user"));
+          return user;
+        }
         if (!!d.data.length) {
-          d.data.forEach((item: any) => (item.type = this._type));
+          d.data.forEach((item: any) => (item.type = this._type === "searchArticle" ? "article" : this._type === "searchVideo" ? "video" : this._type === "searchTag" ? "tag" : this._type));
           return d;
         }
+
         return Object.assign({ type: this._type }, this._standardMessage);
       })
       .catch((err) => Object.assign({ err: true, message: err }, this._standardMessage));
@@ -79,13 +96,16 @@ class dataFromAPI {
         case "articleWaitingRoom":
           linkAPI = `/api/content/article/waitingroom/${page}`;
           break;
+        case "search":
+          linkAPI = `/api/content/article/waitingroom/${page}`;
+          break;
       }
 
       return this.query(linkAPI);
     })();
   }
 
-  contentQueryAPI(page: number) {
+  contentQueryAPI(page: number, query?: string) {
     return (async () => {
       let linkAPI = "";
 
@@ -93,14 +113,33 @@ class dataFromAPI {
         case "article":
           linkAPI = `${this._urlAPI}/api/article?pagination[page]=${page}&pagination[pageSize]=10&populate=cover&populate=comments&populate=grades&populate=tags&populate=author&populate[1]=author.avatar&sort[1]=createdAt%3Adesc&filters[waitingroom][$eq]=false`;
           break;
+
         case "articleWaitingRoom":
           linkAPI = `${this._urlAPI}/api/article?pagination[page]=${page}&pagination[pageSize]=10&populate=cover&populate=comments&populate=grades&populate=tags&populate=author&populate[1]=author.avatar&sort[1]=createdAt%3Adesc&filters[waitingroom][$eq]=true`;
           break;
+
         case "video":
           linkAPI = `${this._urlAPI}/api/videos?pagination[page]=${page}&pagination[pageSize]=10&populate=cover&populate=comments&populate=grades&populate=tags&populate=author&populate[1]=author.avatar&sort[1]=createdAt%3Adesc&filters[waitingroom][$eq]=false`;
           break;
+
         case "videoWaitingRoom":
           linkAPI = `${this._urlAPI}/api/videos?pagination[page]=${page}&pagination[pageSize]=10&populate=cover&populate=comments&populate=grades&populate=tags&populate=author&populate[1]=author.avatar&sort[1]=createdAt%3Adesc&filters[waitingroom][$eq]=true`;
+          break;
+
+        case "searchArticle":
+          linkAPI = `${this._urlAPI}/api/article?pagination[page]=${page}&pagination[pageSize]=10&populate=cover&populate=comments&populate=grades&populate=tags&populate=author&populate[1]=author.avatar&sort=views%3Adesc&filters[title][$containsi]=${query}`;
+          break;
+
+        case "searchVideo":
+          linkAPI = `${this._urlAPI}/api/videos?pagination[page]=${page}&pagination[pageSize]=10&populate=cover&populate=comments&populate=grades&populate=tags&populate=author&populate[1]=author.avatar&sort=views%3Adesc&filters[title][$containsi]=${query}`;
+          break;
+
+        case "searchUser":
+          linkAPI = `${this._urlAPI}/api/users?pagination[page]=${page}&pagination[pageSize]=10&populate=avatar&sort[1]=createdAt%3Adesc&filters[username][$containsi]=${query}`;
+          break;
+
+        case "searchTag":
+          linkAPI = `${this._urlAPI}/api/tag?pagination[page]=${page}&pagination[pageSize]=10&populate=cover&sort=views%3Adesc&filters[title][$containsi]=${query}`;
           break;
       }
 

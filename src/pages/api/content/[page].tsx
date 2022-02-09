@@ -11,12 +11,12 @@ export default async function contantAllAPI(req: any, res: any) {
 
   res.status(200).json({
     all: {
-      data: orderBy([...article.data, ...video.data], ["views"], ["desc"]),
+      data: orderBy([...article.data, ...video.data], ["createdAt"], ["desc"]),
       meta: {
         pagination: {
           page: parseInt(page),
           pageSize: 20,
-          pageCount: Math.ceil((article.meta.pagination.total + video.meta.pagination.total) / 10),
+          pageCount: Math.ceil((article.meta.pagination.total + video.meta.pagination.total) / 10) === 0 ? 1 : Math.ceil((article.meta.pagination.total + video.meta.pagination.total) / 10),
           total: article.meta.pagination.total + video.meta.pagination.total,
         },
       },
