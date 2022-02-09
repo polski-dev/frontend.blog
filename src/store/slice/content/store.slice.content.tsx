@@ -22,20 +22,20 @@ export const contentSlice = createSlice({
       state.video.waitingRoom.meta.pagination = action.payload.video.meta.pagination;
     },
     addContentArticleHome: (state, action: any) => {
-      state.article.home.data = [...state.article.home.data, ...action.payload.article.data];
-      state.article.home.meta.pagination = action.payload.article.meta.pagination;
+      state.article.home.data = [...state.article.home.data, ...action.payload.data];
+      state.article.home.meta.pagination = action.payload.meta.pagination;
     },
     addContentArticleWaitingRoom: (state, action: any) => {
-      state.article.waitingRoom.data = [...state.article.waitingRoom.data, ...action.payload.article.data];
-      state.article.waitingRoom.meta.pagination = action.payload.article.meta.pagination;
+      state.article.waitingRoom.data = [...state.article.waitingRoom.data, ...action.payload.data];
+      state.article.waitingRoom.meta.pagination = action.payload.meta.pagination;
     },
     addContentVideoHome: (state, action: any) => {
-      state.video.home.data = [...state.video.home.data, ...action.payload.video.data];
-      state.video.home.meta.pagination = action.payload.video.meta.pagination;
+      state.video.home.data = [...state.video.home.data, ...action.payload.data];
+      state.video.home.meta.pagination = action.payload.meta.pagination;
     },
     addContentVideoWaitingRoom: (state, action: any) => {
-      state.video.waitingRoom.data = [...state.video.waitingRoom.data, ...action.payload.video.data];
-      state.video.waitingRoom.meta.pagination = action.payload.video.meta.pagination;
+      state.video.waitingRoom.data = [...state.video.waitingRoom.data, ...action.payload.data];
+      state.video.waitingRoom.meta.pagination = action.payload.meta.pagination;
     },
   },
 });

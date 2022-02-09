@@ -22,8 +22,12 @@ export default function SectionShortArticle({ data, type }: any) {
   useEffect(() => {
     function loadArticle() {
       const heightEl: any = articeRef?.current?.getBoundingClientRect().y;
-
       if (type === "all" && story.content.all.home.meta.pagination.page < story.content.all.home.meta.pagination.pageCount && !iAmWaitingForAnswer && heightEl - height < 0) setIamWaitingForAnswer(true);
+      if (type === "allWaitingRoom" && story.content.all.waitingRoom.meta.pagination.page < story.content.all.waitingRoom.meta.pagination.pageCount && !iAmWaitingForAnswer && heightEl - height < 0) setIamWaitingForAnswer(true);
+      if (type === "video" && story.content.video.home.meta.pagination.page < story.content.video.home.meta.pagination.pageCount && !iAmWaitingForAnswer && heightEl - height < 0) setIamWaitingForAnswer(true);
+      if (type === "videoWaitingRoom" && story.content.video.waitingRoom.meta.pagination.page < story.content.video.waitingRoom.meta.pagination.pageCount && !iAmWaitingForAnswer && heightEl - height < 0) setIamWaitingForAnswer(true);
+      if (type === "article" && story.content.article.home.meta.pagination.page < story.content.article.home.meta.pagination.pageCount && !iAmWaitingForAnswer && heightEl - height < 0) setIamWaitingForAnswer(true);
+      if (type === "articleWaitingRoom" && story.content.article.waitingRoom.meta.pagination.page < story.content.article.waitingRoom.meta.pagination.pageCount && !iAmWaitingForAnswer && heightEl - height < 0) setIamWaitingForAnswer(true);
     }
 
     document.addEventListener("scroll", loadArticle);
@@ -33,15 +37,23 @@ export default function SectionShortArticle({ data, type }: any) {
 
   useEffect(() => {
     (async () => {
-      type === "all" && setDataAPI(await API.contentQuery(story.content.all.home.meta.pagination.page + 1));
+      type === "all" && iAmWaitingForAnswer && setDataAPI(await API.contentQuery(story.content.all.home.meta.pagination.page + 1));
+      type === "allWaitingRoom" && iAmWaitingForAnswer && setDataAPI(await API.contentQuery(story.content.all.waitingRoom.meta.pagination.page + 1));
+      type === "video" && iAmWaitingForAnswer && setDataAPI(await API.contentQuery(story.content.video.home.meta.pagination.page + 1));
+      type === "videoWaitingRoom" && iAmWaitingForAnswer && setDataAPI(await API.contentQuery(story.content.video.waitingRoom.meta.pagination.page + 1));
+      type === "article" && iAmWaitingForAnswer && setDataAPI(await API.contentQuery(story.content.article.home.meta.pagination.page + 1));
+      type === "articleWaitingRoom" && iAmWaitingForAnswer && setDataAPI(await API.contentQuery(story.content.article.waitingRoom.meta.pagination.page + 1));
     })();
   }, [iAmWaitingForAnswer, type, story, API]);
 
   useEffect(() => {
-    if (type === "all" && !!dataAPI && iAmWaitingForAnswer) {
-      setIamWaitingForAnswer(false);
-      dispatch(addContentAllHome(dataAPI));
-    }
+    if (type === "all" && !!dataAPI && iAmWaitingForAnswer) dispatch(addContentAllHome(dataAPI));
+    else if (type === "allWaitingRoom" && !!dataAPI && iAmWaitingForAnswer) dispatch(addContentAllWaitingRoom(dataAPI));
+    else if (type === "video" && !!dataAPI && iAmWaitingForAnswer) dispatch(addContentVideoHome(dataAPI));
+    else if (type === "videoWaitingRoom" && !!dataAPI && iAmWaitingForAnswer) dispatch(addContentVideoWaitingRoom(dataAPI));
+    else if (type === "article" && !!dataAPI && iAmWaitingForAnswer) dispatch(addContentArticleHome(dataAPI));
+    else if (type === "articleWaitingRoom" && !!dataAPI && iAmWaitingForAnswer) dispatch(addContentArticleWaitingRoom(dataAPI));
+    if (type === "article" || type === "articleWaitingRoom" || type === "video" || type === "videoWaitingRoom" || (type === "all" && !!dataAPI && iAmWaitingForAnswer)) setIamWaitingForAnswer(false);
   }, [type, dataAPI, dispatch, iAmWaitingForAnswer]);
 
   return (
@@ -52,6 +64,11 @@ export default function SectionShortArticle({ data, type }: any) {
         <ShortArticle data={art.attributes} type={art.type} key={i} ref={articeRef} />
       ))}
       {type === "all" && story.content.all.home.data.slice(data.length).map((art: any, i: number) => <ShortArticle data={art.attributes} type={art.type} key={i} ref={articeRef} />)}
+      {type === "allWaitingRoom" && story.content.all.waitingRoom.data.slice(data.length).map((art: any, i: number) => <ShortArticle data={art.attributes} type={art.type} key={i} ref={articeRef} />)}
+      {type === "video" && story.content.video.home.data.slice(data.length).map((art: any, i: number) => <ShortArticle data={art.attributes} type={art.type} key={i} ref={articeRef} />)}
+      {type === "videoWaitingRoom" && story.content.video.waitingRoom.data.slice(data.length).map((art: any, i: number) => <ShortArticle data={art.attributes} type={art.type} key={i} ref={articeRef} />)}
+      {type === "article" && story.content.article.home.data.slice(data.length).map((art: any, i: number) => <ShortArticle data={art.attributes} type={art.type} key={i} ref={articeRef} />)}
+      {type === "articleWaitingRoom" && story.content.article.waitingRoom.data.slice(data.length).map((art: any, i: number) => <ShortArticle data={art.attributes} type={art.type} key={i} ref={articeRef} />)}
 
       {iAmWaitingForAnswer ? (
         <>

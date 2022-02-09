@@ -67,6 +67,18 @@ class dataFromAPI {
         case "all":
           linkAPI = `/api/content/${page}`;
           break;
+        case "video":
+          linkAPI = `/api/content/video/${page}`;
+          break;
+        case "videoWaitingRoom":
+          linkAPI = `/api/content/video/waitingroom/${page}`;
+          break;
+        case "article":
+          linkAPI = `/api/content/article/${page}`;
+          break;
+        case "articleWaitingRoom":
+          linkAPI = `/api/content/article/waitingroom/${page}`;
+          break;
       }
 
       return this.query(linkAPI);

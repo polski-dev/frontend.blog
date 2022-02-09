@@ -34,13 +34,13 @@ const Home: NextPage = ({ tag, content }: any) => {
           <MenuPrimary
             title="Filtruj"
             data={[
-              { slug: "/", title: "Wszystko", quantity: content.all.meta.pagination.total },
-              { slug: "/a", title: "Artykuły", quantity: content.article.meta.pagination.total },
-              { slug: "/v", title: "Video", quantity: content.video.meta.pagination.total },
+              { slug: "/w", title: "Wszystko", quantity: content.all.meta.pagination.total },
+              { slug: "/w/a", title: "Artykuły", quantity: content.article.meta.pagination.total },
+              { slug: "/w/v", title: "Video", quantity: content.video.meta.pagination.total },
             ]}
           />
           <Col xs={12} md={9} xl={8}>
-            <ListShortArticle data={content.all.data} type="all" />
+            <ListShortArticle data={content.article.data} type="articleWaitingRoom" />
           </Col>
           <MenuTable type="video" />
         </Row>
@@ -55,7 +55,7 @@ export async function getStaticProps() {
   const tag = await tagResponse.json().catch((err) => ({ err: true }));
 
   // content
-  const contentResponse = await fetch(`https://www.polski.dev/api/content/1`);
+  const contentResponse = await fetch(`https://www.polski.dev/api/content/waitingroom/1`);
   const content = await contentResponse.json().catch((err) => ({ err: true }));
 
   return {

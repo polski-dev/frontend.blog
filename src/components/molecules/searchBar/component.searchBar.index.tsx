@@ -31,12 +31,10 @@ export default function SearchBar() {
           await fetch(`/api/search/1/${searchQuery}`)
             .then((data) => data.json())
             .then((result) => {
-              console.log(result);
               setSearchContent(result);
             })
             .catch((err) => {
               setSearchContent([]);
-              console.log({ err: err });
             }),
         300
       );
@@ -77,14 +75,9 @@ export default function SearchBar() {
         {searchContent.all.data.length && (
           <>
             {searchContent.all.data.slice(0, 5).map((item: any, i: number) => {
-              console.log(item.type);
               return (
                 <Item key={i}>
-                  <Link
-                    href={`${new getSlug(item.type).setContent}/${
-                      item.type === "user" ? lodash.kebabCase(lodash.deburr(item.username.toLowerCase())) : lodash.kebabCase(lodash.deburr(item.attributes.title.toLowerCase()))
-                    }`}
-                  >
+                  <Link href={`${new getSlug(item.type).setContent}/${item.type === "user" ? lodash.kebabCase(lodash.deburr(item.username.toLowerCase())) : lodash.kebabCase(lodash.deburr(item.attributes.title.toLowerCase()))}`}>
                     <a>
                       {!!item?.attributes?.cover?.data?.attributes?.formats?.thumbnail?.url ? (
                         <IconBox style={{ backgroundImage: `url(${item.attributes.cover.data.attributes.formats.thumbnail.url})` }} />

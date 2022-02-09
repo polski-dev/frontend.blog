@@ -40,7 +40,7 @@ const Home: NextPage = ({ tag, content }: any) => {
             ]}
           />
           <Col xs={12} md={9} xl={8}>
-            <ListShortArticle data={content.all.data} type="all" />
+            <ListShortArticle data={content.article.data} type="article" />
           </Col>
           <MenuTable type="video" />
         </Row>
