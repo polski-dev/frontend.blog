@@ -58,7 +58,14 @@ export default function SectionShortArticle({ data, type }: any) {
 
   return (
     <Section>
-      <Title>Blog</Title>
+      <Title>
+        {type === "all" && "Blog"}
+        {type === "allWaitingRoom" && "Poczekalnia"}
+        {type === "video" && "Video"}
+        {type === "videoWaitingRoom" && "Poczekalnia video"}
+        {type === "article" && "Artykuły"}
+        {type === "articleWaitingRoom" && "Poczekalnia artykułów"}
+      </Title>
       <Options></Options>
       {data.map((art: any, i: number) => (
         <ShortArticle data={art.attributes} type={art.type} key={i} ref={articeRef} />
