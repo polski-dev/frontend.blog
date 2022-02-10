@@ -1,4 +1,4 @@
-export type SliceContentType = {
+export type SliceSearchType = {
   data: any[];
   meta: {
     pagination: {
@@ -10,13 +10,11 @@ export type SliceContentType = {
   };
 };
 
-export type AllContentStateType = {
+export type SearchStateType = {
   query: string;
-  all: {
-    home: SliceContentType;
-  };
-  article: {
-    home: SliceContentType;
-  };
-  video: { home: SliceContentType };
+  all: SliceSearchType;
+  article: SliceSearchType;
+  video: SliceSearchType;
+  tag: SliceSearchType;
+  user: SliceSearchType;
 };

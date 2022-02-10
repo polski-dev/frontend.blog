@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const Section = styled.section`
   display: flex;
@@ -17,11 +17,11 @@ export const Options = styled.div`
 `;
 
 export const Article = styled.article`
+  width: 100%;
   overflow: hidden;
   position: relative;
   border-radius: 0.6rem;
   margin-bottom: ${({ theme }) => theme.break.big};
-  padding-bottom: ${({ theme }) => theme.break.main};
   background-color: ${({ theme }) => theme.colorPostBg};
 
   .img {
@@ -45,6 +45,7 @@ export const BoxContent = styled.div`
   width: 100%;
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   padding: ${({ theme }) => theme.break.main};
 
   .btnMore {
@@ -55,11 +56,20 @@ export const BoxContent = styled.div`
       margin-top: 0;
     }
   }
+
+  .btnUser {
+    margin: auto 0 auto auto;
+  }
+
+  .btnTag {
+    margin: auto 0 auto auto;
+  }
 `;
+
 export const BoxAuthor = styled.div`
   width: 100%;
   display: flex;
-  margin-bottom: ${({ theme }) => theme.break.main};
+  margin: ${({ theme }) => theme.break.main} 0;
 `;
 
 export const BoxAuthorImg = styled.div`
@@ -95,13 +105,28 @@ export const DateAdded = styled.p`
   color: ${({ theme }) => theme.colorTextDesactive};
 `;
 
-export const TitleArticle = styled.h3`
+type TagType = {
+  tag?: boolean;
+};
+
+export const TitleArticle = styled.h3<TagType>`
   width: 100%;
-  display: block;
+  display: flex;
   position: relative;
 
+  span {
+    opacity: 0.3;
+  }
+
   @media all and (min-width: 768px) {
-    padding-left: 4.95rem;
+    ${({ tag }) =>
+      tag
+        ? css`
+            padding: 0;
+          `
+        : css`
+            padding: 0 4.95rem;
+          `}
   }
 `;
 
@@ -178,4 +203,17 @@ export const BoxInformation = styled.div`
 export const Info = styled.h4`
   max-width: 50rem;
   text-align: center;
+`;
+
+export const NotFound = styled.div`
+  width: 100%;
+  display: flex;
+  font-size: 2.4rem;
+  font-weight: bold;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  border-radius: 0.6rem;
+  justify-content: center;
+  height: calc(100vh - 20rem);
+  background-color: ${({ theme }) => theme.colorPostBg};
 `;

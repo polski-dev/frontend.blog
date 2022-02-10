@@ -1,3 +1,3 @@
-import ListShortArticle from "./listShortArticle/content.listShortArticle.index";
+import ListShortArticle from "./listShortArticle/component.listShortArticle.index";
 
 export { ListShortArticle };

@@ -37,20 +37,24 @@ export default function MenuPrimary({ title, data }: menuPromaryType) {
           <span></span>
         </OffMenu>
         <BoxContent>
-          <Title>{title}</Title>
-          <FiltrListContent>
-            {!!data?.length &&
-              data.map((item, i: number) => {
-                return (
-                  <FiltrListContentItem key={i}>
-                    <ButtonInLink onClick={() => setPowerMenu(false)} href={item.slug} title={item.title} active={pathname === item.slug ? true : false}>
-                      {item.title}
-                    </ButtonInLink>
-                    <BoxTypeContentQuantity>{item.quantity}</BoxTypeContentQuantity>
-                  </FiltrListContentItem>
-                );
-              })}
-          </FiltrListContent>
+          {!!data?.length && data.filter((item) => !!item.quantity).length ? (
+            <>
+              <Title>{title}</Title>
+              <FiltrListContent>
+                {data.map((item, i: number) => {
+                  if (!!item.quantity)
+                    return (
+                      <FiltrListContentItem key={i}>
+                        <ButtonInLink onClick={() => setPowerMenu(false)} href={item.slug} title={item.title} active={pathname === item.slug ? true : false}>
+                          {item.title}
+                        </ButtonInLink>
+                        <BoxTypeContentQuantity>{item.quantity}</BoxTypeContentQuantity>
+                      </FiltrListContentItem>
+                    );
+                })}
+              </FiltrListContent>
+            </>
+          ) : null}
 
           {!!story.tag.all.home.data.length && (
             <>

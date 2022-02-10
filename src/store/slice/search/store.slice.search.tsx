@@ -5,26 +5,34 @@ export const searchSlice = createSlice({
   name: "search",
   initialState,
   reducers: {
-    searchQuery: (state, action: any) => {
+    addNewSearchQuery: (state, action: any) => {
       state.query = action.payload.query;
-      state.all.home.data = action.payload.all.data;
-      state.all.home.meta.pagination = action.payload.all.data.pagination;
-      state.article.home.data = action.payload.article.data;
-      state.article.home.meta.pagination = action.payload.article.data.pagination;
-      state.video.home.data = action.payload.video.data;
-      state.video.home.meta.pagination = action.payload.video.data.pagination;
+      state.all.data = action.payload.all.data;
+      state.all.meta.pagination = action.payload.all.meta.pagination;
+      state.article.data = action.payload.article.data;
+      state.article.meta.pagination = action.payload.article.meta.pagination;
+      state.video.data = action.payload.video.data;
+      state.video.meta.pagination = action.payload.video.meta.pagination;
+      state.user.data = action.payload.user.data;
+      state.user.meta.pagination = action.payload.user.meta.pagination;
+      state.tag.data = action.payload.tag.data;
+      state.tag.meta.pagination = action.payload.tag.meta.pagination;
     },
-    addNextFoundContentQuery: (state, action: any) => {
-      state.all.home.data = [...state.all.home.data, ...action.payload.all.data];
-      state.all.home.meta.pagination = state.all.home.meta.pagination;
-      state.article.home.data = [...state.article.home.data, ...action.payload.article.data];
-      state.article.home.meta.pagination = action.payload.article.data.pagination;
-      state.video.home.data = [...state.video.home.data, ...action.payload.video.data];
-      state.video.home.meta.pagination = action.payload.video.data.pagination;
+    addSearchQuery: (state, action: any) => {
+      state.all.data = [...state.all.data, ...action.payload.all.data];
+      state.all.meta.pagination = state.all.meta.pagination;
+      state.article.data = [...state.article.data, ...action.payload.article.data];
+      state.article.meta.pagination = action.payload.article.data.pagination;
+      state.video.data = [...state.video.data, ...action.payload.video.data];
+      state.video.meta.pagination = action.payload.video.data.pagination;
+      state.user.data = [...state.user.data, ...action.payload.user.data];
+      state.user.meta.pagination = action.payload.user.data.pagination;
+      state.tag.data = [...state.tag.data, ...action.payload.tag.data];
+      state.tag.meta.pagination = action.payload.tag.data.pagination;
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { searchQuery, addNextFoundContentQuery } = searchSlice.actions;
+export const { addNewSearchQuery, addSearchQuery } = searchSlice.actions;
 export default searchSlice.reducer;

@@ -8,7 +8,7 @@ export type GlobalContentMenu = {
 };
 
 export const MenuContext = createContext<GlobalContentMenu>({
-  modeMenu: "hidde",
+  modeMenu: "display",
   setModeMenu: () => {},
   powerMenu: false,
   setPowerMenu: () => {},
@@ -19,7 +19,7 @@ type ProviderMenuType = {
 };
 
 export default function ProviderMenu({ children }: ProviderMenuType) {
-  const [modeMenu, setModeMenu] = useState("hidde");
+  const [modeMenu, setModeMenu] = useState("display");
   const [powerMenu, setPowerMenu] = useState(false);
 
   return (

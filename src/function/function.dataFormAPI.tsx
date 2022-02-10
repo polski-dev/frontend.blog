@@ -76,7 +76,7 @@ class dataFromAPI {
     return response;
   }
 
-  contentQuery(page: number) {
+  contentQuery(page: number, query?: string) {
     return (async () => {
       let linkAPI = "";
 
@@ -97,7 +97,7 @@ class dataFromAPI {
           linkAPI = `/api/content/article/waitingroom/${page}`;
           break;
         case "search":
-          linkAPI = `/api/content/article/waitingroom/${page}`;
+          linkAPI = `/api/search/${page}/${query}`;
           break;
       }
 

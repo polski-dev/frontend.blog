@@ -2,7 +2,6 @@ import Head from "next/head";
 import { NextPage } from "next";
 import { useContext, useEffect } from "react";
 import { RootState } from "store/store.index";
-
 import { MenuContext } from "providers/providers.menu";
 import { useSelector, useDispatch } from "react-redux";
 import { addTag } from "store/slice/tag/store.slice.tag";

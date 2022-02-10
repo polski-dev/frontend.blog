@@ -1,43 +1,59 @@
-import { SliceContentType, AllContentStateType } from "./store.slice.search.type";
+import { SearchStateType } from "./store.slice.search.type";
 
-const initialState: AllContentStateType = {
+const initialState: SearchStateType = {
   query: "",
   all: {
-    home: {
-      data: [],
-      meta: {
-        pagination: {
-          page: 1,
-          pageSize: 10,
-          pageCount: 1,
-          total: 0,
-        },
+    data: [],
+    meta: {
+      pagination: {
+        page: 1,
+        pageSize: 10,
+        pageCount: 1,
+        total: 0,
       },
     },
   },
   article: {
-    home: {
-      data: [],
-      meta: {
-        pagination: {
-          page: 1,
-          pageSize: 10,
-          pageCount: 1,
-          total: 0,
-        },
+    data: [],
+    meta: {
+      pagination: {
+        page: 1,
+        pageSize: 10,
+        pageCount: 1,
+        total: 0,
       },
     },
   },
   video: {
-    home: {
-      data: [],
-      meta: {
-        pagination: {
-          page: 1,
-          pageSize: 10,
-          pageCount: 1,
-          total: 0,
-        },
+    data: [],
+    meta: {
+      pagination: {
+        page: 1,
+        pageSize: 10,
+        pageCount: 1,
+        total: 0,
+      },
+    },
+  },
+  user: {
+    data: [],
+    meta: {
+      pagination: {
+        page: 1,
+        pageSize: 10,
+        pageCount: 1,
+        total: 0,
+      },
+    },
+  },
+  tag: {
+    data: [],
+    meta: {
+      pagination: {
+        page: 1,
+        pageSize: 10,
+        pageCount: 1,
+        total: 0,
       },
     },
   },
