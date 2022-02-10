@@ -17,12 +17,12 @@ const ContentShortArticle = React.forwardRef(({ data, type }: any, ref: any) => 
     <Article ref={ref}>
       <Link href={`/${slug}/${kebabCase(deburr(data.title.toLowerCase()))}`} passHref>
         <a title={data.title} className="img">
-          {data.cover && <Image width={930} height={300} placeholder="blur" blurDataURL="/img/blur.png" alt={data.title} src={data.cover.data.attributes.url} />}
+          {data.cover && <Image width={930} height={300} alt={data.title} src={data.cover.data.attributes.url} />}
         </a>
       </Link>
       <BoxContent>
         <BoxAuthor>
-          <BoxAuthorImg>{data.author && <Image width={42} height={42} placeholder="blur" blurDataURL="/img/blur.png" alt={data.author.data.attributes.username} src={data.author.data.attributes.avatar.data.attributes.url} />}</BoxAuthorImg>
+          <BoxAuthorImg>{data.author && <Image width={42} height={42} alt={data.author.data.attributes.username} src={data.author.data.attributes.avatar.data.attributes.url} />}</BoxAuthorImg>
           <AuthorData>
             <Link href={`/${new setSlug("user").setContent}/${kebabCase(deburr(data.author.data.attributes.username.toLowerCase()))}`}>
               <a title={data.author.data.attributes.username}>
