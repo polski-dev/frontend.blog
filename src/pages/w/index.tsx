@@ -1,28 +1,12 @@
 import Head from "next/head";
 import { NextPage } from "next";
-import { useContext, useEffect } from "react";
-import { RootState } from "store/store.index";
-
-import { MenuContext } from "providers/providers.menu";
-import { useSelector, useDispatch } from "react-redux";
-import { addTag } from "store/slice/tag/store.slice.tag";
-import { addContentAllHome } from "store/slice/content/store.slice.content";
+import { useEffect } from "react";
+import useDispatchTagToStore from "hooks/hooks.dispatchTagToStore";
+import { MenuPrimary } from "components/templates/menu/component.menu.index";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
 import { ListShortArticle } from "components/templates/section/component.section.index";
-import { MenuPrimary, MenuTable } from "components/templates/menu/component.menu.index";
-
 const Home: NextPage = ({ tag, content }: any) => {
-  const dispatch = useDispatch();
-  const { setModeMenu } = useContext(MenuContext);
-  const story = useSelector((state: RootState) => state);
-
-  useEffect(() => setModeMenu("display"), [setModeMenu]);
-  useEffect(() => {
-    !story.tag.all.home.data.length && !!tag.data.length && dispatch(addTag({ all: tag }));
-    !story.content.all.home.data.length && !!content.all.data && dispatch(addContentAllHome(content));
-  }, [dispatch, content, tag, story]);
-
-  if (content?.err || tag?.err) return <>Mamy problem z wczytaniem tego widoku spróbuj za 1h</>;
+  useDispatchTagToStore().updateTagHome(tag);
 
   return (
     <>
@@ -39,10 +23,9 @@ const Home: NextPage = ({ tag, content }: any) => {
               { slug: "/w/v", title: "Video", quantity: content.video.meta.pagination.total },
             ]}
           />
-          <Col xs={12} md={9} xl={8}>
+          <Col xs={12} md={9}>
             <ListShortArticle data={content.all.data} type="allWaitingRoom" />
           </Col>
-          <MenuTable type="video" />
         </Row>
       </Container>
     </>

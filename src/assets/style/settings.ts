@@ -29,7 +29,7 @@ const settings: MainSettingsTemplate = {
   gridCol: 12,
 
   // settings max width
-  max_width: "144rem",
+  max_width: "128rem",
 };
 
 export default settings;

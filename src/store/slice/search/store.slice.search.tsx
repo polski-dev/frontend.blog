@@ -20,15 +20,15 @@ export const searchSlice = createSlice({
     },
     addSearchQuery: (state, action: any) => {
       state.all.data = [...state.all.data, ...action.payload.all.data];
-      state.all.meta.pagination = state.all.meta.pagination;
+      state.all.meta.pagination.page = state.all.meta.pagination.page;
       state.article.data = [...state.article.data, ...action.payload.article.data];
-      state.article.meta.pagination = action.payload.article.data.pagination;
+      state.article.meta.pagination.page = action.payload.article.data.pagination.page;
       state.video.data = [...state.video.data, ...action.payload.video.data];
-      state.video.meta.pagination = action.payload.video.data.pagination;
+      state.video.meta.pagination.page = action.payload.video.data.pagination.page;
       state.user.data = [...state.user.data, ...action.payload.user.data];
-      state.user.meta.pagination = action.payload.user.data.pagination;
+      state.user.meta.pagination.page = action.payload.user.data.pagination.page;
       state.tag.data = [...state.tag.data, ...action.payload.tag.data];
-      state.tag.meta.pagination = action.payload.tag.data.pagination;
+      state.tag.meta.pagination.page = action.payload.tag.data.pagination.page;
     },
   },
 });

@@ -1,10 +1,10 @@
-import { kebabCase, deburr } from "lodash";
 import Link from "next/link";
 import { useContext } from "react";
 import Up from "assets/icon/up.svg";
 import User from "assets/icon/user.svg";
 import Time from "assets/icon/time.svg";
 import { useRouter } from "next/router";
+import { kebabCase, deburr } from "lodash";
 import Github from "assets/icon/github.svg";
 import Tiktok from "assets/icon/tiktok.svg";
 import Youtube from "assets/icon/youtube.svg";
@@ -13,8 +13,8 @@ import { RootState } from "store/store.index";
 import Instagram from "assets/icon/instagram.svg";
 import { useSelector, useDispatch } from "react-redux";
 import { MenuContext } from "providers/providers.menu";
-import { Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
 import { ButtonInLink } from "components/atoms/button/component.button";
+import { ItemLoad } from "components/atoms/animation/comonent.animation.index";
 import { GlobalStyle, Bg, BoxMenu, OffMenu, BoxContent, FiltrListContent, FiltrListContentItem, BoxTypeContentQuantity, Title, List, Tag, SocialMedia } from "./component.menu.primary.style";
 
 type menuPromaryType = {
@@ -25,14 +25,14 @@ type menuPromaryType = {
 export default function MenuPrimary({ title, data }: menuPromaryType) {
   const { asPath } = useRouter();
   const story = useSelector((state: RootState) => state);
-  const { modeMenu, powerMenu, setPowerMenu } = useContext(MenuContext);
+  const { powerMenu, setPowerMenu } = useContext(MenuContext);
 
   return (
     <>
       <GlobalStyle power={powerMenu} />
       <Bg power={powerMenu} />
-      <BoxMenu mode={modeMenu} power={powerMenu}>
-        <OffMenu mode={modeMenu} onClick={() => setPowerMenu(false)}>
+      <BoxMenu power={powerMenu}>
+        <OffMenu onClick={() => setPowerMenu(false)}>
           <span></span>
           <span></span>
         </OffMenu>
@@ -56,23 +56,26 @@ export default function MenuPrimary({ title, data }: menuPromaryType) {
             </>
           ) : null}
 
-          {!!story.tag.all.home.data.length && (
-            <>
-              <Title>Top tagi</Title>
-              <List>
-                {story.tag.all.home.data.map((tag, i: number) => (
-                  <Tag key={i}>
-                    <Link href={`/t/${kebabCase(deburr(tag.attributes.title.toLowerCase()))}`}>
-                      <a title={tag.attributes.title}>
-                        <span>#</span>
-                        {tag.attributes.title}
-                      </a>
-                    </Link>
-                  </Tag>
-                ))}
-              </List>
-            </>
-          )}
+          <>
+            <Title>Top tagi</Title>
+            <List>
+              {!!story.tag.home.data.length
+                ? story.tag.home.data.slice(0, 5).map((tag, i: number) => (
+                    <Tag key={i}>
+                      <Link href={`/t/${kebabCase(deburr(tag.attributes.title.toLowerCase()))}`}>
+                        <a title={tag.attributes.title}>
+                          <span>#</span>
+                          {tag.attributes.title}
+                        </a>
+                      </Link>
+                    </Tag>
+                  ))
+                : new Array(5).fill(undefined).map((item: undefined, i: number) => {
+                    return <ItemLoad height={2} key={i} last={i === 4 ? true : false} />;
+                  })}
+            </List>
+          </>
+
           <List>
             <SocialMedia>
               <Link href="https://www.youtube.com">

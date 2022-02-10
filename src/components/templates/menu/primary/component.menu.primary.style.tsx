@@ -1,9 +1,5 @@
 import styled, { css, createGlobalStyle } from "styled-components";
 
-export type ModeType = {
-  mode: string;
-};
-
 type PowerType = {
   power: boolean;
   mode?: string;
@@ -38,21 +34,6 @@ export const BoxMenu = styled.div<PowerType>`
   background-color: ${({ theme, mode }) => theme.colorMainBg};
   padding: ${({ theme }) => theme.break.big} ${({ theme }) => theme.break.main};
 
-  ${({ mode, power, theme }) =>
-    mode === "hide" &&
-    css`
-      @media all and (min-width: 768px) {
-        z-index: 999 !important;
-        width: 30rem !important;
-        height: 100vh !important;
-        position: fixed !important;
-        overflow: hidden !important;
-        left: ${power ? "0rem" : "-30rem"} !important;
-        background-color: ${theme.colorMainBg} !important;
-        padding: ${({ theme }) => theme.break.big} ${({ theme }) => theme.break.main} !important;
-      }
-    `}
-
   ${({ theme }) => css`
     @media all and (min-width: ${theme.breakPoint[theme.breakPoint.findIndex((item: any) => item.type === "md")].break}) {
       left: 0;
@@ -67,13 +48,6 @@ export const BoxMenu = styled.div<PowerType>`
       padding: ${({ theme }) => theme.break.big} 0 ${({ theme }) => theme.break.big} ${({ theme }) => theme.break.main};
     }
   `}
-
-  ${({ theme }) => css`
-    @media all and (min-width: ${theme.breakPoint[theme.breakPoint.findIndex((item: any) => item.type === "xl")].break}) {
-      flex: ${(100 * 2) / theme.gridCol}%;
-      max-width: ${(100 * 2) / theme.gridCol}%;
-    }
-  `}
 `;
 
 export const BoxContent = styled.div`
@@ -82,7 +56,7 @@ export const BoxContent = styled.div`
   top: ${({ theme }) => theme.break.big};
 `;
 
-export const OffMenu = styled.button<ModeType>`
+export const OffMenu = styled.button`
   padding: 0;
   border: none;
   height: 2rem;
@@ -93,15 +67,11 @@ export const OffMenu = styled.button<ModeType>`
   transition: all 0.3s all;
   background-color: transparent;
   top: ${({ theme }) => theme.break.main};
-  right: ${({ theme }) => theme.break.main};
+  left: ${({ theme }) => theme.break.main};
 
-  ${({ mode }) =>
-    mode !== "hide" &&
-    css`
-      @media all and (min-width: 768px) {
-        display: none;
-      }
-    `}
+  @media all and (min-width: 768px) {
+    display: none;
+  }
 
   span {
     width: 100%;
@@ -136,7 +106,7 @@ export const FiltrListContent = styled.div`
 
   a {
     text-align: center;
-    width: calc(100% - 5rem);
+    width: calc(100% - 8rem);
     margin-bottom: ${({ theme }) => theme.break.small};
   }
 `;
@@ -144,7 +114,6 @@ export const FiltrListContent = styled.div`
 export const FiltrListContentItem = styled.div`
   width: 100%;
   display: flex;
-  position: relative;
 `;
 
 export const BoxTypeContentQuantity = styled.div`

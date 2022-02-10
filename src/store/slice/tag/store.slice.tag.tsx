@@ -1,17 +1,16 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import initialState from "./store.slice.tag.initialState";
+import initialState from "initialState/initialState.tag";
 
 export const tagSlice = createSlice({
   name: "tag",
   initialState,
   reducers: {
-    addTag: (state, action: any) => {
-      state.all.home.data = action.payload.all.data;
-      state.all.home.meta.pagination = action.payload.all.data.pagination;
+    addTagHome: (state, action: any) => {
+      state.home = action.payload.home;
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { addTag } = tagSlice.actions;
+export const { addTagHome } = tagSlice.actions;
 export default tagSlice.reducer;

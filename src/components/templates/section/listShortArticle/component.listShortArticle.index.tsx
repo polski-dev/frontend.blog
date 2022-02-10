@@ -36,20 +36,19 @@ export default function SectionShortArticle({ data, type }: any) {
     let check = setTimeout(() => {}, 500);
 
     function loadArticle() {
-      console.log(story.search.article.meta.pagination.page);
       clearTimeout(check);
       check = setTimeout(() => {
         const heightEl: any = articeRef?.current?.getBoundingClientRect().y;
-        if (type === "all" && story.content.all.home.meta.pagination.page < story.content.all.home.meta.pagination.pageCount && !iAmWaitingForAnswer && heightEl - height < 0) setIamWaitingForAnswer(true);
-        else if (type === "allWaitingRoom" && story.content.all.waitingRoom.meta.pagination.page < story.content.all.waitingRoom.meta.pagination.pageCount && !iAmWaitingForAnswer && heightEl - height < 0) setIamWaitingForAnswer(true);
-        else if (type === "video" && story.content.video.home.meta.pagination.page < story.content.video.home.meta.pagination.pageCount && !iAmWaitingForAnswer && heightEl - height < 0) setIamWaitingForAnswer(true);
-        else if (type === "videoWaitingRoom" && story.content.video.waitingRoom.meta.pagination.page < story.content.video.waitingRoom.meta.pagination.pageCount && !iAmWaitingForAnswer && heightEl - height < 0) setIamWaitingForAnswer(true);
-        else if (type === "article" && story.content.article.home.meta.pagination.page < story.content.article.home.meta.pagination.pageCount && !iAmWaitingForAnswer && heightEl - height < 0) setIamWaitingForAnswer(true);
-        else if (type === "articleWaitingRoom" && story.content.article.waitingRoom.meta.pagination.page < story.content.article.waitingRoom.meta.pagination.pageCount && !iAmWaitingForAnswer && heightEl - height < 0) setIamWaitingForAnswer(true);
-        else if (type === "search" && story.search.all.meta.pagination.page < story.search.all.meta.pagination.pageCount && !iAmWaitingForAnswer && heightEl - height < 0) setIamWaitingForAnswer(true);
-        else if (type === "searchVideo" && story.search.video.meta.pagination.page < story.search.video.meta.pagination.pageCount && !iAmWaitingForAnswer && heightEl - height < 0) setIamWaitingForAnswer(true);
-        else if (type === "searchTag" && story.search.tag.meta.pagination.page < story.search.tag.meta.pagination.pageCount && !iAmWaitingForAnswer && heightEl - height < 0) setIamWaitingForAnswer(true);
-        else if (type === "searchArticle" && story.search.article.meta.pagination.page < story.search.article.meta.pagination.pageCount && !iAmWaitingForAnswer && heightEl - height < 0) setIamWaitingForAnswer(true);
+        if (type === "all" && story?.content.all.home.meta.pagination.page < story?.content.all.home.meta.pagination.pageCount && !iAmWaitingForAnswer && heightEl - height < 0) setIamWaitingForAnswer(true);
+        else if (type === "allWaitingRoom" && story?.content.all.waitingRoom.meta.pagination.page < story?.content.all.waitingRoom.meta.pagination.pageCount && !iAmWaitingForAnswer && heightEl - height < 0) setIamWaitingForAnswer(true);
+        else if (type === "video" && story?.content.video.home.meta.pagination.page < story?.content.video.home.meta.pagination.pageCount && !iAmWaitingForAnswer && heightEl - height < 0) setIamWaitingForAnswer(true);
+        else if (type === "videoWaitingRoom" && story?.content.video.waitingRoom.meta.pagination.page < story?.content.video.waitingRoom.meta.pagination.pageCount && !iAmWaitingForAnswer && heightEl - height < 0) setIamWaitingForAnswer(true);
+        else if (type === "article" && story?.content.article.home.meta.pagination.page < story?.content.article.home.meta.pagination.pageCount && !iAmWaitingForAnswer && heightEl - height < 0) setIamWaitingForAnswer(true);
+        else if (type === "articleWaitingRoom" && story?.content.article.waitingRoom.meta.pagination.page < story?.content.article.waitingRoom.meta.pagination.pageCount && !iAmWaitingForAnswer && heightEl - height < 0) setIamWaitingForAnswer(true);
+        else if (type === "search" && story?.search.all.meta.pagination.page < story?.search.all.meta.pagination.pageCount && !iAmWaitingForAnswer && heightEl - height < 0) setIamWaitingForAnswer(true);
+        else if (type === "searchVideo" && story?.search.video.meta.pagination.page < story?.search.video.meta.pagination.pageCount && !iAmWaitingForAnswer && heightEl - height < 0) setIamWaitingForAnswer(true);
+        else if (type === "searchTag" && story?.search.tag.meta.pagination.page < story?.search.tag.meta.pagination.pageCount && !iAmWaitingForAnswer && heightEl - height < 0) setIamWaitingForAnswer(true);
+        else if (type === "searchArticle" && story?.search.article?.meta.pagination.page < story?.search.article.meta.pagination.pageCount && !iAmWaitingForAnswer && heightEl - height < 0) setIamWaitingForAnswer(true);
       }, 500);
     }
 

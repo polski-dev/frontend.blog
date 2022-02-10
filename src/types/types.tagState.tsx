@@ -10,8 +10,6 @@ export type SliceTagType = {
   };
 };
 
-export type AllTagStateType = {
-  all: {
-    home: SliceTagType;
-  };
+export type TagStateType = {
+  home: SliceTagType;
 };
