@@ -1,10 +1,12 @@
 require("dotenv").config();
 import { orderBy } from "lodash";
 import { dataFromAPI } from "function/function.index";
+import initialState from "store/slice/search/store.slice.search.initialState";
 
 export default async function searchAPI(req: any, res: any) {
   const [page, query] = req.query.query;
-  if (!parseInt(page)) res.status(500).json({ err: "wrong page number" });
+  if (parseInt(page) === 0) res.status(200).json(initialState);
+  else if (!parseInt(page)) res.status(500).json({ err: "wrong page number" });
 
   const article = await new dataFromAPI(process.env.URL_API, "searchArticle").contentQueryAPI(parseInt(page), query);
   const video = await new dataFromAPI(process.env.URL_API, "searchVideo").contentQueryAPI(parseInt(page), query);

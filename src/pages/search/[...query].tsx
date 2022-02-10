@@ -46,7 +46,7 @@ const Search: NextPage = ({ tag, content }: any) => {
       </Head>
       <Container>
         <Row>
-          {/* <MenuPrimary
+          <MenuPrimary
             title="Filtruj"
             data={[
               { slug: `/search/1/${story.search.query}`, title: "Wszystko", quantity: story.search.all.meta.pagination.total },
@@ -55,7 +55,7 @@ const Search: NextPage = ({ tag, content }: any) => {
               { slug: `/search/article/1/${story.search.query}`, title: "Artykuły", quantity: story.search.article.meta.pagination.total },
               { slug: `/search/user/1/${story.search.query}`, title: "Użytkownicy", quantity: story.search.user.meta.pagination.total },
             ]}
-          /> */}
+          />
           <Col xs={12} md={9} xl={8}>
             <ListShortArticle data={story.search.all.data} type="search" />
           </Col>
