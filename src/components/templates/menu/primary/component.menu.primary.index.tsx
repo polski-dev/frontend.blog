@@ -23,7 +23,7 @@ type menuPromaryType = {
 };
 
 export default function MenuPrimary({ title, data }: menuPromaryType) {
-  const { pathname } = useRouter();
+  const { asPath } = useRouter();
   const story = useSelector((state: RootState) => state);
   const { modeMenu, powerMenu, setPowerMenu } = useContext(MenuContext);
 
@@ -45,7 +45,7 @@ export default function MenuPrimary({ title, data }: menuPromaryType) {
                   if (!!item.quantity)
                     return (
                       <FiltrListContentItem key={i}>
-                        <ButtonInLink onClick={() => setPowerMenu(false)} href={item.slug} title={item.title} active={pathname === item.slug ? true : false}>
+                        <ButtonInLink onClick={() => setPowerMenu(false)} href={item.slug} title={item.title} active={asPath === item.slug ? true : false}>
                           {item.title}
                         </ButtonInLink>
                         <BoxTypeContentQuantity>{item.quantity}</BoxTypeContentQuantity>

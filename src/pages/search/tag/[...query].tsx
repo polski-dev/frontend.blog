@@ -58,7 +58,7 @@ const Search: NextPage = ({ tag, content }: any) => {
             ]}
           />
           <Col xs={12} md={9} xl={8}>
-            <ListShortArticle data={story.search.all.data} type="search" />
+            <ListShortArticle data={story.search.tag.data} type="searchTag" />
           </Col>
           <MenuTable type="video" />
         </Row>

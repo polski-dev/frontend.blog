@@ -21,9 +21,9 @@ export default async function searchAPI(req: any, res: any) {
           page: parseInt(page),
           pageSize: 40,
           pageCount:
-            Math.ceil((article.meta.pagination.total + video.meta.pagination.total + user.meta.pagination.total + tag.meta.pagination.total) / 40) === 0
+            Math.ceil((article.meta.pagination.total + video.meta.pagination.total + user.meta.pagination.total + tag.meta.pagination.total) / 10) === 0
               ? 1
-              : Math.ceil((article.meta.pagination.total + video.meta.pagination.total + user.meta.pagination.total + tag.meta.pagination.total) / 40),
+              : Math.ceil((article.meta.pagination.total + video.meta.pagination.total + user.meta.pagination.total + tag.meta.pagination.total) / 10),
           total: article.meta.pagination.total + video.meta.pagination.total + user.meta.pagination.total + tag.meta.pagination.total,
         },
       },

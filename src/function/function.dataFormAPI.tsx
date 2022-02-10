@@ -97,6 +97,10 @@ class dataFromAPI {
           linkAPI = `/api/content/article/waitingroom/${page}`;
           break;
         case "search":
+        case "searchTag":
+        case "searchUser":
+        case "searchVideo":
+        case "searchArticle":
           linkAPI = `/api/search/${page}/${query}`;
           break;
       }
