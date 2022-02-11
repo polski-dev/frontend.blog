@@ -71,7 +71,7 @@ export default function MenuPrimary({ title, data }: menuPromaryType) {
                     </Tag>
                   ))
                 : new Array(5).fill(undefined).map((item: undefined, i: number) => {
-                    return <ItemLoad height={2} key={i} last={i === 4 ? true : false} />;
+                    return <ItemLoad height={2} key={i} style={{ width: "calc(100% - 8rem)" }} last={i === 4 ? true : false} />;
                   })}
             </List>
           </>

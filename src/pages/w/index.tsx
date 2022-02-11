@@ -8,6 +8,8 @@ import { ListShortArticle } from "components/templates/section/component.section
 const Home: NextPage = ({ tag, content }: any) => {
   useDispatchTagToStore().updateTagHome(tag);
 
+  console.log(content);
+
   return (
     <>
       <Head>
@@ -24,7 +26,7 @@ const Home: NextPage = ({ tag, content }: any) => {
             ]}
           />
           <Col xs={12} md={9}>
-            <ListShortArticle data={content.all.data} type="allWaitingRoom" />
+            <ListShortArticle data={content} type="allWaitingRoom" />
           </Col>
         </Row>
       </Container>

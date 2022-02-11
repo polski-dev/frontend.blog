@@ -25,7 +25,7 @@ const Home: NextPage = ({ tag, content }: any) => {
             ]}
           />
           <Col xs={12} md={9}>
-            <ListShortArticle data={content.article.data} type="articleWaitingRoom" />
+            <ListShortArticle data={content} type="articleWaitingRoom" />
           </Col>
         </Row>
       </Container>

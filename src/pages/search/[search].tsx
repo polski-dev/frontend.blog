@@ -4,27 +4,33 @@ import { useRouter } from "next/router";
 import { useEffect, useMemo, useState } from "react";
 import { dataFromAPI } from "function/function.index";
 import useDispatchTagToStore from "hooks/hooks.dispatchTagToStore";
-import initialStateSearchResult from "initialState/initialState.search";
+import initialStateContentResult from "initialState/initialState.search";
 import { MenuPrimary } from "components/templates/menu/component.menu.index";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
 import { ListShortArticle } from "components/templates/section/component.section.index";
 
-const Search: NextPage = ({ tag, content }: any) => {
+const Search: NextPage = () => {
   const { search } = useRouter().query;
-  useDispatchTagToStore().updateTagHome(tag);
-  const [data, setData] = useState(initialStateSearchResult);
+  const [loadData, setLoadData] = useState(true);
+  const { updateTagHome, store } = useDispatchTagToStore();
+  const [data, setData] = useState(initialStateContentResult);
   const searchAPI = useMemo(() => new dataFromAPI("https://www.polski.dev", "search"), []);
 
   useEffect(() => {
+    if (!store.tag.home.data.length) (async () => updateTagHome(await new dataFromAPI("https://www.polski.dev", "tag").contentQuery(1)))();
+  }, [store, updateTagHome]);
+
+  useEffect(() => {
     (async () => {
-      setData(await searchAPI.contentQuery(1, search?.toString()));
+      !!search?.length && setData(await searchAPI.contentQuery(1, search.toString()));
+      setLoadData(false);
     })();
   }, [search, searchAPI]);
 
   return (
     <>
       <Head>
-        <title>Blog | POLSKI.DEV 👩‍💻👨‍💻</title>
+        <title>Wyniki wyszukiwania dla : {search} | POLSKI.DEV 👩‍💻👨‍💻</title>
       </Head>
       <Container>
         <Row>
@@ -39,29 +45,12 @@ const Search: NextPage = ({ tag, content }: any) => {
             ]}
           />
           <Col xs={12} md={9}>
-            <ListShortArticle data={data.all.data} type="search" />
+            <ListShortArticle data={data} type="search" loadData={loadData} search={search?.toString()} />
           </Col>
         </Row>
       </Container>
     </>
   );
 };
-
-export async function getServerSideProps() {
-  // tag
-  const tagResponse = await fetch(`https://www.polski.dev/api/tag/1`);
-  const tag = await tagResponse.json().catch((err) => ({ err: true }));
-
-  // content
-  const contentResponse = await fetch(`https://www.polski.dev/api/content/1`);
-  const content = await contentResponse.json().catch((err) => ({ err: true }));
-
-  return {
-    props: {
-      tag,
-      content,
-    },
-  };
-}
 
 export default Search;

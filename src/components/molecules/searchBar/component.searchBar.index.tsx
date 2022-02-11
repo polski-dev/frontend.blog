@@ -7,16 +7,16 @@ import News from "assets/icon/news.svg";
 import { kebabCase, deburr } from "lodash";
 import Search from "assets/icon/search.svg";
 import { useState, useRef, useEffect } from "react";
-import { setSlug, dataFromAPI } from "function/function.index";
 import { SliceSearchType } from "types/types.searchState";
-import initialStateSearchResult from "initialState/initialState.search";
+import { setSlug, dataFromAPI } from "function/function.index";
+import initialStateSearch from "initialState/initialState.search";
 import { Form, Input, Button, SugestBox, Item, IconBox, ContentBox, ContentTitle, ContentTags, ContentTag } from "./component.searchBar.style";
 
 export default function SearchBar() {
   const router = useRouter();
   const [focus, setFocus] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [searchResult, setSearchResult] = useState(initialStateSearchResult);
+  const [searchResult, setSearchResult] = useState(initialStateSearch);
   const searchAPI = useMemo(() => new dataFromAPI("https://www.polski.dev", "search"), []);
 
   const search = (event: any) => {

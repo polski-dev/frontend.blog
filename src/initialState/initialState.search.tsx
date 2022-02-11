@@ -1,6 +1,6 @@
 import { SearchStateType } from "types/types.searchState";
 
-const initialStateSearchResult: SearchStateType = {
+const initialStateContentResult: SearchStateType = {
   all: {
     type: "",
     data: [],
@@ -63,4 +63,4 @@ const initialStateSearchResult: SearchStateType = {
   },
 };
 
-export default initialStateSearchResult;
+export default initialStateContentResult;

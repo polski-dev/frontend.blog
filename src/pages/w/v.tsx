@@ -25,7 +25,7 @@ const Home: NextPage = ({ tag, content }: any) => {
             ]}
           />
           <Col xs={12} md={9}>
-            <ListShortArticle data={content.video.data} type="videoWaitingRoom" />
+            <ListShortArticle data={content} type="videoWaitingRoom" />
           </Col>
         </Row>
       </Container>

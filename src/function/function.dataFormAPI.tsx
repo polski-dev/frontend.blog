@@ -103,6 +103,9 @@ class dataFromAPI {
         case "searchArticle":
           linkAPI = `/api/search/${page}/${query}`;
           break;
+        case "tag":
+          linkAPI = `/api/tag/${page}`;
+          break;
       }
 
       return this.query(linkAPI);

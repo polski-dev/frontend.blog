@@ -1,7 +1,7 @@
 require("dotenv").config();
 import { orderBy } from "lodash";
 import { dataFromAPI } from "function/function.index";
-import initialState from "store/slice/search/store.slice.search.initialState";
+import initialState from "initialState/initialState.search";
 
 export default async function searchAPI(req: any, res: any) {
   const [page, query] = req.query.query;

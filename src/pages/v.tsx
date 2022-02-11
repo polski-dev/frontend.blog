@@ -1,6 +1,5 @@
 import Head from "next/head";
 import { NextPage } from "next";
-import { useEffect } from "react";
 import useDispatchTagToStore from "hooks/hooks.dispatchTagToStore";
 import { MenuPrimary } from "components/templates/menu/component.menu.index";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
@@ -25,7 +24,7 @@ const Home: NextPage = ({ tag, content }: any) => {
             ]}
           />
           <Col xs={12} md={9}>
-            <ListShortArticle data={content.video.data} type="video" />
+            <ListShortArticle data={content} type="video" />
           </Col>
         </Row>
       </Container>
