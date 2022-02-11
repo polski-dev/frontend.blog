@@ -39,7 +39,7 @@ export default function SectionShortArticle({ data, type, loadData, search }: { 
   useEffect(() => {
     (async () => {
       if (iAmWaitingForAnswer) {
-        const dataFromAPI = !!search ? await API.contentQuery(content[setTypeContent(type)].meta.pagination.page + 1, search) : await API.contentQuery(content[setTypeContent(type)].meta.pagination.page + 1);
+        const dataFromAPI = !!search?.length ? await API.contentQuery(content[setTypeContent(type)].meta.pagination.page + 1, search) : await API.contentQuery(content[setTypeContent(type)].meta.pagination.page + 1);
         let data = content;
         if (!!data.all && dataFromAPI.all) {
           data.all.data = [...data.all.data, ...dataFromAPI.all.data];
