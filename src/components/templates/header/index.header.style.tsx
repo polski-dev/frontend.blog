@@ -190,6 +190,7 @@ export const Menu = styled.ul`
   flex: 100%;
   width: 100%;
   display: flex;
+  max-width: 100%;
   bottom: -0.77rem;
   position: relative;
   overflow-x: scroll;

@@ -76,10 +76,10 @@ export default function SectionShortArticle({ data, type, loadData, search }: { 
         {type === "videoWaitingRoom" && "Poczekalnia video"}
         {type === "article" && "Artykuły"}
         {type === "articleWaitingRoom" && "Poczekalnia artykułów"}
-        {type === "search" && `Wynik wyszukiwania: `}
-        {type === "searchVideo" && `Wynik wyszukiwania video: `}
-        {type === "searchTag" && `Wynik wyszukiwania tag: `}
-        {type === "searchArticle" && `Wynik wyszukiwania artykułów: `}
+        {type === "search" && `Wynik wyszukiwania: ${search}`}
+        {type === "searchVideo" && `Wynik wyszukiwania video: ${search}`}
+        {type === "searchTag" && `Wynik wyszukiwania tag: ${search}`}
+        {type === "searchArticle" && `Wynik wyszukiwania artykułów: ${search}`}
       </Title>
       <Options></Options>
       {!!content[setTypeContent(type)].data.length && content[setTypeContent(type)].data.map((item: any, i: number) => selectTemplateForContent(item, i, articeRef))}

@@ -7,9 +7,13 @@ export const Section = styled.section`
 `;
 
 export const Title = styled.h5`
-  width: 50%;
+  width: 100%;
   line-height: 1;
   padding-bottom: ${({ theme }) => theme.break.main};
+
+  @media all and (min-width: 768px) {
+    width: 50%;
+  }
 `;
 
 export const Options = styled.div`
