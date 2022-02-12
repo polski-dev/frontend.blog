@@ -6,7 +6,7 @@ import { MenuPrimary } from "components/templates/menu/component.menu.index";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
 import { SectionLogin } from "components/templates/section/component.section.index";
 
-const Login: NextPage = ({ tag, content, quantityUsers }: { tag: any; content: any; quantityUsers: { count: number } }) => {
+const Login: NextPage = ({ tag, content, quantityUsers }: any) => {
   useDispatchTagToStore().updateTagHome(tag);
 
   console.log(quantityUsers);
