@@ -17,10 +17,10 @@ export const BoxAuth = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: calc(100vh - 41.5rem);
+  min-height: calc(100vh - 41.5rem);
 
   @media all and (min-width: 768px) {
-    height: calc(100vh - 29.3rem);
+    min-height: calc(100vh - 29.3rem);
   }
 `;
 
