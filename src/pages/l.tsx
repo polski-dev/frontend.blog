@@ -6,8 +6,10 @@ import { MenuPrimary } from "components/templates/menu/component.menu.index";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
 import { SectionLogin } from "components/templates/section/component.section.index";
 
-const Login: NextPage = ({ tag, content }: any) => {
+const Login: NextPage = ({ tag, content, quantityUsers }: { tag: any; content: any; quantityUsers: { count: number } }) => {
   useDispatchTagToStore().updateTagHome(tag);
+
+  console.log(quantityUsers);
 
   return (
     <>
@@ -25,7 +27,7 @@ const Login: NextPage = ({ tag, content }: any) => {
             ]}
           />
           <Col xs={12} md={9}>
-            <SectionLogin />
+            <SectionLogin users={quantityUsers.count} />
           </Col>
         </Row>
       </Container>
@@ -42,10 +44,15 @@ export async function getStaticProps() {
   const contentResponse = await fetch(`https://www.polski.dev/api/content/1`);
   const content = await contentResponse.json().catch((err) => ({ err: true }));
 
+  // users quantity
+  const quantityUsersResponse = await fetch(`https://www.polski.dev/api/count/user/all`);
+  const quantityUsers = await quantityUsersResponse.json().catch((err) => ({ err: true }));
+
   return {
     props: {
       tag,
       content,
+      quantityUsers,
     },
   };
 }

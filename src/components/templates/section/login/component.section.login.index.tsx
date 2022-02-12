@@ -6,7 +6,7 @@ import Github from "assets/icon/github.svg";
 import { Section, BoxContent, BoxAuth, Title, Description, BoxOption, BoxRegistrationInfo } from "./component.section.login.style";
 import { ButtonInLink } from "components/atoms/button/component.button";
 
-export default function SectionLogin() {
+export default function SectionLogin({ users }: { users: number }) {
   return (
     <Section>
       <h5>Logowanie</h5>
@@ -15,7 +15,7 @@ export default function SectionLogin() {
           <Title>
             Witamy w społeczności <Brand />
           </Title>
-          <Description>Nasza społeczność to 797 169 niesamowitych ludzi powiązanych z IT</Description>
+          <Description>Nasza społeczność to {users} niesamowitych ludzi powiązanych z IT</Description>
           <BoxOption>
             <ButtonInLink href="/" title="Zaloguj przez Apple">
               <>

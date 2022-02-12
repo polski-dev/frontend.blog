@@ -17,26 +17,48 @@ export const BoxAuth = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: calc(100vh - 29.3rem);
+  height: calc(100vh - 41.5rem);
+
+  @media all and (min-width: 768px) {
+    height: calc(100vh - 29.3rem);
+  }
 `;
+
 export const Title = styled.h3`
   width: 100%;
   display: flex;
+  flex-wrap: wrap;
+  font-size: 1.6rem;
   align-items: center;
+  white-space: nowrap;
   justify-content: center;
 
+  @media all and (min-width: 768px) {
+    font-size: 2.8rem;
+  }
+
   svg {
-    height: 2.4rem;
+    height: 1.6rem;
     fill: ${({ theme }) => theme.colorText};
-    margin-left: ${({ theme }) => theme.break.main};
+    margin: ${({ theme }) => theme.break.small} ${({ theme }) => theme.break.main};
+
+    @media all and (min-width: 768px) {
+      height: 2.4rem;
+    }
   }
 `;
+
 export const Description = styled.p`
   width: 100%;
   display: block;
   text-align: center;
-  margin-bottom: ${({ theme }) => theme.break.big};
+  margin-bottom: ${({ theme }) => theme.break.main};
+
+  @media all and (min-width: 768px) {
+    margin-bottom: ${({ theme }) => theme.break.big};
+  }
 `;
+
 export const BoxOption = styled.div`
   width: 100%;
   display: flex;
@@ -57,19 +79,30 @@ export const BoxOption = styled.div`
     }
   }
 `;
+
 export const BoxRegistrationInfo = styled.div`
   width: 100%;
   display: flex;
   margin: 0 auto;
   max-width: 40rem;
   text-align: center;
-  white-space: nowrap;
   justify-content: center;
-  margin-top: ${({ theme }) => theme.break.big};
+  margin-top: ${({ theme }) => theme.break.main};
+
+  @media all and (min-width: 768px) {
+    white-space: nowrap;
+    margin-top: ${({ theme }) => theme.break.big};
+  }
 
   span {
+    min-width: 16rem;
     position: relative;
-    padding: 0 ${({ theme }) => theme.break.main};
+    padding: 0 ${({ theme }) => theme.break.small};
+
+    @media all and (min-width: 768px) {
+      min-width: auto;
+      padding: 0 ${({ theme }) => theme.break.main};
+    }
   }
 
   a {
