@@ -1,5 +1,3 @@
-import { type } from "os";
-
 const standardMessageInitial = {
   data: [],
   meta: {
@@ -27,11 +25,13 @@ type standardMessageType = {
 class dataFromAPI {
   _type: string;
   _urlAPI?: string;
+  _firstQuery?: boolean;
   _standardMessage: standardMessageType;
 
   constructor(urlAPI: string = "https://www.polski.dev", type: string) {
     this._type = type;
     this._urlAPI = urlAPI;
+    this._firstQuery = true;
     this._standardMessage = standardMessageInitial;
   }
 
@@ -71,7 +71,14 @@ class dataFromAPI {
     const response = await fetch(link)
       .then((r) => r.json())
       .then((d) => d)
-      .catch((err) => Object.assign({ err: true, message: err }, this._standardMessage));
+      .catch((err) => {
+        if (this._firstQuery) {
+          this.query(link);
+          this._firstQuery = false;
+          return Object.assign(this._standardMessage);
+        }
+        return Object.assign({ err: true, message: err }, this._standardMessage);
+      });
 
     return response;
   }
