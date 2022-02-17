@@ -17,6 +17,8 @@ const HeaderComponent = () => {
   const { modeMenu, setPowerMenu } = useContext(MenuContext);
   const { data } = useSession();
 
+  console.log(data);
+
   return (
     <>
       <Header>

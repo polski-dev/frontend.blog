@@ -1,6 +1,5 @@
 import Head from "next/head";
 import { NextPage } from "next";
-import { useSession } from "next-auth/react";
 import useDispatchTagToStore from "hooks/hooks.dispatchTagToStore";
 import { MenuPrimary } from "components/templates/menu/component.menu.index";
 import { SectionLogin } from "components/templates/section/component.section.index";
@@ -8,8 +7,7 @@ import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexbo
 
 const Login: NextPage = ({ tag, content, quantityUsers }: any) => {
   useDispatchTagToStore().updateTagHome(tag);
-  const { data } = useSession();
-  console.log(data);
+
   return (
     <>
       <Head>
@@ -26,7 +24,7 @@ const Login: NextPage = ({ tag, content, quantityUsers }: any) => {
             ]}
           />
           <Col xs={12} md={9}>
-            ok
+            <SectionLogin users={quantityUsers.count} />
           </Col>
         </Row>
       </Container>
