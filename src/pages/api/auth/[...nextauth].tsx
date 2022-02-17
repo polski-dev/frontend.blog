@@ -17,7 +17,7 @@ export default NextAuth({
       name: "credentials",
       credentials: { identifier: { type: "identifier", placeholder: "email" }, password: { type: "password", placeholder: "hasło" } },
       authorize: async (credentials): Promise<any> => {
-        const res = await fetch("https://polskidev.herokuapp.com/api/auth/local", {
+        const res = await fetch(`${process.env.URL_API}/api/auth/local`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
