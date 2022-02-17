@@ -6,12 +6,10 @@ import ProviderWrapper from "providers/providers.wrapper";
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ProviderWrapper>
-      <>
-        <GlobalStyle />
-        <Laout>
-          <Component {...pageProps} />
-        </Laout>
-      </>
+      <GlobalStyle />
+      <Laout>
+        <Component {...pageProps} />
+      </Laout>
     </ProviderWrapper>
   );
 }
