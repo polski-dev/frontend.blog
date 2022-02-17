@@ -15,8 +15,9 @@ export default NextAuth({
     }),
     CredentialsProvider({
       name: "credentials",
-      authorize: async (credentials: { identifier: string; password: string }): Promise<AuthorizeType | null> => {
-        const res: AuthorizeType | null = await fetch("https://polskidev.herokuapp.com/api/auth/local", {
+      credentials: { identifier: { type: "identifier", placeholder: "email" }, password: { type: "password", placeholder: "hasło" } },
+      authorize: async (credentials): Promise<any> => {
+        const res = await fetch("https://polskidev.herokuapp.com/api/auth/local", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -29,7 +30,7 @@ export default NextAuth({
             data.jwt = d.jwt;
             data.user.name = d.user.username;
             data.user.blocked = d.user.blocked;
-            data.user.email = credentials.identifier;
+            data.user.email = credentials?.identifier || "";
             return data;
           })
           .catch(() => null);
@@ -38,6 +39,7 @@ export default NextAuth({
       },
     }),
   ],
+
   pages: {
     signIn: "/auth/signin",
     error: "/auth/error",
