@@ -1,13 +1,10 @@
-import React, { useState } from "react";
-import { Label, Text, InputStyled } from "./component.input.style";
+import { InputInterface } from "./component.input.type";
+import { Label, Input } from "./component.input.style";
 
-export const Input = ({ id, type, label, pattern, error, register, required }: any) => {
-  const [active, setActive] = useState(false);
-
+export default function InputComponent({ id, name, defaultValue, type, placeholder, pattern, error, register, required }: InputInterface) {
   return (
     <Label htmlFor={id}>
-      <Text active={active}>{label}</Text>
-      <InputStyled id={id} type={type} error={!!error} onFocus={() => setActive(true)} onBlur={(e) => setActive(!!e.target.value.length)} {...register(id, { pattern, required })} />
+      <Input id={id} name={name} defaultValue={defaultValue} placeholder={placeholder} type={type} error={!!error} {...register(id, { pattern, required })} />
     </Label>
   );
-};
+}

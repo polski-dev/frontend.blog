@@ -7,12 +7,12 @@ import Best from "assets/icon/best.svg";
 import { kebabCase, deburr } from "lodash";
 import Comment from "assets/icon/comment.svg";
 import { setSlug, time } from "function/function.index";
-import { ButtonInLink } from "components/atoms/button/component.button";
+import { ButtonLinkIn } from "components/atoms/button/component.button.index";
 import { Article, BoxContent, BoxAuthor, BoxAuthorImg, AuthorData, AuthorName, DateAdded, TitleArticle, ListTags, Tag, ListStats, Item, BoxInformation, Info } from "../component.listShortArticle.style";
 
 const TagShortArticle = React.forwardRef(({ data, type }: any, ref: any) => {
   const slug = new setSlug(type).setContent;
-  console.log(data);
+
   return (
     <Article ref={ref}>
       <BoxContent>
@@ -22,9 +22,9 @@ const TagShortArticle = React.forwardRef(({ data, type }: any, ref: any) => {
               <span>#</span>
               {data.title}
 
-              <ButtonInLink href={`/${slug}/${kebabCase(deburr(data.title.toLowerCase()))}`} title="więcej" className="btnTag">
+              <ButtonLinkIn href={`/${slug}/${kebabCase(deburr(data.title.toLowerCase()))}`} title="więcej" className="btnTag">
                 więcej
-              </ButtonInLink>
+              </ButtonLinkIn>
             </TitleArticle>
           </a>
         </Link>

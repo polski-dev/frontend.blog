@@ -1,4 +1,4 @@
-import { MainSettingsTemplate } from "types/types.mainSettingsTemplate";
+import { MainSettingsTemplate } from "./types.mainSettingsTemplate";
 
 const settings: MainSettingsTemplate = {
   // settings color
@@ -9,9 +9,14 @@ const settings: MainSettingsTemplate = {
   colorMainBg: "#202024",
   colorBorder: "#5F6367",
   colorInputBg: "#303133",
+  colorInputBgDark: "#202024",
   colorButtonBg: "#303134",
   colorPostBg: "#2D2E30",
   colorFooterBg: "#171717",
+  colorDangerBg: "rgba(255, 0, 0, 0.1)",
+  colorDangerBorder: "red",
+  colorSuccessBg: "rgba(0, 128, 0, 0.1)",
+  colorSuccessBorder: "green",
 
   // settings break
   break: { small: "0.75rem", main: "1.5rem", big: "3rem" },

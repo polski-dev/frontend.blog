@@ -7,7 +7,7 @@ import Best from "assets/icon/best.svg";
 import { kebabCase, deburr } from "lodash";
 import Comment from "assets/icon/comment.svg";
 import { setSlug, time } from "function/function.index";
-import { ButtonInLink } from "components/atoms/button/component.button";
+import { ButtonLinkIn } from "components/atoms/button/component.button.index";
 import { Article, BoxContent, BoxAuthor, BoxAuthorImg, AuthorData, AuthorName, DateAdded, TitleArticle, ListTags, Tag, ListStats, Item, BoxInformation, Info } from "../component.listShortArticle.style";
 
 const myLoader = ({ src, width, quality }: any) => {
@@ -16,17 +16,13 @@ const myLoader = ({ src, width, quality }: any) => {
 
 const UserShortArticle = React.forwardRef(({ data, type }: any, ref: any) => {
   const slug = new setSlug(type).setContent;
-  console.log(data);
+
   return (
     <Article ref={ref}>
       <BoxContent>
         <BoxAuthor>
           <BoxAuthorImg>
-            {data?.avatar ? (
-              <Image width={42} height={42} placeholder="blur" blurDataURL="/img/blur.png" alt={data.username} src={data.avatar.data.attributes.url} />
-            ) : (
-              <Image src="/img/blur.png" alt={data.username} width={42} height={42} />
-            )}
+            {data?.avatar ? <Image width={42} height={42} placeholder="blur" blurDataURL="/img/blur.png" alt={data.username} src={data.avatar.data.attributes.url} /> : <Image src="/img/blur.png" alt={data.username} width={42} height={42} />}
           </BoxAuthorImg>
           <AuthorData>
             <Link href={`/${slug}/${kebabCase(deburr(data.username.toLowerCase()))}`}>
@@ -39,9 +35,9 @@ const UserShortArticle = React.forwardRef(({ data, type }: any, ref: any) => {
               dołączył do nas {time.nameOfTheMonths(data.createdAt)} ( {time.countDays(data.createdAt)} )
             </DateAdded>
           </AuthorData>
-          <ButtonInLink href={`/${slug}/${kebabCase(deburr(data.username.toLowerCase()))}`} title="zobacz profil" className="btnUser">
+          <ButtonLinkIn href={`/${slug}/${kebabCase(deburr(data.username.toLowerCase()))}`} title="zobacz profil" className="btnUser">
             zobacz profil
-          </ButtonInLink>
+          </ButtonLinkIn>
         </BoxAuthor>
       </BoxContent>
     </Article>

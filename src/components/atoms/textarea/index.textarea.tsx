@@ -6,7 +6,7 @@ export const TextArea = ({ id, label, pattern, error, register, required }: any)
   return (
     <Label htmlFor={id}>
       <Text active={active}>{label}</Text>
-      <TextAreaStyled id={id} error={!!error} onFocus={() => setActive(true)} onBlur={(e) => setActive(!!e.target.value.length)} {...register(id, { pattern, required })} />
+      <TextAreaStyled id={id} error={!!error} onFocus={() => setActive(true)} onBlur={(e) => setActive(!!e?.target.value.length)} {...register(id, { pattern, required })} />
     </Label>
   );
 };

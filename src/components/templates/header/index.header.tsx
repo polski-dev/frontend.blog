@@ -1,20 +1,21 @@
 import Link from "next/link";
-import Up from "assets/icon/up.svg";
 import Time from "assets/icon/time.svg";
 import { useRouter } from "next/router";
 import Brand from "assets/icon/logo.svg";
-import React, { useEffect, useContext } from "react";
+import React, { useContext } from "react";
 import Search from "assets/icon/search.svg";
 import Comment from "assets/icon/comment.svg";
-import { ButtonInLink } from "components/atoms/button/component.button";
-import { Header, Hambuger, Logo, SerachBox, UserPanelBox, Menu, Item } from "./index.header.style";
-import SearchBar from "components/molecules/searchBar/component.searchBar.index";
-import { Row, Col, Container } from "components/orgamis/flexboxgrid/index.flexboxgrid";
 import { MenuContext } from "providers/providers.menu";
+import { useSession, signIn, signOut } from "next-auth/react";
+import { ButtonLinkIn } from "components/atoms/button/component.button.index";
+import SearchBar from "components/molecules/searchBar/component.searchBar.index";
+import { Row, Container } from "components/orgamis/flexboxgrid/index.flexboxgrid";
+import { Header, Hambuger, Logo, SerachBox, UserPanelBox, Menu, Item } from "./index.header.style";
 
 const HeaderComponent = () => {
   const { pathname } = useRouter();
-  const { modeMenu, powerMenu, setPowerMenu } = useContext(MenuContext);
+  const { modeMenu, setPowerMenu } = useContext(MenuContext);
+  const { data } = useSession();
 
   return (
     <>
@@ -37,9 +38,13 @@ const HeaderComponent = () => {
               <SearchBar />
             </SerachBox>
             <UserPanelBox>
-              <ButtonInLink href="/l" title="zaloguj">
-                Zaloguj
-              </ButtonInLink>
+              {data ? (
+                <button onClick={() => signOut()}>Wyloguj</button>
+              ) : (
+                <ButtonLinkIn href="/auth/signin" title="zaloguj">
+                  Zaloguj
+                </ButtonLinkIn>
+              )}
             </UserPanelBox>
 
             <Menu>

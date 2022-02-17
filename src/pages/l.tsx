@@ -9,8 +9,6 @@ import { SectionLogin } from "components/templates/section/component.section.ind
 const Login: NextPage = ({ tag, content, quantityUsers }: any) => {
   useDispatchTagToStore().updateTagHome(tag);
 
-  console.log(quantityUsers);
-
   return (
     <>
       <Head>

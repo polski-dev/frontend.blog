@@ -191,7 +191,7 @@ export const Menu = styled.ul`
   width: 100%;
   display: flex;
   max-width: 100%;
-  bottom: -0.77rem;
+  bottom: -0.85rem;
   position: relative;
   overflow-x: scroll;
   overflow-y: hidden;

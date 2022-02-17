@@ -9,7 +9,7 @@ export default function useDispatchTagToStore() {
   const store = useSelector((state: RootState) => state);
 
   const updateTagHome = (tag: SliceTagType) => {
-    if (!store.tag.home.data.length && !!tag.data.length) setTimeout(() => dispatch(addTagHome({ home: tag })), 500);
+    if (!store.tag.home.data.length && !!tag?.data.length) setTimeout(() => dispatch(addTagHome({ home: tag })), 500);
   };
 
   return { dispatch, addTagHome, updateTagHome, store };

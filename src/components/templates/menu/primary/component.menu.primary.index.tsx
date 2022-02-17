@@ -13,7 +13,7 @@ import { RootState } from "store/store.index";
 import Instagram from "assets/icon/instagram.svg";
 import { useSelector, useDispatch } from "react-redux";
 import { MenuContext } from "providers/providers.menu";
-import { ButtonInLink } from "components/atoms/button/component.button";
+import { ButtonLinkIn } from "components/atoms/button/component.button.index";
 import { ItemLoad } from "components/atoms/animation/comonent.animation.index";
 import { GlobalStyle, Bg, BoxMenu, OffMenu, BoxContent, FiltrListContent, FiltrListContentItem, BoxTypeContentQuantity, Title, List, Tag, SocialMedia } from "./component.menu.primary.style";
 
@@ -45,9 +45,9 @@ export default function MenuPrimary({ title, data }: menuPromaryType) {
                   if (!!item.quantity)
                     return (
                       <FiltrListContentItem key={i}>
-                        <ButtonInLink onClick={() => setPowerMenu(false)} href={item.slug} title={item.title} active={asPath === item.slug ? true : false}>
+                        <ButtonLinkIn onClick={() => setPowerMenu(false)} href={item.slug} title={item.title} active={asPath === item.slug ? true : false}>
                           {item.title}
-                        </ButtonInLink>
+                        </ButtonLinkIn>
                         <BoxTypeContentQuantity>{item.quantity}</BoxTypeContentQuantity>
                       </FiltrListContentItem>
                     );

@@ -7,7 +7,7 @@ import Best from "assets/icon/best.svg";
 import { kebabCase, deburr } from "lodash";
 import Comment from "assets/icon/comment.svg";
 import { setSlug, time } from "function/function.index";
-import { ButtonInLink } from "components/atoms/button/component.button";
+import { ButtonLinkIn } from "components/atoms/button/component.button.index";
 import { Article, BoxContent, BoxAuthor, BoxAuthorImg, AuthorData, AuthorName, DateAdded, TitleArticle, ListTags, Tag, ListStats, Item, BoxInformation, Info } from "../component.listShortArticle.style";
 
 const ContentShortArticle = React.forwardRef(({ data, type }: any, ref: any) => {
@@ -24,7 +24,7 @@ const ContentShortArticle = React.forwardRef(({ data, type }: any, ref: any) => 
         <BoxAuthor>
           <BoxAuthorImg>{data.author && <Image width={42} height={42} alt={data.author.data.attributes.username} src={data.author.data.attributes.avatar.data.attributes.url} />}</BoxAuthorImg>
           <AuthorData>
-            <Link href={`/${new setSlug("user").setContent}/${kebabCase(deburr(data.author.data.attributes.username.toLowerCase()))}`}>
+            <Link href={`/${new setSlug("user").setContent}/${kebabCase(deburr(data?.author.data.attributes.username.toLowerCase()))}`}>
               <a title={data.author.data.attributes.username}>
                 <AuthorName>{data.author.data.attributes.username}</AuthorName>
               </a>
@@ -72,9 +72,9 @@ const ContentShortArticle = React.forwardRef(({ data, type }: any, ref: any) => 
             <span>{data.comments.data.length}</span>
           </Item>
         </ListStats>
-        <ButtonInLink href={`/${slug}/${kebabCase(deburr(data.title.toLowerCase()))}`} title="więcej" className="btnMore">
+        <ButtonLinkIn href={`/${slug}/${kebabCase(deburr(data.title.toLowerCase()))}`} title="więcej" className="btnMore">
           więcej
-        </ButtonInLink>
+        </ButtonLinkIn>
       </BoxContent>
     </Article>
   );
