@@ -26,7 +26,7 @@ const Login: NextPage = ({ tag, content, quantityUsers }: any) => {
             ]}
           />
           <Col xs={12} md={9}>
-            <SectionLogin users={quantityUsers.count} />
+            ok
           </Col>
         </Row>
       </Container>
