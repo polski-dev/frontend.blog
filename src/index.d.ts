@@ -1,12 +1,11 @@
-declare module "next-auth/client";
-
 declare global {
   namespace NodeJS {
     interface ProcessEnv {
-      NEXT_PUBLIC_API_URL: string;
+      NEXT_PUBLIC_API_UR: string;
       NEXTAUTH_URL: string;
-      GOOGLE_CLIENT_ID: string;
-      GOOGLE_CLIENT_SECRET: string;
+      JWT_SECRET: string;
+      GITHUB_ID: string;
+      GITHUB_SECRET: string;
       NODE_ENV: "development" | "production";
       PORT?: string;
       PWD: string;
