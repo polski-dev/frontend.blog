@@ -16,14 +16,7 @@ const Contact: NextPage = ({ tag, content }: any) => {
       </Head>
       <Container>
         <Row>
-          <MenuPrimary
-            title="Filtruj"
-            data={[
-              { slug: "/", title: "Wszystko", quantity: content.all.meta.pagination.total },
-              { slug: "/a", title: "Artykuły", quantity: content.article.meta.pagination.total },
-              { slug: "/v", title: "Video", quantity: content.video.meta.pagination.total },
-            ]}
-          />
+          <MenuPrimary title="Filtruj" data={[]} />
           <Col xs={12} md={9}>
             <h5 style={{ marginTop: "3rem", paddingBottom: "1.5rem" }}>Kontakt</h5>
             <div style={{ padding: "3rem 1.5rem", background: "#2D2E30", borderRadius: "0.6rem", display: "flex", alignItems: "center", justifyContent: "center", height: "80vh", marginBottom: "3rem" }}>

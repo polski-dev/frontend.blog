@@ -15,14 +15,7 @@ const Login: NextPage = ({ tag, content, quantityUsers }: any) => {
       </Head>
       <Container>
         <Row>
-          <MenuPrimary
-            title="Filtruj"
-            data={[
-              { slug: "/", title: "Wszystko", quantity: content.all.meta.pagination.total },
-              { slug: "/a", title: "Artykuły", quantity: content.article.meta.pagination.total },
-              { slug: "/v", title: "Video", quantity: content.video.meta.pagination.total },
-            ]}
-          />
+          <MenuPrimary title="Filtruj" data={[]} />
           <Col xs={12} md={9}>
             <SectionLogin users={quantityUsers.count} />
           </Col>
