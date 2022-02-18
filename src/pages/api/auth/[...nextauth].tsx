@@ -1,4 +1,5 @@
 import NextAuth from "next-auth";
+import log from "logging-service";
 import GithubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
 
@@ -53,6 +54,18 @@ export default NextAuth({
   pages: {
     signIn: "/auth/signin",
     error: "/auth/signin",
+  },
+
+  logger: {
+    error(code, metadata) {
+      log.error(code, metadata);
+    },
+    warn(code) {
+      log.warn(code);
+    },
+    debug(code, metadata) {
+      log.debug(code, metadata);
+    },
   },
 
   callbacks: {
