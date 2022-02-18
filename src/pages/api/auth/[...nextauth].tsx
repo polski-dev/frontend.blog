@@ -17,6 +17,7 @@ export default NextAuth({
       name: "credentials",
       credentials: { identifier: { type: "identifier", placeholder: "email" }, password: { type: "password", placeholder: "hasło" } },
       async authorize(credentials: any): Promise<any> {
+        console.log(credentials);
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/local`, {
           method: "POST",
           headers: {
@@ -26,12 +27,14 @@ export default NextAuth({
         })
           .then((r) => r.json())
           .then((d) => {
+            console.log(d);
             let data: AuthorizeType = { jwt: "", user: { id: 1, email: "", name: "", blocked: false } };
             data.jwt = d.jwt;
             data.user.id = d.user.id;
             data.user.name = d.user.username;
             data.user.blocked = d.user.blocked;
             data.user.email = credentials?.identifier || "";
+            console.log(data);
             return data;
           })
           .catch(() => null);
