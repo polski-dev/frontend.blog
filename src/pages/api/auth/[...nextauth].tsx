@@ -17,7 +17,7 @@ export default NextAuth({
       name: "credentials",
       credentials: { identifier: { type: "identifier", placeholder: "email" }, password: { type: "password", placeholder: "hasło" } },
       async authorize(credentials: any): Promise<any> {
-        const res = await fetch(`${process.env.URL_API}/api/auth/local`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/local`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

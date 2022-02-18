@@ -6,8 +6,8 @@ export default async function contantAllAPI(req: any, res: any) {
   const { page } = req.query;
   if (!parseInt(page)) res.status(500).json({ err: "wrong page number" });
 
-  const video = await new dataFromAPI(process.env.URL_API, "video").contentQueryAPI(parseInt(page));
-  const article = await new dataFromAPI(process.env.URL_API, "article").contentQueryAPI(parseInt(page));
+  const video = await new dataFromAPI(process.env.NEXT_PUBLIC_API_URL, "video").contentQueryAPI(parseInt(page));
+  const article = await new dataFromAPI(process.env.NEXT_PUBLIC_API_URL, "article").contentQueryAPI(parseInt(page));
 
   res.status(200).json({
     all: {

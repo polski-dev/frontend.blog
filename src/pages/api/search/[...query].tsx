@@ -8,10 +8,10 @@ export default async function searchAPI(req: any, res: any) {
   if (parseInt(page) === 0) res.status(200).json(initialState);
   else if (!parseInt(page)) res.status(500).json({ err: "wrong page number" });
 
-  const article = await new dataFromAPI(process.env.URL_API, "searchArticle").contentQueryAPI(parseInt(page), query);
-  const video = await new dataFromAPI(process.env.URL_API, "searchVideo").contentQueryAPI(parseInt(page), query);
-  const user = await new dataFromAPI(process.env.URL_API, "searchUser").contentQueryAPI(parseInt(page), query);
-  const tag = await new dataFromAPI(process.env.URL_API, "searchTag").contentQueryAPI(parseInt(page), query);
+  const article = await new dataFromAPI(process.env.NEXT_PUBLIC_API_URL, "searchArticle").contentQueryAPI(parseInt(page), query);
+  const video = await new dataFromAPI(process.env.NEXT_PUBLIC_API_URL, "searchVideo").contentQueryAPI(parseInt(page), query);
+  const user = await new dataFromAPI(process.env.NEXT_PUBLIC_API_URL, "searchUser").contentQueryAPI(parseInt(page), query);
+  const tag = await new dataFromAPI(process.env.NEXT_PUBLIC_API_URL, "searchTag").contentQueryAPI(parseInt(page), query);
 
   res.status(200).json({
     all: {
