@@ -56,10 +56,6 @@ export default NextAuth({
   },
 
   callbacks: {
-    async signIn({ user, account, profile, email, credentials }) {
-      return true;
-    },
-
     async jwt({ token, user: account }) {
       if (account) {
         const { jwt, user }: any = account;
