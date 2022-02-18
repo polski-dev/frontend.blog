@@ -69,7 +69,7 @@ export default function SectionLogin({ users }: { users: number }) {
                 <Form
                   onSubmit={handleSubmit(({ identifier, password }): void => {
                     setSend(true);
-                    signIn("credentials", { identifier, password, callbackUrl: "/auth/loggedcorrectly" });
+                    signIn("credentials", { identifier, password, callbackUrl: "https://www.polski.dev/auth/loggedcorrectly" });
                   })}
                 >
                   <Input id="identifier" name="identifier" type={enumInputType.email} pattern={emailRegex} error={errors.identifier} placeholder="email" register={register} required />
