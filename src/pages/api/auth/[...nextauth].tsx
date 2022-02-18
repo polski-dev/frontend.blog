@@ -42,8 +42,8 @@ export default NextAuth({
   ],
 
   pages: {
-    signIn: "https://www.polski.dev/auth/signin",
-    error: "https://www.polski.dev/auth/signin",
+    signIn: "/auth/signin",
+    error: "/auth/signin",
   },
 
   session: {
