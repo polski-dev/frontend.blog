@@ -51,18 +51,30 @@ export default NextAuth({
     maxAge: 30 * 24 * 60 * 60, // 30 days
   },
   jwt: {
-    secret: process.env.JWT_SECRET || "secret",
+    secret: process.env.JWT_SECRET,
   },
 
   callbacks: {
-    jwt({ user, token }: any): any {
-      if (user) {
-        token.id = user.user.id;
-        token.name = user.user.name;
-        token.accessToken = user.jwt;
-        token.email = user.user.email;
+    async signIn({ user, account, profile, email, credentials }) {
+      return true;
+    },
+
+    async jwt({ token, user: account }) {
+      if (account) {
+        const { jwt, user }: any = account;
+        token.id = user.id;
+        token.name = user.name;
+        token.accessToken = jwt;
+        token.email = user.email;
+        token.blocked = user.blocked;
       }
       return token;
+    },
+    async session({ session, token }) {
+      session.id = token.id;
+      session.blocked = token.blocked;
+      session.accessToken = token.accessToken;
+      return session;
     },
   },
 });
