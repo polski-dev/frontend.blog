@@ -36,9 +36,7 @@ export default NextAuth({
 
             return data;
           })
-          .catch(() => {
-            return { jwt: "", user: { id: 1, email: credentials, name: "", blocked: false } };
-          });
+          .catch(() => null);
 
         return res;
       },
