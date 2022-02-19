@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { emailRegex } from "assets/regex/index.regex";
 import { ButtonSubmit } from "components/atoms/button/component.button.index";
 import { ItemLoad } from "components/atoms/animation/comonent.animation.index";
-import { Input, enumInputType } from "components/molecules/form/component.form.index";
+import { Input, CheckBox, enumInputType } from "components/molecules/form/component.form.index";
 
 import { Section, BoxContent, BoxAuth, Title, Description, BoxErrorInfo, BoxInfo, BoxOption, BoxRegistrationInfo, Form } from "./component.section.singup.style";
 
@@ -31,8 +31,8 @@ export default function SectionSingIn({ users }: { users: number }) {
         <BoxAuth>
           {checked === "succes" ? null : (
             <>
-              <Title>Już {users} osoby promują sie nawzajem</Title>
-              <Description>dołącz do nas i pomóżmy sobie wzajemnie budując własną markę osobistą w świecie IT</Description>
+              <Title>Już {users} osob promuje sie wzajemnie</Title>
+              <Description>dołącz do nas i buduj razem z nami Twoją i naszą markę osobistą w świecie IT</Description>
             </>
           )}
 
@@ -91,6 +91,7 @@ export default function SectionSingIn({ users }: { users: number }) {
                       <Input id="email" name="email" type={enumInputType.email} pattern={emailRegex} error={errors.email} placeholder="email" register={register} required />
                       <Input id="password" name="password" type={enumInputType.password} error={errors.password} placeholder="hasło" register={register} required />
                       <Input id="passwordSecound" name="passwordSecound" type={enumInputType.password} error={errors.passwordSecound} placeholder="powtórz hasło" register={register} required />
+                      <CheckBox id="privacyPolicyContact" pattern={emailRegex} error={errors.privacyPolicyContact} label="wyrażam zgodę na przetwarzanie przez polski.dev moich danych osobowych zgodnie z polityką prywatnosći" register={register} required />
                       <ButtonSubmit title="Zalguj">Dodaj nowe konto</ButtonSubmit>
                     </Form>
                   </>

@@ -47,10 +47,11 @@ const HeaderComponent = () => {
                   <BoxAuthorAvatar
                     title={data.user?.name}
                     power={powerUserBox}
-                    onBlur={() => {
-                      console.log("l,");
-                      setPowerUserBox(!powerUserBox);
-                    }}
+                    onBlur={() =>
+                      setTimeout(() => {
+                        setPowerUserBox(!powerUserBox);
+                      }, 150)
+                    }
                     onClick={() => setPowerUserBox(!powerUserBox)}
                   >
                     <Avatar />
