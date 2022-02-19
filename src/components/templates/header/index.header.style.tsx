@@ -247,21 +247,20 @@ export const BoxAuthUser = styled.div`
 `;
 
 export const BoxAuthorAvatar: StyledComponent<any, any> = styled.button`
-  width: 3rem;
-  height: 3rem;
-  display: flex;
+  width: 100%;
+  height: 100%;
+  display: block;
   cursor: pointer;
   overflow: hidden;
   position: relative;
-  padding-top: 0.8rem;
   border-radius: 100%;
-  align-items: center;
-  justify-content: center;
   border: 0.1rem solid ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorBorder};
   background-color: ${({ theme, power }: { theme: MainSettingsTemplate; power: boolean }): string => (power ? theme.colorMainBg : theme.colorButtonBg)};
 
   svg {
+    display: block;
     height: 2.2rem;
+    margin: 0.7rem 0 0 -0.3rem;
     fill: ${({ theme, power }: { theme: MainSettingsTemplate; power: boolean }): string => (power ? theme.colorLinkActive : theme.colorLink)};
   }
 
