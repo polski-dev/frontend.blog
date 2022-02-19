@@ -91,7 +91,7 @@ export default function SectionSingIn({ users }: { users: number }) {
                       <Input id="email" name="email" type={enumInputType.email} pattern={emailRegex} error={errors.email} placeholder="email" register={register} required />
                       <Input id="password" name="password" type={enumInputType.password} error={errors.password} placeholder="hasło" register={register} required />
                       <Input id="passwordSecound" name="passwordSecound" type={enumInputType.password} error={errors.passwordSecound} placeholder="powtórz hasło" register={register} required />
-                      <CheckBox id="privacyPolicyContact" pattern={emailRegex} error={errors.privacyPolicyContact} label="wyrażam zgodę na przetwarzanie przez polski.dev moich danych osobowych zgodnie z polityką prywatnosći" register={register} required />
+                      <CheckBox id="privacyPolicyContact" error={errors.privacyPolicyContact} label="wyrażam zgodę na przetwarzanie przez polski.dev moich danych osobowych zgodnie z polityką prywatnosći" register={register} required />
                       <ButtonSubmit title="Zalguj">Dodaj nowe konto</ButtonSubmit>
                     </Form>
                   </>
