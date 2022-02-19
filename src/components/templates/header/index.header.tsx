@@ -2,20 +2,22 @@ import Link from "next/link";
 import Time from "assets/icon/time.svg";
 import { useRouter } from "next/router";
 import Brand from "assets/icon/logo.svg";
-import React, { useContext } from "react";
+import Avatar from "assets/icon/avatar.svg";
 import Search from "assets/icon/search.svg";
 import Comment from "assets/icon/comment.svg";
+import React, { useContext, useState } from "react";
+import { useSession, signOut } from "next-auth/react";
 import { MenuContext } from "providers/providers.menu";
-import { useSession, signIn, signOut } from "next-auth/react";
 import { ButtonLinkIn, Button } from "components/atoms/button/component.button.index";
 import SearchBar from "components/molecules/searchBar/component.searchBar.index";
 import { Row, Container } from "components/orgamis/flexboxgrid/index.flexboxgrid";
-import { Header, Hambuger, Logo, SerachBox, UserPanelBox, Menu, Item } from "./index.header.style";
+import { Header, Hambuger, Logo, SerachBox, UserPanelBox, Menu, Item, BoxAuthUser, BoxAuthorAvatar, BoxOptionUser, BoxOptionUserHeader, BoxAuthUserOption } from "./index.header.style";
 
 const HeaderComponent = () => {
+  const { data } = useSession();
   const { pathname } = useRouter();
   const { modeMenu, setPowerMenu } = useContext(MenuContext);
-  const { data } = useSession();
+  const [powerUserBox, setPowerUserBox] = useState(false);
 
   console.log(data);
 
@@ -41,9 +43,25 @@ const HeaderComponent = () => {
             </SerachBox>
             <UserPanelBox>
               {data ? (
-                <Button onClick={() => signOut()} title="wyloguj">
-                  Wyloguj
-                </Button>
+                <BoxAuthUser>
+                  <BoxAuthorAvatar
+                    title={data.user?.name}
+                    power={powerUserBox}
+                    onBlur={() => {
+                      console.log("l,");
+                      setPowerUserBox(!powerUserBox);
+                    }}
+                    onClick={() => setPowerUserBox(!powerUserBox)}
+                  >
+                    <Avatar />
+                  </BoxAuthorAvatar>
+                  <BoxOptionUser power={powerUserBox}>
+                    <BoxOptionUserHeader>Witaj, {data.user?.name}</BoxOptionUserHeader>
+                    <BoxAuthUserOption onClick={() => signOut()} title="wyloguj">
+                      Wyloguj
+                    </BoxAuthUserOption>
+                  </BoxOptionUser>
+                </BoxAuthUser>
               ) : (
                 <ButtonLinkIn href="/auth/signin" title="zaloguj">
                   Zaloguj

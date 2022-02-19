@@ -1,5 +1,5 @@
-import { Mode } from "fs";
-import styled, { css } from "styled-components";
+import styled, { css, StyledComponent, ThemeProps } from "styled-components";
+import { MainSettingsTemplate } from "assets/style/types.mainSettingsTemplate";
 
 export const Header = styled.header`
   width: 100%;
@@ -236,5 +236,83 @@ export const Item = styled.li<ItemType>`
       margin-right: 0.3rem;
       fill: ${({ theme, active }) => (active ? theme.colorLinkActive : theme.colorLink)};
     }
+  }
+`;
+
+export const BoxAuthUser = styled.div`
+  width: 3rem;
+  height: 3rem;
+  position: relative;
+`;
+
+export const BoxAuthorAvatar: StyledComponent<any, any> = styled.button`
+  min-width: 3rem;
+  min-height: 3rem;
+  display: flex;
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
+  padding-top: 0.8rem;
+  border-radius: 100%;
+  align-items: center;
+  justify-content: center;
+  border: 0.1rem solid ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorBorder};
+  background-color: ${({ theme, power }: { theme: MainSettingsTemplate; power: boolean }): string => (power ? theme.colorMainBg : theme.colorButtonBg)};
+
+  svg {
+    height: 2.2rem;
+    fill: ${({ theme, power }: { theme: MainSettingsTemplate; power: boolean }): string => (power ? theme.colorLinkActive : theme.colorLink)};
+  }
+
+  &:hover {
+    background-color: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorMainBg};
+
+    svg {
+      fill: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorLinkActive};
+    }
+  }
+`;
+
+export const BoxOptionUser = styled.div`
+  top: 3.8rem;
+  left: -14rem;
+  width: 17rem;
+  z-index: 9999;
+  position: absolute;
+  border-radius: 0.6rem;
+  flex-direction: column;
+  display: ${({ power }: { power: boolean }): string => (power ? "block" : "none")};
+  background-color: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorMainBg};
+  border: 0.1rem solid ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorBorder};
+  padding: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.small};
+`;
+
+export const BoxOptionUserHeader = styled.p`
+  font-size: 1.2rem;
+  padding-bottom: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.small};
+
+  &:after {
+    content: "";
+    width: 100%;
+    height: 0.1rem;
+    display: block;
+    margin-top: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.small};
+    background-color: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorBorder};
+  }
+`;
+
+export const BoxAuthUserOption = styled.div`
+  cursor: pointer;
+  text-align: right;
+  font-size: 1.2rem;
+  color: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorLink};
+  padding-bottom: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.small};
+
+  &:last-of-type {
+    padding-bottom: 0;
+  }
+
+  &:hover {
+    color: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorLinkActive};
   }
 `;

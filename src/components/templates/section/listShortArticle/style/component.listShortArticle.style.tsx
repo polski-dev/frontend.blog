@@ -96,11 +96,12 @@ export const BoxAuthorAvatar: StyledComponent<any, any> = styled.div`
   align-items: center;
   padding-top: 0.8rem;
   justify-content: center;
-  background-color: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorBorder};
+  border: 0.1rem solid ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorBorder};
+  background-color: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorButtonBg};
 
   svg {
     height: 3.2rem;
-    fill: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorMainBg};
+    fill: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorTextDesactive};
   }
 `;
 
