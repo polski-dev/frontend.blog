@@ -8,7 +8,7 @@ import { kebabCase, deburr } from "lodash";
 import Comment from "assets/icon/comment.svg";
 import { setSlug, time } from "function/function.index";
 import { ButtonLinkIn } from "components/atoms/button/component.button.index";
-import { Article, BoxContent, BoxAuthor, BoxAuthorImg, AuthorData, AuthorName, DateAdded, TitleArticle, ListTags, Tag, ListStats, Item, BoxInformation, Info } from "../component.listShortArticle.style";
+import { Article, BoxContent, BoxAuthor, BoxAuthorImg, AuthorData, AuthorName, DateAdded, TitleArticle, ListTags, Tag, ListStats, Item } from "../component.listShortArticle.style";
 
 const ContentShortArticle = React.forwardRef(({ data, type }: any, ref: any) => {
   const slug = new setSlug(type).setContent;
@@ -22,7 +22,7 @@ const ContentShortArticle = React.forwardRef(({ data, type }: any, ref: any) => 
       </Link>
       <BoxContent>
         <BoxAuthor>
-          <BoxAuthorImg>{data.author && <Image width={42} height={42} alt={data.author.data.attributes.username} src={data.author.data.attributes.avatar.data.attributes.url} />}</BoxAuthorImg>
+          <BoxAuthorImg>{data.author?.data?.attributes?.avatar?.data?.attributes?.url && <Image width={42} height={42} alt={data.author.data.attributes.username} src={data.author.data.attributes.avatar.data.attributes.url} />}</BoxAuthorImg>
           <AuthorData>
             <Link href={`/${new setSlug("user").setContent}/${kebabCase(deburr(data?.author.data.attributes.username.toLowerCase()))}`}>
               <a title={data.author.data.attributes.username}>
