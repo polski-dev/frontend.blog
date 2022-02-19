@@ -242,12 +242,13 @@ export const Item = styled.li<ItemType>`
 export const BoxAuthUser = styled.div`
   width: 3rem;
   height: 3rem;
+  display: flex;
   position: relative;
 `;
 
 export const BoxAuthorAvatar: StyledComponent<any, any> = styled.button`
-  min-width: 3rem;
-  min-height: 3rem;
+  width: 3rem;
+  height: 3rem;
   display: flex;
   cursor: pointer;
   overflow: hidden;
