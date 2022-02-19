@@ -1,11 +1,10 @@
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
-import { signIn, useSession } from "next-auth/react";
 import { emailRegex } from "assets/regex/index.regex";
 import { ItemLoad } from "components/atoms/animation/comonent.animation.index";
 import { Input, enumInputType } from "components/molecules/form/component.form.index";
-import { ButtonLinkIn, ButtonSubmit, Button } from "components/atoms/button/component.button.index";
+import { ButtonSubmit, Button } from "components/atoms/button/component.button.index";
 import { Section, BoxContent, BoxAuth, Title, Description, BoxErrorInfo, BoxInfo, BoxOption, BoxRegistrationInfo, Form } from "./component.section.singup.style";
 
 export default function SectionSingIn({ users }: { users: number }) {
