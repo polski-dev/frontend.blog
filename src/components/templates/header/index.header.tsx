@@ -7,7 +7,7 @@ import Search from "assets/icon/search.svg";
 import Comment from "assets/icon/comment.svg";
 import { MenuContext } from "providers/providers.menu";
 import { useSession, signIn, signOut } from "next-auth/react";
-import { ButtonLinkIn } from "components/atoms/button/component.button.index";
+import { ButtonLinkIn, Button } from "components/atoms/button/component.button.index";
 import SearchBar from "components/molecules/searchBar/component.searchBar.index";
 import { Row, Container } from "components/orgamis/flexboxgrid/index.flexboxgrid";
 import { Header, Hambuger, Logo, SerachBox, UserPanelBox, Menu, Item } from "./index.header.style";
@@ -41,7 +41,9 @@ const HeaderComponent = () => {
             </SerachBox>
             <UserPanelBox>
               {data ? (
-                <button onClick={() => signOut()}>Wyloguj</button>
+                <Button onClick={() => signOut()} title="wyloguj">
+                  Wyloguj
+                </Button>
               ) : (
                 <ButtonLinkIn href="/auth/signin" title="zaloguj">
                   Zaloguj

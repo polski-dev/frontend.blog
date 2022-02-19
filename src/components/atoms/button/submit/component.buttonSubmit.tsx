@@ -1,5 +1,5 @@
-import { ButtonSubmit } from "./component.button.style";
-import { ButtonSubmitType } from "./component.button.type";
+import { ButtonSubmit } from "../style/component.button.style";
+import { ButtonSubmitType } from "../types/component.button.type";
 
 export default function ButtonSubmitComponent({ children, title, active, className, onClick }: ButtonSubmitType) {
   return (

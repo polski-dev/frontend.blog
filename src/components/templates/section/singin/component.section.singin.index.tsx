@@ -8,10 +8,10 @@ import { signIn, useSession } from "next-auth/react";
 import { emailRegex } from "assets/regex/index.regex";
 import { ItemLoad } from "components/atoms/animation/comonent.animation.index";
 import { Input, enumInputType } from "components/molecules/form/component.form.index";
-import { ButtonLinkIn, ButtonSubmit } from "components/atoms/button/component.button.index";
-import { Section, BoxContent, BoxAuth, Title, Description, BoxErrorInfo, BoxOption, BoxRegistrationInfo, Form } from "./component.section.login.style";
+import { ButtonLinkIn, ButtonSubmit, Button } from "components/atoms/button/component.button.index";
+import { Section, BoxContent, BoxAuth, Title, Description, BoxErrorInfo, BoxOption, BoxRegistrationInfo, Form } from "./component.section.singin.style";
 
-export default function SectionLogin({ users }: { users: number }) {
+export default function SectionSingIn({ users }: { users: number }) {
   const router = useRouter();
   const { data: session } = useSession();
   const [send, setSend] = useState(false);
@@ -45,8 +45,6 @@ export default function SectionLogin({ users }: { users: number }) {
           {send ? (
             <BoxOption>
               <ItemLoad />
-              <ItemLoad height={5} />
-              <ItemLoad />
               <ItemLoad height={10} />
               <ItemLoad />
             </BoxOption>
@@ -56,15 +54,6 @@ export default function SectionLogin({ users }: { users: number }) {
                 {!!router.query?.error && <BoxErrorInfo>Wystąpił błąd podczas logowania, spróbuj jeszcze raz</BoxErrorInfo>}
                 <BoxRegistrationInfo>
                   <span>Zaloguj się</span>
-                </BoxRegistrationInfo>
-                <ButtonLinkIn href="/" title="Zaloguj przez Github">
-                  <>
-                    <Github />
-                    Przez Github
-                  </>
-                </ButtonLinkIn>
-                <BoxRegistrationInfo>
-                  <span>Lub</span>
                 </BoxRegistrationInfo>
                 <Form
                   onSubmit={handleSubmit(({ identifier, password }): void => {
@@ -79,7 +68,10 @@ export default function SectionLogin({ users }: { users: number }) {
               </BoxOption>
               <BoxRegistrationInfo>
                 <span>
-                  Nie masz konta ? <Link href="/l"> Zarejestruj się</Link>
+                  Nie masz konta ?{" "}
+                  <Link href="/auth/signup">
+                    <a title="Zarejestruj się">Zarejestruj się</a>
+                  </Link>
                 </span>
               </BoxRegistrationInfo>
             </>

@@ -26,8 +26,8 @@ export const Input: StyledComponent<any, any> = styled.input<InputStyledInterfac
   &:-webkit-autofill:focus,
   &:-webkit-autofill:active {
     transition: background-color 5000s ease-in-out 0s;
-    -webkit-text-fill-color: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorText};
-    box-shadow: 0 0 0px 1000px ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorInputBgDark} inset;
+    -webkit-text-fill-color: ${({ theme, error }: { theme: MainSettingsTemplate; error: boolean }): string => theme.colorText};
+    box-shadow: 0 0 0px 1000px ${({ theme, error }: { theme: MainSettingsTemplate; error: boolean }): string => (error ? theme.colorDangerBg : theme.colorInputBgDark)} inset;
   }
 
   &:focus {

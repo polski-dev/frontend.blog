@@ -10,10 +10,6 @@ interface AuthorizeType {
 
 export default NextAuth({
   providers: [
-    GithubProvider({
-      clientId: process.env.GITHUB_ID,
-      clientSecret: process.env.GITHUB_SECRET,
-    }),
     CredentialsProvider({
       name: "credentials",
       credentials: { identifier: { type: "identifier", placeholder: "email" }, password: { type: "password", placeholder: "hasło" } },
@@ -42,13 +38,14 @@ export default NextAuth({
       },
     }),
   ],
-  jwt: {
-    secret: process.env.JWT_SECRET,
-  },
 
   session: {
     strategy: "jwt",
     maxAge: 30 * 24 * 60 * 60, // 30 days
+  },
+
+  jwt: {
+    secret: process.env.JWT_SECRET,
   },
 
   pages: {
@@ -57,15 +54,19 @@ export default NextAuth({
   },
 
   callbacks: {
-    async jwt({ token, user: account }) {
-      if (account) {
-        const { jwt, user }: any = account;
+    async jwt({ token, user: member, account }) {
+      if (member && account?.provider === "credentials") {
+        const { jwt, user }: any = member;
         token.id = user.id;
         token.name = user.name;
         token.accessToken = jwt;
         token.email = user.email;
         token.blocked = user.blocked;
+      } else if (account?.provider === "github") {
+        console.log(token);
+        console.log(account);
       }
+
       return token;
     },
     async session({ session, token }) {

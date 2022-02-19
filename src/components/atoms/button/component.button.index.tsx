@@ -1,4 +1,5 @@
-import ButtonLinkIn from "./component.buttonLinkIn";
-import ButtonSubmit from "./component.buttonSubmit";
+import Button from "./button/component.button";
+import ButtonLinkIn from "./linkIn/component.buttonLinkIn";
+import ButtonSubmit from "./submit/component.buttonSubmit";
 
-export { ButtonLinkIn, ButtonSubmit };
+export { Button, ButtonLinkIn, ButtonSubmit };

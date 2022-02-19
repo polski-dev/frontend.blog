@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { ButtonLinkIn } from "./component.button.style";
-import { ButtonLinkInType } from "./component.button.type";
+import { ButtonLinkIn } from "../style/component.button.style";
+import { ButtonLinkInType } from "../types/component.button.type";
 
 export default function ButtonInLinkComponent({ children, href, title, active, className, onClick }: ButtonLinkInType) {
   return (

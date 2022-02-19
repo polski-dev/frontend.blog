@@ -1,4 +1,6 @@
 export enum enumInputType {
+  fname = "fname",
+  lname = "lname",
   checkbox = "checkbox",
   color = "color",
   date = "date",

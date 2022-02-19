@@ -1,6 +1,6 @@
-import { ButtonLinkInType, ButtonSubmitType } from "./component.button.type";
 import styled, { css, StyledComponent, ThemeProps } from "styled-components";
 import { MainSettingsTemplate } from "assets/style/types.mainSettingsTemplate";
+import { ButtonLinkInType, ButtonSubmitType, ButtonType } from "../types/component.button.type";
 
 const styleDefault = css`
   border: none;
@@ -14,9 +14,17 @@ const styleDefault = css`
   background: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorButtonBg};
   border: 0.1rem solid ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorBorder};
 
+  svg {
+    fill: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorLink};
+  }
+
   &:hover {
     color: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorLinkActive};
     background: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorMainBg};
+
+    svg {
+      fill: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorLinkActive};
+    }
   }
 `;
 
@@ -27,6 +35,12 @@ export const ButtonLinkIn: StyledComponent<any, ButtonLinkInType> = styled.a<But
 `;
 
 export const ButtonSubmit: StyledComponent<any, ButtonSubmitType> = styled.button<ButtonSubmitType>`
+  ${styleDefault}
+  color: ${({ theme, active }: { theme: MainSettingsTemplate; active?: boolean }): string | false | undefined => active && theme.colorLinkActive};
+  background-color: ${({ theme, active }: { theme: MainSettingsTemplate; active?: boolean }): string | false | undefined => active && theme.colorMainBg};
+`;
+
+export const Button: StyledComponent<any, ButtonSubmitType> = styled.button<ButtonSubmitType>`
   ${styleDefault}
   color: ${({ theme, active }: { theme: MainSettingsTemplate; active?: boolean }): string | false | undefined => active && theme.colorLinkActive};
   background-color: ${({ theme, active }: { theme: MainSettingsTemplate; active?: boolean }): string | false | undefined => active && theme.colorMainBg};

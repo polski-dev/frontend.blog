@@ -11,3 +11,5 @@ export interface ButtonLinkInType extends ButtonDefaultType {
 }
 
 export interface ButtonSubmitType extends ButtonDefaultType {}
+
+export interface ButtonType extends ButtonDefaultType {}
