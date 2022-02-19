@@ -1,5 +1,4 @@
 require("dotenv").config();
-import lodash from "lodash";
 
 export default async function handler(req: any, res: any) {
   await fetch(

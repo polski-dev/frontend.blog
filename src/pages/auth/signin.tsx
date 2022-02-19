@@ -5,7 +5,7 @@ import { MenuPrimary } from "components/templates/menu/component.menu.index";
 import { SectionSingIn } from "components/templates/section/component.section.index";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
 
-const Login: NextPage = ({ tag, content, quantityUsers }: any) => {
+const Login: NextPage = ({ tag, quantityUsers }: any) => {
   useDispatchTagToStore().updateTagHome(tag);
 
   return (
@@ -28,15 +28,15 @@ const Login: NextPage = ({ tag, content, quantityUsers }: any) => {
 export async function getStaticProps() {
   // tag
   const tagResponse = await fetch(`https://www.polski.dev/api/tag/1`);
-  const tag = await tagResponse.json().catch((err) => ({ err: true }));
+  const tag = await tagResponse.json().catch(() => ({ err: true }));
 
   // content
   const contentResponse = await fetch(`https://www.polski.dev/api/content/1`);
-  const content = await contentResponse.json().catch((err) => ({ err: true }));
+  const content = await contentResponse.json().catch(() => ({ err: true }));
 
   // users quantity
   const quantityUsersResponse = await fetch(`https://www.polski.dev/api/count/user/all`);
-  const quantityUsers = await quantityUsersResponse.json().catch((err) => ({ err: true }));
+  const quantityUsers = await quantityUsersResponse.json().catch(() => ({ err: true }));
 
   return {
     props: {

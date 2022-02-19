@@ -25,34 +25,14 @@ const Login: NextPage = ({ tag, quantityUsers }: any) => {
   );
 };
 
-// {
-// 	"data": null,
-// 	"error": {
-// 		"status": 400,
-// 		"name": "ApplicationError",
-// 		"message": "Email is already taken",
-// 		"details": {}
-// 	}
-// }
-
-// {
-// 	"data": null,
-// 	"error": {
-// 		"status": 400,
-// 		"name": "ApplicationError",
-// 		"message": "An error occurred during account creation",
-// 		"details": {}
-// 	}
-// }
-
 export async function getStaticProps() {
   // tag
   const tagResponse = await fetch(`https://www.polski.dev/api/tag/1`);
-  const tag = await tagResponse.json().catch((err) => ({ err: true }));
+  const tag = await tagResponse.json().catch(() => ({ err: true }));
 
   // users quantity
   const quantityUsersResponse = await fetch(`https://www.polski.dev/api/count/user/all`);
-  const quantityUsers = await quantityUsersResponse.json().catch((err) => ({ err: true }));
+  const quantityUsers = await quantityUsersResponse.json().catch(() => ({ err: true }));
 
   return {
     props: {

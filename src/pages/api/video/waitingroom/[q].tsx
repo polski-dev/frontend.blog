@@ -1,5 +1,4 @@
 require("dotenv").config();
-import lodash from "lodash";
 
 export default async function handler(req: any, res: any) {
   const response = await fetch(
@@ -7,5 +6,5 @@ export default async function handler(req: any, res: any) {
   );
   const data = response.json();
   data.then((response) => res.status(200).json(response));
-  data.catch((err) => res.status(500).json({ err: "Internal Server Error" }));
+  data.catch(() => res.status(500).json({ err: "Internal Server Error" }));
 }

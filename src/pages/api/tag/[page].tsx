@@ -1,5 +1,4 @@
 require("dotenv").config();
-import { orderBy } from "lodash";
 import { dataFromAPI } from "function/function.index";
 
 export default async function tagAPI(req: any, res: any) {

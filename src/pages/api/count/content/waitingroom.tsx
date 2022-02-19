@@ -1,5 +1,4 @@
 require("dotenv").config();
-import lodash from "lodash";
 
 export default async function handler(req: any, res: any) {
   const video = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/count/video/waitingroom/`)

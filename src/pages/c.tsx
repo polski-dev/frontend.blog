@@ -1,12 +1,10 @@
 import Head from "next/head";
 import { NextPage } from "next";
-import { useEffect } from "react";
 import useDispatchTagToStore from "hooks/hooks.dispatchTagToStore";
 import { MenuPrimary } from "components/templates/menu/component.menu.index";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
-import { ListShortArticle } from "components/templates/section/component.section.index";
 
-const Contact: NextPage = ({ tag, content }: any) => {
+const Contact: NextPage = ({ tag }: any) => {
   useDispatchTagToStore().updateTagHome(tag);
 
   return (
@@ -37,16 +35,11 @@ const Contact: NextPage = ({ tag, content }: any) => {
 export async function getStaticProps() {
   // tag
   const tagResponse = await fetch(`https://www.polski.dev/api/tag/1`);
-  const tag = await tagResponse.json().catch((err) => ({ err: true }));
-
-  // content
-  const contentResponse = await fetch(`https://www.polski.dev/api/content/1`);
-  const content = await contentResponse.json().catch((err) => ({ err: true }));
+  const tag = await tagResponse.json().catch(() => ({ err: true }));
 
   return {
     props: {
       tag,
-      content,
     },
   };
 }

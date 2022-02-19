@@ -1,4 +1,3 @@
-import { orderBy } from "lodash";
 import { dataFromAPI } from "function/function.index";
 
 export default async function contantVideoAPI(req: any, res: any) {
