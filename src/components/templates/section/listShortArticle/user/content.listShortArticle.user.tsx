@@ -2,9 +2,10 @@ import Link from "next/link";
 import Image from "next/image";
 import * as React from "react";
 import { kebabCase, deburr } from "lodash";
+import Avatar from "assets/icon/avatar.svg";
 import { setSlug, time } from "function/function.index";
 import { ButtonLinkIn } from "components/atoms/button/component.button.index";
-import { Article, BoxContent, BoxAuthor, BoxAuthorImg, AuthorData, AuthorName, DateAdded } from "../component.listShortArticle.style";
+import { Article, BoxContent, BoxAuthor, BoxAuthorImg, BoxAuthorAvatar, AuthorData, AuthorName, DateAdded } from "../style/component.listShortArticle.style";
 
 const UserShortArticle = React.forwardRef(({ data, type }: any, ref: any) => {
   const slug = new setSlug(type).setContent;
@@ -14,7 +15,13 @@ const UserShortArticle = React.forwardRef(({ data, type }: any, ref: any) => {
       <BoxContent>
         <BoxAuthor>
           <BoxAuthorImg>
-            {data?.avatar ? <Image width={42} height={42} placeholder="blur" blurDataURL="/img/blur.png" alt={data.username} src={data.avatar.data.attributes.url} /> : <Image src="/img/blur.png" alt={data.username} width={42} height={42} />}
+            {data?.avatar ? (
+              <Image width={42} height={42} placeholder="blur" blurDataURL="/img/blur.png" alt={data.username} src={data.avatar.data.attributes.url} />
+            ) : (
+              <BoxAuthorAvatar>
+                <Avatar />
+              </BoxAuthorAvatar>
+            )}
           </BoxAuthorImg>
           <AuthorData>
             <Link href={`/${slug}/${kebabCase(deburr(data.username.toLowerCase()))}`}>

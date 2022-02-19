@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 26.0.2, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!-- Generator: Adobe Illustrator 26.0.3, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 20 20" style="enable-background:new 0 0 20 20;" xml:space="preserve">
 <g id="emoticons-smiley-svgrepo-com" transform="translate(-0.004 -272.718)">
 	<g id="Group_5" transform="translate(0.004 272.718)">
 		<g id="Group_4" transform="translate(0 0)">
-			<path id="Path_10" d="M10,0C4.5,0,0,4.5,0,10s4.5,10,10,10s10-4.5,10-10C20,4.5,15.5,0,10,0z M10,17.4c-4.1,0-7.4-3.3-7.4-7.4
-				S5.9,2.6,10,2.6s7.4,3.3,7.4,7.4C17.4,14.1,14.1,17.4,10,17.4L10,17.4z"/>
+			<path id="Path_10" d="M10,0C4.5,0,0,4.5,0,10s4.5,10,10,10s10-4.5,10-10S15.5,0,10,0z M10,17.4c-4.1,0-7.4-3.3-7.4-7.4
+				S5.9,2.6,10,2.6s7.4,3.3,7.4,7.4S14.1,17.4,10,17.4L10,17.4z"/>
 		</g>
 	</g>
 	<g id="Group_17" transform="translate(6.11 278.709)">
@@ -19,11 +19,20 @@
 			<rect id="Rectangle_5" x="0" y="0" width="2.6" height="2.6"/>
 		</g>
 	</g>
-	<g id="Group_35" transform="translate(6.451 283.625)">
-		<g id="Group_34" transform="translate(0 0)">
-			<path id="Path_15" d="M3.5,0L3.5,0C1.5,0,0,1.5,0,3.5h2.6C2.6,3,3,2.6,3.5,2.6h0C4,2.6,4.3,3,4.3,3.5v0H7v0C7,1.5,5.4,0,3.5,0z"
-				/>
+</g>
+<g>
+	<g id="Group_13_00000115509120692539523170000006467919664788725378_" transform="translate(6.201 6.157)">
+		<g id="Group_12_00000062875456311852599050000015696900985351780030_">
+			<rect id="Rectangle_2_00000163793173042329708000000013810310991577350314_" x="0.8" y="6" width="2" height="2"/>
 		</g>
+	</g>
+	<g id="Group_13_00000070092518660044026270000004134645555124842424_" transform="translate(6.201 6.157)">
+		<g id="Group_12_00000125592585787419676050000018303187856539862198_">
+			<rect id="Rectangle_2_00000160875309683127455150000017851396783942936982_" x="2.8" y="4.9" width="2" height="2"/>
+		</g>
+	</g>
+	<g id="Group_14_00000113323698260875107340000011794872980250872225_">
+		<rect id="Rectangle_3_00000134227673080730382060000015820973157700717444_" x="11" y="12.1" width="2" height="2"/>
 	</g>
 </g>
 </svg>

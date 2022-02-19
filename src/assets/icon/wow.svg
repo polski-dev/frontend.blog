@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 26.0.2, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!-- Generator: Adobe Illustrator 26.0.3, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 20 20" style="enable-background:new 0 0 20 20;" xml:space="preserve">
 <g id="Group_42" transform="translate(-764.71 -764.718)">
 	<g id="Group_7" transform="translate(764.71 764.718)">
 		<g id="Group_6" transform="translate(0 0)">
-			<path id="Path_11" d="M10,0C4.5,0,0,4.5,0,10s4.5,10,10,10s10-4.5,10-10C20,4.5,15.5,0,10,0z M10,17.4c-4.1,0-7.4-3.3-7.4-7.4
-				S5.9,2.6,10,2.6s7.4,3.3,7.4,7.4C17.4,14.1,14.1,17.4,10,17.4L10,17.4z"/>
+			<path id="Path_11" d="M10,0C4.5,0,0,4.5,0,10s4.5,10,10,10s10-4.5,10-10S15.5,0,10,0z M10,17.4c-4.1,0-7.4-3.3-7.4-7.4
+				S5.9,2.6,10,2.6s7.4,3.3,7.4,7.4S14.1,17.4,10,17.4L10,17.4z"/>
 		</g>
 	</g>
 	<g id="Group_21" transform="translate(770.994 771.494)">
@@ -19,9 +19,13 @@
 			<rect id="Rectangle_7" x="0" y="0" width="2.6" height="2.6"/>
 		</g>
 	</g>
-	<g id="Group_25" transform="translate(773.129 776.366)">
-		<g id="Group_24" transform="translate(0 0)">
-			<circle id="Ellipse_2" cx="1.6" cy="1.6" r="1.6"/>
+</g>
+<g>
+	<g id="Group_13_00000115509120692539523170000006467919664788725378_" transform="translate(6.201 6.157)">
+	</g>
+	<g id="Group_13_00000070092518660044026270000004134645555124842424_" transform="translate(6.201 6.157)">
+		<g id="Group_12_00000125592585787419676050000018303187856539862198_">
+			<rect id="Rectangle_2_00000160875309683127455150000017851396783942936982_" x="2.8" y="6" width="2" height="2"/>
 		</g>
 	</g>
 </g>

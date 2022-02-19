@@ -3,7 +3,7 @@ import * as React from "react";
 import { kebabCase, deburr } from "lodash";
 import { setSlug } from "function/function.index";
 import { ButtonLinkIn } from "components/atoms/button/component.button.index";
-import { Article, BoxContent, TitleArticle } from "../component.listShortArticle.style";
+import { Article, BoxContent, TitleArticle } from "../style/component.listShortArticle.style";
 
 const TagShortArticle = React.forwardRef(({ data, type }: any, ref: any) => {
   const slug = new setSlug(type).setContent;

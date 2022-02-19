@@ -1,6 +1,6 @@
-import TagShortArticle from "./tag/component.listShortArticle.tag";
-import UserShortArticle from "./user/content.listShortArticle.user";
-import ContentShortArticle from "./content/component.listShortArticle.content";
+import TagShortArticle from "../tag/component.listShortArticle.tag";
+import UserShortArticle from "../user/content.listShortArticle.user";
+import ContentShortArticle from "../content/component.listShortArticle.content";
 
 export default function selectTemplateForContent(item: any, i: number, articeRef: any) {
   if (item.type === "article" || item.type === "video" || item.type === "videoWaitingRoom" || item.type === "articleWaitingRoom") {

@@ -4,11 +4,12 @@ import * as React from "react";
 import Wow from "assets/icon/wow.svg";
 import Wrr from "assets/icon/wrr.svg";
 import Best from "assets/icon/best.svg";
+import Avatar from "assets/icon/avatar.svg";
 import { kebabCase, deburr } from "lodash";
 import Comment from "assets/icon/comment.svg";
 import { setSlug, time } from "function/function.index";
 import { ButtonLinkIn } from "components/atoms/button/component.button.index";
-import { Article, BoxContent, BoxAuthor, BoxAuthorImg, AuthorData, AuthorName, DateAdded, TitleArticle, ListTags, Tag, ListStats, Item } from "../component.listShortArticle.style";
+import { Article, BoxContent, BoxAuthor, BoxAuthorImg, BoxAuthorAvatar, AuthorData, AuthorName, DateAdded, TitleArticle, ListTags, Tag, ListStats, Item } from "../style/component.listShortArticle.style";
 
 const ContentShortArticle = React.forwardRef(({ data, type }: any, ref: any) => {
   const slug = new setSlug(type).setContent;
@@ -22,7 +23,15 @@ const ContentShortArticle = React.forwardRef(({ data, type }: any, ref: any) => 
       </Link>
       <BoxContent>
         <BoxAuthor>
-          <BoxAuthorImg>{data.author?.data?.attributes?.avatar?.data?.attributes?.url && <Image width={42} height={42} alt={data.author.data.attributes.username} src={data.author.data.attributes.avatar.data.attributes.url} />}</BoxAuthorImg>
+          <BoxAuthorImg>
+            {data?.author?.data?.attributes?.avatar?.data?.attributes?.url ? (
+              <Image width={42} height={42} placeholder="blur" blurDataURL="/img/blur.png" alt={data.author.data.attributes.username} src={data.author.data.attributes.avatar.data.attributes.url} />
+            ) : (
+              <BoxAuthorAvatar>
+                <Avatar />
+              </BoxAuthorAvatar>
+            )}
+          </BoxAuthorImg>
           <AuthorData>
             <Link href={`/${new setSlug("user").setContent}/${kebabCase(deburr(data?.author.data.attributes.username.toLowerCase()))}`}>
               <a title={data.author.data.attributes.username}>

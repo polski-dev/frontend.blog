@@ -2,10 +2,10 @@ import Confetti from "react-confetti";
 import useWindowData from "hooks/hooks.windowData";
 import { dataFromAPI } from "function/function.index";
 import React, { useEffect, useRef, useState, useMemo } from "react";
-import { setTypeContent } from "./component.listShortArticle.setTypeContent";
-import selectTemplateForContent from "./component.listShortArticle.selectTemplate";
+import { setTypeContent } from "./switch/component.listShortArticle.setTypeContent";
 import { SquareShortArticle } from "components/atoms/animation/comonent.animation.index";
-import { Section, Title, Options, BoxInformation, Info, NotFound } from "./component.listShortArticle.style";
+import selectTemplateForContent from "./switch/component.listShortArticle.selectTemplate";
+import { Section, Title, Options, BoxInformation, Info, NotFound } from "./style/component.listShortArticle.style";
 
 export default function SectionShortArticle({ data, type, loadData, search }: { data: any; type: string; loadData?: boolean; search?: string }) {
   const { width, height } = useWindowData();
@@ -83,9 +83,10 @@ export default function SectionShortArticle({ data, type, loadData, search }: { 
       {!!content[setTypeContent(type)].data.length && content[setTypeContent(type)].data.map((item: any, i: number) => selectTemplateForContent(item, i, articeRef))}
       {iAmWaitingForAnswer || loadData ? (
         <>
-          {new Array(10).fill(undefined).map((val: any, i: number) => (
-            <SquareShortArticle key={i} last={new Array(10).length - 1 === i} />
-          ))}
+          {new Array(10).fill(undefined).map((val: any, i: number) => {
+            console.log(val);
+            return <SquareShortArticle key={i} last={new Array(10).length - 1 === i} />;
+          })}
         </>
       ) : !!content[setTypeContent(type)].data.length ? (
         <BoxInformation>
