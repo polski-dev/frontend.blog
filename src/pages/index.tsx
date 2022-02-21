@@ -1,19 +1,12 @@
 import Head from "next/head";
 import { NextPage } from "next";
-import { useState, useEffect } from "react";
 import useDispatchTagToStore from "hooks/hooks.dispatchTagToStore";
 import { MenuPrimary } from "components/templates/menu/component.menu.index";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
 import { ListShortArticle } from "components/templates/section/component.section.index";
-import { articleWithOnlyTitleAllGetPreviewList, ArticleWithOnlyTitleType, articleWithOnlyTitleInitialState } from "database/database.graphQL.index";
 
 const Home: NextPage = ({ tag, content }: any) => {
-  const [data, setData] = useState(articleWithOnlyTitleInitialState);
   useDispatchTagToStore().updateTagHome(tag);
-
-  useEffect(() => {
-    (async () => setData(await articleWithOnlyTitleAllGetPreviewList(0).then((data) => data)))();
-  }, []);
 
   return (
     <>
