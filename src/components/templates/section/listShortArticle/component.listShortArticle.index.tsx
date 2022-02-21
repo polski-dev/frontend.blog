@@ -76,7 +76,7 @@ export default function SectionShortArticle({ data, type, loadData, search }: { 
   return (
     <Section>
       <Title>
-        {type === "all" && "Blog"}
+        {type === "all" && "Wszystko"}
         {type === "allWaitingRoom" && "Poczekalnia"}
         {type === "video" && "Video"}
         {type === "videoWaitingRoom" && "Poczekalnia video"}

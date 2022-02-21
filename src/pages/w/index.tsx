@@ -4,7 +4,9 @@ import useDispatchTagToStore from "hooks/hooks.dispatchTagToStore";
 import { MenuPrimary } from "components/templates/menu/component.menu.index";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
 import { ListShortArticle } from "components/templates/section/component.section.index";
-const Home: NextPage = ({ tag, content }: any) => {
+import { contentGetPreview, ContentType, tagWithOnlyTitleAllGetPreviewList, TagWithOnlyTitleType } from "database/database.restAPI.index";
+
+const Waitingroom: NextPage<any, ContentType> = ({ tag, content }: { tag: TagWithOnlyTitleType; content: ContentType }) => {
   useDispatchTagToStore().updateTagHome(tag);
 
   return (
@@ -17,7 +19,7 @@ const Home: NextPage = ({ tag, content }: any) => {
           <MenuPrimary
             title="Filtruj"
             data={[
-              { slug: "/w", title: "Wszystko", quantity: content.all.meta.pagination.total },
+              { slug: "/w", title: "Wszystko", quantity: content.all?.meta.pagination.total || 0 },
               { slug: "/w/a", title: "Artykuły", quantity: content.article.meta.pagination.total },
               { slug: "/w/v", title: "Video", quantity: content.video.meta.pagination.total },
             ]}
@@ -33,12 +35,10 @@ const Home: NextPage = ({ tag, content }: any) => {
 
 export async function getStaticProps() {
   // tag
-  const tagResponse = await fetch(`https://www.polski.dev/api/tag/1`);
-  const tag = await tagResponse.json();
+  const tag = await tagWithOnlyTitleAllGetPreviewList(0);
 
   // content
-  const contentResponse = await fetch(`https://www.polski.dev/api/content/waitingroom/1`);
-  const content = await contentResponse.json();
+  const content: ContentType = await contentGetPreview(0, true);
 
   return {
     props: {
@@ -48,4 +48,4 @@ export async function getStaticProps() {
   };
 }
 
-export default Home;
+export default Waitingroom;

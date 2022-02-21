@@ -1,7 +1,14 @@
-import { contentSearchSugestInitialState, ContentSearchSugestType, contentInitialState, ContentType } from "./database.graphQL.index";
+import {
+  contentSearchSugestInitialState,
+  ContentSearchSugestType,
+  contentInitialState,
+  ContentType,
+  tagWithOnlyTitleInitialState,
+  TagWithOnlyTitleType,
+} from "./database.graphQL.index";
 
 async function fetchAPI({ path, body = {} }: { path: string; body?: {} }): Promise<any> {
-  const res = await fetch(`https://www.polski.dev/api/${path}`, {
+  const res = await fetch(`http://localhost:3000/api/${path}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -25,5 +32,17 @@ const contentSearchSugestGetPreview: (search: string) => Promise<ContentSearchSu
 const contentGetPreview: (page: number, waitingroom: boolean) => Promise<ContentType> = async (page: number, waitingroom: boolean): Promise<ContentType> =>
   await fetchAPI({ path: `content/${page}`, body: { waitingroom } });
 
-export type { ContentSearchSugestType, ContentType };
-export { contentSearchSugestInitialState, contentSearchSugestGetPreview, contentInitialState, contentGetPreview };
+// tag
+const tagWithOnlyTitleAllGetPreviewList: (page: number) => Promise<TagWithOnlyTitleType> = async (page: number): Promise<TagWithOnlyTitleType> =>
+  await fetchAPI({ path: `tag/${page}` });
+
+export type { ContentSearchSugestType, ContentType, TagWithOnlyTitleType };
+
+export {
+  contentSearchSugestInitialState,
+  contentSearchSugestGetPreview,
+  contentInitialState,
+  contentGetPreview,
+  tagWithOnlyTitleInitialState,
+  tagWithOnlyTitleAllGetPreviewList,
+};

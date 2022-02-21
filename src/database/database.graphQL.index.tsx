@@ -1,5 +1,6 @@
 import { contentInitialState, contentQuery, ContentType } from "./content/database.content.index";
 import { contentSearchInitialState, contentSearchQuery, ContentSearchType } from "./content/database.contentSearch.index";
+import { tagWithOnlyTitleInitialState, tagWithOnlyTitleQuery, TagWithOnlyTitleType } from "./tag/database.tagWithOnlyTitle.index";
 import { contentSearchSugestInitialState, contentSearchSugestQuery, ContentSearchSugestType } from "./content/database.contentSearchSugest.index";
 import { articleWithOnlyTitleInitialState, articleWithOnlyTitleQuery, ArticleWithOnlyTitleType } from "./article/database.artice.index";
 import { shortVideoInitialState, shortVideoByIDQuery, shortVideoByWaitingRoomQuery, ShortVideoType } from "./video/database.video.index";
@@ -62,8 +63,12 @@ const shortVideoAllByWaitingRoomGetPreview: (waitingroom: boolean, page: number)
   page: number
 ): Promise<ShortVideoType> => await fetchAPI(shortVideoByWaitingRoomQuery, { variables: { waitingroom, page: page * 10 } });
 
+// tag
+const tagWithOnlyTitleAllGetPreviewList: (page: number) => Promise<TagWithOnlyTitleType> = async (page: number): Promise<TagWithOnlyTitleType> =>
+  await fetchAPI(tagWithOnlyTitleQuery, { variables: { page: page * 10, sort: "views:desc" } });
+
 // export
-export type { ShortArticleType, ArticleWithOnlyTitleType, ShortVideoType, ContentSearchType, ContentSearchSugestType, ContentType };
+export type { ShortArticleType, ArticleWithOnlyTitleType, ShortVideoType, ContentSearchType, ContentSearchSugestType, ContentType, TagWithOnlyTitleType };
 export {
   shortArticleInitialState,
   shortArticleByIdGetPreview,
@@ -79,4 +84,6 @@ export {
   contentSearchSugestGetPreview,
   contentInitialState,
   contentGetPreview,
+  tagWithOnlyTitleInitialState,
+  tagWithOnlyTitleAllGetPreviewList,
 };
