@@ -19,8 +19,6 @@ const HeaderComponent = () => {
   const { modeMenu, setPowerMenu } = useContext(MenuContext);
   const [powerUserBox, setPowerUserBox] = useState(false);
 
-  console.log(data);
-
   return (
     <>
       <Header>

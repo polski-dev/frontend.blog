@@ -13,10 +13,6 @@ export default function SectionSingIn({ users }: { users: number }) {
   const [checked, setChecked] = useState("");
   const [send, setSend] = useState(false);
 
-  useEffect(() => {
-    console.log(checked);
-  }, [checked]);
-
   const {
     setError,
     register,

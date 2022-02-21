@@ -9,7 +9,21 @@ import { kebabCase, deburr } from "lodash";
 import Comment from "assets/icon/comment.svg";
 import { setSlug, time } from "function/function.index";
 import { ButtonLinkIn } from "components/atoms/button/component.button.index";
-import { Article, BoxContent, BoxAuthor, BoxAuthorImg, BoxAuthorAvatar, AuthorData, AuthorName, DateAdded, TitleArticle, ListTags, Tag, ListStats, Item } from "../style/component.listShortArticle.style";
+import {
+  Article,
+  BoxContent,
+  BoxAuthor,
+  BoxAuthorImg,
+  BoxAuthorAvatar,
+  AuthorData,
+  AuthorName,
+  DateAdded,
+  TitleArticle,
+  ListTags,
+  Tag,
+  ListStats,
+  Item,
+} from "../style/component.listShortArticle.style";
 
 const ContentShortArticle = React.forwardRef(({ data, type }: any, ref: any) => {
   const slug = new setSlug(type).setContent;
@@ -25,7 +39,14 @@ const ContentShortArticle = React.forwardRef(({ data, type }: any, ref: any) => 
         <BoxAuthor>
           <BoxAuthorImg>
             {data?.author?.data?.attributes?.avatar?.data?.attributes?.url ? (
-              <Image width={42} height={42} placeholder="blur" blurDataURL="/img/blur.png" alt={data.author.data.attributes.username} src={data.author.data.attributes.avatar.data.attributes.url} />
+              <Image
+                width={42}
+                height={42}
+                placeholder="blur"
+                blurDataURL="/img/blur.png"
+                alt={data.author.data.attributes.username}
+                src={data.author.data.attributes.avatar.data.attributes.url}
+              />
             ) : (
               <BoxAuthorAvatar>
                 <Avatar />

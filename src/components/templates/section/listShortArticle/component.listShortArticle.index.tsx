@@ -25,7 +25,12 @@ export default function SectionShortArticle({ data, type, loadData, search }: { 
       clearTimeout(check);
       check = setTimeout(() => {
         const heightEl: any = articeRef?.current?.getBoundingClientRect().y;
-        if (content[setTypeContent(type)].meta.pagination.page < content[setTypeContent(type)].meta.pagination.pageCount && !iAmWaitingForAnswer && heightEl - height < 0) setIamWaitingForAnswer(true);
+        if (
+          content[setTypeContent(type)].meta.pagination.page < content[setTypeContent(type)].meta.pagination.pageCount &&
+          !iAmWaitingForAnswer &&
+          heightEl - height < 0
+        )
+          setIamWaitingForAnswer(true);
       }, 200);
     }
 
@@ -37,7 +42,10 @@ export default function SectionShortArticle({ data, type, loadData, search }: { 
   useEffect(() => {
     (async () => {
       if (iAmWaitingForAnswer) {
-        const dataFromAPI = !!search?.length ? await API.contentQuery(content[setTypeContent(type)].meta.pagination.page + 1, search) : await API.contentQuery(content[setTypeContent(type)].meta.pagination.page + 1);
+        const dataFromAPI = !!search?.length
+          ? await API.contentQuery(content[setTypeContent(type)].meta.pagination.page + 1, search)
+          : await API.contentQuery(content[setTypeContent(type)].meta.pagination.page + 1);
+
         let data = content;
         if (!!data.all && dataFromAPI.all) {
           data.all.data = [...data.all.data, ...dataFromAPI.all.data];
@@ -80,11 +88,11 @@ export default function SectionShortArticle({ data, type, loadData, search }: { 
         {type === "searchArticle" && `Wynik wyszukiwania artykułów: ${search}`}
       </Title>
       <Options></Options>
-      {!!content[setTypeContent(type)].data.length && content[setTypeContent(type)].data.map((item: any, i: number) => selectTemplateForContent(item, i, articeRef))}
+      {!!content[setTypeContent(type)].data.length &&
+        content[setTypeContent(type)].data.map((item: any, i: number) => selectTemplateForContent(item, i, articeRef))}
       {iAmWaitingForAnswer || loadData ? (
         <>
           {new Array(10).fill(undefined).map((val: any, i: number) => {
-            console.log(val);
             return <SquareShortArticle key={i} last={new Array(10).length - 1 === i} />;
           })}
         </>

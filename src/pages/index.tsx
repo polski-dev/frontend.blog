@@ -1,12 +1,19 @@
 import Head from "next/head";
 import { NextPage } from "next";
+import { useState, useEffect } from "react";
 import useDispatchTagToStore from "hooks/hooks.dispatchTagToStore";
 import { MenuPrimary } from "components/templates/menu/component.menu.index";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
 import { ListShortArticle } from "components/templates/section/component.section.index";
+import { articleWithOnlyTitleAllGetPreviewList, ArticleWithOnlyTitleType, articleWithOnlyTitleInitialState } from "database/database.graphQL.index";
 
 const Home: NextPage = ({ tag, content }: any) => {
+  const [data, setData] = useState(articleWithOnlyTitleInitialState);
   useDispatchTagToStore().updateTagHome(tag);
+
+  useEffect(() => {
+    (async () => setData(await articleWithOnlyTitleAllGetPreviewList(0).then((data) => data)))();
+  }, []);
 
   return (
     <>
@@ -35,11 +42,11 @@ const Home: NextPage = ({ tag, content }: any) => {
 export async function getStaticProps() {
   // tag
   const tagResponse = await fetch(`https://www.polski.dev/api/tag/1`);
-  const tag = await tagResponse.json().catch(() => ({ err: true }));
+  const tag = await tagResponse.json();
 
   // content
   const contentResponse = await fetch(`https://www.polski.dev/api/content/1`);
-  const content = await contentResponse.json().catch(() => ({ err: true }));
+  const content = await contentResponse.json();
 
   return {
     props: {

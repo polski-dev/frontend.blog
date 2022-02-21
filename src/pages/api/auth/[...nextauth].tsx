@@ -52,7 +52,7 @@ export default NextAuth({
   },
 
   callbacks: {
-    async jwt({ token, user: member, account }) {
+    async jwt({ token, user: member, account }): Promise<any> {
       if (member && account?.provider === "credentials") {
         const { jwt, user }: any = member;
         token.id = user.id;
@@ -60,12 +60,9 @@ export default NextAuth({
         token.accessToken = jwt;
         token.email = user.email;
         token.blocked = user.blocked;
-      } else if (account?.provider === "github") {
-        console.log(token);
-        console.log(account);
+        return token;
       }
-
-      return token;
+      return null;
     },
     async session({ session, token }) {
       session.id = token.id;

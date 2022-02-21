@@ -1,4 +1,3 @@
-require("dotenv").config();
 import { dataFromAPI } from "function/function.index";
 
 export default async function tagAPI(req: any, res: any) {

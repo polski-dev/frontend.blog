@@ -35,7 +35,7 @@ const Contact: NextPage = ({ tag }: any) => {
 export async function getStaticProps() {
   // tag
   const tagResponse = await fetch(`https://www.polski.dev/api/tag/1`);
-  const tag = await tagResponse.json().catch(() => ({ err: true }));
+  const tag = await tagResponse.json();
 
   return {
     props: {
