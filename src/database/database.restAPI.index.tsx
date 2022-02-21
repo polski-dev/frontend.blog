@@ -1,11 +1,12 @@
-import { contentSugestInitialState, ContentSugestType } from "./database.graphQL.index";
+import { contentSearchSugestInitialState, ContentSearchSugestType, contentInitialState, ContentType } from "./database.graphQL.index";
 
-async function fetchAPI({ path }: { path: string }) {
-  const res = await fetch(`/api/${path}`, {
-    method: "GET",
+async function fetchAPI({ path, body = {} }: { path: string; body?: {} }): Promise<any> {
+  const res = await fetch(`https://www.polski.dev/api/${path}`, {
+    method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
+    body: JSON.stringify(body),
   });
 
   const json = await res.json();
@@ -17,8 +18,12 @@ async function fetchAPI({ path }: { path: string }) {
 }
 
 // search
-const searchSugestGetPreview: (search: string) => Promise<ContentSugestType> = async (search: string): Promise<ContentSugestType> =>
+const contentSearchSugestGetPreview: (search: string) => Promise<ContentSearchSugestType> = async (search: string): Promise<ContentSearchSugestType> =>
   await fetchAPI({ path: `search/0/${search}` });
 
-export type { ContentSugestType };
-export { contentSugestInitialState, searchSugestGetPreview };
+// content
+const contentGetPreview: (page: number, waitingroom: boolean) => Promise<ContentType> = async (page: number, waitingroom: boolean): Promise<ContentType> =>
+  await fetchAPI({ path: `content/${page}`, body: { waitingroom } });
+
+export type { ContentSearchSugestType, ContentType };
+export { contentSearchSugestInitialState, contentSearchSugestGetPreview, contentInitialState, contentGetPreview };

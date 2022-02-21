@@ -1,4 +1,4 @@
-export interface ContentSugestType {
+export interface ContentSearchSugestType {
   all?: {
     data:
       | {

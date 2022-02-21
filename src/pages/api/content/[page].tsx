@@ -1,27 +1,35 @@
-require("dotenv").config();
 import { orderBy } from "lodash";
-import { dataFromAPI } from "function/function.index";
+import { contentGetPreview, contentInitialState, ContentType } from "database/database.graphQL.index";
 
-export default async function contantAllAPI(req: any, res: any) {
+export default async function contentAPI(req: any, res: any) {
   const { page } = req.query;
-  if (!parseInt(page)) res.status(500).json({ err: "wrong page number" });
+  const { waitingroom = false } = req.body;
 
-  const video = await new dataFromAPI(process.env.NEXT_PUBLIC_API_URL, "video").contentQueryAPI(parseInt(page));
-  const article = await new dataFromAPI(process.env.NEXT_PUBLIC_API_URL, "article").contentQueryAPI(parseInt(page));
+  // i check page number
+  if (parseInt(page) < 0) res.status(200).json(contentInitialState);
+  else if (parseInt(page) === 0 ? false : !parseInt(page)) res.status(500).json({ err: "wrong page number" });
+
+  const content: ContentType = await contentGetPreview(parseInt(page), waitingroom);
+
+  // add type content
+  content?.article.data.forEach((art: any) => (art.type = "article"));
+  content?.video.data.forEach((art: any) => (art.type = "video"));
+
+  // count page for all content
+  const pageCount = Math.ceil((content.article.meta.pagination.total + content.video.meta.pagination.total) / 10);
 
   res.status(200).json({
     all: {
-      data: orderBy([...article.data, ...video.data], ["createdAt"], ["desc"]),
+      data: orderBy([...content.article.data, ...content.video.data], ["views"], ["desc"]),
       meta: {
         pagination: {
-          page: parseInt(page),
+          page: parseInt(page) + 1,
           pageSize: 20,
-          pageCount: Math.ceil((article.meta.pagination.total + video.meta.pagination.total) / 10) === 0 ? 1 : Math.ceil((article.meta.pagination.total + video.meta.pagination.total) / 10),
-          total: article.meta.pagination.total + video.meta.pagination.total,
+          pageCount: pageCount === 0 ? 1 : pageCount,
+          total: content.article.meta.pagination.total + content.video.meta.pagination.total,
         },
       },
     },
-    article,
-    video,
+    ...content,
   });
 }

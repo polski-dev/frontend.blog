@@ -4,14 +4,14 @@ import { kebabCase, deburr } from "lodash";
 import Search from "assets/icon/search.svg";
 import { useState, useEffect } from "react";
 import { setSlug } from "function/function.index";
-import { searchSugestGetPreview, contentSugestInitialState } from "database/database.restAPI.index";
+import { contentSearchSugestInitialState, contentSearchSugestGetPreview } from "database/database.restAPI.index";
 import { Form, Input, Button, SugestBox, Item, IconBox, ContentBox, ContentTitle, ContentTags, ContentTag } from "./component.searchBar.style";
 
 export default function SearchBar() {
   const router = useRouter();
   const [focus, setFocus] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [searchResult, setSearchResult] = useState(contentSugestInitialState);
+  const [searchResult, setSearchResult] = useState(contentSearchSugestInitialState);
 
   const search = (event: any) => {
     event.preventDefault();
@@ -23,8 +23,8 @@ export default function SearchBar() {
     let newSearchQueryResult = setTimeout(() => null, 500);
     clearTimeout(newSearchQueryResult);
     newSearchQueryResult = !!searchQuery.length
-      ? setTimeout(async () => setSearchResult(await searchSugestGetPreview(searchQuery)), 500)
-      : setTimeout(() => setSearchResult(contentSugestInitialState), 500);
+      ? setTimeout(async () => setSearchResult(await contentSearchSugestGetPreview(searchQuery)), 500)
+      : setTimeout(() => setSearchResult(contentSearchSugestInitialState), 500);
     return () => clearTimeout(newSearchQueryResult);
   }, [searchQuery]);
 
