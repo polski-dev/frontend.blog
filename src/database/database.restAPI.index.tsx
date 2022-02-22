@@ -10,7 +10,7 @@ import {
 } from "./database.graphQL.index";
 
 async function fetchAPI({ path, body = {} }: { path: string; body?: {} }): Promise<any> {
-  const res = await fetch(`http://localhost:3000/api/${path}`, {
+  const res = await fetch(`https://www.polski.dev/api/${path}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
