@@ -38,6 +38,10 @@ import {
   searchShortUserInitialState,
 } from "./search/database.search.index";
 
+// count
+import type { CountUserType } from "./count/database.count.index";
+import { countUserGetPreview, countUserInitialState } from "./count/database.count.index";
+
 // export
 export type {
   ContentShortType,
@@ -50,6 +54,7 @@ export type {
   SearchShortVideoType,
   SearchShortTagType,
   SearchShortUserType,
+  CountUserType,
 };
 
 export {
@@ -73,4 +78,6 @@ export {
   searchShortTagInitialState,
   searchShortUserGetPreview,
   searchShortUserInitialState,
+  countUserInitialState,
+  countUserGetPreview,
 };

@@ -1,13 +1,17 @@
 import Head from "next/head";
 import { NextPage } from "next";
+import { useEffect } from "react";
 import useDispatchTagToStore from "hooks/hooks.dispatchTagToStore";
 import { MenuPrimary } from "components/templates/menu/component.menu.index";
 import { SectionSingIn } from "components/templates/section/component.section.index";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
-import { tagWithOnlyTitleAllGetPreviewList, TagWithOnlyTitleType } from "database/database.graphQL.index";
+import { tagWithOnlyTitleAllGetPreviewList, TagWithOnlyTitleType, countUserGetPreview, CountUserType } from "database/database.graphQL.index";
 
-const SingIn: NextPage<any, TagWithOnlyTitleType> = ({ tag, quantityUsers }: { tag: TagWithOnlyTitleType; quantityUsers: any }): JSX.Element => {
-  useDispatchTagToStore().updateTagHome(tag);
+const SingIn: NextPage<any, TagWithOnlyTitleType> = ({ tag, countUser }: { tag: TagWithOnlyTitleType; countUser: CountUserType }): JSX.Element => {
+  const { updateTagHome, store } = useDispatchTagToStore();
+  useEffect(() => {
+    if (!store.tag.home.data.length) updateTagHome(tag);
+  }, [store, updateTagHome, tag]);
 
   return (
     <>
@@ -18,7 +22,7 @@ const SingIn: NextPage<any, TagWithOnlyTitleType> = ({ tag, quantityUsers }: { t
         <Row>
           <MenuPrimary title="Filtruj" data={[]} />
           <Col xs={12} md={9}>
-            <SectionSingIn users={quantityUsers.count} />
+            <SectionSingIn users={countUser.user.meta.pagination.total} />
           </Col>
         </Row>
       </Container>
@@ -30,14 +34,13 @@ export async function getStaticProps(): Promise<any> {
   // tag
   const tag: TagWithOnlyTitleType = await tagWithOnlyTitleAllGetPreviewList(0);
 
-  // users quantity
-  const quantityUsersResponse = await fetch(`https://www.polski.dev/api/count/user/all`);
-  const quantityUsers = await quantityUsersResponse.json().catch(() => ({ err: true }));
+  // cont user
+  const countUser: CountUserType = await countUserGetPreview();
 
   return {
     props: {
       tag,
-      quantityUsers,
+      countUser,
     },
   };
 }
