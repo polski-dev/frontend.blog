@@ -1,7 +1,7 @@
 import { orderBy } from "lodash";
 import { contentGetPreview, contentInitialState, ContentType } from "database/database.graphQL.index";
 
-export default async function contentAPI(req: any, res: any) {
+export default async function contentAPI(req: any, res: any): Promise<void> {
   const { page } = req.query;
   const { waitingroom = false } = req.body;
 
@@ -20,7 +20,7 @@ export default async function contentAPI(req: any, res: any) {
 
   res.status(200).json({
     all: {
-      data: orderBy([...content.article.data, ...content.video.data], ["views"], ["desc"]),
+      data: orderBy([...content.article.data, ...content.video.data], (item) => item.attributes.createdAt, ["desc"]),
       meta: {
         pagination: {
           page: parseInt(page) + 1,

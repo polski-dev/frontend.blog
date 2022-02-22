@@ -1,23 +1,24 @@
 import Confetti from "react-confetti";
 import useWindowData from "hooks/hooks.windowData";
-import { dataFromAPI } from "function/function.index";
-import React, { useEffect, useRef, useState, useMemo } from "react";
-import { setTypeContent } from "./switch/component.listShortArticle.setTypeContent";
+import React, { useEffect, useRef, useState } from "react";
+import { setTypeContent } from "./switchs/component.listShortArticle.setTypeContent";
 import { SquareShortArticle } from "components/atoms/animation/comonent.animation.index";
-import selectTemplateForContent from "./switch/component.listShortArticle.selectTemplate";
-import { Section, Title, Options, BoxInformation, Info, NotFound } from "./style/component.listShortArticle.style";
+import { contentGetPreview, videoShortGetPreview } from "database/database.restAPI.index";
+import selectTemplateForContent from "./switchs/component.listShortArticle.selectTemplate";
+import { Section, Title, BoxInformation, Info, NotFound } from "./style/component.listShortArticle.style";
 
 export default function SectionShortArticle({ data, type, loadData, search }: { data: any; type: string; loadData?: boolean; search?: string }) {
   const { width, height } = useWindowData();
+  const [page, setPage] = useState(1);
   const [content, setContent] = useState(data);
   const articeRef = useRef<HTMLDivElement>(null);
   const [iAmWaitingForAnswer, setIamWaitingForAnswer] = useState(false);
-  const API = useMemo(() => new dataFromAPI("https://www.polski.dev", type), [type]);
 
   useEffect(() => {
     if (!loadData && !!search?.length) setContent(data);
   }, [data, loadData, search]);
 
+  // i check if can download next contents
   useEffect(() => {
     let check = setTimeout(() => {}, 200);
 
@@ -25,53 +26,43 @@ export default function SectionShortArticle({ data, type, loadData, search }: { 
       clearTimeout(check);
       check = setTimeout(() => {
         const heightEl: any = articeRef?.current?.getBoundingClientRect().y;
-        if (
-          content[setTypeContent(type)].meta.pagination.page < content[setTypeContent(type)].meta.pagination.pageCount &&
-          !iAmWaitingForAnswer &&
-          heightEl - height < 0
-        )
-          setIamWaitingForAnswer(true);
+        if (page < content[setTypeContent(type)].meta.pagination.pageCount && !iAmWaitingForAnswer && heightEl - height < 0) setIamWaitingForAnswer(true);
       }, 200);
     }
 
     document.addEventListener("scroll", loadArticle);
 
     return () => document.removeEventListener("scroll", loadArticle);
-  }, [articeRef, height, iAmWaitingForAnswer, content, type]);
+  }, [articeRef, height, iAmWaitingForAnswer, content, type, page]);
 
   useEffect(() => {
     (async () => {
       if (iAmWaitingForAnswer) {
-        const dataFromAPI = !!search?.length
-          ? await API.contentQuery(content[setTypeContent(type)].meta.pagination.page + 1, search)
-          : await API.contentQuery(content[setTypeContent(type)].meta.pagination.page + 1);
+        switch (type) {
+          case "all":
+            const all: any = await contentGetPreview(page, false);
+            content.all.data = [...content.all.data, ...all?.all?.data];
+            break;
+          case "allWaitingRoom":
+            const allWaitingRoom: any = await contentGetPreview(page, true);
+            content.all.data = [...content.all.data, ...allWaitingRoom?.all?.data];
+            break;
+          case "video":
+            const video: any = await videoShortGetPreview(page, false);
+            content.video.data = [...content.video.data, ...video?.video?.data];
+            break;
+          case "videoWaitingRoom":
+            const videoWaitingRoom: any = await videoShortGetPreview(page, true);
+            content.video.data = [...content.video.data, ...videoWaitingRoom?.video?.data];
+            break;
+        }
 
-        let data = content;
-        if (!!data.all && dataFromAPI.all) {
-          data.all.data = [...data.all.data, ...dataFromAPI.all.data];
-          data.all.meta = dataFromAPI.all.meta;
-        }
-        if (!!data.article && !!dataFromAPI.article) {
-          data.article.data = [...data.article.data, ...dataFromAPI.article.data];
-          data.article.meta = dataFromAPI.article.meta;
-        }
-        if (!!data.video && dataFromAPI.video) {
-          data.video.data = [...data.video.data, ...dataFromAPI.video.data];
-          data.video.meta = dataFromAPI.video.meta;
-        }
-        if (!!data.user && dataFromAPI.user) {
-          data.user.data = [...data.user.data, ...dataFromAPI.user.data];
-          data.user.meta = dataFromAPI.user.meta;
-        }
-        if (!!data.tag && dataFromAPI.tag) {
-          data.tag.data = [...data.tag.data, ...dataFromAPI.tag.data];
-          data.tag.meta = dataFromAPI.tag.meta;
-        }
-        setContent(data);
+        setContent(content);
+        setPage(page + 1);
         setIamWaitingForAnswer(false);
       }
     })();
-  }, [iAmWaitingForAnswer, type, API, content, search]);
+  }, [iAmWaitingForAnswer, data, type, content, page, search]);
 
   return (
     <Section>
@@ -87,9 +78,9 @@ export default function SectionShortArticle({ data, type, loadData, search }: { 
         {type === "searchTag" && `Wynik wyszukiwania tag: ${search}`}
         {type === "searchArticle" && `Wynik wyszukiwania artykułów: ${search}`}
       </Title>
-      <Options></Options>
-      {!!content[setTypeContent(type)].data.length &&
-        content[setTypeContent(type)].data.map((item: any, i: number) => selectTemplateForContent(item, i, articeRef))}
+
+      {content[setTypeContent(type)].data.map((item: any, i: number) => selectTemplateForContent(item, i, articeRef))}
+
       {iAmWaitingForAnswer || loadData ? (
         <>
           {new Array(10).fill(undefined).map((val: any, i: number) => {

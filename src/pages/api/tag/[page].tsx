@@ -1,6 +1,6 @@
 import { tagWithOnlyTitleAllGetPreviewList, tagWithOnlyTitleInitialState, TagWithOnlyTitleType } from "database/database.graphQL.index";
 
-export default async function contentAPI(req: any, res: any): Promise<void> {
+export default async function TagWithOnlyTitleAllAPI(req: any, res: any): Promise<void> {
   const { page } = req.query;
 
   // i check page number

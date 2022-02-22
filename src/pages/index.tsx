@@ -6,11 +6,9 @@ import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexbo
 import { ListShortArticle } from "components/templates/section/component.section.index";
 import { contentGetPreview, ContentType, tagWithOnlyTitleAllGetPreviewList, TagWithOnlyTitleType } from "database/database.restAPI.index";
 
-const Home: NextPage<any, ContentType> = ({ tag, content }: { tag: TagWithOnlyTitleType; content: ContentType }) => {
+const Home: NextPage<any, {}> = ({ tag, content }: { tag: TagWithOnlyTitleType; content: ContentType }): JSX.Element => {
   useDispatchTagToStore().updateTagHome(tag);
-  console.log(content);
 
-  console.log(tag);
   return (
     <>
       <Head>
@@ -35,9 +33,9 @@ const Home: NextPage<any, ContentType> = ({ tag, content }: { tag: TagWithOnlyTi
   );
 };
 
-export async function getStaticProps() {
+export async function getStaticProps(): Promise<any> {
   // tag
-  const tag = await tagWithOnlyTitleAllGetPreviewList(0);
+  const tag: TagWithOnlyTitleType = await tagWithOnlyTitleAllGetPreviewList(0);
 
   // content
   const content: ContentType = await contentGetPreview(0, false);

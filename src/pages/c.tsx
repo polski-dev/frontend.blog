@@ -5,7 +5,7 @@ import { MenuPrimary } from "components/templates/menu/component.menu.index";
 import { tagWithOnlyTitleAllGetPreviewList, TagWithOnlyTitleType } from "database/database.restAPI.index";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
 
-const Contact: NextPage<any, TagWithOnlyTitleType> = ({ tag }: { tag: TagWithOnlyTitleType }) => {
+const Contact: NextPage<any, TagWithOnlyTitleType> = ({ tag }: { tag: TagWithOnlyTitleType }): JSX.Element => {
   useDispatchTagToStore().updateTagHome(tag);
 
   return (
@@ -44,9 +44,9 @@ const Contact: NextPage<any, TagWithOnlyTitleType> = ({ tag }: { tag: TagWithOnl
   );
 };
 
-export async function getStaticProps() {
+export async function getStaticProps(): Promise<any> {
   // tag
-  const tag = await tagWithOnlyTitleAllGetPreviewList(0);
+  const tag: TagWithOnlyTitleType = await tagWithOnlyTitleAllGetPreviewList(0);
 
   return {
     props: {

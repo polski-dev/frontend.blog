@@ -1,6 +1,6 @@
-export const shortVideoByWaitingRoomQuery = `
+export const videoShortQuery = `
 query($page: Int! $waitingroom: Boolean!) {
-  video: videos(pagination: {start: $page}, filters: {waitingroom: {eq: $waitingroom}}) {
+  video: videos(pagination: {start: $page}, filters: {waitingroom: {eq: $waitingroom}}, sort: "createdAt:desc") {
 	data {
 		id
 		attributes {

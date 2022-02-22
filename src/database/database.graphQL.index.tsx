@@ -3,7 +3,7 @@ import { contentSearchInitialState, contentSearchQuery, ContentSearchType } from
 import { tagWithOnlyTitleInitialState, tagWithOnlyTitleQuery, TagWithOnlyTitleType } from "./tag/database.tagWithOnlyTitle.index";
 import { contentSearchSugestInitialState, contentSearchSugestQuery, ContentSearchSugestType } from "./content/database.contentSearchSugest.index";
 import { articleWithOnlyTitleInitialState, articleWithOnlyTitleQuery, ArticleWithOnlyTitleType } from "./article/database.artice.index";
-import { shortVideoInitialState, shortVideoByIDQuery, shortVideoByWaitingRoomQuery, ShortVideoType } from "./video/database.video.index";
+import { videoShortInitialState, videoShortQuery, VideoShortType } from "./video/database.videoShort.index";
 import { shortArticleInitialState, shortArticleByIDQuery, shortArticleByWaitingRoomQuery, ShortArticleType } from "./article/database.shortArtice.index";
 
 async function fetchAPI(query: any, { variables }: any = {}) {
@@ -43,41 +43,28 @@ const contentSearchSugestGetPreview: (page: number, waitingroom: boolean, search
 ): Promise<ContentSearchSugestType> => await fetchAPI(contentSearchSugestQuery, { variables: { page: page * 10, waitingroom, search, sort: "views:desc" } });
 
 // article
-const articleWithOnlyTitleAllGetPreviewList: (page: number) => Promise<ArticleWithOnlyTitleType> = async (page: number): Promise<ArticleWithOnlyTitleType> =>
-  await fetchAPI(articleWithOnlyTitleQuery, { variables: { page: page * 10 } });
-
-const shortArticleByIdGetPreview: (id: number) => Promise<ShortArticleType> = async (id: number): Promise<ShortArticleType> =>
-  await fetchAPI(shortArticleByIDQuery, { variables: { id } });
-
-const shortArticleAllByWaitingRoomGetPreview: (waitingroom: boolean, page: number) => Promise<ShortArticleType> = async (
-  waitingroom: boolean,
-  page: number
-): Promise<ShortArticleType> => await fetchAPI(shortArticleByWaitingRoomQuery, { variables: { waitingroom, page: page * 10 } });
+const articleShortGetPreview: (page: number, waitingroom: boolean) => Promise<VideoShortType> = async (
+  page: number,
+  waitingroom: boolean
+): Promise<VideoShortType> => await fetchAPI(videoShortQuery, { variables: { page, waitingroom } });
 
 // video
-const shortVideoByIdGetPreview: (id: number) => Promise<ShortVideoType> = async (id: number): Promise<ShortVideoType> =>
-  await fetchAPI(shortVideoByIDQuery, { variables: { id } });
-
-const shortVideoAllByWaitingRoomGetPreview: (waitingroom: boolean, page: number) => Promise<ShortVideoType> = async (
-  waitingroom: boolean,
-  page: number
-): Promise<ShortVideoType> => await fetchAPI(shortVideoByWaitingRoomQuery, { variables: { waitingroom, page: page * 10 } });
+const videoShortGetPreview: (page: number, waitingroom: boolean) => Promise<VideoShortType> = async (
+  page: number,
+  waitingroom: boolean
+): Promise<VideoShortType> => await fetchAPI(videoShortQuery, { variables: { page: page * 10, waitingroom } });
 
 // tag
 const tagWithOnlyTitleAllGetPreviewList: (page: number) => Promise<TagWithOnlyTitleType> = async (page: number): Promise<TagWithOnlyTitleType> =>
   await fetchAPI(tagWithOnlyTitleQuery, { variables: { page: page * 10, sort: "views:desc" } });
 
 // export
-export type { ShortArticleType, ArticleWithOnlyTitleType, ShortVideoType, ContentSearchType, ContentSearchSugestType, ContentType, TagWithOnlyTitleType };
+export type { ShortArticleType, ArticleWithOnlyTitleType, VideoShortType, ContentSearchType, ContentSearchSugestType, ContentType, TagWithOnlyTitleType };
 export {
   shortArticleInitialState,
-  shortArticleByIdGetPreview,
-  shortArticleAllByWaitingRoomGetPreview,
-  shortVideoInitialState,
-  shortVideoByIdGetPreview,
-  shortVideoAllByWaitingRoomGetPreview,
+  videoShortInitialState,
+  videoShortGetPreview,
   articleWithOnlyTitleInitialState,
-  articleWithOnlyTitleAllGetPreviewList,
   contentSearchInitialState,
   contentSearchGetPreview,
   contentSearchSugestInitialState,

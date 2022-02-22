@@ -4,8 +4,9 @@ import useDispatchTagToStore from "hooks/hooks.dispatchTagToStore";
 import { MenuPrimary } from "components/templates/menu/component.menu.index";
 import { SectionSingUp } from "components/templates/section/component.section.index";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
+import { tagWithOnlyTitleAllGetPreviewList, TagWithOnlyTitleType } from "database/database.restAPI.index";
 
-const Login: NextPage = ({ tag, quantityUsers }: any) => {
+const SingUp: NextPage<any, TagWithOnlyTitleType> = ({ tag, quantityUsers }: { tag: TagWithOnlyTitleType; quantityUsers: any }): JSX.Element => {
   useDispatchTagToStore().updateTagHome(tag);
 
   return (
@@ -25,10 +26,9 @@ const Login: NextPage = ({ tag, quantityUsers }: any) => {
   );
 };
 
-export async function getStaticProps() {
+export async function getStaticProps(): Promise<any> {
   // tag
-  const tagResponse = await fetch(`https://www.polski.dev/api/tag/1`);
-  const tag = await tagResponse.json().catch(() => ({ err: true }));
+  const tag: TagWithOnlyTitleType = await tagWithOnlyTitleAllGetPreviewList(0);
 
   // users quantity
   const quantityUsersResponse = await fetch(`https://www.polski.dev/api/count/user/all`);
@@ -42,4 +42,4 @@ export async function getStaticProps() {
   };
 }
 
-export default Login;
+export default SingUp;

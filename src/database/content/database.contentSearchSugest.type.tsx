@@ -5,6 +5,7 @@ export interface ContentSearchSugestType {
           id: string;
           type?: string;
           attributes: {
+            views: number;
             title: string;
             cover: {
               data?: {
@@ -20,6 +21,7 @@ export interface ContentSearchSugestType {
           id: string;
           type?: string;
           attributes: {
+            views: number;
             title: string;
             cover?: {
               data?: {
@@ -35,6 +37,7 @@ export interface ContentSearchSugestType {
           id: string;
           type?: string;
           attributes: {
+            views: number;
             username: string;
             avatar: {
               data: {
@@ -59,6 +62,7 @@ export interface ContentSearchSugestType {
       id: string;
       type?: string;
       attributes: {
+        views: number;
         title: string;
         cover: {
           data?: {
@@ -84,6 +88,7 @@ export interface ContentSearchSugestType {
       id: string;
       type?: string;
       attributes: {
+        views: number;
         title: string;
         cover: {
           data?: {
@@ -109,6 +114,7 @@ export interface ContentSearchSugestType {
       id: string;
       type?: string;
       attributes: {
+        views: number;
         title: string;
         cover?: {
           data?: {
@@ -134,6 +140,7 @@ export interface ContentSearchSugestType {
       id: string;
       type?: string;
       attributes: {
+        views: number;
         username: string;
         avatar: {
           data: {

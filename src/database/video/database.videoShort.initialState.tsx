@@ -1,6 +1,6 @@
-import { ShortVideoType } from "./database.shortVideo.type";
+import { VideoShortType } from "./database.videoShort.type";
 
-export const shortVideoInitialState: ShortVideoType = {
+export const videoShortInitialState: VideoShortType = {
   video: {
     data: [
       {

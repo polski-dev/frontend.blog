@@ -2,8 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import * as React from "react";
 import Wow from "assets/icon/wow.svg";
-import Wrr from "assets/icon/wrr.svg";
-import Best from "assets/icon/best.svg";
+import Eye from "assets/icon/eye.svg";
 import Avatar from "assets/icon/avatar.svg";
 import { kebabCase, deburr } from "lodash";
 import Comment from "assets/icon/comment.svg";
@@ -25,27 +24,27 @@ import {
   Item,
 } from "../style/component.listShortArticle.style";
 
-const ContentShortArticle = React.forwardRef(({ data, type }: any, ref: any) => {
-  const slug = new setSlug(type).setContent;
+const ContentShortArticle = React.forwardRef(({ data }: any, ref: any) => {
+  const slug = new setSlug(data.type).setContent;
 
   return (
     <Article ref={ref}>
-      <Link href={`/${slug}/${kebabCase(deburr(data.title.toLowerCase()))}`} passHref>
-        <a title={data.title} className="img">
-          {data.cover && <Image width={930} height={300} alt={data.title} src={data.cover.data.attributes.url} />}
+      <Link href={`/${slug}/${data.id}/${kebabCase(deburr(data.attributes.title.toLowerCase()))}`} passHref>
+        <a title={data.attributes.title} className="img">
+          {data.attributes.cover && <Image width={930} height={300} alt={data.attributes.title} src={data.attributes.cover.data.attributes.url} />}
         </a>
       </Link>
       <BoxContent>
         <BoxAuthor>
           <BoxAuthorImg>
-            {data?.author?.data?.attributes?.avatar?.data?.attributes?.url ? (
+            {data?.attributes?.author?.data?.attributes?.avatar?.data?.attributes?.url ? (
               <Image
                 width={42}
                 height={42}
                 placeholder="blur"
                 blurDataURL="/img/blur.png"
-                alt={data.author.data.attributes.username}
-                src={data.author.data.attributes.avatar.data.attributes.url}
+                alt={data.attributes.author.data.attributes.username}
+                src={data.attributes.author.data.attributes.avatar.data.attributes.url}
               />
             ) : (
               <BoxAuthorAvatar>
@@ -54,27 +53,31 @@ const ContentShortArticle = React.forwardRef(({ data, type }: any, ref: any) => 
             )}
           </BoxAuthorImg>
           <AuthorData>
-            <Link href={`/${new setSlug("user").setContent}/${kebabCase(deburr(data?.author.data.attributes.username.toLowerCase()))}`}>
-              <a title={data.author.data.attributes.username}>
-                <AuthorName>{data.author.data.attributes.username}</AuthorName>
+            <Link
+              href={`/${new setSlug("user").setContent}/${data.attributes.author.data.id}/${kebabCase(
+                deburr(data?.attributes.author.data.attributes.username.toLowerCase())
+              )}`}
+            >
+              <a title={data.attributes.author.data.attributes.username}>
+                <AuthorName>{data.attributes.author.data.attributes.username}</AuthorName>
               </a>
             </Link>
 
             <DateAdded>
-              {time.nameOfTheMonths(data.createdAt)} ( {time.countDays(data.createdAt)} )
+              {time.nameOfTheMonths(data.attributes.createdAt)} ( {time.countDays(data.attributes.createdAt)} )
             </DateAdded>
           </AuthorData>
         </BoxAuthor>
-        <Link href={`/${slug}/${kebabCase(deburr(data.title.toLowerCase()))}`} passHref>
-          <a title={data.title} className="titleArticle">
-            <TitleArticle>{data.title}</TitleArticle>
+        <Link href={`/${slug}/${data.id}/${kebabCase(deburr(data.attributes.title.toLowerCase()))}`} passHref>
+          <a title={data.attributes.title} className="titleArticle">
+            <TitleArticle>{data.attributes.title}</TitleArticle>
           </a>
         </Link>
         <ListTags>
-          {data?.tags?.data?.map((tag: any, i: number) => {
+          {data?.attributes.tags?.data?.map((tag: any, i: number) => {
             return (
               <Tag key={i}>
-                <Link href={`/${new setSlug("tag").setContent}/${kebabCase(deburr(tag.attributes.title.toLowerCase()))}`}>
+                <Link href={`/${new setSlug("tag").setContent}/${tag.id}/${kebabCase(deburr(tag.attributes.title.toLowerCase()))}`}>
                   <a>
                     <span>#</span>
                     {tag.attributes.title}
@@ -85,24 +88,20 @@ const ContentShortArticle = React.forwardRef(({ data, type }: any, ref: any) => 
           })}
         </ListTags>
         <ListStats>
-          <Item>
-            <Best />
-            <span>{data.grades.data.filter((voice: any) => voice.attributes.voice === "best").length}</span>
-          </Item>
-          <Item>
+          <Item title="oceniono">
             <Wow />
-            <span>{data.grades.data.filter((voice: any) => voice.attributes.voice === "wow").length}</span>
+            <span>{data.attributes.grades.data.length}</span>
           </Item>
-          <Item>
-            <Wrr />
-            <span>{data.grades.data.filter((voice: any) => voice.attributes.voice === "wrr").length}</span>
-          </Item>
-          <Item>
+          <Item title="skomentowno">
             <Comment />
-            <span>{data.comments.data.length}</span>
+            <span>{data.attributes.comments.data.length}</span>
+          </Item>
+          <Item title="wyświetlono">
+            <Eye />
+            <span>{data.attributes.views}</span>
           </Item>
         </ListStats>
-        <ButtonLinkIn href={`/${slug}/${kebabCase(deburr(data.title.toLowerCase()))}`} title="więcej" className="btnMore">
+        <ButtonLinkIn href={`/${slug}/${data.id}/${kebabCase(deburr(data.attributes.title.toLowerCase()))}`} title="więcej" className="btnMore">
           więcej
         </ButtonLinkIn>
       </BoxContent>

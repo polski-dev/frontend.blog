@@ -11,6 +11,7 @@ query($page: Int!, $waitingroom: Boolean!, $search: String!, $sort: [String]!) {
     data {
       id
       attributes {
+        views
         title
         cover {
           data {
@@ -42,6 +43,7 @@ query($page: Int!, $waitingroom: Boolean!, $search: String!, $sort: [String]!) {
     data {
       id
       attributes {
+        views
         title
         cover {
           data {
@@ -70,6 +72,7 @@ query($page: Int!, $waitingroom: Boolean!, $search: String!, $sort: [String]!) {
     data {
       id
       attributes {
+        views
         title
         cover {
           data {
@@ -97,6 +100,7 @@ query($page: Int!, $waitingroom: Boolean!, $search: String!, $sort: [String]!) {
     data {
       id
       attributes {
+        views
         username
         avatar {
           data {

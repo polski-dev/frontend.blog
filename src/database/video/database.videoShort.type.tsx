@@ -1,4 +1,4 @@
-export interface ShortVideoType {
+export interface VideoShortType {
   video: {
     data: {
       id: string;
