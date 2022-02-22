@@ -1,4 +1,4 @@
-export interface ShortArticleType {
+export interface ArticleShortType {
   article: {
     data: {
       id: string;

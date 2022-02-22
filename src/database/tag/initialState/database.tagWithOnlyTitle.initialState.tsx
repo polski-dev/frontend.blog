@@ -1,4 +1,4 @@
-import { TagWithOnlyTitleType } from "./database.tagWithOnlyTitle.type";
+import { TagWithOnlyTitleType } from "../type/database.tagWithOnlyTitle.type";
 
 export const tagWithOnlyTitleInitialState: TagWithOnlyTitleType = {
   tag: {

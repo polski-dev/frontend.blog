@@ -1,4 +1,4 @@
-import { ContentType } from "./database.content.type";
+import { ContentType } from "../type/database.content.type";
 
 export const contentInitialState: ContentType = {
   article: {

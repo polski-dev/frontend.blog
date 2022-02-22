@@ -1,6 +1,6 @@
-export const shortArticleByWaitingRoomQuery = `
+export const articleShortQuery = `
 query($page: Int! $waitingroom: Boolean!) {
-  article(pagination: {start: $page}, filters: {waitingroom: {eq: $waitingroom}}) {
+  article: videos(pagination: {start: $page}, filters: {waitingroom: {eq: $waitingroom}}, sort: "createdAt:desc") {
 	data {
 		id
 		attributes {
@@ -61,4 +61,5 @@ query($page: Int! $waitingroom: Boolean!) {
 		}
 	  }
 	}
-  }`;
+}
+`;

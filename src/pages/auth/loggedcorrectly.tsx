@@ -4,7 +4,7 @@ import useDispatchTagToStore from "hooks/hooks.dispatchTagToStore";
 import { MenuPrimary } from "components/templates/menu/component.menu.index";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
 import { SectionSessionInfo } from "components/templates/section/component.section.index";
-import { tagWithOnlyTitleAllGetPreviewList, TagWithOnlyTitleType } from "database/database.restAPI.index";
+import { tagWithOnlyTitleAllGetPreviewList, TagWithOnlyTitleType } from "database/database.graphQL.index";
 
 const Loggedcorrectly: NextPage<any, TagWithOnlyTitleType> = ({ tag, quantityUsers }: { tag: TagWithOnlyTitleType; quantityUsers: any }): JSX.Element => {
   useDispatchTagToStore().updateTagHome(tag);

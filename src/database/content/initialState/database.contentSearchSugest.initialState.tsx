@@ -1,4 +1,4 @@
-import { ContentSearchSugestType } from "./database.contentSearchSugest.type";
+import { ContentSearchSugestType } from "../type/database.contentSearchSugest.type";
 
 export const contentSearchSugestInitialState: ContentSearchSugestType = {
   all: {

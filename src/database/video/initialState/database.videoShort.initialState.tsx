@@ -1,7 +1,7 @@
-import { ShortArticleType } from "./database.shortArtice.type";
+import { VideoShortType } from "../type/database.videoShort.type";
 
-export const shortArticleInitialState: ShortArticleType = {
-  article: {
+export const videoShortInitialState: VideoShortType = {
+  video: {
     data: [
       {
         id: "",

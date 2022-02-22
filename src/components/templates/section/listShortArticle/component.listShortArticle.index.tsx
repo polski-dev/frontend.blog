@@ -3,7 +3,7 @@ import useWindowData from "hooks/hooks.windowData";
 import React, { useEffect, useRef, useState } from "react";
 import { setTypeContent } from "./switchs/component.listShortArticle.setTypeContent";
 import { SquareShortArticle } from "components/atoms/animation/comonent.animation.index";
-import { contentGetPreview, videoShortGetPreview } from "database/database.restAPI.index";
+import { contentGetPreview, videoShortGetPreview, articleShortGetPreview } from "database/database.restAPI.index";
 import selectTemplateForContent from "./switchs/component.listShortArticle.selectTemplate";
 import { Section, Title, BoxInformation, Info, NotFound } from "./style/component.listShortArticle.style";
 
@@ -54,6 +54,14 @@ export default function SectionShortArticle({ data, type, loadData, search }: { 
           case "videoWaitingRoom":
             const videoWaitingRoom: any = await videoShortGetPreview(page, true);
             content.video.data = [...content.video.data, ...videoWaitingRoom?.video?.data];
+            break;
+          case "article":
+            const article: any = await articleShortGetPreview(page, false);
+            content.article.data = [...content.article.data, ...article?.article?.data];
+            break;
+          case "articleWaitingRoom":
+            const articleWaitingRoom: any = await articleShortGetPreview(page, true);
+            content.article.data = [...content.article.data, ...articleWaitingRoom?.article?.data];
             break;
         }
 

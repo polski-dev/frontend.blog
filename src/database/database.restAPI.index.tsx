@@ -1,16 +1,18 @@
 import {
-  contentSearchSugestInitialState,
   ContentSearchSugestType,
-  contentInitialState,
+  contentSearchSugestInitialState,
   ContentType,
-  tagWithOnlyTitleInitialState,
+  contentInitialState,
   TagWithOnlyTitleType,
-  videoShortInitialState,
+  tagWithOnlyTitleInitialState,
   VideoShortType,
+  videoShortInitialState,
+  ArticleShortType,
+  articleShortInitialState,
 } from "./database.graphQL.index";
 
 async function fetchAPI({ path, body = {} }: { path: string; body?: {} }): Promise<any> {
-  const res = await fetch(`https://www.polski.dev/api/${path}`, {
+  const res = await fetch(`/api/${path}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -38,13 +40,19 @@ const contentGetPreview: (page: number, waitingroom: boolean) => Promise<Content
 const tagWithOnlyTitleAllGetPreviewList: (page: number) => Promise<TagWithOnlyTitleType> = async (page: number): Promise<TagWithOnlyTitleType> =>
   await fetchAPI({ path: `tag/${page}` });
 
+// article
+const articleShortGetPreview: (page: number, waitingroom: boolean) => Promise<ArticleShortType> = async (
+  page: number,
+  waitingroom: boolean
+): Promise<ArticleShortType> => await fetchAPI({ path: `article/${page}`, body: { waitingroom } });
+
 // video
 const videoShortGetPreview: (page: number, waitingroom: boolean) => Promise<VideoShortType> = async (
   page: number,
   waitingroom: boolean
 ): Promise<VideoShortType> => await fetchAPI({ path: `video/${page}`, body: { waitingroom } });
 
-export type { ContentSearchSugestType, ContentType, TagWithOnlyTitleType, VideoShortType };
+export type { ContentSearchSugestType, ContentType, TagWithOnlyTitleType, VideoShortType, ArticleShortType };
 
 export {
   contentSearchSugestInitialState,
@@ -55,4 +63,6 @@ export {
   tagWithOnlyTitleAllGetPreviewList,
   videoShortInitialState,
   videoShortGetPreview,
+  articleShortInitialState,
+  articleShortGetPreview,
 };

@@ -2,8 +2,8 @@ import Head from "next/head";
 import { NextPage } from "next";
 import useDispatchTagToStore from "hooks/hooks.dispatchTagToStore";
 import { MenuPrimary } from "components/templates/menu/component.menu.index";
-import { tagWithOnlyTitleAllGetPreviewList, TagWithOnlyTitleType } from "database/database.restAPI.index";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
+import { tagWithOnlyTitleAllGetPreviewList, TagWithOnlyTitleType } from "database/database.graphQL.index";
 
 const Contact: NextPage<any, TagWithOnlyTitleType> = ({ tag }: { tag: TagWithOnlyTitleType }): JSX.Element => {
   useDispatchTagToStore().updateTagHome(tag);

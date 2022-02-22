@@ -1,4 +1,4 @@
-import { ContentSearchType } from "./database.contentSearch.type";
+import { ContentSearchType } from "../type/database.contentSearch.type";
 
 export const contentSearchInitialState: ContentSearchType = {
   data: {
