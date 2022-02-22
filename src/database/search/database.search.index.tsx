@@ -8,6 +8,10 @@ import { searchSugestContentInitialState } from "./initialState/database.searchS
 import { SearchShortContentType } from "./type/database.searchShortContent.type";
 import { searchShortContentQuery } from "./query/database.searchShortContent.query";
 import { searchShortContentInitialState } from "./initialState/database.searchShortContent.initialState";
+//
+import { SearchShortArticleType } from "./type/database.searchShortArticle.type";
+import { searchShortArticleQuery } from "./query/database.searchShortArticle.query";
+import { searchShortArticleInitialState } from "./initialState/database.searchShortArticle.initialState";
 
 // metchods
 const searchSugestContentGetPreview: (page: number, waitingroom: boolean, search: string) => Promise<SearchSugestContentType> = async (
@@ -50,5 +54,26 @@ const searchShortContentGetPreview: (page: number, waitingroom: boolean, search:
   };
 };
 
-export type { SearchShortContentType, SearchSugestContentType };
-export { searchSugestContentGetPreview, searchSugestContentInitialState, searchShortContentGetPreview, searchShortContentInitialState };
+const searchShortArticleGetPreview: (page: number, waitingroom: boolean, search: string) => Promise<SearchShortArticleType> = async (
+  page: number,
+  waitingroom: boolean,
+  search: string
+): Promise<SearchShortArticleType> => {
+  const data: SearchShortArticleType = await fetchAPI(searchShortArticleQuery, { variables: { page: page * 10, waitingroom, search } });
+
+  // add type content
+  data?.article.data.forEach((article: any) => (article.type = "article"));
+
+  return data;
+};
+
+// export
+export type { SearchShortContentType, SearchSugestContentType, SearchShortArticleType };
+export {
+  searchSugestContentGetPreview,
+  searchSugestContentInitialState,
+  searchShortContentGetPreview,
+  searchShortContentInitialState,
+  searchShortArticleGetPreview,
+  searchShortArticleInitialState,
+};

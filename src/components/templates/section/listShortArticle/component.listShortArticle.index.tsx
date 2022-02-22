@@ -3,7 +3,13 @@ import useWindowData from "hooks/hooks.windowData";
 import React, { useEffect, useRef, useState } from "react";
 import { setTypeContent } from "./switchs/component.listShortArticle.setTypeContent";
 import { SquareShortArticle } from "components/atoms/animation/comonent.animation.index";
-import { contentShortGetPreview, videoShortGetPreview, articleShortGetPreview } from "database/database.restAPI.index";
+import {
+  contentShortGetPreview,
+  videoShortGetPreview,
+  articleShortGetPreview,
+  searchShortContentGetPreview,
+  searchShortArticleGetPreview,
+} from "database/database.restAPI.index";
 import selectTemplateForContent from "./switchs/component.listShortArticle.selectTemplate";
 import { Section, Title, BoxInformation, Info, NotFound } from "./style/component.listShortArticle.style";
 
@@ -63,10 +69,21 @@ export default function SectionShortArticle({ data, type, loadData, search }: { 
             const articleWaitingRoom: any = await articleShortGetPreview(page, true);
             content.article.data = [...content.article.data, ...articleWaitingRoom?.article?.data];
             break;
+          case "search":
+            if (!!search?.length) {
+              const searchContentShort: any = await searchShortContentGetPreview(page, search.toString());
+              content.all.data = [...content.all.data, ...searchContentShort?.all?.data];
+            }
+          case "searchArticleShort":
+            if (!!search?.length) {
+              const searchArticleShort: any = await searchShortArticleGetPreview(page, search.toString());
+              content.article.data = [...content.article.data, ...searchArticleShort?.article?.data];
+            }
+            break;
         }
 
-        setContent(content);
         setPage(page + 1);
+        setContent(content);
         setIamWaitingForAnswer(false);
       }
     })();

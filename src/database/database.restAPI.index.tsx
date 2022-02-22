@@ -1,3 +1,5 @@
+import fetchAPI from "./fetchAPI/database.fetchAPI.restAPI";
+
 import {
   ContentShortType,
   contentShortInitialState,
@@ -11,24 +13,9 @@ import {
   searchSugestContentInitialState,
   SearchShortContentType,
   searchShortContentInitialState,
+  SearchShortArticleType,
+  searchShortArticleInitialState,
 } from "./database.graphQL.index";
-
-async function fetchAPI({ path, body = {} }: { path: string; body?: {} }): Promise<any> {
-  const res = await fetch(`/api/${path}`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(body),
-  });
-
-  const json = await res.json();
-  if (json.errors) {
-    throw new Error("Failed to fetch API");
-  }
-
-  return json;
-}
 
 // search
 const searchSugestContentGetPreview: (search: string) => Promise<SearchSugestContentType> = async (search: string): Promise<SearchSugestContentType> =>
@@ -38,6 +25,11 @@ const searchShortContentGetPreview: (page: number, search: string) => Promise<Se
   page: number,
   search: string
 ): Promise<SearchShortContentType> => await fetchAPI({ path: `search/${page}/${search}` });
+
+const searchShortArticleGetPreview: (page: number, search: string) => Promise<SearchShortArticleType> = async (
+  page: number,
+  search: string
+): Promise<SearchShortArticleType> => await fetchAPI({ path: `search/articleshort/${page}/${search}` });
 
 // content
 const contentShortGetPreview: (page: number, waitingroom: boolean) => Promise<ContentShortType> = async (
@@ -61,7 +53,15 @@ const videoShortGetPreview: (page: number, waitingroom: boolean) => Promise<Vide
   waitingroom: boolean
 ): Promise<VideoShortType> => await fetchAPI({ path: `video/${page}`, body: { waitingroom } });
 
-export type { ContentShortType, TagWithOnlyTitleType, VideoShortType, ArticleShortType, SearchSugestContentType, SearchShortContentType };
+export type {
+  ContentShortType,
+  TagWithOnlyTitleType,
+  VideoShortType,
+  ArticleShortType,
+  SearchSugestContentType,
+  SearchShortContentType,
+  SearchShortArticleType,
+};
 
 export {
   contentShortInitialState,
@@ -76,4 +76,6 @@ export {
   searchSugestContentGetPreview,
   searchShortContentInitialState,
   searchShortContentGetPreview,
+  searchShortArticleInitialState,
+  searchShortArticleGetPreview,
 };

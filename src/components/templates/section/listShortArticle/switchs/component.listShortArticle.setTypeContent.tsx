@@ -9,7 +9,7 @@ export const setTypeContent = (type: string) => {
     case "videoWaitingRoom":
       return "video";
     case "article":
-    case "searchArticle":
+    case "searchArticleShort":
     case "articleWaitingRoom":
       return "article";
     case "tag":
