@@ -1,13 +1,13 @@
 import Head from "next/head";
 import { NextPage } from "next";
-import useDispatchTagToStore from "hooks/hooks.dispatchTagToStore";
+// import useDispatchTagToStore from "hooks/hooks.dispatchTagToStore";
 import { MenuPrimary } from "components/templates/menu/component.menu.index";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
 import { ListShortArticle } from "components/templates/section/component.section.index";
 import { contentGetPreview, ContentType, tagWithOnlyTitleAllGetPreviewList, TagWithOnlyTitleType } from "database/database.graphQL.index";
 
 const Home: NextPage<any, {}> = ({ tag, content }: { tag: TagWithOnlyTitleType; content: ContentType }): JSX.Element => {
-  useDispatchTagToStore().updateTagHome(tag);
+  // useDispatchTagToStore().updateTagHome(tag);
 
   return (
     <>
@@ -16,14 +16,14 @@ const Home: NextPage<any, {}> = ({ tag, content }: { tag: TagWithOnlyTitleType; 
       </Head>
       <Container>
         <Row>
-          <MenuPrimary
+          {/* <MenuPrimary
             title="Filtruj"
             data={[
               { slug: "/", title: "Wszystko", quantity: content.all?.meta.pagination.total || 0 },
               { slug: "/a", title: "Artykuły", quantity: content.article.meta.pagination.total },
               { slug: "/v", title: "Video", quantity: content.video.meta.pagination.total },
             ]}
-          />
+          /> */}
           <Col xs={12} md={9}>
             <ListShortArticle data={content} type="all" />
           </Col>
