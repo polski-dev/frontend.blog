@@ -1,4 +1,4 @@
-export const contentSearchSugestQuery = `
+export const searchSugestContentQuery = `
 query($page: Int!, $waitingroom: Boolean!, $search: String!, $sort: [String]!) {
   article(
     pagination: { start: $page }

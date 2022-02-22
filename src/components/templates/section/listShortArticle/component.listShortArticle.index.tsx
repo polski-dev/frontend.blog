@@ -3,7 +3,7 @@ import useWindowData from "hooks/hooks.windowData";
 import React, { useEffect, useRef, useState } from "react";
 import { setTypeContent } from "./switchs/component.listShortArticle.setTypeContent";
 import { SquareShortArticle } from "components/atoms/animation/comonent.animation.index";
-import { contentGetPreview, videoShortGetPreview, articleShortGetPreview } from "database/database.restAPI.index";
+import { contentShortGetPreview, videoShortGetPreview, articleShortGetPreview } from "database/database.restAPI.index";
 import selectTemplateForContent from "./switchs/component.listShortArticle.selectTemplate";
 import { Section, Title, BoxInformation, Info, NotFound } from "./style/component.listShortArticle.style";
 
@@ -36,15 +36,15 @@ export default function SectionShortArticle({ data, type, loadData, search }: { 
   }, [articeRef, height, iAmWaitingForAnswer, content, type, page]);
 
   useEffect(() => {
-    (async () => {
+    (async (): Promise<void> => {
       if (iAmWaitingForAnswer) {
         switch (type) {
           case "all":
-            const all: any = await contentGetPreview(page, false);
+            const all: any = await contentShortGetPreview(page, false);
             content.all.data = [...content.all.data, ...all?.all?.data];
             break;
           case "allWaitingRoom":
-            const allWaitingRoom: any = await contentGetPreview(page, true);
+            const allWaitingRoom: any = await contentShortGetPreview(page, true);
             content.all.data = [...content.all.data, ...allWaitingRoom?.all?.data];
             break;
           case "video":

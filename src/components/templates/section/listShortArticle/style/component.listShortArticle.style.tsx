@@ -44,6 +44,12 @@ export const Article: StyledComponent<any, any> = styled.article`
     display: block;
     position: relative;
   }
+
+  .titleArticle {
+    display: block;
+    width: max-content;
+    position: relative;
+  }
 `;
 
 export const BoxContent: StyledComponent<any, any> = styled.div`
@@ -130,8 +136,8 @@ export const DateAdded: StyledComponent<any, any> = styled.p`
 `;
 
 export const TitleArticle: StyledComponent<any, any> = styled.h3`
-  width: 100%;
   display: flex;
+  width: max-content;
   position: relative;
 
   span {

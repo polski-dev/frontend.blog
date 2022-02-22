@@ -1,4 +1,3 @@
-import { orderBy } from "lodash";
 import fetchAPI from "database/fetchAPI/database.fetchAPI.graphQL";
 //
 import { TagWithOnlyTitleType } from "./type/database.tagWithOnlyTitle.type";

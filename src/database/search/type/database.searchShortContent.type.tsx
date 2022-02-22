@@ -1,6 +1,6 @@
-export interface ContentType {
+export interface SearchShortContentType {
   all?: {
-    data:
+    data: (
       | {
           id: string;
           attributes: {
@@ -51,7 +51,7 @@ export interface ContentType {
               };
             };
           };
-        }[]
+        }
       | {
           id: string;
           attributes: {
@@ -104,7 +104,39 @@ export interface ContentType {
               };
             };
           };
-        }[];
+        }
+      | {
+          id: string;
+          attributes: {
+            title: string;
+            views: number;
+            createdAt: string;
+            cover?: {
+              data?: {
+                id: string;
+                attributes: {
+                  url: string;
+                };
+              } | null;
+            };
+          };
+        }
+      | {
+          id: string;
+          attributes: {
+            views: number;
+            username: string;
+            createdAt: string;
+            avatar: {
+              data: {
+                attributes: {
+                  url: string;
+                };
+              };
+            };
+          };
+        }
+    )[];
     meta: {
       pagination: {
         page: number;
@@ -235,6 +267,57 @@ export interface ContentType {
         total: number;
         pageSize: number;
         pageCount: number;
+      };
+    };
+  };
+  tag: {
+    data: {
+      id: string;
+      attributes: {
+        title: string;
+        views: number;
+        createdAt: string;
+        cover?: {
+          data?: {
+            id: string;
+            attributes: {
+              url: string;
+            };
+          } | null;
+        };
+      };
+    }[];
+    meta: {
+      pagination: {
+        page: number;
+        pageSize: number;
+        pageCount: number;
+        total: number;
+      };
+    };
+  };
+  user: {
+    data: {
+      id: string;
+      attributes: {
+        username: string;
+        views: number;
+        createdAt: string;
+        avatar: {
+          data: {
+            attributes: {
+              url: string;
+            };
+          };
+        };
+      };
+    }[];
+    meta: {
+      pagination: {
+        page: number;
+        pageSize: number;
+        pageCount: number;
+        total: number;
       };
     };
   };

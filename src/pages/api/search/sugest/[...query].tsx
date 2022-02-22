@@ -1,15 +1,15 @@
 import { orderBy } from "lodash";
-import { contentSearchSugestGetPreview, contentSearchSugestInitialState, ContentSearchSugestType } from "database/database.graphQL.index";
+import { searchSugestContentGetPreview, searchSugestContentInitialState, SearchSugestContentType } from "database/database.graphQL.index";
 
 export default async function searchAPI(req: any, res: any) {
   const [page, query] = req.query.query;
 
   // i check data
-  if (parseInt(page) < 0) res.status(200).json(contentSearchSugestInitialState);
+  if (parseInt(page) < 0) res.status(200).json(searchSugestContentInitialState);
   else if (parseInt(page) === 0 ? false : !parseInt(page)) res.status(500).json({ err: "wrong page number" });
 
   // query
-  const content: ContentSearchSugestType = await contentSearchSugestGetPreview(0, false, query);
+  const content: SearchSugestContentType = await searchSugestContentGetPreview(0, false, query);
 
   content?.article.data.forEach((art: any) => (art.type = "article"));
   content?.video.data.forEach((art: any) => (art.type = "video"));

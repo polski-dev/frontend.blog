@@ -1,14 +1,16 @@
 import {
-  ContentSearchSugestType,
-  contentSearchSugestInitialState,
-  ContentType,
-  contentInitialState,
+  ContentShortType,
+  contentShortInitialState,
   TagWithOnlyTitleType,
   tagWithOnlyTitleInitialState,
   VideoShortType,
   videoShortInitialState,
   ArticleShortType,
   articleShortInitialState,
+  SearchSugestContentType,
+  searchSugestContentInitialState,
+  SearchShortContentType,
+  searchShortContentInitialState,
 } from "./database.graphQL.index";
 
 async function fetchAPI({ path, body = {} }: { path: string; body?: {} }): Promise<any> {
@@ -29,12 +31,19 @@ async function fetchAPI({ path, body = {} }: { path: string; body?: {} }): Promi
 }
 
 // search
-const contentSearchSugestGetPreview: (search: string) => Promise<ContentSearchSugestType> = async (search: string): Promise<ContentSearchSugestType> =>
+const searchSugestContentGetPreview: (search: string) => Promise<SearchSugestContentType> = async (search: string): Promise<SearchSugestContentType> =>
   await fetchAPI({ path: `search/sugest/0/${search}` });
 
+const searchShortContentGetPreview: (page: number, search: string) => Promise<SearchShortContentType> = async (
+  page: number,
+  search: string
+): Promise<SearchShortContentType> => await fetchAPI({ path: `search/${page}/${search}` });
+
 // content
-const contentGetPreview: (page: number, waitingroom: boolean) => Promise<ContentType> = async (page: number, waitingroom: boolean): Promise<ContentType> =>
-  await fetchAPI({ path: `content/${page}`, body: { waitingroom } });
+const contentShortGetPreview: (page: number, waitingroom: boolean) => Promise<ContentShortType> = async (
+  page: number,
+  waitingroom: boolean
+): Promise<ContentShortType> => await fetchAPI({ path: `content/${page}`, body: { waitingroom } });
 
 // tag
 const tagWithOnlyTitleAllGetPreviewList: (page: number) => Promise<TagWithOnlyTitleType> = async (page: number): Promise<TagWithOnlyTitleType> =>
@@ -52,17 +61,19 @@ const videoShortGetPreview: (page: number, waitingroom: boolean) => Promise<Vide
   waitingroom: boolean
 ): Promise<VideoShortType> => await fetchAPI({ path: `video/${page}`, body: { waitingroom } });
 
-export type { ContentSearchSugestType, ContentType, TagWithOnlyTitleType, VideoShortType, ArticleShortType };
+export type { ContentShortType, TagWithOnlyTitleType, VideoShortType, ArticleShortType, SearchSugestContentType, SearchShortContentType };
 
 export {
-  contentSearchSugestInitialState,
-  contentSearchSugestGetPreview,
-  contentInitialState,
-  contentGetPreview,
+  contentShortInitialState,
+  contentShortGetPreview,
   tagWithOnlyTitleInitialState,
   tagWithOnlyTitleAllGetPreviewList,
   videoShortInitialState,
   videoShortGetPreview,
   articleShortInitialState,
   articleShortGetPreview,
+  searchSugestContentInitialState,
+  searchSugestContentGetPreview,
+  searchShortContentInitialState,
+  searchShortContentGetPreview,
 };

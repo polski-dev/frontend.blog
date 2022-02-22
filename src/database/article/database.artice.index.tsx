@@ -1,7 +1,7 @@
 import fetchAPI from "database/fetchAPI/database.fetchAPI.graphQL";
 //
 import { ArticleShortType } from "./type/database.articeShort.type";
-import { articleShortQuery } from "./query/database.articeShort.query";
+import { articleShortQuery } from "./query/database.articleShort.query";
 import { articleShortInitialState } from "./initialState/database.articeShort.initialState";
 
 // metchods

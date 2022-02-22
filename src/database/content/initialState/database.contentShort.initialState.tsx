@@ -1,6 +1,6 @@
-import { ContentType } from "../type/database.content.type";
+import { ContentShortType } from "../type/database.contentShort.type";
 
-export const contentInitialState: ContentType = {
+export const contentShortInitialState: ContentShortType = {
   article: {
     data: [],
     meta: {

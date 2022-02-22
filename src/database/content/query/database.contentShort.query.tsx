@@ -1,8 +1,9 @@
-export const contentSearchQuery = `
-query($page: Int!, $waitingroom: Boolean!, $search: String!) {
+export const contentShortQuery = `
+query($page: Int!, $waitingroom: Boolean!) {
   article(
     pagination: { start: $page }
-    filters: { waitingroom: { eq: $waitingroom }, title: { containsi: $search } }
+    filters: { waitingroom: { eq: $waitingroom } }
+    sort: "createdAt:desc"
   ) {
     data {
       id
@@ -66,7 +67,8 @@ query($page: Int!, $waitingroom: Boolean!, $search: String!) {
   }
   video: videos(
     pagination: { start: $page }
-    filters: { waitingroom: { eq: $waitingroom }, title: { containsi: $search } }
+    filters: { waitingroom: { eq: $waitingroom } }
+    sort: "createdAt:desc"
   ) {
     data {
       id
@@ -126,49 +128,6 @@ query($page: Int!, $waitingroom: Boolean!, $search: String!) {
         total
         pageSize
         pageCount
-      }
-    }
-  }
-  tag(pagination: { start: $page }, filters: { title: { containsi: $search } }) {
-    data {
-      id
-      attributes {
-        title
-        views
-        cover {
-          data {
-            attributes {
-              url
-            }
-          }
-        }
-      }
-    }
-  }
-  user: usersPermissionsUsers(
-    pagination: { start: $page }
-    filters: { username: { containsi: $search } }
-  ) {
-    data {
-      id
-      attributes {
-        username
-        views
-        avatar {
-          data {
-            attributes {
-              url
-            }
-          }
-        }
-      }
-    }
-    meta {
-      pagination {
-        page
-        pageSize
-        pageCount
-        total
       }
     }
   }

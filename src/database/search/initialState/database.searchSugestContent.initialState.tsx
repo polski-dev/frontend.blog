@@ -1,14 +1,14 @@
-import { ContentSearchSugestType } from "../type/database.contentSearchSugest.type";
+import { SearchSugestContentType } from "../type/database.searchSugestContent.type";
 
-export const contentSearchSugestInitialState: ContentSearchSugestType = {
+export const searchSugestContentInitialState: SearchSugestContentType = {
   all: {
     data: [],
     meta: {
       pagination: {
         page: 1,
+        total: 0,
         pageSize: 40,
         pageCount: 1,
-        total: 0,
       },
     },
   },

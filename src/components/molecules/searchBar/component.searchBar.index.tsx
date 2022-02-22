@@ -2,35 +2,35 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { kebabCase, deburr } from "lodash";
 import Search from "assets/icon/search.svg";
-import { useState, useEffect } from "react";
 import { setSlug } from "function/function.index";
-import { contentSearchSugestInitialState, contentSearchSugestGetPreview } from "database/database.restAPI.index";
+import { useState, useEffect, FormEvent } from "react";
+import { searchSugestContentInitialState, searchSugestContentGetPreview } from "database/database.restAPI.index";
 import { Form, Input, Button, SugestBox, Item, IconBox, ContentBox, ContentTitle, ContentTags, ContentTag } from "./component.searchBar.style";
 
 export default function SearchBar() {
   const router = useRouter();
   const [focus, setFocus] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [searchResult, setSearchResult] = useState(contentSearchSugestInitialState);
+  const [searchResult, setSearchResult] = useState(searchSugestContentInitialState);
 
-  const search = (event: any) => {
+  const search: (event: FormEvent<HTMLFormElement>) => void = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
-    router.push(`/search/${searchQuery}`);
+    router.push(`/s/${searchQuery}`);
     setFocus(false);
   };
 
-  useEffect(() => {
+  useEffect((): (() => void) => {
     let newSearchQueryResult = setTimeout(() => null, 500);
     clearTimeout(newSearchQueryResult);
     newSearchQueryResult = !!searchQuery.length
-      ? setTimeout(async () => setSearchResult(await contentSearchSugestGetPreview(searchQuery)), 500)
-      : setTimeout(() => setSearchResult(contentSearchSugestInitialState), 500);
+      ? setTimeout(async (): Promise<void> => setSearchResult(await searchSugestContentGetPreview(searchQuery)), 500)
+      : setTimeout(() => setSearchResult(searchSugestContentInitialState), 500);
     return () => clearTimeout(newSearchQueryResult);
   }, [searchQuery]);
 
   return (
     <Form
-      onSubmit={(e) => search(e)}
+      onSubmit={(e: FormEvent<HTMLFormElement>): void => search(e)}
       style={{ height: focus && searchResult.all?.data.length ? "auto" : "3rem", boxShadow: focus ? "0 0 6px rgba(0, 0, 0, 0.6)" : "0 0 6px rgba(0, 0, 0, 0)" }}
     >
       <Input
