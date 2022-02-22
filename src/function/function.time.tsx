@@ -4,29 +4,29 @@ class time {
 
     switch (dateStart.getMonth()) {
       case 0:
-        return `${dateStart.getDay()} Stycznia`;
+        return `${dateStart.getDate()} Stycznia`;
       case 1:
-        return `${dateStart.getDay()} Lutego`;
+        return `${dateStart.getDate()} Lutego`;
       case 2:
-        return `${dateStart.getDay()} Marca`;
+        return `${dateStart.getDate()} Marca`;
       case 3:
-        return `${dateStart.getDay()} Kwietnia`;
+        return `${dateStart.getDate()} Kwietnia`;
       case 4:
-        return `${dateStart.getDay()} Maja`;
+        return `${dateStart.getDate()} Maja`;
       case 5:
-        return `${dateStart.getDay()} Czerwca`;
+        return `${dateStart.getDate()} Czerwca`;
       case 6:
-        return `${dateStart.getDay()} Lipca`;
+        return `${dateStart.getDate()} Lipca`;
       case 7:
-        return `${dateStart.getDay()} Sierpnia`;
+        return `${dateStart.getDate()} Sierpnia`;
       case 8:
-        return `${dateStart.getDay()} Września`;
+        return `${dateStart.getDate()} Września`;
       case 9:
-        return `${dateStart.getDay()} Października`;
+        return `${dateStart.getDate()} Października`;
       case 10:
-        return `${dateStart.getDay()} Listopada`;
+        return `${dateStart.getDate()} Listopada`;
       case 11:
-        return `${dateStart.getDay()} Grudnia`;
+        return `${dateStart.getDate()} Grudnia`;
     }
   };
 
