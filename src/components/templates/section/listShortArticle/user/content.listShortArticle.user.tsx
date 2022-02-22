@@ -13,7 +13,7 @@ const UserShortArticle = React.forwardRef(({ data, type }: any, ref: any) => {
       <BoxContent>
         <BoxAuthor>
           <BoxAuthorImg>
-            {data?.attributes.avatar ? (
+            {data?.attributes?.avatar?.data?.attributes?.url ? (
               <Image
                 width={42}
                 height={42}

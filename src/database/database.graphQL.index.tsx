@@ -15,7 +15,14 @@ import type { TagWithOnlyTitleType } from "./tag/database.tag.index";
 import { tagWithOnlyTitleAllGetPreviewList, tagWithOnlyTitleInitialState } from "./tag/database.tag.index";
 
 // search
-import type { SearchShortContentType, SearchSugestContentType, SearchShortArticleType } from "./search/database.search.index";
+import type {
+  SearchShortContentType,
+  SearchSugestContentType,
+  SearchShortArticleType,
+  SearchShortVideoType,
+  SearchShortTagType,
+  SearchShortUserType,
+} from "./search/database.search.index";
 import {
   searchSugestContentGetPreview,
   searchSugestContentInitialState,
@@ -23,6 +30,12 @@ import {
   searchShortContentInitialState,
   searchShortArticleGetPreview,
   searchShortArticleInitialState,
+  searchShortVideoGetPreview,
+  searchShortVideoInitialState,
+  searchShortTagGetPreview,
+  searchShortTagInitialState,
+  searchShortUserGetPreview,
+  searchShortUserInitialState,
 } from "./search/database.search.index";
 
 // export
@@ -34,6 +47,9 @@ export type {
   SearchSugestContentType,
   SearchShortContentType,
   SearchShortArticleType,
+  SearchShortVideoType,
+  SearchShortTagType,
+  SearchShortUserType,
 };
 
 export {
@@ -51,4 +67,10 @@ export {
   searchShortContentInitialState,
   searchShortArticleGetPreview,
   searchShortArticleInitialState,
+  searchShortVideoGetPreview,
+  searchShortVideoInitialState,
+  searchShortTagGetPreview,
+  searchShortTagInitialState,
+  searchShortUserGetPreview,
+  searchShortUserInitialState,
 };

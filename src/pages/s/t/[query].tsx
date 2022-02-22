@@ -51,7 +51,7 @@ const Search: NextPage = () => {
             ]}
           />
           <Col xs={12} md={9}>
-            <ListShortArticle data={content} type="searchTag" loadData={loadData} search={query?.toString()} />
+            <ListShortArticle data={content} type="searchTagShort" loadData={loadData} search={query?.toString()} />
           </Col>
         </Row>
       </Container>

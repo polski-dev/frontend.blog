@@ -5,7 +5,7 @@ export const setTypeContent = (type: string) => {
     case "allWaitingRoom":
       return "all";
     case "video":
-    case "searchVideo":
+    case "searchVideoShort":
     case "videoWaitingRoom":
       return "video";
     case "article":
@@ -13,11 +13,11 @@ export const setTypeContent = (type: string) => {
     case "articleWaitingRoom":
       return "article";
     case "tag":
-    case "searchTag":
+    case "searchTagShort":
     case "tagWaitingRoom":
       return "tag";
     case "user":
-    case "searchUser":
+    case "searchUserShort":
     case "userWaitingRoom":
       return "user";
     default:

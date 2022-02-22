@@ -12,6 +12,18 @@ import { searchShortContentInitialState } from "./initialState/database.searchSh
 import { SearchShortArticleType } from "./type/database.searchShortArticle.type";
 import { searchShortArticleQuery } from "./query/database.searchShortArticle.query";
 import { searchShortArticleInitialState } from "./initialState/database.searchShortArticle.initialState";
+//
+import { SearchShortVideoType } from "./type/database.searchShortVideo.type";
+import { searchShortVideoQuery } from "./query/database.searchShortVideo.query";
+import { searchShortVideoInitialState } from "./initialState/database.searchShortVideo.initialState";
+//
+import { SearchShortTagType } from "./type/database.searchShortTag.type";
+import { searchShortTagQuery } from "./query/database.searchShortTag.query";
+import { searchShortTagInitialState } from "./initialState/database.searchShortTag.initialState";
+//
+import { SearchShortUserType } from "./type/database.searchShortUser.type";
+import { searchShortUserQuery } from "./query/database.searchShortUser.query";
+import { searchShortUserInitialState } from "./initialState/database.searchShortUser.initialState";
 
 // metchods
 const searchSugestContentGetPreview: (page: number, waitingroom: boolean, search: string) => Promise<SearchSugestContentType> = async (
@@ -60,15 +72,40 @@ const searchShortArticleGetPreview: (page: number, waitingroom: boolean, search:
   search: string
 ): Promise<SearchShortArticleType> => {
   const data: SearchShortArticleType = await fetchAPI(searchShortArticleQuery, { variables: { page: page * 10, waitingroom, search } });
-
-  // add type content
   data?.article.data.forEach((article: any) => (article.type = "article"));
+  return data;
+};
 
+const searchShortVideoGetPreview: (page: number, waitingroom: boolean, search: string) => Promise<SearchShortVideoType> = async (
+  page: number,
+  waitingroom: boolean,
+  search: string
+): Promise<SearchShortVideoType> => {
+  const data: SearchShortVideoType = await fetchAPI(searchShortVideoQuery, { variables: { page: page * 10, waitingroom, search } });
+  data?.video.data.forEach((video: any) => (video.type = "video"));
+  return data;
+};
+
+const searchShortTagGetPreview: (page: number, search: string) => Promise<SearchShortTagType> = async (
+  page: number,
+  search: string
+): Promise<SearchShortTagType> => {
+  const data: SearchShortTagType = await fetchAPI(searchShortTagQuery, { variables: { page: page * 10, search } });
+  data?.tag.data.forEach((tag: any) => (tag.type = "tag"));
+  return data;
+};
+
+const searchShortUserGetPreview: (page: number, search: string) => Promise<SearchShortUserType> = async (
+  page: number,
+  search: string
+): Promise<SearchShortUserType> => {
+  const data: SearchShortUserType = await fetchAPI(searchShortUserQuery, { variables: { page: page * 10, search } });
+  data?.user.data.forEach((user: any) => (user.type = "user"));
   return data;
 };
 
 // export
-export type { SearchShortContentType, SearchSugestContentType, SearchShortArticleType };
+export type { SearchShortContentType, SearchSugestContentType, SearchShortArticleType, SearchShortVideoType, SearchShortTagType, SearchShortUserType };
 export {
   searchSugestContentGetPreview,
   searchSugestContentInitialState,
@@ -76,4 +113,10 @@ export {
   searchShortContentInitialState,
   searchShortArticleGetPreview,
   searchShortArticleInitialState,
+  searchShortVideoGetPreview,
+  searchShortVideoInitialState,
+  searchShortTagGetPreview,
+  searchShortTagInitialState,
+  searchShortUserGetPreview,
+  searchShortUserInitialState,
 };

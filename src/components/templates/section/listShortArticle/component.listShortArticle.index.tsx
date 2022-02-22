@@ -1,19 +1,14 @@
 import Confetti from "react-confetti";
 import useWindowData from "hooks/hooks.windowData";
 import React, { useEffect, useRef, useState } from "react";
+import { selectAPI } from "./switchs/component.listShortArticle.selectAPI";
+import { selectHeader } from "./switchs/component.listShortArticle.selectHeader";
 import { setTypeContent } from "./switchs/component.listShortArticle.setTypeContent";
 import { SquareShortArticle } from "components/atoms/animation/comonent.animation.index";
-import {
-  contentShortGetPreview,
-  videoShortGetPreview,
-  articleShortGetPreview,
-  searchShortContentGetPreview,
-  searchShortArticleGetPreview,
-} from "database/database.restAPI.index";
 import selectTemplateForContent from "./switchs/component.listShortArticle.selectTemplate";
 import { Section, Title, BoxInformation, Info, NotFound } from "./style/component.listShortArticle.style";
 
-export default function SectionShortArticle({ data, type, loadData, search }: { data: any; type: string; loadData?: boolean; search?: string }) {
+export default function SectionShortArticle({ data, type, loadData, search }: { data: any; type: string; loadData?: boolean; search?: string }): JSX.Element {
   const { width, height } = useWindowData();
   const [page, setPage] = useState(1);
   const [content, setContent] = useState(data);
@@ -44,44 +39,7 @@ export default function SectionShortArticle({ data, type, loadData, search }: { 
   useEffect(() => {
     (async (): Promise<void> => {
       if (iAmWaitingForAnswer) {
-        switch (type) {
-          case "all":
-            const all: any = await contentShortGetPreview(page, false);
-            content.all.data = [...content.all.data, ...all?.all?.data];
-            break;
-          case "allWaitingRoom":
-            const allWaitingRoom: any = await contentShortGetPreview(page, true);
-            content.all.data = [...content.all.data, ...allWaitingRoom?.all?.data];
-            break;
-          case "video":
-            const video: any = await videoShortGetPreview(page, false);
-            content.video.data = [...content.video.data, ...video?.video?.data];
-            break;
-          case "videoWaitingRoom":
-            const videoWaitingRoom: any = await videoShortGetPreview(page, true);
-            content.video.data = [...content.video.data, ...videoWaitingRoom?.video?.data];
-            break;
-          case "article":
-            const article: any = await articleShortGetPreview(page, false);
-            content.article.data = [...content.article.data, ...article?.article?.data];
-            break;
-          case "articleWaitingRoom":
-            const articleWaitingRoom: any = await articleShortGetPreview(page, true);
-            content.article.data = [...content.article.data, ...articleWaitingRoom?.article?.data];
-            break;
-          case "search":
-            if (!!search?.length) {
-              const searchContentShort: any = await searchShortContentGetPreview(page, search.toString());
-              content.all.data = [...content.all.data, ...searchContentShort?.all?.data];
-            }
-          case "searchArticleShort":
-            if (!!search?.length) {
-              const searchArticleShort: any = await searchShortArticleGetPreview(page, search.toString());
-              content.article.data = [...content.article.data, ...searchArticleShort?.article?.data];
-            }
-            break;
-        }
-
+        await selectAPI(type, content, page, search);
         setPage(page + 1);
         setContent(content);
         setIamWaitingForAnswer(false);
@@ -91,18 +49,7 @@ export default function SectionShortArticle({ data, type, loadData, search }: { 
 
   return (
     <Section>
-      <Title>
-        {type === "all" && "Wszystko"}
-        {type === "allWaitingRoom" && "Poczekalnia"}
-        {type === "video" && "Video"}
-        {type === "videoWaitingRoom" && "Poczekalnia video"}
-        {type === "article" && "Artykuły"}
-        {type === "articleWaitingRoom" && "Poczekalnia artykułów"}
-        {type === "search" && `Wynik wyszukiwania: ${search}`}
-        {type === "searchVideo" && `Wynik wyszukiwania video: ${search}`}
-        {type === "searchTag" && `Wynik wyszukiwania tag: ${search}`}
-        {type === "searchArticle" && `Wynik wyszukiwania artykułów: ${search}`}
-      </Title>
+      <Title>{selectHeader(type, search)}</Title>
 
       {content[setTypeContent(type)].data.map((item: any, i: number) => selectTemplateForContent(item, i, articeRef))}
 

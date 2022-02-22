@@ -15,6 +15,12 @@ import {
   searchShortContentInitialState,
   SearchShortArticleType,
   searchShortArticleInitialState,
+  SearchShortVideoType,
+  searchShortVideoInitialState,
+  SearchShortTagType,
+  searchShortTagInitialState,
+  SearchShortUserType,
+  searchShortUserInitialState,
 } from "./database.graphQL.index";
 
 // search
@@ -29,7 +35,22 @@ const searchShortContentGetPreview: (page: number, search: string) => Promise<Se
 const searchShortArticleGetPreview: (page: number, search: string) => Promise<SearchShortArticleType> = async (
   page: number,
   search: string
-): Promise<SearchShortArticleType> => await fetchAPI({ path: `search/articleshort/${page}/${search}` });
+): Promise<SearchShortArticleType> => await fetchAPI({ path: `search/shortarticle/${page}/${search}` });
+
+const searchShortVideoGetPreview: (page: number, search: string) => Promise<SearchShortVideoType> = async (
+  page: number,
+  search: string
+): Promise<SearchShortVideoType> => await fetchAPI({ path: `search/shortvideo/${page}/${search}` });
+
+const searchShortTagGetPreview: (page: number, search: string) => Promise<SearchShortTagType> = async (
+  page: number,
+  search: string
+): Promise<SearchShortTagType> => await fetchAPI({ path: `search/shorttag/${page}/${search}` });
+
+const searchShortUserGetPreview: (page: number, search: string) => Promise<SearchShortUserType> = async (
+  page: number,
+  search: string
+): Promise<SearchShortUserType> => await fetchAPI({ path: `search/shortuser/${page}/${search}` });
 
 // content
 const contentShortGetPreview: (page: number, waitingroom: boolean) => Promise<ContentShortType> = async (
@@ -61,6 +82,9 @@ export type {
   SearchSugestContentType,
   SearchShortContentType,
   SearchShortArticleType,
+  SearchShortVideoType,
+  SearchShortTagType,
+  SearchShortUserType,
 };
 
 export {
@@ -78,4 +102,10 @@ export {
   searchShortContentGetPreview,
   searchShortArticleInitialState,
   searchShortArticleGetPreview,
+  searchShortVideoInitialState,
+  searchShortVideoGetPreview,
+  searchShortTagInitialState,
+  searchShortTagGetPreview,
+  searchShortUserInitialState,
+  searchShortUserGetPreview,
 };
