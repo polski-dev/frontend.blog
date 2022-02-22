@@ -1,6 +1,6 @@
 export const articleShortQuery = `
 query($page: Int! $waitingroom: Boolean!) {
-  article: videos(pagination: {start: $page}, filters: {waitingroom: {eq: $waitingroom}}, sort: "createdAt:desc") {
+  article(pagination: {start: $page}, filters: {waitingroom: {eq: $waitingroom}}, sort: "createdAt:desc") {
 	data {
 		id
 		attributes {
