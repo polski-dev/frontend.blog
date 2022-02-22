@@ -25,7 +25,7 @@ const Home: NextPage<any, {}> = ({ tag, content }: { tag: TagWithOnlyTitleType; 
             ]}
           />
           <Col xs={12} md={9}>
-            <ListShortArticle data={content} type="all" />
+            {/* <ListShortArticle data={content} type="all" /> */}
           </Col>
         </Row>
       </Container>
