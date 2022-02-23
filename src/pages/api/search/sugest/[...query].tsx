@@ -11,26 +11,28 @@ export default async function searchAPI(req: any, res: any) {
   // query
   const content: SearchSugestContentType = await searchSugestContentGetPreview(0, false, query);
 
-  content?.article.data.forEach((art: any) => (art.type = "article"));
-  content?.video.data.forEach((art: any) => (art.type = "video"));
-  content?.user.data.forEach((art: any) => (art.type = "user"));
-  content?.tag.data.forEach((art: any) => (art.type = "tag"));
+  content?.data.article.data.forEach((art: any) => (art.type = "article"));
+  content?.data.video.data.forEach((art: any) => (art.type = "video"));
+  content?.data.user.data.forEach((art: any) => (art.type = "user"));
+  content?.data.tag.data.forEach((art: any) => (art.type = "tag"));
 
   // count page for all content
-  const pageCount = Math.ceil((content.article.meta.pagination.total + content.video.meta.pagination.total + content.user.meta.pagination.total + content.tag.meta.pagination.total) / 10);
+  const pageCount = Math.ceil((content.data.article.meta.pagination.total + content.data.video.meta.pagination.total + content.data.user.meta.pagination.total + content.data.tag.meta.pagination.total) / 10);
 
   res.status(200).json({
-    all: {
-      data: orderBy([...content.article.data, ...content.video.data, ...content.user.data, ...content.tag.data], (item) => item.attributes?.views, ["desc"]),
-      meta: {
-        pagination: {
-          page: parseInt(page) + 1,
-          pageSize: 40,
-          pageCount: pageCount === 0 ? 1 : pageCount,
-          total: content.article.meta.pagination.total + content.video.meta.pagination.total + content.user.meta.pagination.total + content.tag.meta.pagination.total,
+    data: {
+      all: {
+        data: orderBy([...content.data.article.data, ...content.data.video.data, ...content.data.user.data, ...content.data.tag.data], (item) => item.attributes?.views, ["desc"]),
+        meta: {
+          pagination: {
+            page: parseInt(page) + 1,
+            pageSize: 40,
+            pageCount: pageCount === 0 ? 1 : pageCount,
+            total: content.data.article.meta.pagination.total + content.data.video.meta.pagination.total + content.data.user.meta.pagination.total + content.data.tag.meta.pagination.total,
+          },
         },
       },
+      ...content.data,
     },
-    ...content,
   });
 }

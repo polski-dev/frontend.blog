@@ -8,21 +8,7 @@ import { kebabCase, deburr } from "lodash";
 import Comment from "assets/icon/comment.svg";
 import { setSlug, time } from "function/function.index";
 import { ButtonLinkIn } from "components/atoms/button/component.button.index";
-import {
-  Article,
-  BoxContent,
-  BoxAuthor,
-  BoxAuthorImg,
-  BoxAuthorAvatar,
-  AuthorData,
-  AuthorName,
-  DateAdded,
-  TitleArticle,
-  ListTags,
-  Tag,
-  ListStats,
-  Item,
-} from "../style/component.listShortArticle.style";
+import { Article, BoxContent, BoxAuthor, BoxAuthorImg, BoxAuthorAvatar, AuthorData, AuthorName, DateAdded, TitleArticle, ListTags, Tag, ListStats, Item } from "../style/component.listShortArticle.style";
 
 const ContentShortArticle = React.forwardRef(({ data }: any, ref: any) => {
   const slug = new setSlug(data.type).setContent;
@@ -38,14 +24,7 @@ const ContentShortArticle = React.forwardRef(({ data }: any, ref: any) => {
         <BoxAuthor>
           <BoxAuthorImg>
             {data?.attributes?.author?.data?.attributes?.avatar?.data?.attributes?.url ? (
-              <Image
-                width={42}
-                height={42}
-                placeholder="blur"
-                blurDataURL="/img/blur.png"
-                alt={data.attributes.author.data.attributes.username}
-                src={data.attributes.author.data.attributes.avatar.data.attributes.url}
-              />
+              <Image width={42} height={42} placeholder="blur" blurDataURL="/img/blur.png" alt={data.attributes.author.data.attributes.username} src={data.attributes.author.data.attributes.avatar.data.attributes.url} />
             ) : (
               <BoxAuthorAvatar>
                 <Avatar />
@@ -53,13 +32,9 @@ const ContentShortArticle = React.forwardRef(({ data }: any, ref: any) => {
             )}
           </BoxAuthorImg>
           <AuthorData>
-            <Link
-              href={`/${new setSlug("user").setContent}/${data.attributes.author.data.id}/${kebabCase(
-                deburr(data?.attributes.author.data.attributes.username.toLowerCase())
-              )}`}
-            >
-              <a title={data.attributes.author.data.attributes.username}>
-                <AuthorName>{data.attributes.author.data.attributes.username}</AuthorName>
+            <Link href={`/${new setSlug("user").setContent}/${data?.attributes?.author?.data?.id}/${kebabCase(deburr(data?.attributes?.author?.data?.attributes?.username.toLowerCase()))}`}>
+              <a title={data?.attributes?.author?.data?.attributes?.username}>
+                <AuthorName>{data?.attributes?.author?.data?.attributes?.username}</AuthorName>
               </a>
             </Link>
 

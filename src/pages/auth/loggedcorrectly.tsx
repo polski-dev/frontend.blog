@@ -22,7 +22,7 @@ const Loggedcorrectly: NextPage<any, TagWithOnlyTitleType> = ({ tag, countUser }
         <Row>
           <MenuPrimary title="Filtruj" data={[]} />
           <Col xs={12} md={9}>
-            <SectionSessionInfo users={countUser.user.meta.pagination.total} />
+            <SectionSessionInfo users={countUser.data.user.meta.pagination.total} />
           </Col>
         </Row>
       </Container>

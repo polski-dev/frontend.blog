@@ -60,7 +60,7 @@ export default function MenuPrimary({ title, data }: menuPromaryType) {
             <Title>Top tagi</Title>
             <List>
               {!!story.tag.home.data.length
-                ? story.tag.home.data.slice(0, 5).map((tag, i: number) => (
+                ? story.tag.home.data.slice(0, 5).map((tag: any, i: number) => (
                     <Tag key={i}>
                       <Link href={`/t/${kebabCase(deburr(tag.attributes.title.toLowerCase()))}`}>
                         <a title={tag.attributes.title}>

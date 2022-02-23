@@ -22,7 +22,7 @@ const SingIn: NextPage<any, TagWithOnlyTitleType> = ({ tag, countUser }: { tag: 
         <Row>
           <MenuPrimary title="Filtruj" data={[]} />
           <Col xs={12} md={9}>
-            <SectionSingIn users={countUser.user.meta.pagination.total} />
+            <SectionSingIn users={countUser.data.user.meta.pagination.total} />
           </Col>
         </Row>
       </Container>

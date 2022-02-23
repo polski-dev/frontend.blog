@@ -23,9 +23,9 @@ const Home: NextPage<any, {}> = ({ tag, content }: { tag: TagWithOnlyTitleType; 
           <MenuPrimary
             title="Filtruj"
             data={[
-              { slug: "/", title: "Wszystko", quantity: content.all?.meta.pagination.total || 0 },
-              { slug: "/a", title: "Artykuły", quantity: content.article.meta.pagination.total },
-              { slug: "/v", title: "Video", quantity: content.video.meta.pagination.total },
+              { slug: "/", title: "Wszystko", quantity: content.data.all?.meta.pagination.total || 0 },
+              { slug: "/a", title: "Artykuły", quantity: content.data.article.meta.pagination.total },
+              { slug: "/v", title: "Video", quantity: content.data.video.meta.pagination.total },
             ]}
           />
           <Col xs={12} md={9}>

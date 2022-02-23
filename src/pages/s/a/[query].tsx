@@ -3,12 +3,7 @@ import { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import useDispatchTagToStore from "hooks/hooks.dispatchTagToStore";
-import {
-  SearchShortContentType,
-  searchShortContentGetPreview,
-  searchShortContentInitialState,
-  tagWithOnlyTitleAllGetPreviewList,
-} from "database/database.restAPI.index";
+import { SearchShortContentType, searchShortContentGetPreview, searchShortContentInitialState, tagWithOnlyTitleAllGetPreviewList } from "database/database.restAPI.index";
 import { MenuPrimary } from "components/templates/menu/component.menu.index";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
 import { ListShortArticle } from "components/templates/section/component.section.index";
@@ -43,11 +38,11 @@ const Search: NextPage = () => {
           <MenuPrimary
             title="Filtruj"
             data={[
-              { slug: `/s/${query}`, title: "Wszystko", quantity: content.all?.meta.pagination.total || 0 },
-              { slug: `/s/a/${query}`, title: "Artykuły", quantity: content.article.meta.pagination.total || 0 },
-              { slug: `/s/v/${query}`, title: "Video", quantity: content.video.meta.pagination.total || 0 },
-              { slug: `/s/t/${query}`, title: "Tagi", quantity: content.tag.meta.pagination.total || 0 },
-              { slug: `/s/u/${query}`, title: "Użytkownicy", quantity: content.user.meta.pagination?.total || 0 },
+              { slug: `/s/${query}`, title: "Wszystko", quantity: content.data.all?.meta.pagination.total || 0 },
+              { slug: `/s/a/${query}`, title: "Artykuły", quantity: content.data.article.meta.pagination.total || 0 },
+              { slug: `/s/v/${query}`, title: "Video", quantity: content.data.video.meta.pagination.total || 0 },
+              { slug: `/s/t/${query}`, title: "Tagi", quantity: content.data.tag.meta.pagination.total || 0 },
+              { slug: `/s/u/${query}`, title: "Użytkownicy", quantity: content.data.user.meta.pagination?.total || 0 },
             ]}
           />
           <Col xs={12} md={9}>

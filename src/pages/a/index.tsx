@@ -7,7 +7,7 @@ import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexbo
 import { ListShortArticle } from "components/templates/section/component.section.index";
 import { contentShortGetPreview, ContentShortType, tagWithOnlyTitleAllGetPreviewList, TagWithOnlyTitleType } from "database/database.graphQL.index";
 
-const HomeArticle: NextPage<any, {}> = ({ tag, content }: { tag: TagWithOnlyTitleType; content: ContentShortType }): JSX.Element => {
+const ArticleShort: NextPage<any, {}> = ({ tag, content }: { tag: TagWithOnlyTitleType; content: ContentShortType }): JSX.Element => {
   const { updateTagHome, store } = useDispatchTagToStore();
   useEffect(() => {
     if (!store.tag.home.data.length) updateTagHome(tag);
@@ -23,13 +23,12 @@ const HomeArticle: NextPage<any, {}> = ({ tag, content }: { tag: TagWithOnlyTitl
           <MenuPrimary
             title="Filtruj"
             data={[
-              { slug: "/", title: "Wszystko", quantity: content.all?.meta.pagination.total || 0 },
-              { slug: "/a", title: "Artykuły", quantity: content.article.meta.pagination.total },
-              { slug: "/v", title: "Video", quantity: content.video.meta.pagination.total },
+              { slug: "/", title: "Wszystko", quantity: content.data.all?.meta.pagination.total || 0 },
+              { slug: "/a", title: "Artykuły", quantity: content.data.article.meta.pagination.total },
+              { slug: "/v", title: "Video", quantity: content.data.video.meta.pagination.total },
             ]}
           />
           <Col xs={12} md={9}>
-            <div style={{ height: "30rem" }}></div>
             <ListShortArticle data={content} type="article" />
           </Col>
         </Row>
@@ -53,4 +52,4 @@ export async function getStaticProps(): Promise<any> {
   };
 }
 
-export default HomeArticle;
+export default ArticleShort;

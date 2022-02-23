@@ -1,4 +1,4 @@
-import fetchAPI from "database/fetchAPI/database.fetchAPIErrorNotSuport.graphQL";
+import fetchAPI from "database/fetchAPI/database.fetchAPI.graphQL";
 //
 import { TagWithOnlyTitleType } from "./type/database.tagWithOnlyTitle.type";
 import { tagWithOnlyTitleQuery } from "./query/database.tagWithOnlyTitle.query";

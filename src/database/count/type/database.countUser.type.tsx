@@ -1,8 +1,10 @@
 export interface CountUserType {
-  user: {
-    meta: {
-      pagination: {
-        total: number;
+  data: {
+    user: {
+      meta: {
+        pagination: {
+          total: number;
+        };
       };
     };
   };

@@ -27,7 +27,7 @@ export default function SectionShortArticle({ data, type, loadData, search }: { 
       clearTimeout(check);
       check = setTimeout(() => {
         const heightEl: any = articeRef?.current?.getBoundingClientRect().y;
-        if (page < content[setTypeContent(type)].meta.pagination.pageCount && !iAmWaitingForAnswer && heightEl - height < 0) setIamWaitingForAnswer(true);
+        if (page < content.data[setTypeContent(type)].meta.pagination.pageCount && !iAmWaitingForAnswer && heightEl - height < 0) setIamWaitingForAnswer(true);
       }, 200);
     }
 
@@ -51,7 +51,7 @@ export default function SectionShortArticle({ data, type, loadData, search }: { 
     <Section>
       <Title>{selectHeader(type, search)}</Title>
 
-      {content[setTypeContent(type)].data.map((item: any, i: number) => selectTemplateForContent(item, i, articeRef))}
+      {content.data[setTypeContent(type)].data.map((item: any, i: number) => selectTemplateForContent(item, i, articeRef))}
 
       {iAmWaitingForAnswer || loadData ? (
         <>
@@ -59,7 +59,7 @@ export default function SectionShortArticle({ data, type, loadData, search }: { 
             return <SquareShortArticle key={i} last={new Array(10).length - 1 === i} />;
           })}
         </>
-      ) : !!content[setTypeContent(type)].data.length ? (
+      ) : !!content.data[setTypeContent(type)].data.length ? (
         <BoxInformation>
           <Info>Właśnie dotarłeś do końca internetów, brawo :)</Info>
           <Confetti width={width} height={2 * height} style={{ width: "100%", position: "absolute" }} />

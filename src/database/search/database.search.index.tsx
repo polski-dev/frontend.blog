@@ -1,5 +1,5 @@
 import { orderBy } from "lodash";
-import fetchAPI from "database/fetchAPI/database.fetchAPIErrorNotSuport.graphQL";
+import fetchAPI from "database/fetchAPI/database.fetchAPI.graphQL";
 //
 import { SearchSugestContentType } from "./type/database.searchSugestContent.type";
 import { searchSugestContentQuery } from "./query/database.searchSugestContent.query";
@@ -33,51 +33,53 @@ const searchShortContentGetPreview: (page: number, waitingroom: boolean, search:
   const data: SearchShortContentType = await fetchAPI(searchShortContentQuery, { variables: { page: page * 10, waitingroom, search } });
 
   // add type content
-  data?.article.data.forEach((article: any) => (article.type = "article"));
-  data?.video.data.forEach((video: any) => (video.type = "video"));
-  data?.user.data.forEach((user: any) => (user.type = "user"));
-  data?.tag.data.forEach((tag: any) => (tag.type = "tag"));
+  data?.data.article.data.forEach((article: any) => (article.type = "article"));
+  data?.data.video.data.forEach((video: any) => (video.type = "video"));
+  data?.data.user.data.forEach((user: any) => (user.type = "user"));
+  data?.data.tag.data.forEach((tag: any) => (tag.type = "tag"));
 
   // count page for all content
-  const pageCount = Math.ceil((data.article.meta.pagination.total + data.video.meta.pagination.total + data.tag.meta.pagination.total + data.user.meta.pagination.total) / 10);
+  const pageCount = Math.ceil((data.data.article.meta.pagination.total + data.data.video.meta.pagination.total + data.data.tag.meta.pagination.total + data.data.user.meta.pagination.total) / 10);
 
   return {
-    ...data,
-    all: {
-      data: orderBy([...data.article.data, ...data.video.data, ...data.user.data, ...data.tag.data], (item) => item.attributes.views, ["desc"]),
-      meta: {
-        pagination: {
-          page: page + 1,
-          pageSize: 40,
-          pageCount: pageCount === 0 ? 1 : pageCount,
-          total: data.article.meta.pagination.total + data.video.meta.pagination.total + data.tag.meta.pagination.total + data.user.meta.pagination.total,
+    data: {
+      all: {
+        data: orderBy([...data.data.article.data, ...data.data.video.data, ...data.data.user.data, ...data.data.tag.data], (item) => item.attributes.views, ["desc"]),
+        meta: {
+          pagination: {
+            page: page + 1,
+            pageSize: 40,
+            pageCount: pageCount === 0 ? 1 : pageCount,
+            total: data.data.article.meta.pagination.total + data.data.video.meta.pagination.total + data.data.tag.meta.pagination.total + data.data.user.meta.pagination.total,
+          },
         },
       },
+      ...data.data,
     },
   };
 };
 
 const searchShortArticleGetPreview: (page: number, waitingroom: boolean, search: string) => Promise<SearchShortArticleType> = async (page: number, waitingroom: boolean, search: string): Promise<SearchShortArticleType> => {
   const data: SearchShortArticleType = await fetchAPI(searchShortArticleQuery, { variables: { page: page * 10, waitingroom, search } });
-  data?.article.data.forEach((article: any) => (article.type = "article"));
+  data?.data.article.data.forEach((article: any) => (article.type = "article"));
   return data;
 };
 
 const searchShortVideoGetPreview: (page: number, waitingroom: boolean, search: string) => Promise<SearchShortVideoType> = async (page: number, waitingroom: boolean, search: string): Promise<SearchShortVideoType> => {
   const data: SearchShortVideoType = await fetchAPI(searchShortVideoQuery, { variables: { page: page * 10, waitingroom, search } });
-  data?.video.data.forEach((video: any) => (video.type = "video"));
+  data?.data.video.data.forEach((video: any) => (video.type = "video"));
   return data;
 };
 
 const searchShortTagGetPreview: (page: number, search: string) => Promise<SearchShortTagType> = async (page: number, search: string): Promise<SearchShortTagType> => {
   const data: SearchShortTagType = await fetchAPI(searchShortTagQuery, { variables: { page: page * 10, search } });
-  data?.tag.data.forEach((tag: any) => (tag.type = "tag"));
+  data?.data.tag.data.forEach((tag: any) => (tag.type = "tag"));
   return data;
 };
 
 const searchShortUserGetPreview: (page: number, search: string) => Promise<SearchShortUserType> = async (page: number, search: string): Promise<SearchShortUserType> => {
   const data: SearchShortUserType = await fetchAPI(searchShortUserQuery, { variables: { page: page * 10, search } });
-  data?.user.data.forEach((user: any) => (user.type = "user"));
+  data?.data.user.data.forEach((user: any) => (user.type = "user"));
   return data;
 };
 

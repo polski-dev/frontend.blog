@@ -19,55 +19,55 @@ export const selectAPI = async (type: string, content: any, page: number, search
   switch (type) {
     case "all":
       const all: any = await contentShortGetPreview(page, false);
-      content.all.data = [...content.all.data, ...all?.all?.data];
+      content.data.all.data = [...content.data.all.data, ...all?.data.all?.data];
       break;
     case "allWaitingRoom":
       const allWaitingRoom: any = await contentShortGetPreview(page, true);
-      content.all.data = [...content.all.data, ...allWaitingRoom?.all?.data];
+      content.data.all.data = [...content.data.all.data, ...allWaitingRoom?.data.all?.data];
       break;
     case "video":
       const video: VideoShortType = await videoShortGetPreview(page, false);
-      content.video.data = [...content.video.data, ...video?.video?.data];
+      content.data.video.data = [...content.data.video.data, ...video?.data.video?.data];
       break;
     case "videoWaitingRoom":
       const videoWaitingRoom: VideoShortType = await videoShortGetPreview(page, true);
-      content.video.data = [...content.video.data, ...videoWaitingRoom?.video?.data];
+      content.data.video.data = [...content.data.video.data, ...videoWaitingRoom?.data.video?.data];
       break;
     case "article":
       const article: ArticleShortType = await articleShortGetPreview(page, false);
-      content.article.data = [...content.article.data, ...article?.article?.data];
+      content.data.article.data = [...content.data.article.data, ...article?.data.article?.data];
       break;
     case "articleWaitingRoom":
       const articleWaitingRoom: ArticleShortType = await articleShortGetPreview(page, true);
-      content.article.data = [...content.article.data, ...articleWaitingRoom?.article?.data];
+      content.data.article.data = [...content.data.article.data, ...articleWaitingRoom?.data.article?.data];
       break;
     case "search":
       if (!!search?.length) {
         const searchContentShort: any = await searchShortContentGetPreview(page, search.toString());
-        content.all.data = [...content.all.data, ...searchContentShort?.all?.data];
+        content.data.all.data = [...content.data.all.data, ...searchContentShort?.data.all?.data];
       }
     case "searchArticleShort":
       if (!!search?.length) {
         const searchArticleShort: SearchShortArticleType = await searchShortArticleGetPreview(page, search.toString());
-        content.article.data = [...content.article.data, ...searchArticleShort?.article?.data];
+        content.data.article.data = [...content.data.article.data, ...searchArticleShort?.data.article?.data];
       }
       break;
     case "searchVideoShort":
       if (!!search?.length) {
         const searchVideoShort: SearchShortVideoType = await searchShortVideoGetPreview(page, search.toString());
-        content.video.data = [...content.video.data, ...searchVideoShort?.video?.data];
+        content.data.video.data = [...content.data.video.data, ...searchVideoShort?.data.video?.data];
       }
       break;
     case "searchTagShort":
       if (!!search?.length) {
         const searchTagShort: SearchShortTagType = await searchShortTagGetPreview(page, search.toString());
-        content.tag.data = [...content.tag.data, ...searchTagShort?.tag?.data];
+        content.data.tag.data = [...content.data.tag.data, ...searchTagShort?.data.tag?.data];
       }
       break;
     case "searchUserShort":
       if (!!search?.length) {
         const searchUserShort: SearchShortUserType = await searchShortUserGetPreview(page, search.toString());
-        content.user.data = [...content.user.data, ...searchUserShort?.user?.data];
+        content.data.user.data = [...content.data.user.data, ...searchUserShort?.data.user?.data];
       }
       break;
   }
