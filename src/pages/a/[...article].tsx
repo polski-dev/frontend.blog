@@ -3,13 +3,14 @@ import { kebabCase, deburr } from "lodash";
 import { articeWithOnlyTitleGetPreview, ArticeWithOnlyTitleType, articeFullByIdGetPreview, ArticeFullByIdType } from "database/database.graphQL.index";
 
 const Article: NextPage<any> = ({ article }: { article: ArticeFullByIdType }): JSX.Element => {
+  console.log(article);
   return <>full article: {article?.data?.article?.data?.attributes?.title}</>;
 };
 
 export async function getStaticProps({ params }: any): Promise<any> {
+  console.log(parseInt(params.article[0]));
   // article full
   const article: ArticeFullByIdType = await articeFullByIdGetPreview(parseInt(params.article[0]));
-
   return {
     props: {
       article,
