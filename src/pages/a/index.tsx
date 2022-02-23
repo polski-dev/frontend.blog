@@ -29,6 +29,7 @@ const HomeArticle: NextPage<any, {}> = ({ tag, content }: { tag: TagWithOnlyTitl
             ]}
           />
           <Col xs={12} md={9}>
+            <div style={{ height: "30rem" }}></div>
             <ListShortArticle data={content} type="article" />
           </Col>
         </Row>
