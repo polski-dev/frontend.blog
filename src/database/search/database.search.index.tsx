@@ -1,5 +1,5 @@
 import { orderBy } from "lodash";
-import fetchAPI from "database/fetchAPI/database.fetchAPI.graphQL";
+import fetchAPI from "database/fetchAPI/database.fetchAPIErrorNotSuport.graphQL";
 //
 import { SearchSugestContentType } from "./type/database.searchSugestContent.type";
 import { searchSugestContentQuery } from "./query/database.searchSugestContent.query";
@@ -26,17 +26,10 @@ import { searchShortUserQuery } from "./query/database.searchShortUser.query";
 import { searchShortUserInitialState } from "./initialState/database.searchShortUser.initialState";
 
 // metchods
-const searchSugestContentGetPreview: (page: number, waitingroom: boolean, search: string) => Promise<SearchSugestContentType> = async (
-  page: number,
-  waitingroom: boolean,
-  search: string
-): Promise<SearchSugestContentType> => await fetchAPI(searchSugestContentQuery, { variables: { page: page * 10, waitingroom, search, sort: "views:desc" } });
+const searchSugestContentGetPreview: (page: number, waitingroom: boolean, search: string) => Promise<SearchSugestContentType> = async (page: number, waitingroom: boolean, search: string): Promise<SearchSugestContentType> =>
+  await fetchAPI(searchSugestContentQuery, { variables: { page: page * 10, waitingroom, search, sort: "views:desc" } });
 
-const searchShortContentGetPreview: (page: number, waitingroom: boolean, search: string) => Promise<SearchShortContentType> = async (
-  page: number,
-  waitingroom: boolean,
-  search: string
-): Promise<SearchShortContentType> => {
+const searchShortContentGetPreview: (page: number, waitingroom: boolean, search: string) => Promise<SearchShortContentType> = async (page: number, waitingroom: boolean, search: string): Promise<SearchShortContentType> => {
   const data: SearchShortContentType = await fetchAPI(searchShortContentQuery, { variables: { page: page * 10, waitingroom, search } });
 
   // add type content
@@ -46,9 +39,7 @@ const searchShortContentGetPreview: (page: number, waitingroom: boolean, search:
   data?.tag.data.forEach((tag: any) => (tag.type = "tag"));
 
   // count page for all content
-  const pageCount = Math.ceil(
-    (data.article.meta.pagination.total + data.video.meta.pagination.total + data.tag.meta.pagination.total + data.user.meta.pagination.total) / 10
-  );
+  const pageCount = Math.ceil((data.article.meta.pagination.total + data.video.meta.pagination.total + data.tag.meta.pagination.total + data.user.meta.pagination.total) / 10);
 
   return {
     ...data,
@@ -66,39 +57,25 @@ const searchShortContentGetPreview: (page: number, waitingroom: boolean, search:
   };
 };
 
-const searchShortArticleGetPreview: (page: number, waitingroom: boolean, search: string) => Promise<SearchShortArticleType> = async (
-  page: number,
-  waitingroom: boolean,
-  search: string
-): Promise<SearchShortArticleType> => {
+const searchShortArticleGetPreview: (page: number, waitingroom: boolean, search: string) => Promise<SearchShortArticleType> = async (page: number, waitingroom: boolean, search: string): Promise<SearchShortArticleType> => {
   const data: SearchShortArticleType = await fetchAPI(searchShortArticleQuery, { variables: { page: page * 10, waitingroom, search } });
   data?.article.data.forEach((article: any) => (article.type = "article"));
   return data;
 };
 
-const searchShortVideoGetPreview: (page: number, waitingroom: boolean, search: string) => Promise<SearchShortVideoType> = async (
-  page: number,
-  waitingroom: boolean,
-  search: string
-): Promise<SearchShortVideoType> => {
+const searchShortVideoGetPreview: (page: number, waitingroom: boolean, search: string) => Promise<SearchShortVideoType> = async (page: number, waitingroom: boolean, search: string): Promise<SearchShortVideoType> => {
   const data: SearchShortVideoType = await fetchAPI(searchShortVideoQuery, { variables: { page: page * 10, waitingroom, search } });
   data?.video.data.forEach((video: any) => (video.type = "video"));
   return data;
 };
 
-const searchShortTagGetPreview: (page: number, search: string) => Promise<SearchShortTagType> = async (
-  page: number,
-  search: string
-): Promise<SearchShortTagType> => {
+const searchShortTagGetPreview: (page: number, search: string) => Promise<SearchShortTagType> = async (page: number, search: string): Promise<SearchShortTagType> => {
   const data: SearchShortTagType = await fetchAPI(searchShortTagQuery, { variables: { page: page * 10, search } });
   data?.tag.data.forEach((tag: any) => (tag.type = "tag"));
   return data;
 };
 
-const searchShortUserGetPreview: (page: number, search: string) => Promise<SearchShortUserType> = async (
-  page: number,
-  search: string
-): Promise<SearchShortUserType> => {
+const searchShortUserGetPreview: (page: number, search: string) => Promise<SearchShortUserType> = async (page: number, search: string): Promise<SearchShortUserType> => {
   const data: SearchShortUserType = await fetchAPI(searchShortUserQuery, { variables: { page: page * 10, search } });
   data?.user.data.forEach((user: any) => (user.type = "user"));
   return data;

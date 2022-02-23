@@ -42,6 +42,10 @@ import {
 import type { CountUserType } from "./count/database.count.index";
 import { countUserGetPreview, countUserInitialState } from "./count/database.count.index";
 
+// Auth
+import type { AuthRegisterType } from "./auth/database.auth.index";
+import { authRegisterPost, authRegisterInitialState } from "./auth/database.auth.index";
+
 // export
 export type {
   ContentShortType,
@@ -55,6 +59,7 @@ export type {
   SearchShortTagType,
   SearchShortUserType,
   CountUserType,
+  AuthRegisterType,
 };
 
 export {
@@ -80,4 +85,6 @@ export {
   searchShortUserInitialState,
   countUserInitialState,
   countUserGetPreview,
+  authRegisterInitialState,
+  authRegisterPost,
 };

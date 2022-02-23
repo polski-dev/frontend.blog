@@ -162,3 +162,9 @@ export const Form = styled.form`
   position: relative;
   flex-direction: column;
 `;
+
+export const InfoInput = styled.div`
+  font-size: 0.8rem;
+  text-align: center;
+  padding-bottom: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.small};
+`;

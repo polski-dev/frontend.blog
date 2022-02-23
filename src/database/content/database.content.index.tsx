@@ -1,15 +1,12 @@
 import { orderBy } from "lodash";
-import fetchAPI from "database/fetchAPI/database.fetchAPI.graphQL";
+import fetchAPI from "database/fetchAPI/database.fetchAPIErrorNotSuport.graphQL";
 //
 import { ContentShortType } from "./type/database.contentShort.type";
 import { contentShortQuery } from "./query/database.contentShort.query";
 import { contentShortInitialState } from "./initialState/database.contentShort.initialState";
 
 // metchods
-const contentShortGetPreview: (page: number, waitingroom: boolean) => Promise<ContentShortType> = async (
-  page: number,
-  waitingroom: boolean
-): Promise<ContentShortType> => {
+const contentShortGetPreview: (page: number, waitingroom: boolean) => Promise<ContentShortType> = async (page: number, waitingroom: boolean): Promise<ContentShortType> => {
   const data: ContentShortType = await fetchAPI(contentShortQuery, { variables: { page: page * 10, waitingroom } });
 
   // add type content

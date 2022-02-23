@@ -6,7 +6,7 @@ export default async function searchAPI(req: any, res: any) {
 
   // i check data
   if (parseInt(page) < 0) res.status(200).json(searchSugestContentInitialState);
-  else if (parseInt(page) === 0 ? false : !parseInt(page)) res.status(500).json({ err: "wrong page number" });
+  else if (parseInt(page) === 0 ? false : !parseInt(page)) res.status(400).json({ err: "wrong page number" });
 
   // query
   const content: SearchSugestContentType = await searchSugestContentGetPreview(0, false, query);
@@ -17,9 +17,7 @@ export default async function searchAPI(req: any, res: any) {
   content?.tag.data.forEach((art: any) => (art.type = "tag"));
 
   // count page for all content
-  const pageCount = Math.ceil(
-    (content.article.meta.pagination.total + content.video.meta.pagination.total + content.user.meta.pagination.total + content.tag.meta.pagination.total) / 10
-  );
+  const pageCount = Math.ceil((content.article.meta.pagination.total + content.video.meta.pagination.total + content.user.meta.pagination.total + content.tag.meta.pagination.total) / 10);
 
   res.status(200).json({
     all: {
@@ -29,11 +27,7 @@ export default async function searchAPI(req: any, res: any) {
           page: parseInt(page) + 1,
           pageSize: 40,
           pageCount: pageCount === 0 ? 1 : pageCount,
-          total:
-            content.article.meta.pagination.total +
-            content.video.meta.pagination.total +
-            content.user.meta.pagination.total +
-            content.tag.meta.pagination.total,
+          total: content.article.meta.pagination.total + content.video.meta.pagination.total + content.user.meta.pagination.total + content.tag.meta.pagination.total,
         },
       },
     },

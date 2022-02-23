@@ -1,4 +1,4 @@
-import fetchAPI from "database/fetchAPI/database.fetchAPI.graphQL";
+import fetchAPI from "database/fetchAPI/database.fetchAPIErrorNotSuport.graphQL";
 //
 import { CountUserType } from "./type/database.countUser.type";
 import { countUserQuery } from "./query/database.countUser.query";

@@ -5,7 +5,7 @@ export default async function searchAPI(req: any, res: any): Promise<void> {
 
   // i check data
   if (parseInt(page) < 0) res.status(200).json(searchShortUserInitialState);
-  else if (parseInt(page) === 0 ? false : !parseInt(page)) res.status(500).json({ err: "wrong page number" });
+  else if (parseInt(page) === 0 ? false : !parseInt(page)) res.status(400).json({ err: "wrong page number" });
 
   // query
   const result: SearchShortUserType = await searchShortUserGetPreview(parseInt(page), query);

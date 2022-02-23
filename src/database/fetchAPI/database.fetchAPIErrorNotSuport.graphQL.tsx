@@ -11,6 +11,9 @@ export default async function fetchAPI(query: any, { variables }: any = {}): Pro
   });
 
   const json = await res.json();
+  if (json.errors) {
+    throw new Error("Failed to fetch API");
+  }
 
-  return json;
+  return json.data;
 }

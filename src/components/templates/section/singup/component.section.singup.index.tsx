@@ -1,17 +1,18 @@
+import { useState } from "react";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
-import { useEffect, useState } from "react";
-import { emailRegex } from "assets/regex/index.regex";
+import { errorComiunicat } from "./component.section.singup.errorComiunicat";
+import { authRegisterPost, authRegisterInitialState, AuthRegisterType } from "database/database.restAPI.index";
+import { emailRegex, passwordRegex } from "assets/regex/index.regex";
 import { ButtonSubmit } from "components/atoms/button/component.button.index";
 import { ItemLoad } from "components/atoms/animation/comonent.animation.index";
 import { Input, CheckBox, enumInputType } from "components/molecules/form/component.form.index";
+import { Section, BoxContent, BoxAuth, Title, Description, BoxInfo, BoxOption, BoxRegistrationInfo, Form, InfoInput } from "./component.section.singup.style";
 
-import { Section, BoxContent, BoxAuth, Title, Description, BoxErrorInfo, BoxInfo, BoxOption, BoxRegistrationInfo, Form } from "./component.section.singup.style";
-
-export default function SectionSingIn({ users }: { users: number }) {
+export default function SectionSingIn({ users }: { users: number }): JSX.Element {
   const router = useRouter();
-  const [checked, setChecked] = useState("");
   const [send, setSend] = useState(false);
+  const [checked, setChecked] = useState(authRegisterInitialState);
 
   const {
     setError,
@@ -20,12 +21,29 @@ export default function SectionSingIn({ users }: { users: number }) {
     formState: { errors },
   } = useForm();
 
+  let errorsMessage: (message: string) => AuthRegisterType = (message: string): AuthRegisterType => ({
+    data: null,
+    errors: [
+      {
+        message,
+        extensions: {
+          error: {
+            name: "ApplicationError",
+            message,
+            details: {},
+          },
+          code: "NEXTJS_APPLICATION_ERROR",
+        },
+      },
+    ],
+  });
+
   return (
     <Section>
       <h5>Rejstracja</h5>
       <BoxContent>
         <BoxAuth>
-          {checked === "succes" ? null : (
+          {checked.data?.register.user.confirmed ? null : (
             <>
               <Title>Już {users} osob promuje sie wzajemnie</Title>
               <Description>dołącz do nas i buduj razem z nami Twoją i naszą markę osobistą w świecie IT</Description>
@@ -41,10 +59,8 @@ export default function SectionSingIn({ users }: { users: number }) {
           ) : (
             <>
               <BoxOption>
-                {checked === "passwordAreNotSame" && <BoxErrorInfo>Hasła nie są takie same</BoxErrorInfo>}
-                {checked === "Email is already taken" && <BoxErrorInfo>Ten adres email jest już zajęty</BoxErrorInfo>}
-                {checked === "An error occurred during account creation" && <BoxErrorInfo>Wsytąpił problem z serwerem, spróboj później</BoxErrorInfo>}
-                {checked === "succes" ? (
+                {checked.errors && errorComiunicat(checked.errors[0].message)}
+                {checked.data?.register.user.confirmed ? (
                   <BoxInfo>Gratuluje twoje konto zostało utworzone zaraz zostaniesz przekierowany do strony logowania</BoxInfo>
                 ) : (
                   <>
@@ -53,31 +69,21 @@ export default function SectionSingIn({ users }: { users: number }) {
                     </BoxRegistrationInfo>
                     <Form
                       onSubmit={handleSubmit((data: any): void => {
-                        setChecked("");
+                        const { username, email, password } = data;
+                        setChecked(authRegisterInitialState);
                         if (data.password !== data.passwordSecound) {
                           setError("password", {});
                           setError("passwordSecound", {});
-                          setChecked("passwordAreNotSame");
+                          setChecked(errorsMessage("passwordAreNotSame"));
                         } else {
                           setSend(true);
                           (async () => {
-                            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/local/register`, {
-                              method: "POST",
-                              headers: {
-                                "Content-Type": "application/json",
-                              },
-                              body: JSON.stringify(data),
-                            })
-                              .then((res) => res.json())
-                              .then((data) => data)
-                              .catch((err) => err);
+                            setChecked(await authRegisterPost(username, email, password));
                             setSend(false);
-                            if (!!res?.error?.message) setChecked(res.error.message);
-                            else {
-                              setChecked("succes");
+                            if (!checked.errors) {
                               setTimeout(() => {
                                 router.push("/auth/signin");
-                              }, 5000);
+                              }, 2000);
                             }
                           })();
                         }
@@ -85,8 +91,9 @@ export default function SectionSingIn({ users }: { users: number }) {
                     >
                       <Input id="username" name="username" type={enumInputType.text} error={errors.username} placeholder="Imię i nazwisko lub nick" register={register} required />
                       <Input id="email" name="email" type={enumInputType.email} pattern={emailRegex} error={errors.email} placeholder="email" register={register} required />
-                      <Input id="password" name="password" type={enumInputType.password} error={errors.password} placeholder="hasło" register={register} required />
-                      <Input id="passwordSecound" name="passwordSecound" type={enumInputType.password} error={errors.passwordSecound} placeholder="powtórz hasło" register={register} required />
+                      <Input id="password" name="password" pattern={passwordRegex} type={enumInputType.password} error={errors.password} placeholder="hasło" register={register} required />
+                      <InfoInput>min. 8 znaków, min. 1 wielka litera, min. 1 mała litera, min. 1 cyfra, min. 1 znak specjalny</InfoInput>
+                      <Input id="passwordSecound" name="passwordSecound" pattern={passwordRegex} type={enumInputType.password} error={errors.passwordSecound} placeholder="powtórz hasło" register={register} required />
                       <CheckBox id="privacyPolicyContact" error={errors.privacyPolicyContact} label="wyrażam zgodę na przetwarzanie przez polski.dev moich danych osobowych zgodnie z polityką prywatnosći" register={register} required />
                       <ButtonSubmit title="Zalguj">Dodaj nowe konto</ButtonSubmit>
                     </Form>

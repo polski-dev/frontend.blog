@@ -8,9 +8,6 @@ export default async function fetchAPI({ path, body = {} }: { path: string; body
   });
 
   const json = await res.json();
-  if (json.errors) {
-    throw new Error("Failed to fetch API");
-  }
 
   return json;
 }
