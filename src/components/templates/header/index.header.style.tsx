@@ -270,6 +270,11 @@ export const BoxAuthorAvatar: StyledComponent<any, any> = styled.button`
 
   &:hover {
     background-color: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorMainBg};
+    border: 0.1rem solid ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorLinkActive};
+
+    img {
+      opacity: 0.8;
+    }
 
     svg {
       fill: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorLinkActive};

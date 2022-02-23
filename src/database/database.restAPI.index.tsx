@@ -21,8 +21,12 @@ import {
   searchShortTagInitialState,
   SearchShortUserType,
   searchShortUserInitialState,
-  AuthRegisterType,
-  authRegisterInitialState,
+  AuthSingUpType,
+  authSingUpInitialState,
+  AuthSingInType,
+  authSingInInitialState,
+  UserByIdType,
+  userByIdInitialState,
 } from "./database.graphQL.index";
 
 // search
@@ -46,10 +50,29 @@ const articleShortGetPreview: (page: number, waitingroom: boolean) => Promise<Ar
 const videoShortGetPreview: (page: number, waitingroom: boolean) => Promise<VideoShortType> = async (page: number, waitingroom: boolean): Promise<VideoShortType> => await fetchAPI({ path: `video/${page}`, body: { waitingroom } });
 
 // auth
-const authRegisterPost: (username: string, email: string, password: string) => Promise<AuthRegisterType> = async (username: string, email: string, password: string): Promise<AuthRegisterType> =>
-  await fetchAPI({ path: `auth/register`, body: { username, email, password } });
+const authSingUpPost: (username: string, email: string, password: string) => Promise<AuthSingUpType> = async (username: string, email: string, password: string): Promise<AuthSingUpType> =>
+  await fetchAPI({ path: `auth/singup`, body: { username, email, password } });
 
-export type { ContentShortType, TagWithOnlyTitleType, VideoShortType, ArticleShortType, SearchSugestContentType, SearchShortContentType, SearchShortArticleType, SearchShortVideoType, SearchShortTagType, SearchShortUserType, AuthRegisterType };
+const authSingInPost: (email: string, password: string) => Promise<AuthSingInType> = async (email: string, password: string): Promise<AuthSingInType> => await fetchAPI({ path: `auth/singin`, body: { email, password } });
+
+// user
+const userByIdGetPreview: (id: number) => Promise<UserByIdType> = async (id: number): Promise<UserByIdType> => await fetchAPI({ path: `user/byid/${id}` });
+
+export type {
+  ContentShortType,
+  TagWithOnlyTitleType,
+  VideoShortType,
+  ArticleShortType,
+  SearchSugestContentType,
+  SearchShortContentType,
+  SearchShortArticleType,
+  SearchShortVideoType,
+  SearchShortTagType,
+  SearchShortUserType,
+  AuthSingUpType,
+  AuthSingInType,
+  UserByIdType,
+};
 
 export {
   contentShortInitialState,
@@ -72,6 +95,10 @@ export {
   searchShortTagGetPreview,
   searchShortUserInitialState,
   searchShortUserGetPreview,
-  authRegisterInitialState,
-  authRegisterPost,
+  authSingUpInitialState,
+  authSingUpPost,
+  authSingInInitialState,
+  authSingInPost,
+  userByIdInitialState,
+  userByIdGetPreview,
 };

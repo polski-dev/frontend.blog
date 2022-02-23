@@ -36,8 +36,9 @@ export default function SectionSessionInfo({ users }: { users: number }) {
             Upss... Coś poszło nie tak :( za {sec} sek zostaniesz przekierowany na
             <span>
               <Link href="/">
-                <a> stronę główną</a>
+                <a> stronę główną </a>
               </Link>
+              spróbuj za 10 min. jeszcze raz
             </span>
           </BoxError>
         )}

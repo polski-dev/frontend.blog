@@ -1,38 +1,19 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-interface AuthorizeType {
-  jwt: string;
-  user: { id: number; email: string; name: string; blocked: boolean };
-}
+import { authSingInPost, AuthSingInType, userByIdGetPreview, UserByIdType } from "database/database.graphQL.index";
 
 export default NextAuth({
   providers: [
     CredentialsProvider({
       name: "credentials",
       credentials: { identifier: { type: "identifier", placeholder: "email" }, password: { type: "password", placeholder: "hasło" } },
-      async authorize(credentials: any): Promise<any> {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/local`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(credentials),
-        })
-          .then((r) => r.json())
-          .then((d) => {
-            let data: AuthorizeType = { jwt: "", user: { id: 1, email: "", name: "", blocked: false } };
-            data.jwt = d.jwt;
-            data.user.id = d.user.id;
-            data.user.name = d.user.username;
-            data.user.blocked = d.user.blocked;
-            data.user.email = credentials?.identifier || "";
-
-            return data;
-          })
-          .catch(() => null);
-
-        return res;
+      async authorize(credentials: any): Promise<null | any> {
+        const { identifier, password } = credentials;
+        const res: AuthSingInType = await authSingInPost(identifier.toString(), password.toString());
+        const avatar: UserByIdType | null = res.data?.login?.user?.id ? await userByIdGetPreview(parseInt(res.data?.login.user.id)) : null;
+        if (!!res?.errors) return null;
+        return { jwt: res.data?.login.jwt, user: { ...res.data?.login.user, email: identifier.toString(), picture: avatar?.data?.user?.data?.attributes?.avatar?.data?.attributes?.url } };
       },
     }),
   ],
@@ -52,22 +33,18 @@ export default NextAuth({
   },
 
   callbacks: {
-    async jwt({ token, user: member, account }): Promise<any> {
-      if (member && account?.provider === "credentials") {
-        const { jwt, user }: any = member;
-        token.id = user.id;
-        token.name = user.name;
-        token.accessToken = jwt;
-        token.email = user.email;
-        token.blocked = user.blocked;
-        return token;
+    async jwt({ token, user: members, account }: any): Promise<any> {
+      if (members && account?.provider === "credentials") {
+        token.jwt = members.jwt;
+        token.email = members?.user.email;
+        token.name = members?.user.username;
+        token.picture = members.user.picture;
       }
-      return null;
+      return token;
     },
-    async session({ session, token }) {
-      session.id = token.id;
-      session.blocked = token.blocked;
-      session.accessToken = token.accessToken;
+
+    async session({ session, token }: any): Promise<any> {
+      session.jwt = token.jwt;
       return session;
     },
   },

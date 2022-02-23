@@ -15,14 +15,7 @@ import type { TagWithOnlyTitleType } from "./tag/database.tag.index";
 import { tagWithOnlyTitleAllGetPreviewList, tagWithOnlyTitleInitialState } from "./tag/database.tag.index";
 
 // search
-import type {
-  SearchShortContentType,
-  SearchSugestContentType,
-  SearchShortArticleType,
-  SearchShortVideoType,
-  SearchShortTagType,
-  SearchShortUserType,
-} from "./search/database.search.index";
+import type { SearchShortContentType, SearchSugestContentType, SearchShortArticleType, SearchShortVideoType, SearchShortTagType, SearchShortUserType } from "./search/database.search.index";
 import {
   searchSugestContentGetPreview,
   searchSugestContentInitialState,
@@ -43,8 +36,12 @@ import type { CountUserType } from "./count/database.count.index";
 import { countUserGetPreview, countUserInitialState } from "./count/database.count.index";
 
 // Auth
-import type { AuthRegisterType } from "./auth/database.auth.index";
-import { authRegisterPost, authRegisterInitialState } from "./auth/database.auth.index";
+import type { AuthSingUpType, AuthSingInType } from "./auth/database.auth.index";
+import { authSingUpPost, authSingUpInitialState, authSingInPost, authSingInInitialState } from "./auth/database.auth.index";
+
+// User
+import type { UserByIdType } from "./user/database.user.index";
+import { userByIdGetPreview, userByIdInitialState } from "./user/database.user.index";
 
 // export
 export type {
@@ -59,7 +56,9 @@ export type {
   SearchShortTagType,
   SearchShortUserType,
   CountUserType,
-  AuthRegisterType,
+  AuthSingUpType,
+  AuthSingInType,
+  UserByIdType,
 };
 
 export {
@@ -85,6 +84,10 @@ export {
   searchShortUserInitialState,
   countUserInitialState,
   countUserGetPreview,
-  authRegisterInitialState,
-  authRegisterPost,
+  authSingUpInitialState,
+  authSingUpPost,
+  authSingInInitialState,
+  authSingInPost,
+  userByIdInitialState,
+  userByIdGetPreview,
 };

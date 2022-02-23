@@ -1,4 +1,4 @@
-export interface AuthRegisterType {
+export interface AuthSingUpType {
   data: {
     register: {
       user: {

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { errorComiunicat } from "./component.section.singup.errorComiunicat";
-import { authRegisterPost, authRegisterInitialState, AuthRegisterType } from "database/database.restAPI.index";
+import { authSingUpPost, authSingUpInitialState, AuthSingUpType } from "database/database.restAPI.index";
 import { emailRegex, passwordRegex } from "assets/regex/index.regex";
 import { ButtonSubmit } from "components/atoms/button/component.button.index";
 import { ItemLoad } from "components/atoms/animation/comonent.animation.index";
@@ -12,7 +12,7 @@ import { Section, BoxContent, BoxAuth, Title, Description, BoxInfo, BoxOption, B
 export default function SectionSingIn({ users }: { users: number }): JSX.Element {
   const router = useRouter();
   const [send, setSend] = useState(false);
-  const [checked, setChecked] = useState(authRegisterInitialState);
+  const [checked, setChecked] = useState(authSingUpInitialState);
 
   const {
     setError,
@@ -21,7 +21,7 @@ export default function SectionSingIn({ users }: { users: number }): JSX.Element
     formState: { errors },
   } = useForm();
 
-  let errorsMessage: (message: string) => AuthRegisterType = (message: string): AuthRegisterType => ({
+  let errorsMessage: (message: string) => AuthSingUpType = (message: string): AuthSingUpType => ({
     data: null,
     errors: [
       {
@@ -70,7 +70,7 @@ export default function SectionSingIn({ users }: { users: number }): JSX.Element
                     <Form
                       onSubmit={handleSubmit((data: any): void => {
                         const { username, email, password } = data;
-                        setChecked(authRegisterInitialState);
+                        setChecked(authSingUpInitialState);
                         if (data.password !== data.passwordSecound) {
                           setError("password", {});
                           setError("passwordSecound", {});
@@ -78,7 +78,7 @@ export default function SectionSingIn({ users }: { users: number }): JSX.Element
                         } else {
                           setSend(true);
                           (async () => {
-                            setChecked(await authRegisterPost(username, email, password));
+                            setChecked(await authSingUpPost(username, email, password));
                             setSend(false);
                             if (!checked.errors) {
                               setTimeout(() => {
@@ -90,11 +90,17 @@ export default function SectionSingIn({ users }: { users: number }): JSX.Element
                       })}
                     >
                       <Input id="username" name="username" type={enumInputType.text} error={errors.username} placeholder="Imię i nazwisko lub nick" register={register} required />
+
                       <Input id="email" name="email" type={enumInputType.email} pattern={emailRegex} error={errors.email} placeholder="email" register={register} required />
+
                       <Input id="password" name="password" pattern={passwordRegex} type={enumInputType.password} error={errors.password} placeholder="hasło" register={register} required />
+
                       <InfoInput>min. 8 znaków, min. 1 wielka litera, min. 1 mała litera, min. 1 cyfra, min. 1 znak specjalny</InfoInput>
+
                       <Input id="passwordSecound" name="passwordSecound" pattern={passwordRegex} type={enumInputType.password} error={errors.passwordSecound} placeholder="powtórz hasło" register={register} required />
+
                       <CheckBox id="privacyPolicyContact" error={errors.privacyPolicyContact} label="wyrażam zgodę na przetwarzanie przez polski.dev moich danych osobowych zgodnie z polityką prywatnosći" register={register} required />
+
                       <ButtonSubmit title="Zalguj">Dodaj nowe konto</ButtonSubmit>
                     </Form>
                   </>

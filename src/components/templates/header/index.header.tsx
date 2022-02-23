@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import Time from "assets/icon/time.svg";
 import { useRouter } from "next/router";
 import Brand from "assets/icon/logo.svg";
@@ -8,7 +9,7 @@ import Comment from "assets/icon/comment.svg";
 import React, { useContext, useState } from "react";
 import { useSession, signOut } from "next-auth/react";
 import { MenuContext } from "providers/providers.menu";
-import { ButtonLinkIn, Button } from "components/atoms/button/component.button.index";
+import { ButtonLinkIn } from "components/atoms/button/component.button.index";
 import SearchBar from "components/molecules/searchBar/component.searchBar.index";
 import { Row, Container } from "components/orgamis/flexboxgrid/index.flexboxgrid";
 import { Header, Hambuger, Logo, SerachBox, UserPanelBox, Menu, Item, BoxAuthUser, BoxAuthorAvatar, BoxOptionUser, BoxOptionUserHeader, BoxAuthUserOption } from "./index.header.style";
@@ -52,7 +53,7 @@ const HeaderComponent = () => {
                     }
                     onClick={() => setPowerUserBox(!powerUserBox)}
                   >
-                    <Avatar />
+                    {data.user?.image ? <Image blurDataURL="/img/blur.png" src={data.user.image} width={30} height={30} alt={data.user.name ? data.user.name : ""} /> : <Avatar />}
                   </BoxAuthorAvatar>
                   <BoxOptionUser power={powerUserBox}>
                     <BoxOptionUserHeader>Witaj, {data.user?.name}</BoxOptionUserHeader>

@@ -1,37 +1,44 @@
 import fetchAPI from "database/fetchAPI/database.fetchAPI.graphQL";
 import { emailRegex, passwordRegex } from "assets/regex/index.regex";
 //
-import { AuthRegisterType } from "./type/database.authRegister.type";
-import { authRegisterQuery } from "./query/database.authRegister.query";
-import { authRegisterInitialState } from "./initialState/database.authRegister.initialState";
+import { AuthSingUpType } from "./type/database.authSingUp.type";
+import { authSingUpQuery } from "./query/database.authSingUp.query";
+import { authSingUpInitialState } from "./initialState/database.authSingUp.initialState";
+//
+import { AuthSingInType } from "./type/database.authSingIn.type";
+import { authSingInQuery } from "./query/database.authSingIn.query";
+import { authSingInInitialState } from "./initialState/database.authSingIn.initialState";
+
+// message errors
+let errors: (message: string) => any = (message: string): any => ({
+  data: null,
+  errors: [
+    {
+      message,
+      extensions: {
+        error: {
+          name: "ApplicationError",
+          message,
+          details: {},
+        },
+        code: "NEXTJS_APPLICATION_ERROR",
+      },
+    },
+  ],
+});
 
 // metchods
-const authRegisterPost: (username: string, email: string, password: string) => Promise<AuthRegisterType> = async (username: string, email: string, password: string): Promise<AuthRegisterType> => {
-  let errors: (message: string) => AuthRegisterType = (message: string): AuthRegisterType => ({
-    data: null,
-    errors: [
-      {
-        message,
-        extensions: {
-          error: {
-            name: "ApplicationError",
-            message,
-            details: {},
-          },
-          code: "NEXTJS_APPLICATION_ERROR",
-        },
-      },
-    ],
-  });
-
+const authSingUpPost: (username: string, email: string, password: string) => Promise<AuthSingUpType> = async (username: string, email: string, password: string): Promise<AuthSingUpType> => {
   // i check data
   if (!username?.length) return errors("username is wrong");
   else if (!password?.length && !passwordRegex.test(password)) return errors("pasword is wrong");
   else if (!email?.length && !emailRegex.test(email)) return errors("email is wrong");
 
-  const data: AuthRegisterType = await fetchAPI(authRegisterQuery, { variables: { username, email, password } });
+  const data: AuthSingUpType = await fetchAPI(authSingUpQuery, { variables: { username, email, password } });
   return data;
 };
 
-export type { AuthRegisterType };
-export { authRegisterPost, authRegisterInitialState };
+const authSingInPost: (email: string, password: string) => Promise<AuthSingInType> = async (email: string, password: string): Promise<AuthSingInType> => await fetchAPI(authSingInQuery, { variables: { email, password } });
+
+export type { AuthSingUpType, AuthSingInType };
+export { authSingUpPost, authSingUpInitialState, authSingInPost, authSingInInitialState };
