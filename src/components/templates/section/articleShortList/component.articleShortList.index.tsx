@@ -8,7 +8,7 @@ import { SquareShortArticle } from "components/atoms/animation/comonent.animatio
 import selectTemplateForContent from "./switchs/component.listShortArticle.selectTemplate";
 import { Section, Title, BoxInformation, Info, NotFound } from "./style/component.listShortArticle.style";
 
-export default function SectionShortArticle({ data, type, loadData, search }: { data: any; type: string; loadData?: boolean; search?: string }): JSX.Element {
+export default function SectionArticleShortList({ data, type, loadData, search }: { data: any; type: string; loadData?: boolean; search?: string }): JSX.Element {
   const { width, height } = useWindowData();
   const [page, setPage] = useState(1);
   const [content, setContent] = useState(data);

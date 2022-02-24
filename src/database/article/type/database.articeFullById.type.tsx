@@ -6,8 +6,16 @@ export interface ArticeFullByIdType {
         attributes: {
           title: string;
           views: number;
-          createdAt: string;
+          content: string;
+          createdAt: Date;
           waitingroom: boolean;
+          cover: {
+            data: {
+              attributes: {
+                url: string;
+              };
+            };
+          };
           grades: {
             data:
               | {
@@ -20,6 +28,7 @@ export interface ArticeFullByIdType {
           };
           author: {
             data: {
+              id: string;
               attributes: {
                 username: string;
                 avatar: {

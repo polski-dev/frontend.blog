@@ -3,6 +3,8 @@ import { NextPage } from "next";
 import { kebabCase, deburr } from "lodash";
 import { MenuGrade } from "components/templates/menu/component.menu.index";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
+import { SquareShortArticle } from "components/atoms/animation/comonent.animation.index";
+import { SectionArticleFull } from "components/templates/section/component.section.index";
 import { articeWithOnlyTitleGetPreview, ArticeWithOnlyTitleType, articeFullByIdGetPreview, ArticeFullByIdType } from "database/database.graphQL.index";
 
 const Article: NextPage<any> = ({ article }: { article: ArticeFullByIdType }): JSX.Element => {
@@ -11,22 +13,40 @@ const Article: NextPage<any> = ({ article }: { article: ArticeFullByIdType }): J
       <Head>
         <title>Blog | POLSKI.DEV 👩‍💻👨‍💻</title>
       </Head>
-      <Container>
-        <Row>
-          <MenuGrade grade={article.data.article.data.attributes.grades} idArticle={parseInt(article.data.article.data.id)} />
-          <Col xs={12} md={9}>
-            content
-          </Col>
-        </Row>
-      </Container>
+      {!!article ? (
+        <Container>
+          <Row>
+            <MenuGrade grade={article?.data?.article?.data?.attributes?.grades} idArticle={parseInt(article?.data.article.data.id)} />
+            <Col xs={12} md={9}>
+              <SectionArticleFull data={article} type="article" />
+            </Col>
+          </Row>
+        </Container>
+      ) : (
+        <Container>
+          <Row>
+            <Col xs={12} md={3}></Col>
+            <Col xs={12} md={9} style={{ margin: "3rem 0" }}>
+              <h5>Artykuł</h5>
+              <SquareShortArticle style={{ marginTop: "0.75rem" }} />
+            </Col>
+          </Row>
+        </Container>
+      )}
     </>
   );
 };
 
 export async function getStaticProps({ params }: any): Promise<any> {
-  console.log(parseInt(params.article[0]));
   // article full
   const article: ArticeFullByIdType = await articeFullByIdGetPreview(parseInt(params.article[0]));
+  console.log(article);
+  if (!article) {
+    return {
+      notFound: true,
+    };
+  }
+
   return {
     props: {
       article,

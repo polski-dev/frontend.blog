@@ -8,8 +8,16 @@ export const articeFullByIdInitialState: ArticeFullByIdType = {
         attributes: {
           title: "",
           views: 0,
-          createdAt: "",
+          content: "",
+          createdAt: new Date(),
           waitingroom: false,
+          cover: {
+            data: {
+              attributes: {
+                url: "",
+              },
+            },
+          },
           grades: {
             data: [],
           },

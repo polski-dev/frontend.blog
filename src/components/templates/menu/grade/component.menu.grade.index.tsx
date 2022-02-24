@@ -9,25 +9,25 @@ export default function MenuGrade({ grade, idArticle }: MenuGradeType): JSX.Elem
   return (
     <BoxMenu>
       <BoxContent>
-        <Title>Oceny</Title>
+        <Title>Oceń</Title>
         <List>
           <Item>
             <Button title="dodaj ocenę wow">
               <Wow />
             </Button>
-            <Quantity>{grade.data.filter((item) => item.attributes.voice === "wow").length}</Quantity>
+            <Quantity>{grade?.data.filter((item) => item.attributes.voice === "wow").length}</Quantity>
           </Item>
           <Item>
-            <Button title="dodaj ocenę best">
+            <Button title="dodaj ocenę dobre!">
               <Best />
             </Button>
-            <Quantity>{grade.data.filter((item) => item.attributes.voice === "best").length}</Quantity>
+            <Quantity>{grade?.data.filter((item) => item.attributes.voice === "best").length}</Quantity>
           </Item>
           <Item>
             <Button title="dodaj ocenę wrr">
               <Wrr />
             </Button>
-            <Quantity>{grade.data.filter((item) => item.attributes.voice === "wrr").length}</Quantity>
+            <Quantity>{grade?.data.filter((item) => item.attributes.voice === "wrr").length}</Quantity>
           </Item>
         </List>
       </BoxContent>

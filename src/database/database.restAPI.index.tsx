@@ -27,6 +27,10 @@ import {
   authSingInInitialState,
   UserByIdType,
   userByIdInitialState,
+  ArticeFullByIdType,
+  articeFullByIdInitialState,
+  ArticeWithOnlyTitleType,
+  articeWithOnlyTitleInitialState,
 } from "./database.graphQL.index";
 
 // search
@@ -45,6 +49,8 @@ const tagWithOnlyTitleAllGetPreviewList: (page: number) => Promise<TagWithOnlyTi
 
 // article
 const articleShortGetPreview: (page: number, waitingroom: boolean) => Promise<ArticleShortType> = async (page: number, waitingroom: boolean): Promise<ArticleShortType> => await fetchAPI({ path: `article/${page}`, body: { waitingroom } });
+const articleShortRestAPIGetPreview: (id: number) => Promise<ArticeFullByIdType> = async (id: number): Promise<ArticeFullByIdType> => await fetchAPI({ path: `article/fullbyid/${id}` });
+const articeWithOnlyTitleRestAPIGetPreview: (page: number) => Promise<ArticeWithOnlyTitleType> = async (page: number): Promise<ArticeWithOnlyTitleType> => await fetchAPI({ path: `article/articeWithOnlyTitle/${page}` });
 
 // video
 const videoShortGetPreview: (page: number, waitingroom: boolean) => Promise<VideoShortType> = async (page: number, waitingroom: boolean): Promise<VideoShortType> => await fetchAPI({ path: `video/${page}`, body: { waitingroom } });
@@ -72,6 +78,8 @@ export type {
   AuthSingUpType,
   AuthSingInType,
   UserByIdType,
+  ArticeFullByIdType,
+  ArticeWithOnlyTitleType,
 };
 
 export {
@@ -101,4 +109,8 @@ export {
   authSingInPost,
   userByIdInitialState,
   userByIdGetPreview,
+  articleShortRestAPIGetPreview,
+  articeFullByIdInitialState,
+  articeWithOnlyTitleRestAPIGetPreview,
+  articeWithOnlyTitleInitialState,
 };

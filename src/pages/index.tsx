@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import useDispatchTagToStore from "hooks/hooks.dispatchTagToStore";
 import { MenuPrimary } from "components/templates/menu/component.menu.index";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
-import { ListShortArticle } from "components/templates/section/component.section.index";
+import { SectionArticleShortList } from "components/templates/section/component.section.index";
 import { contentShortGetPreview, ContentShortType, tagWithOnlyTitleAllGetPreviewList, TagWithOnlyTitleType } from "database/database.graphQL.index";
 
 const Home: NextPage<any, {}> = ({ tag, content }: { tag: TagWithOnlyTitleType; content: ContentShortType }): JSX.Element => {
@@ -29,7 +29,7 @@ const Home: NextPage<any, {}> = ({ tag, content }: { tag: TagWithOnlyTitleType; 
             ]}
           />
           <Col xs={12} md={9}>
-            <ListShortArticle data={content} type="all" />
+            <SectionArticleShortList data={content} type="all" />
           </Col>
         </Row>
       </Container>

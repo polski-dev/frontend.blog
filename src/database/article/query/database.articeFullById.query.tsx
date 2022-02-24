@@ -6,8 +6,16 @@ query($id: ID!) {
 		attributes {
 		  title
 		  views
+		  content
 		  createdAt
 		  waitingroom
+		  cover {
+			data {
+			  attributes {
+				url
+			  }
+			}
+		  }
 		  grades {
 			data {
 			  id
@@ -18,6 +26,7 @@ query($id: ID!) {
 		  }
 		  author {
 			data {
+			  id
 			  attributes {
 				username
 				avatar {

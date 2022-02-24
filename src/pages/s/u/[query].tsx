@@ -6,7 +6,7 @@ import useDispatchTagToStore from "hooks/hooks.dispatchTagToStore";
 import { searchShortContentGetPreview, searchShortContentInitialState, SearchShortContentType, tagWithOnlyTitleAllGetPreviewList } from "database/database.restAPI.index";
 import { MenuPrimary } from "components/templates/menu/component.menu.index";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
-import { ListShortArticle } from "components/templates/section/component.section.index";
+import { SectionArticleShortList } from "components/templates/section/component.section.index";
 
 const Search: NextPage = () => {
   const { query } = useRouter().query;
@@ -46,7 +46,7 @@ const Search: NextPage = () => {
             ]}
           />
           <Col xs={12} md={9}>
-            <ListShortArticle data={content} type="searchUserShort" loadData={loadData} search={query?.toString()} />
+            <SectionArticleShortList data={content} type="searchUserShort" loadData={loadData} search={query?.toString()} />
           </Col>
         </Row>
       </Container>

@@ -1,8 +1,8 @@
 import React from "react";
 import { Article, Img, BoxContent, AuthorData, BoxAuthor, AuthorAvatar, Text, List, Item, BoxStats } from "./component.animation.squareShortArticle.style";
 
-export const SquareShortArticle = ({ last }: { last: boolean }) => (
-  <Article last={last}>
+export const SquareShortArticle = ({ last = false, style }: { last?: boolean; style?: any }) => (
+  <Article last={last} style={style}>
     <Img />
     <BoxContent>
       <BoxAuthor>
