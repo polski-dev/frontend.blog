@@ -1,17 +1,13 @@
 import Link from "next/link";
 import { useContext } from "react";
-import Up from "assets/icon/up.svg";
-import User from "assets/icon/user.svg";
-import Time from "assets/icon/time.svg";
 import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
 import { kebabCase, deburr } from "lodash";
 import Github from "assets/icon/github.svg";
 import Tiktok from "assets/icon/tiktok.svg";
 import Youtube from "assets/icon/youtube.svg";
-import Comment from "assets/icon/comment.svg";
 import { RootState } from "store/store.index";
 import Instagram from "assets/icon/instagram.svg";
-import { useSelector, useDispatch } from "react-redux";
 import { MenuContext } from "providers/providers.menu";
 import { ButtonLinkIn } from "components/atoms/button/component.button.index";
 import { ItemLoad } from "components/atoms/animation/comonent.animation.index";

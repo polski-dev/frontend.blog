@@ -1,10 +1,26 @@
+import Head from "next/head";
 import { NextPage } from "next";
 import { kebabCase, deburr } from "lodash";
+import { MenuGrade } from "components/templates/menu/component.menu.index";
+import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
 import { articeWithOnlyTitleGetPreview, ArticeWithOnlyTitleType, articeFullByIdGetPreview, ArticeFullByIdType } from "database/database.graphQL.index";
 
 const Article: NextPage<any> = ({ article }: { article: ArticeFullByIdType }): JSX.Element => {
-  console.log(article);
-  return <>full article: {article?.data?.article?.data?.attributes?.title}</>;
+  return (
+    <>
+      <Head>
+        <title>Blog | POLSKI.DEV 👩‍💻👨‍💻</title>
+      </Head>
+      <Container>
+        <Row>
+          <MenuGrade grade={article.data.article.data.attributes.grades} idArticle={parseInt(article.data.article.data.id)} />
+          <Col xs={12} md={9}>
+            content
+          </Col>
+        </Row>
+      </Container>
+    </>
+  );
 };
 
 export async function getStaticProps({ params }: any): Promise<any> {

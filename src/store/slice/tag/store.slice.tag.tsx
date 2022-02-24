@@ -1,5 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
-import initialState from "initialState/initialState.tag";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import initialState from "./initialState.tag";
 
 export const tagSlice = createSlice({
   name: "tag",
