@@ -156,13 +156,33 @@ export const Content: StyledComponent<any, any> = styled.div`
       text-align: center;
     }
   }
+  pre {
+    p {
+      font-size: 1rem;
+      font-weight: bold;
+      margin-top: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.big};
+      color: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorTextDesactive};
+      margin-bottom: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.small};
+    }
+    pre {
+      margin-top: 0;
+      border-radius: 0.6rem;
+      border: 1px solid ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorBorder};
+      code {
+        display: flex !important;
+      }
+    }
+  }
 `;
+
+export const BoxCodeTitle: StyledComponent<any, any> = styled.p``;
 
 export const BoxAuthorImg: StyledComponent<any, any> = styled.div`
   width: 4.2rem;
   height: 4.2rem;
   overflow: hidden;
   position: relative;
+
   border-radius: 100%;
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.6);
 `;

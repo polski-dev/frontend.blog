@@ -16,7 +16,7 @@ const Article: NextPage<any> = ({ article }: { article: ArticeFullByIdType }): J
       {!!article ? (
         <Container>
           <Row>
-            <MenuGrade grade={article?.data?.article?.data?.attributes?.grades} idArticle={parseInt(article?.data.article.data.id)} />
+            <MenuGrade grade={article?.data?.article?.data?.attributes?.grades} idArticle={parseInt(article?.data?.article?.data?.id)} />
             <Col xs={12} md={9}>
               <SectionArticleFull data={article} type="article" />
             </Col>
@@ -40,7 +40,7 @@ const Article: NextPage<any> = ({ article }: { article: ArticeFullByIdType }): J
 export async function getStaticProps({ params }: any): Promise<any> {
   // article full
   const article: ArticeFullByIdType = await articeFullByIdGetPreview(parseInt(params.article[0]));
-  console.log(article);
+
   if (!article) {
     return {
       notFound: true,
@@ -56,12 +56,12 @@ export async function getStaticProps({ params }: any): Promise<any> {
 
 export async function getStaticPaths(): Promise<any> {
   const countPage: ArticeWithOnlyTitleType = await articeWithOnlyTitleGetPreview(0);
-  const { pageCount } = countPage.data.article.meta.pagination;
+  const { pageCount } = countPage?.data?.article?.meta?.pagination;
 
   const allArticle: any[] = await Promise.all(
     new Array(pageCount).fill(undefined).map(async (_: undefined, i: number): Promise<any> => {
       const articeWithOnlyTitle: ArticeWithOnlyTitleType = await articeWithOnlyTitleGetPreview(i);
-      return articeWithOnlyTitle.data.article.data;
+      return articeWithOnlyTitle?.data?.article?.data;
     })
   );
 

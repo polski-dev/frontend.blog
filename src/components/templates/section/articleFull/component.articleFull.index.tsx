@@ -1,30 +1,14 @@
 import Link from "next/link";
 import Image from "next/image";
-import remarkGfm from "remark-gfm";
 import ReactMarkdown from "react-markdown";
 import { kebabCase, deburr } from "lodash";
 import Avatar from "assets/icon/avatar.svg";
 import { setSlug, time } from "function/function.index";
+import { MarkdownComponents } from "./component.articleFull.markdownblock";
 import { ArticeFullByIdType } from "database/database.restAPI.index";
 import { Section, Title, Article, BoxContent, Content, BoxAuthor, BoxAuthorImg, BoxAuthorAvatar, AuthorData, AuthorName, DateAdded, TitleArticle, ListTags, Tag } from "./component.listShortArticle.style";
 
 export default function SectionArticleFull({ data: post, type }: { data: ArticeFullByIdType; type: string }): JSX.Element {
-  console.log(post);
-  const MarkdownComponents: object = {
-    p: (paragraph: any) => {
-      const { node } = paragraph;
-
-      node.children.map((item: any) => {
-        if (item.tagName === "img") {
-          const image = node.children[0];
-          const alt = image.properties.alt?.replace(/ *\{[^)]*\} */g, "");
-          return <Image src={image.properties.src} placeholder="blur" blurDataURL="/img/blur.png" width={600} alt={alt} />;
-        }
-      });
-
-      return <p>{paragraph.children}</p>;
-    },
-  };
   return (
     <Section>
       <Title>{type === "article" ? "Artykuł" : "Video"}</Title>
@@ -68,9 +52,7 @@ export default function SectionArticleFull({ data: post, type }: { data: ArticeF
             })}
           </ListTags>
           <Content>
-            <ReactMarkdown remarkPlugins={[remarkGfm]} components={MarkdownComponents}>
-              {post?.data?.article?.data?.attributes?.content}
-            </ReactMarkdown>
+            <ReactMarkdown components={MarkdownComponents}>{post?.data?.article?.data?.attributes?.content}</ReactMarkdown>
           </Content>
         </BoxContent>
       </Article>
