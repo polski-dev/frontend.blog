@@ -107,11 +107,12 @@ export const Content: StyledComponent<any, any> = styled.div`
 
   ul {
     list-style: disc;
-    padding-left: 1.2rem;
+    margin-left: 1.5rem;
   }
 
   ol {
-    padding-left: 2.4rem;
+    display: block;
+    margin-left: 2.8rem;
     list-style: decimal-leading-zero;
   }
 
@@ -156,6 +157,7 @@ export const Content: StyledComponent<any, any> = styled.div`
       text-align: center;
     }
   }
+
   pre {
     p {
       font-size: 1rem;

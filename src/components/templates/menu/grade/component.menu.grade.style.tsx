@@ -5,7 +5,7 @@ export const BoxMenu: StyledComponent<any, any> = styled.div`
   bottom: 0;
   width: 100%;
   z-index: 999;
-  height: 4rem;
+  height: 4.5rem;
   position: fixed;
   overflow: hidden;
   transition: all 0.3s;
@@ -35,10 +35,10 @@ export const BoxMenu: StyledComponent<any, any> = styled.div`
 export const BoxContent: StyledComponent<any, any> = styled.div`
   display: flex;
   position: sticky;
-  top: ${({ theme }: { theme: MainSettingsTemplate }): string => theme.break.big};
 
   @media all and (min-width: 768px) {
     flex-wrap: wrap;
+    top: ${({ theme }: { theme: MainSettingsTemplate }): string => theme.break.big};
   }
 `;
 
