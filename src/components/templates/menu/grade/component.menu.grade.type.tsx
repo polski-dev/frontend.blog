@@ -9,5 +9,7 @@ export interface MenuGradeType {
         }[]
       | [];
   };
+  views: number;
+  comments: number;
   idArticle: number;
 }

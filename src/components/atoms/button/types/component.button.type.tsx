@@ -3,6 +3,7 @@ export interface ButtonDefaultType {
   active?: boolean;
   className?: string;
   onClick?: () => void;
+
   children: JSX.Element | string;
 }
 

@@ -7,11 +7,15 @@ export const BoxMenu: StyledComponent<any, any> = styled.div`
   z-index: 999;
   height: 4.5rem;
   position: fixed;
-  overflow: hidden;
+  overflow-y: scroll;
   transition: all 0.3s;
   justify-content: center;
   padding: ${({ theme }: { theme: MainSettingsTemplate }): string => theme.break.small} ${({ theme }: { theme: MainSettingsTemplate }): string => theme.break.main};
   background-color: ${({ theme }: { theme: MainSettingsTemplate }): string => theme.colorMainBg};
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
   ${({ theme }: { theme: MainSettingsTemplate }) => css`
     @media all and (min-width: ${theme.breakPoint[theme.breakPoint.findIndex((item: any) => item.type === "md")].break}) {

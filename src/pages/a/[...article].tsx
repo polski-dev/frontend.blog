@@ -8,6 +8,7 @@ import { SectionArticleFull } from "components/templates/section/component.secti
 import { articeWithOnlyTitleGetPreview, ArticeWithOnlyTitleType, articeFullByIdGetPreview, ArticeFullByIdType } from "database/database.graphQL.index";
 
 const Article: NextPage<any> = ({ article }: { article: ArticeFullByIdType }): JSX.Element => {
+  console.log(article.data.article.data.attributes.comments.data);
   return (
     <>
       <Head>
@@ -16,7 +17,7 @@ const Article: NextPage<any> = ({ article }: { article: ArticeFullByIdType }): J
       {!!article ? (
         <Container>
           <Row>
-            <MenuGrade grade={article?.data?.article?.data?.attributes?.grades} idArticle={parseInt(article?.data?.article?.data?.id)} />
+            <MenuGrade grade={article?.data?.article?.data?.attributes?.grades} comments={article.data.article.data.attributes.comments.data.length} views={article.data.article.data.attributes.views} idArticle={parseInt(article?.data?.article?.data?.id)} />
             <Col xs={12} md={9}>
               <SectionArticleFull data={article} type="article" />
             </Col>

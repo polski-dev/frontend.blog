@@ -159,6 +159,51 @@ export default function SectionArticleFull({ data: post, type }: { data: ArticeF
                 </Grade>
               </CommentGrade>
             </Comment>
+
+            <Comment>
+              <BoxCommentAvatar>
+                {post?.data.article.data.attributes?.author.data?.attributes.avatar.data.attributes.url ? (
+                  <Image
+                    width={50}
+                    height={50}
+                    placeholder="blur"
+                    blurDataURL="/img/blur.png"
+                    alt={post.data.article.data.attributes.author.data.attributes.username}
+                    src={post.data.article.data.attributes?.author.data?.attributes.avatar.data.attributes.url}
+                  />
+                ) : (
+                  <BoxAuthorAvatar>
+                    <Avatar />
+                  </BoxAuthorAvatar>
+                )}
+              </BoxCommentAvatar>
+              <CommentContent>
+                <CommentAuthorName>
+                  Paweł Niedźwiecki <span>12 stycznia (10 dni temu)</span>
+                </CommentAuthorName>
+                <CommentDescription>Bro pls explain your project. Iam unable to understand what it does</CommentDescription>
+              </CommentContent>
+              <CommentGrade>
+                <Grade>
+                  <Button title="dodaj ocenę wow">
+                    <Wow />
+                  </Button>
+                  <span>0</span>
+                </Grade>
+                <Grade>
+                  <Button title="dodaj ocenę best">
+                    <Best />
+                  </Button>
+                  <span>0</span>
+                </Grade>
+                <Grade>
+                  <Button title="dodaj ocenę wrr">
+                    <Wrr />
+                  </Button>
+                  <span>10</span>
+                </Grade>
+              </CommentGrade>
+            </Comment>
           </ListComments>
         </BoxComments>
       </Article>
