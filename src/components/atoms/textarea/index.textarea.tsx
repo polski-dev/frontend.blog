@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Label, Text, TextAreaStyled } from "./index.textarea.styled";
+import { Label, TextAreaStyled } from "./index.textarea.styled";
 
 export const TextArea = ({ id, name, defaultValue, pattern, error, register, required }: any): JSX.Element => {
   return (
