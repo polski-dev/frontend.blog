@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import { Label, Text, TextAreaStyled } from "./index.textarea.styled";
 
-export const TextArea = ({ id, label, pattern, error, register, required }: any) => {
-  const [active, setActive] = useState(false);
+export const TextArea = ({ id, name, defaultValue, pattern, error, register, required }: any): JSX.Element => {
   return (
     <Label htmlFor={id}>
-      <Text active={active}>{label}</Text>
-      <TextAreaStyled id={id} error={!!error} onFocus={() => setActive(true)} onBlur={(e) => setActive(!!e?.target.value.length)} {...register(id, { pattern, required })} />
+      <TextAreaStyled id={id} name={name} defaultValue={defaultValue} error={!!error} {...register(id, { pattern, required })} />
     </Label>
   );
 };

@@ -1,14 +1,53 @@
 import Link from "next/link";
 import Image from "next/image";
+import Wow from "assets/icon/wow.svg";
+import Wrr from "assets/icon/wrr.svg";
+import Best from "assets/icon/best.svg";
+import { useForm } from "react-hook-form";
 import ReactMarkdown from "react-markdown";
 import { kebabCase, deburr } from "lodash";
 import Avatar from "assets/icon/avatar.svg";
 import { setSlug, time } from "function/function.index";
-import { MarkdownComponents } from "./component.articleFull.markdownblock";
+import { TextArea } from "components/atoms/textarea/index.textarea";
 import { ArticeFullByIdType } from "database/database.restAPI.index";
-import { Section, Title, Article, BoxContent, Content, BoxAuthor, BoxAuthorImg, BoxAuthorAvatar, AuthorData, AuthorName, DateAdded, TitleArticle, ListTags, Tag } from "./component.listShortArticle.style";
+import { MarkdownComponents } from "./component.articleFull.markdownblock";
+import { ButtonSubmit, Button } from "components/atoms/button/component.button.index";
+import {
+  Section,
+  Title,
+  Article,
+  BoxContent,
+  Content,
+  BoxAuthor,
+  BoxAuthorImg,
+  BoxAuthorAvatar,
+  AuthorData,
+  AuthorName,
+  DateAdded,
+  TitleArticle,
+  ListTags,
+  Tag,
+  BoxComments,
+  BoxCommentsTitle,
+  Form,
+  BoxCommentAvatar,
+  CommentContent,
+  ListComments,
+  Comment,
+  CommentAuthorName,
+  CommentDescription,
+  CommentGrade,
+  Grade,
+} from "./component.listShortArticle.style";
 
 export default function SectionArticleFull({ data: post, type }: { data: ArticeFullByIdType; type: string }): JSX.Element {
+  console.log(post);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   return (
     <Section>
       <Title>{type === "article" ? "Artykuł" : "Video"}</Title>
@@ -55,6 +94,73 @@ export default function SectionArticleFull({ data: post, type }: { data: ArticeF
             <ReactMarkdown components={MarkdownComponents}>{post?.data?.article?.data?.attributes?.content}</ReactMarkdown>
           </Content>
         </BoxContent>
+        <BoxComments>
+          <BoxCommentsTitle>Komentarze (432)</BoxCommentsTitle>
+          <Form
+            onSubmit={handleSubmit(({ identifier, password }: any): void => {
+              // setSend(true);
+              // signIn("credentials", { identifier, password, callbackUrl: "/auth/loggedcorrectly" });
+            })}
+          >
+            <BoxCommentAvatar>
+              {post?.data.article.data.attributes?.author.data?.attributes.avatar.data.attributes.url ? (
+                <Image width={42} height={42} placeholder="blur" blurDataURL="/img/blur.png" alt={post.data.article.data.attributes.author.data.attributes.username} src={post.data.article.data.attributes?.author.data?.attributes.avatar.data.attributes.url} />
+              ) : (
+                <BoxAuthorAvatar>
+                  <Avatar />
+                </BoxAuthorAvatar>
+              )}
+            </BoxCommentAvatar>
+            <TextArea id="identifier" name="identifier" error={errors.identifier} placeholder="email" register={register} required />
+            <ButtonSubmit title="dodaj">Dodaj</ButtonSubmit>
+          </Form>
+          <ListComments>
+            <Comment>
+              <BoxCommentAvatar>
+                {post?.data.article.data.attributes?.author.data?.attributes.avatar.data.attributes.url ? (
+                  <Image
+                    width={50}
+                    height={50}
+                    placeholder="blur"
+                    blurDataURL="/img/blur.png"
+                    alt={post.data.article.data.attributes.author.data.attributes.username}
+                    src={post.data.article.data.attributes?.author.data?.attributes.avatar.data.attributes.url}
+                  />
+                ) : (
+                  <BoxAuthorAvatar>
+                    <Avatar />
+                  </BoxAuthorAvatar>
+                )}
+              </BoxCommentAvatar>
+              <CommentContent>
+                <CommentAuthorName>
+                  Paweł Niedźwiecki <span>12 stycznia (10 dni temu)</span>
+                </CommentAuthorName>
+                <CommentDescription>Bro pls explain your project. Iam unable to understand what it does</CommentDescription>
+              </CommentContent>
+              <CommentGrade>
+                <Grade>
+                  <Button title="dodaj ocenę wow">
+                    <Wow />
+                  </Button>
+                  <span>0</span>
+                </Grade>
+                <Grade>
+                  <Button title="dodaj ocenę best">
+                    <Best />
+                  </Button>
+                  <span>0</span>
+                </Grade>
+                <Grade>
+                  <Button title="dodaj ocenę wrr">
+                    <Wrr />
+                  </Button>
+                  <span>10</span>
+                </Grade>
+              </CommentGrade>
+            </Comment>
+          </ListComments>
+        </BoxComments>
       </Article>
     </Section>
   );
