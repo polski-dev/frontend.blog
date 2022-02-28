@@ -7,6 +7,7 @@ query($id: ID!) {
 		  title
 		  views
 		  content
+		  content
 		  createdAt
 		  waitingroom
 		  cover {

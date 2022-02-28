@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { useEffect } from "react";
 import Wow from "assets/icon/wow.svg";
 import Wrr from "assets/icon/wrr.svg";
 import Best from "assets/icon/best.svg";
@@ -9,9 +10,9 @@ import { kebabCase, deburr } from "lodash";
 import Avatar from "assets/icon/avatar.svg";
 import { setSlug, time } from "function/function.index";
 import { TextArea } from "components/atoms/textarea/index.textarea";
-import { ArticeFullByIdType } from "database/database.restAPI.index";
 import { MarkdownComponents } from "./component.articleFull.markdownblock";
 import { ButtonSubmit, Button } from "components/atoms/button/component.button.index";
+import { ArticeFullByIdType, articeAddViewGet } from "database/database.restAPI.index";
 import {
   Section,
   Title,
@@ -41,13 +42,20 @@ import {
 } from "./component.listShortArticle.style";
 
 export default function SectionArticleFull({ data: post, type }: { data: ArticeFullByIdType; type: string }): JSX.Element {
-  console.log(post);
-
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  useEffect(() => {
+    const localStorage = window.localStorage;
+    if (!localStorage[`article${post.data.article.data.id}`]) {
+      articeAddViewGet(parseInt(post.data.article.data.id));
+      localStorage.setItem(`article${post.data.article.data.id}`, "true");
+    }
+  }, [post]);
+
   return (
     <Section>
       <Title>{type === "article" ? "Artykuł" : "Video"}</Title>

@@ -1,5 +1,5 @@
 export default async function fetchAPI({ path, body = {} }: { path: string; body?: {} }): Promise<any> {
-  const res = await fetch(`/api/${path}`, {
+  const res = await fetch(path, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

@@ -8,7 +8,6 @@ import { SectionArticleFull } from "components/templates/section/component.secti
 import { articeWithOnlyTitleGetPreview, ArticeWithOnlyTitleType, articeFullByIdGetPreview, ArticeFullByIdType } from "database/database.graphQL.index";
 
 const Article: NextPage<any> = ({ article }: { article: ArticeFullByIdType }): JSX.Element => {
-  console.log(article.data.article.data.attributes.comments.data);
   return (
     <>
       <Head>
