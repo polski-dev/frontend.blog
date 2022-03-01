@@ -103,7 +103,7 @@ export default function SectionArticleFull({ data: post, type }: { data: ArticeF
             <ReactMarkdown components={MarkdownComponents}>{post?.data?.article?.data?.attributes?.content}</ReactMarkdown>
           </Content>
         </BoxContent>
-        <BoxComments>
+        <BoxComments id={`boxCommentsId${post.data.article.data.id}`}>
           <BoxCommentsTitle>Komentarze (432)</BoxCommentsTitle>
           <Form
             onSubmit={handleSubmit(({ identifier, password }: any): void => {
