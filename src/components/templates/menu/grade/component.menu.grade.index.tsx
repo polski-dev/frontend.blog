@@ -13,10 +13,9 @@ export default function MenuGrade({ grade, views, comments, idArticle }: MenuGra
   useEffect(() => polyfill(), []);
 
   const scrollBoxComment = () => {
-    console.log(idArticle);
     if (!!idArticle) {
       const boxComments = document?.querySelector(`#boxCommentsId${idArticle}`);
-      console.log("ok");
+
       return boxComments?.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
     }
   };

@@ -15,6 +15,9 @@ import { articeWithOnlyTitleInitialState } from "./initialState/database.articeW
 //
 import { ArticeAddViewType } from "./type/database.articeAddView.type";
 import { articeAddViewInitialState } from "./initialState/database.articeAddView.initialState";
+//
+import { ArticeAddGradeType } from "./type/database.articeAddGrade.type";
+import { articeAddGradeInitialState } from "./initialState/database.articeAddGrade.initialState";
 
 // metchods
 const articleShortGetPreview: (page: number, waitingroom: boolean) => Promise<ArticleShortType> = async (page: number, waitingroom: boolean): Promise<ArticleShortType> => {
@@ -27,7 +30,20 @@ const articleShortGetPreview: (page: number, waitingroom: boolean) => Promise<Ar
 
 const articeFullByIdGetPreview: (id: number) => Promise<ArticeFullByIdType> = async (id: number): Promise<ArticeFullByIdType> => await fetchGraphQLAPI(articeFullByIdQuery, { variables: { id } });
 const articeAddViewGet: (id: number) => Promise<ArticeAddViewType> = async (id: number): Promise<ArticeAddViewType> => await fetchRestAPI({ path: `${process.env.NEXT_PUBLIC_API_URL}/api/views/article/${id}` });
+const articeAddGradeGet: (id: number, authorization: string, grade?: string) => Promise<ArticeAddGradeType> = async (id: number, authorization: string, grade?: string): Promise<ArticeAddGradeType> =>
+  await fetchRestAPI({ path: `${process.env.NEXT_PUBLIC_API_URL}/api/article/${id}/grade`, body: { grade }, authorization });
 const articeWithOnlyTitleGetPreview: (page: number) => Promise<ArticeWithOnlyTitleType> = async (page: number): Promise<ArticeWithOnlyTitleType> => await fetchGraphQLAPI(articeWithOnlyTitleQuery, { variables: { page: page * 10 } });
 
-export type { ArticleShortType, ArticeFullByIdType, ArticeWithOnlyTitleType, ArticeAddViewType };
-export { articleShortGetPreview, articleShortInitialState, articeFullByIdGetPreview, articeFullByIdInitialState, articeWithOnlyTitleGetPreview, articeWithOnlyTitleInitialState, articeAddViewGet, articeAddViewInitialState };
+export type { ArticleShortType, ArticeFullByIdType, ArticeWithOnlyTitleType, ArticeAddViewType, ArticeAddGradeType };
+export {
+  articleShortGetPreview,
+  articleShortInitialState,
+  articeFullByIdGetPreview,
+  articeFullByIdInitialState,
+  articeWithOnlyTitleGetPreview,
+  articeWithOnlyTitleInitialState,
+  articeAddViewGet,
+  articeAddViewInitialState,
+  articeAddGradeGet,
+  articeAddGradeInitialState,
+};

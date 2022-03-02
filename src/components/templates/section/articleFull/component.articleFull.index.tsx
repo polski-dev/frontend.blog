@@ -51,7 +51,6 @@ export default function SectionArticleFull({ data: post, type }: { data: ArticeF
   useEffect(() => {
     const localStorage = window.localStorage;
     if (!localStorage[`article${post.data.article.data.id}`]) {
-      console.log("add views");
       articeAddViewGet(parseInt(post.data.article.data.id));
       localStorage.setItem(`article${post.data.article.data.id}`, "true");
     }
