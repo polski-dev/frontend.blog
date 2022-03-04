@@ -14,11 +14,11 @@ export default function SectionSessionInfo({ users }: { users: number }) {
   useEffect(() => {
     console.log(store);
     const stoper: ReturnType<typeof setInterval> = setInterval(async () => {
-      await router.push("/");
+      await router.replace("/a/1/artykol-o-javascript");
     }, 3000);
 
     return () => clearInterval(stoper);
-  }, [sec, router]);
+  }, [store, router]);
 
   return (
     <Section>

@@ -9,6 +9,7 @@ import { tagWithOnlyTitleAllGetPreviewList, TagWithOnlyTitleType, countUserGetPr
 
 const SingIn: NextPage<any, TagWithOnlyTitleType> = ({ tag, countUser }: { tag: TagWithOnlyTitleType; countUser: CountUserType }): JSX.Element => {
   const { updateTagHome, store } = useDispatchTagToStore();
+  console.log(store);
   useEffect(() => {
     if (!store.tag.home.data.length) updateTagHome(tag);
   }, [store, updateTagHome, tag]);

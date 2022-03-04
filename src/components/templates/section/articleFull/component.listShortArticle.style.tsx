@@ -451,28 +451,3 @@ export const CommentDescription: StyledComponent<any, any> = styled.p`
   text-align: left;
   position: relative;
 `;
-export const CommentGrade: StyledComponent<any, any> = styled.ul`
-  flex: 100%;
-  display: flex;
-  max-width: 100%;
-  padding-top: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.small};
-
-  @media all and (min-width: 526px) {
-    padding-left: 5.7rem;
-  }
-`;
-export const Grade: StyledComponent<any, any> = styled.li`
-  display: flex;
-  align-items: center;
-
-  button {
-    display: flex;
-  }
-
-  span {
-    padding: 0 ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.small};
-  }
-  svg {
-    height: 1.5rem;
-  }
-`;

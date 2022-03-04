@@ -37,8 +37,6 @@ import {
   Comment,
   CommentAuthorName,
   CommentDescription,
-  CommentGrade,
-  Grade,
 } from "./component.listShortArticle.style";
 
 export default function SectionArticleFull({ data: post, type }: { data: ArticeFullByIdType; type: string }): JSX.Element {
@@ -146,26 +144,6 @@ export default function SectionArticleFull({ data: post, type }: { data: ArticeF
                 </CommentAuthorName>
                 <CommentDescription>Bro pls explain your project. Iam unable to understand what it does</CommentDescription>
               </CommentContent>
-              <CommentGrade>
-                <Grade>
-                  <Button title="dodaj ocenę wow">
-                    <Wow />
-                  </Button>
-                  <span>0</span>
-                </Grade>
-                <Grade>
-                  <Button title="dodaj ocenę best">
-                    <Best />
-                  </Button>
-                  <span>0</span>
-                </Grade>
-                <Grade>
-                  <Button title="dodaj ocenę wrr">
-                    <Wrr />
-                  </Button>
-                  <span>10</span>
-                </Grade>
-              </CommentGrade>
             </Comment>
 
             <Comment>
@@ -191,26 +169,6 @@ export default function SectionArticleFull({ data: post, type }: { data: ArticeF
                 </CommentAuthorName>
                 <CommentDescription>Bro pls explain your project. Iam unable to understand what it does</CommentDescription>
               </CommentContent>
-              <CommentGrade>
-                <Grade>
-                  <Button title="dodaj ocenę wow">
-                    <Wow />
-                  </Button>
-                  <span>0</span>
-                </Grade>
-                <Grade>
-                  <Button title="dodaj ocenę best">
-                    <Best />
-                  </Button>
-                  <span>0</span>
-                </Grade>
-                <Grade>
-                  <Button title="dodaj ocenę wrr">
-                    <Wrr />
-                  </Button>
-                  <span>10</span>
-                </Grade>
-              </CommentGrade>
             </Comment>
           </ListComments>
         </BoxComments>

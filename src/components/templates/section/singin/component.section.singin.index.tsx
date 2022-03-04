@@ -24,7 +24,7 @@ export default function SectionSingIn({ users }: { users: number }) {
 
   useEffect((): void => {
     (async (): Promise<void> => {
-      !!session && (await router.push("/"));
+      !!session && (await router.replace("/"));
     })();
   }, [router, session]);
 
@@ -58,7 +58,7 @@ export default function SectionSingIn({ users }: { users: number }) {
                 <Form
                   onSubmit={handleSubmit(({ identifier, password }): void => {
                     setSend(true);
-                    signIn("credentials", { identifier, password, callbackUrl: "/auth/loggedcorrectly" });
+                    signIn("credentials", { identifier, password });
                   })}
                 >
                   <Input id="identifier" name="identifier" type={enumInputType.email} pattern={emailRegex} error={errors.identifier} placeholder="email" register={register} required />

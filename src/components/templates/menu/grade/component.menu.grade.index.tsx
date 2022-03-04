@@ -30,17 +30,14 @@ export default function MenuGrade({ grade, views, comments, idArticle }: MenuGra
   };
 
   useEffect(() => {
-    const localStorage = window.localStorage;
-    console.log(localStorage.grade);
     console.log(store);
+
     if (!!data) {
       if (!!store.grade.data.grade) {
       } else {
       }
     } else if (!!store.grade.data.grade) {
-      localStorage.setItem("grade", JSON.stringify({ ...store.grade.data, slug: router.asPath }));
-      console.log(JSON.stringify({ ...store.grade.data, slug: router.asPath }));
-      // router.prefetch("/auth/signin");
+      router.replace("/auth/signin");
     }
   }, [store, data, router]);
 
