@@ -1,9 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect } from "react";
-import Wow from "assets/icon/wow.svg";
-import Wrr from "assets/icon/wrr.svg";
-import Best from "assets/icon/best.svg";
 import { useForm } from "react-hook-form";
 import ReactMarkdown from "react-markdown";
 import { kebabCase, deburr } from "lodash";
@@ -11,7 +8,7 @@ import Avatar from "assets/icon/avatar.svg";
 import { setSlug, time } from "function/function.index";
 import { TextArea } from "components/atoms/textarea/index.textarea";
 import { MarkdownComponents } from "./component.articleFull.markdownblock";
-import { ButtonSubmit, Button } from "components/atoms/button/component.button.index";
+import { ButtonSubmit } from "components/atoms/button/component.button.index";
 import { ArticeFullByIdType, articeAddViewGet } from "database/database.restAPI.index";
 import {
   Section,

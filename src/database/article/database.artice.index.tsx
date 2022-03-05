@@ -29,7 +29,9 @@ const articleShortGetPreview: (page: number, waitingroom: boolean) => Promise<Ar
 };
 
 const articeFullByIdGetPreview: (id: number) => Promise<ArticeFullByIdType> = async (id: number): Promise<ArticeFullByIdType> => await fetchGraphQLAPI(articeFullByIdQuery, { variables: { id } });
+
 const articeAddViewGet: (id: number) => Promise<ArticeAddViewType> = async (id: number): Promise<ArticeAddViewType> => await fetchRestAPI({ path: `${process.env.NEXT_PUBLIC_API_URL}/api/views/article/${id}` });
+
 const articeAddGradeGet: (id: number, authorization: string, grade?: string) => Promise<ArticeAddGradeType> = async (id: number, authorization: string, grade?: string): Promise<ArticeAddGradeType> =>
   await fetchRestAPI({ path: `${process.env.NEXT_PUBLIC_API_URL}/api/article/${id}/grade`, body: { grade }, authorization });
 const articeWithOnlyTitleGetPreview: (page: number) => Promise<ArticeWithOnlyTitleType> = async (page: number): Promise<ArticeWithOnlyTitleType> => await fetchGraphQLAPI(articeWithOnlyTitleQuery, { variables: { page: page * 10 } });

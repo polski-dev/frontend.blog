@@ -10,7 +10,6 @@ import Comment from "assets/icon/comment.svg";
 import { polyfill } from "smoothscroll-polyfill";
 import { useSelector, useDispatch } from "react-redux";
 import { MenuGradeType } from "./component.menu.grade.type";
-import { addGrade } from "store/slice/grade/store.slice.grade";
 import { Button } from "components/atoms/button/component.button.index";
 import { BoxMenu, BoxContent, List, Item, Quantity, Title } from "./component.menu.grade.style";
 
@@ -20,7 +19,7 @@ export default function MenuGrade({ grade, views, comments, idArticle }: MenuGra
   const dispatch = useDispatch();
   useEffect(() => polyfill(), []);
   const store = useSelector((state: RootState) => state);
-
+  console.log(data);
   const scrollBoxComment = () => {
     if (!!idArticle) {
       const boxComments = document?.querySelector(`#boxCommentsId${idArticle}`);
@@ -30,30 +29,15 @@ export default function MenuGrade({ grade, views, comments, idArticle }: MenuGra
   };
 
   useEffect(() => {
-    console.log(store);
+    const localStorage = window.localStorage;
+    const callBackURL = JSON.stringify({ slug: "/", name: "Artykół o JavaScript" });
+    const grade = JSON.stringify({ grade: "wow", type: "article", id: 1 });
+    localStorage.setItem("grade", grade);
+    console.log(localStorage);
 
-    if (!!data) {
-      if (!!store.grade.data.grade) {
-      } else {
-      }
-    } else if (!!store.grade.data.grade) {
-      router.replace("/auth/signin");
-    }
-  }, [store, data, router]);
+    console.log(JSON.parse(`${localStorage.getItem("nextauth.message")}`));
 
-  useEffect(() => {
-    // console.log(data);
-    // console.log(store);
-    setTimeout(() => {
-      console.log("ok");
-      dispatch(
-        addGrade({
-          grade: "wow",
-          id: 1,
-          type: "article",
-        })
-      );
-    }, 1000);
+    setTimeout(() => {}, 1000);
   }, [store, dispatch, data]);
 
   return (

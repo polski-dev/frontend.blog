@@ -3,12 +3,11 @@ import { useRouter } from "next/router";
 import Brand from "assets/icon/logo.svg";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
-import Github from "assets/icon/github.svg";
 import { signIn, useSession } from "next-auth/react";
 import { emailRegex } from "assets/regex/index.regex";
 import { ItemLoad } from "components/atoms/animation/comonent.animation.index";
+import { ButtonSubmit, Button } from "components/atoms/button/component.button.index";
 import { Input, enumInputType } from "components/molecules/form/component.form.index";
-import { ButtonLinkIn, ButtonSubmit, Button } from "components/atoms/button/component.button.index";
 import { Section, BoxContent, BoxAuth, Title, Description, BoxErrorInfo, BoxOption, BoxRegistrationInfo, Form } from "./component.section.singin.style";
 
 export default function SectionSingIn({ users }: { users: number }) {
@@ -24,7 +23,7 @@ export default function SectionSingIn({ users }: { users: number }) {
 
   useEffect((): void => {
     (async (): Promise<void> => {
-      !!session && (await router.replace("/"));
+      !!session && (await router.replace("/a/1/artykol-o-javascript"));
     })();
   }, [router, session]);
 
@@ -58,7 +57,7 @@ export default function SectionSingIn({ users }: { users: number }) {
                 <Form
                   onSubmit={handleSubmit(({ identifier, password }): void => {
                     setSend(true);
-                    signIn("credentials", { identifier, password });
+                    signIn("credentials", { identifier, password, callbackUrl: "/auth/loggedcorrectly" });
                   })}
                 >
                   <Input id="identifier" name="identifier" type={enumInputType.email} pattern={emailRegex} error={errors.identifier} placeholder="email" register={register} required />
