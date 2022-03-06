@@ -1,8 +1,10 @@
+import { useState } from "react";
 import { useSession } from "next-auth/react";
-import { articeAddGradeGet, ArticeAddGradeType } from "database/database.restAPI.index";
+import { articeAddGradeGet, ArticeAddGradeType, articeAddGradeInitialState } from "database/database.restAPI.index";
 
 export default function useGrade() {
   const { data: session } = useSession();
+  const [allGrade, setAllGrade] = useState(articeAddGradeInitialState);
 
   const rememberChoiseGrade: ({ grade, type, id }: { grade: string; type: string; id: number }) => void = ({ grade, type, id }: { grade: string; type: string; id: number }): void => {
     const localStorage = window.localStorage;
@@ -27,7 +29,7 @@ export default function useGrade() {
 
       switch (data?.type) {
         case "article":
-          const res = await articeAddGradeGet(data?.id, `Bearer ${session?.jwt}`, data?.grade);
+          const res = await articeAddGradeGet(data.id, `Bearer ${session?.jwt}`, data.grade);
           localStorage.removeItem("grande");
           return res;
         default:
@@ -49,5 +51,10 @@ export default function useGrade() {
     }
   };
 
-  return { rememberChoiseGrade, checkIfYouHaveToGiveGrade, addGrade, checkGrade };
+  const deleteGradeToGive: () => void = (): void => {
+    const localStorage = window.localStorage;
+    localStorage.removeItem("callBackURL");
+  };
+
+  return { rememberChoiseGrade, checkIfYouHaveToGiveGrade, addGrade, checkGrade, deleteGradeToGive };
 }

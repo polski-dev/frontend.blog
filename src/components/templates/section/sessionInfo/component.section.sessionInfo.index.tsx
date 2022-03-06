@@ -2,31 +2,45 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
-import { RootState } from "store/store.index";
-import { useSelector, useDispatch } from "react-redux";
+import useCallBackURL from "hooks/hooks.useCallBackURL";
 import { Section, BoxContent, BoxInfo, BoxError } from "./component.section.sessionInfo.style";
+import { ItemLoad } from "components/atoms/animation/comonent.animation.index";
 
 export default function SectionSessionInfo({ users }: { users: number }) {
   const router = useRouter();
-  const { data: session } = useSession();
-  const store = useSelector((state: RootState) => state);
+  const { data: session, status } = useSession();
+  const { readCallBackURL, deleteCallBackURL } = useCallBackURL();
+  const [messageSucces, setMessageSucces] = useState("");
 
   useEffect(() => {
-    console.log(store);
-    const stoper: ReturnType<typeof setInterval> = setInterval(async () => {
-      await router.replace("/a/1/artykol-o-javascript");
+    const stoper: ReturnType<typeof setTimeout> = setTimeout(async () => {
+      if (!!readCallBackURL.to.length) await router.replace(readCallBackURL.to);
+      else await router.replace("/");
     }, 3000);
 
     return () => clearInterval(stoper);
-  }, [store, router]);
+  }, [router, readCallBackURL]);
+
+  useEffect(() => {
+    switch (readCallBackURL.name) {
+      case "article":
+        setMessageSucces("do artykułu");
+        break;
+      default:
+        setMessageSucces("na stronę główną");
+        break;
+    }
+  }, [readCallBackURL]);
 
   return (
     <Section>
-      <h5>{!!session ? "Zalogowałeś się !" : "Coś poszło nie tak :("}</h5>
+      <h5>{status === "loading" ? <ItemLoad /> : status === "authenticated" ? "Zalogowałeś się !" : "Coś poszło nie tak :("}</h5>
       <BoxContent>
-        {!!session ? (
+        {status === "loading" ? (
+          <ItemLoad style={{ height: "6rem" }} />
+        ) : status === "authenticated" ? (
           <BoxInfo>
-            {session?.user?.name} udało Ci się potwierdzić że jesteś jedną z {users} niesamiwitych osób, zaraz zostaniesz przekierowany
+            {session?.user?.name} udało Ci się potwierdzić że jesteś jedną z {users} niesamiwitych osób, zaraz zostaniesz przekierowany {messageSucces}
           </BoxInfo>
         ) : (
           <BoxError>

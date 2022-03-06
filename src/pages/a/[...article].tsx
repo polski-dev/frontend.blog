@@ -7,7 +7,7 @@ import { SquareShortArticle } from "components/atoms/animation/comonent.animatio
 import { SectionArticleFull } from "components/templates/section/component.section.index";
 import { articeWithOnlyTitleGetPreview, ArticeWithOnlyTitleType, articeFullByIdGetPreview, ArticeFullByIdType } from "database/database.graphQL.index";
 
-const Article: NextPage<any> = ({ article }: { article: ArticeFullByIdType }): JSX.Element => {
+const Article: NextPage<any> = ({ article, slug }: { article: ArticeFullByIdType; slug: string }): JSX.Element => {
   return (
     <>
       <Head>
@@ -17,11 +17,12 @@ const Article: NextPage<any> = ({ article }: { article: ArticeFullByIdType }): J
         <Container>
           <Row>
             <MenuGrade
-              gradeStats={article?.data?.article?.data?.attributes?.grades}
-              comments={article.data.article.data.attributes.comments.data.length}
+              slug={slug}
+              type="article"
               views={article.data.article.data.attributes.views}
               id={parseInt(article?.data?.article?.data?.id)}
-              type="article"
+              gradeStats={article?.data?.article?.data?.attributes?.grades}
+              comments={article.data.article.data.attributes.comments.data.length}
             />
             <Col xs={12} md={9}>
               <SectionArticleFull data={article} type="article" />
@@ -56,6 +57,7 @@ export async function getStaticProps({ params }: any): Promise<any> {
   return {
     props: {
       article,
+      slug: `/${params.article[0]}/${params.article[1]}`,
     },
   };
 }

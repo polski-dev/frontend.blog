@@ -4,35 +4,38 @@ import Wrr from "assets/icon/wrr.svg";
 import Eye from "assets/icon/eye.svg";
 import Best from "assets/icon/best.svg";
 import useGrade from "hooks/hooks.useGrade";
+import { useSession } from "next-auth/react";
 import Comment from "assets/icon/comment.svg";
 import { polyfill } from "smoothscroll-polyfill";
 import { NextRouter, useRouter } from "next/router";
+import useAddCallBackURL from "hooks/hooks.useCallBackURL";
 import { MenuGradeType } from "./component.menu.grade.type";
 import { ArticeAddGradeType } from "database/database.restAPI.index";
 import { Button } from "components/atoms/button/component.button.index";
 import { ItemLoad } from "components/atoms/animation/comonent.animation.index";
 import { BoxMenu, BoxContent, List, Item, Quantity, Title } from "./component.menu.grade.style";
 
-export default function MenuGrade({ gradeStats, views, comments, id, type }: MenuGradeType): JSX.Element {
+export default function MenuGrade({ gradeStats, views, comments, id, type, slug }: MenuGradeType): JSX.Element {
   const router: NextRouter = useRouter();
-  useEffect(() => polyfill(), []);
-  const scrollBoxComment = () => !!id && document?.querySelector(`#boxCommentsId${id}`)?.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
-
+  const { data: session } = useSession();
+  const { addCallBackURL } = useAddCallBackURL();
   const [choisedGrade, setChoisedGrade] = useState("");
   const [changeGrade, setChangeGrade] = useState(false);
-  const { rememberChoiseGrade, checkIfYouHaveToGiveGrade, addGrade, checkGrade } = useGrade();
+  const { rememberChoiseGrade, checkIfYouHaveToGiveGrade, addGrade, checkGrade, deleteGradeToGive } = useGrade();
+
+  useEffect(() => polyfill(), []);
+
+  const scrollBoxComment = () => !!id && document?.querySelector(`#boxCommentsId${id}`)?.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
 
   const choiseGrande: (grade: string) => void = (grade: string) => {
     setChangeGrade(true);
     rememberChoiseGrade({ grade, type, id });
-    addGrade().then((res) => {
+    addGrade().then((res: ArticeAddGradeType) => {
       if (res.err && !!res?.msg) {
-        console.log(res.msg);
         switch (res.msg) {
           case "singin":
-            alert("Aby dodać ocenę zaloguj się");
             setChangeGrade(false);
-
+            addCallBackURL({ to: `/${type === "article" ? "a" : "v"}${slug}`, name: type });
             return router.replace("/auth/signin");
         }
       } else {

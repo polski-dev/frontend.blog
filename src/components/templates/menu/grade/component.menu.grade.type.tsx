@@ -13,4 +13,5 @@ export interface MenuGradeType {
   comments: number;
   id: number;
   type: string;
+  slug: string;
 }

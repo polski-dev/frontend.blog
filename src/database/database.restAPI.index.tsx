@@ -56,8 +56,9 @@ const articleShortGetPreview: (page: number, waitingroom: boolean) => Promise<Ar
 const articleShortRestAPIGetPreview: (id: number) => Promise<ArticeFullByIdType> = async (id: number): Promise<ArticeFullByIdType> => await fetchAPI({ path: `/api/article/fullbyid/${id}` });
 const articeWithOnlyTitleRestAPIGetPreview: (page: number) => Promise<ArticeWithOnlyTitleType> = async (page: number): Promise<ArticeWithOnlyTitleType> => await fetchAPI({ path: `/api/article/articeWithOnlyTitle/${page}` });
 const articeAddViewGet: (id: number) => Promise<ArticeAddViewType> = async (id: number): Promise<ArticeAddViewType> => await fetchAPI({ path: `/api/article/addview/${id}` });
+
 const articeAddGradeGet: (id: number, authorization: string, grade: string) => Promise<ArticeAddGradeType> = async (id: number, authorization: string, grade: string): Promise<ArticeAddGradeType> =>
-  await fetchAPI({ path: `/api/article/grade/${id}`, body: { grade }, authorization });
+  await fetchAPI({ path: `/api/article/grade/${id}`, authorization, body: { grade } });
 
 // video
 const videoShortGetPreview: (page: number, waitingroom: boolean) => Promise<VideoShortType> = async (page: number, waitingroom: boolean): Promise<VideoShortType> => await fetchAPI({ path: `/api/video/${page}`, body: { waitingroom } });

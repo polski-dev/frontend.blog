@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { signIn, useSession } from "next-auth/react";
 import { emailRegex } from "assets/regex/index.regex";
+import useCallBackURL from "hooks/hooks.useCallBackURL";
 import { ItemLoad } from "components/atoms/animation/comonent.animation.index";
 import { ButtonSubmit, Button } from "components/atoms/button/component.button.index";
 import { Input, enumInputType } from "components/molecules/form/component.form.index";
@@ -13,6 +14,7 @@ import { Section, BoxContent, BoxAuth, Title, Description, BoxErrorInfo, BoxOpti
 export default function SectionSingIn({ users }: { users: number }) {
   const router = useRouter();
   const { data: session } = useSession();
+  const { readCallBackURL } = useCallBackURL();
   const [send, setSend] = useState(false);
 
   const {
@@ -23,9 +25,9 @@ export default function SectionSingIn({ users }: { users: number }) {
 
   useEffect((): void => {
     (async (): Promise<void> => {
-      !!session && (await router.replace("/a/1/artykol-o-javascript"));
+      !!session && (await router.replace(!readCallBackURL.err ? "/" : readCallBackURL.to));
     })();
-  }, [router, session]);
+  }, [router, session, readCallBackURL]);
 
   useEffect(() => {
     !!router.query?.error && !send && setSend(false);
