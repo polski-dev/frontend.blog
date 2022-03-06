@@ -16,7 +16,13 @@ const Article: NextPage<any> = ({ article }: { article: ArticeFullByIdType }): J
       {!!article ? (
         <Container>
           <Row>
-            <MenuGrade grade={article?.data?.article?.data?.attributes?.grades} comments={article.data.article.data.attributes.comments.data.length} views={article.data.article.data.attributes.views} idArticle={parseInt(article?.data?.article?.data?.id)} />
+            <MenuGrade
+              gradeStats={article?.data?.article?.data?.attributes?.grades}
+              comments={article.data.article.data.attributes.comments.data.length}
+              views={article.data.article.data.attributes.views}
+              id={parseInt(article?.data?.article?.data?.id)}
+              type="article"
+            />
             <Col xs={12} md={9}>
               <SectionArticleFull data={article} type="article" />
             </Col>

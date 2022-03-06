@@ -1,5 +1,5 @@
 export interface MenuGradeType {
-  grade: {
+  gradeStats: {
     data:
       | {
           id: string;
@@ -11,5 +11,6 @@ export interface MenuGradeType {
   };
   views: number;
   comments: number;
-  idArticle: number;
+  id: number;
+  type: string;
 }
