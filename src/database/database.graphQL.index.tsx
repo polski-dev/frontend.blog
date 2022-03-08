@@ -3,7 +3,7 @@ import type { ContentShortType } from "./content/database.content.index";
 import { contentShortGetPreview, contentShortInitialState } from "./content/database.content.index";
 
 // article
-import type { ArticleShortType, ArticeFullByIdType, ArticeWithOnlyTitleType, ArticeAddViewType, ArticeAddGradeType } from "./article/database.artice.index";
+import type { ArticleShortType, ArticeFullByIdType, ArticeWithOnlyTitleType, ArticeAddViewType, ArticeAddGradeType, ArticeAddCommentsType, ArticeGetListCommentsType } from "./article/database.artice.index";
 import {
   articleShortGetPreview,
   articleShortInitialState,
@@ -15,6 +15,10 @@ import {
   articeAddViewInitialState,
   articeAddGradeGet,
   articeAddGradeInitialState,
+  articeAddCommentsGet,
+  articeAddCommentsInitialState,
+  articeGetListComments,
+  articeGetListCommentsInitialState,
 } from "./article/database.artice.index";
 
 // video
@@ -74,6 +78,8 @@ export type {
   ArticeWithOnlyTitleType,
   ArticeAddViewType,
   ArticeAddGradeType,
+  ArticeAddCommentsType,
+  ArticeGetListCommentsType,
 };
 
 export {
@@ -113,4 +119,8 @@ export {
   articeAddViewInitialState,
   articeAddGradeGet,
   articeAddGradeInitialState,
+  articeAddCommentsGet,
+  articeAddCommentsInitialState,
+  articeGetListComments,
+  articeGetListCommentsInitialState,
 };

@@ -6,8 +6,10 @@ import ReactMarkdown from "react-markdown";
 import { kebabCase, deburr } from "lodash";
 import Avatar from "assets/icon/avatar.svg";
 import { setSlug, time } from "function/function.index";
+
 import { TextArea } from "components/atoms/textarea/index.textarea";
 import { MarkdownComponents } from "./component.articleFull.markdownblock";
+import Comments from "components/orgamis/comments/component.comments.index";
 import { ButtonSubmit } from "components/atoms/button/component.button.index";
 import { ArticeFullByIdType, articeAddViewGet } from "database/database.restAPI.index";
 import {

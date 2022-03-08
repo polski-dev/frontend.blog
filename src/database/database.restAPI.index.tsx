@@ -35,7 +35,12 @@ import {
   articeAddViewInitialState,
   ArticeAddGradeType,
   articeAddGradeInitialState,
+  ArticeAddCommentsType,
+  articeAddCommentsInitialState,
+  ArticeGetListCommentsType,
+  articeGetListCommentsInitialState,
 } from "./database.graphQL.index";
+import { method } from "lodash";
 
 // search
 const searchSugestContentGetPreview: (search: string) => Promise<SearchSugestContentType> = async (search: string): Promise<SearchSugestContentType> => await fetchAPI({ path: `/api/search/sugest/0/${search}` });
@@ -56,6 +61,10 @@ const articleShortGetPreview: (page: number, waitingroom: boolean) => Promise<Ar
 const articleShortRestAPIGetPreview: (id: number) => Promise<ArticeFullByIdType> = async (id: number): Promise<ArticeFullByIdType> => await fetchAPI({ path: `/api/article/fullbyid/${id}` });
 const articeWithOnlyTitleRestAPIGetPreview: (page: number) => Promise<ArticeWithOnlyTitleType> = async (page: number): Promise<ArticeWithOnlyTitleType> => await fetchAPI({ path: `/api/article/articeWithOnlyTitle/${page}` });
 const articeAddViewGet: (id: number) => Promise<ArticeAddViewType> = async (id: number): Promise<ArticeAddViewType> => await fetchAPI({ path: `/api/article/addview/${id}` });
+const articeAddComments: (idArticle: number, description: string, authorization: string) => Promise<ArticeAddCommentsType> = async (idArticle: number, description: string, authorization: string): Promise<ArticeAddCommentsType> =>
+  await fetchAPI({ path: `/api/article/comment/add/${idArticle}`, authorization, body: { description } });
+const articeGetListComments: (idArticle: number, page: number) => Promise<ArticeGetListCommentsType> = async (idArticle: number, page: number): Promise<ArticeGetListCommentsType> =>
+  await fetchAPI({ path: `/api/article/comment/getlist/${idArticle}/${page}`, method: "GET" });
 
 const articeAddGradeGet: (id: number, authorization: string, grade: string) => Promise<ArticeAddGradeType> = async (id: number, authorization: string, grade: string): Promise<ArticeAddGradeType> =>
   await fetchAPI({ path: `/api/article/grade/${id}`, authorization, body: { grade } });
@@ -90,6 +99,8 @@ export type {
   ArticeWithOnlyTitleType,
   ArticeAddViewType,
   ArticeAddGradeType,
+  ArticeAddCommentsType,
+  ArticeGetListCommentsType,
 };
 
 export {
@@ -127,4 +138,8 @@ export {
   articeAddViewInitialState,
   articeAddGradeGet,
   articeAddGradeInitialState,
+  articeAddComments,
+  articeAddCommentsInitialState,
+  articeGetListComments,
+  articeGetListCommentsInitialState,
 };
