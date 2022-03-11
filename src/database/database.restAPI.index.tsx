@@ -58,8 +58,11 @@ const tagWithOnlyTitleAllGetPreviewList: (page: number) => Promise<TagWithOnlyTi
 
 // article
 const articleShortGetPreview: (page: number, waitingroom: boolean) => Promise<ArticleShortType> = async (page: number, waitingroom: boolean): Promise<ArticleShortType> => await fetchAPI({ path: `/api/article/${page}`, body: { waitingroom } });
+
 const articleShortRestAPIGetPreview: (id: number) => Promise<ArticeFullByIdType> = async (id: number): Promise<ArticeFullByIdType> => await fetchAPI({ path: `/api/article/fullbyid/${id}` });
+
 const articeWithOnlyTitleRestAPIGetPreview: (page: number) => Promise<ArticeWithOnlyTitleType> = async (page: number): Promise<ArticeWithOnlyTitleType> => await fetchAPI({ path: `/api/article/articeWithOnlyTitle/${page}` });
+
 const articeAddViewGet: (id: number) => Promise<ArticeAddViewType> = async (id: number): Promise<ArticeAddViewType> => await fetchAPI({ path: `/api/article/addview/${id}` });
 const articeAddComments: (idArticle: number, description: string, authorization: string) => Promise<ArticeAddCommentsType> = async (idArticle: number, description: string, authorization: string): Promise<ArticeAddCommentsType> =>
   await fetchAPI({ path: `/api/article/comment/add/${idArticle}`, authorization, body: { description } });

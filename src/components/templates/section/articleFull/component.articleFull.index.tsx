@@ -1,50 +1,16 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect } from "react";
-import { useForm } from "react-hook-form";
 import ReactMarkdown from "react-markdown";
 import { kebabCase, deburr } from "lodash";
 import Avatar from "assets/icon/avatar.svg";
 import { setSlug, time } from "function/function.index";
-
-import { TextArea } from "components/atoms/textarea/index.textarea";
 import { MarkdownComponents } from "./component.articleFull.markdownblock";
-import Comments from "components/orgamis/comments/component.comments.index";
-import { ButtonSubmit } from "components/atoms/button/component.button.index";
+import CommentList from "components/orgamis/comments/component.comments.index";
 import { ArticeFullByIdType, articeAddViewGet } from "database/database.restAPI.index";
-import {
-  Section,
-  Title,
-  Article,
-  BoxContent,
-  Content,
-  BoxAuthor,
-  BoxAuthorImg,
-  BoxAuthorAvatar,
-  AuthorData,
-  AuthorName,
-  DateAdded,
-  TitleArticle,
-  ListTags,
-  Tag,
-  BoxComments,
-  BoxCommentsTitle,
-  Form,
-  BoxCommentAvatar,
-  CommentContent,
-  ListComments,
-  Comment,
-  CommentAuthorName,
-  CommentDescription,
-} from "./component.listShortArticle.style";
+import { Section, Title, Article, BoxContent, Content, BoxAuthor, BoxAuthorImg, BoxAuthorAvatar, AuthorData, AuthorName, DateAdded, TitleArticle, ListTags, Tag } from "./component.listShortArticle.style";
 
 export default function SectionArticleFull({ data: post, type }: { data: ArticeFullByIdType; type: string }): JSX.Element {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-
   useEffect(() => {
     const localStorage = window.localStorage;
     if (!localStorage[`article${post.data.article.data.id}`]) {
@@ -99,78 +65,7 @@ export default function SectionArticleFull({ data: post, type }: { data: ArticeF
             <ReactMarkdown components={MarkdownComponents}>{post?.data?.article?.data?.attributes?.content}</ReactMarkdown>
           </Content>
         </BoxContent>
-        <BoxComments id={`boxCommentsId${post.data.article.data.id}`}>
-          <BoxCommentsTitle>Komentarze (432)</BoxCommentsTitle>
-          <Form
-            onSubmit={handleSubmit(({ identifier, password }: any): void => {
-              // setSend(true);
-              // signIn("credentials", { identifier, password, callbackUrl: "/auth/loggedcorrectly" });
-            })}
-          >
-            <BoxCommentAvatar>
-              {post?.data.article.data.attributes?.author.data?.attributes.avatar.data.attributes.url ? (
-                <Image width={42} height={42} placeholder="blur" blurDataURL="/img/blur.png" alt={post.data.article.data.attributes.author.data.attributes.username} src={post.data.article.data.attributes?.author.data?.attributes.avatar.data.attributes.url} />
-              ) : (
-                <BoxAuthorAvatar>
-                  <Avatar />
-                </BoxAuthorAvatar>
-              )}
-            </BoxCommentAvatar>
-            <TextArea id="identifier" name="identifier" error={errors.identifier} placeholder="email" register={register} required />
-            <ButtonSubmit title="dodaj">Dodaj</ButtonSubmit>
-          </Form>
-          <ListComments>
-            <Comment>
-              <BoxCommentAvatar>
-                {post?.data.article.data.attributes?.author.data?.attributes.avatar.data.attributes.url ? (
-                  <Image
-                    width={50}
-                    height={50}
-                    placeholder="blur"
-                    blurDataURL="/img/blur.png"
-                    alt={post.data.article.data.attributes.author.data.attributes.username}
-                    src={post.data.article.data.attributes?.author.data?.attributes.avatar.data.attributes.url}
-                  />
-                ) : (
-                  <BoxAuthorAvatar>
-                    <Avatar />
-                  </BoxAuthorAvatar>
-                )}
-              </BoxCommentAvatar>
-              <CommentContent>
-                <CommentAuthorName>
-                  Paweł Niedźwiecki <span>12 stycznia (10 dni temu)</span>
-                </CommentAuthorName>
-                <CommentDescription>Bro pls explain your project. Iam unable to understand what it does</CommentDescription>
-              </CommentContent>
-            </Comment>
-
-            <Comment>
-              <BoxCommentAvatar>
-                {post?.data.article.data.attributes?.author.data?.attributes.avatar.data.attributes.url ? (
-                  <Image
-                    width={50}
-                    height={50}
-                    placeholder="blur"
-                    blurDataURL="/img/blur.png"
-                    alt={post.data.article.data.attributes.author.data.attributes.username}
-                    src={post.data.article.data.attributes?.author.data?.attributes.avatar.data.attributes.url}
-                  />
-                ) : (
-                  <BoxAuthorAvatar>
-                    <Avatar />
-                  </BoxAuthorAvatar>
-                )}
-              </BoxCommentAvatar>
-              <CommentContent>
-                <CommentAuthorName>
-                  Paweł Niedźwiecki <span>12 stycznia (10 dni temu)</span>
-                </CommentAuthorName>
-                <CommentDescription>Bro pls explain your project. Iam unable to understand what it does</CommentDescription>
-              </CommentContent>
-            </Comment>
-          </ListComments>
-        </BoxComments>
+        <CommentList data={post.data.article.data.attributes.comments} />
       </Article>
     </Section>
   );

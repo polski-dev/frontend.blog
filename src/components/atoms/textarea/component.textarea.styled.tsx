@@ -1,24 +1,25 @@
-import styled, { ThemeProps } from "styled-components";
+import { InputStyledInterface } from "./component.textarea.type";
+import styled, { StyledComponent, ThemeProps } from "styled-components";
 import { MainSettingsTemplate } from "assets/style/types.mainSettingsTemplate";
 
-export const Label = styled.label`
+export const Label: StyledComponent<any, any> = styled.label`
   width: 100%;
   display: block;
   position: relative;
   margin: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.small} 0;
 `;
 
-export const TextAreaStyled = styled.textarea`
+export const TextAreaStyled: StyledComponent<any, any> = styled.textarea<InputStyledInterface>`
   width: 100%;
   border: none;
-  height: 10rem;
+  height: 8rem;
   max-width: 100%;
   font-size: 1.5rem;
   border-radius: 0.6rem;
   color: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorText};
   padding: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.main};
-  border: 1px solid ${({ theme, error }: { theme: MainSettingsTemplate; error: boolean }): string => (error ? theme.colorDangerBorder : theme.colorBorder)};
   background: ${({ theme, error }: { theme: MainSettingsTemplate; error: boolean }): string => (error ? theme.colorDangerBg : theme.colorInputBgDark)};
+  border: 1px solid ${({ theme, error }: { theme: MainSettingsTemplate; error: boolean }): string => (error ? theme.colorDangerBorder : theme.colorBorder)};
 
   &:-webkit-autofill,
   &:-webkit-autofill:hover,

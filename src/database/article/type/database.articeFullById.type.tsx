@@ -56,7 +56,7 @@ export interface ArticeFullByIdType {
               | {
                   id: string;
                   attributes: {
-                    createdAt: string;
+                    createdAt: Date;
                     description: string;
                     author: {
                       data: {
