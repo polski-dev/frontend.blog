@@ -1,10 +1,8 @@
-import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { articeGetListComments, ArticeGetListCommentsType, articeGetListCommentsInitialState, articeAddComments, ArticeAddCommentsType, articeAddCommentsInitialState } from "database/database.restAPI.index";
 
 export default function useComments() {
   const { data: session } = useSession();
-  const [listComments, setListComments] = useState(articeGetListCommentsInitialState);
 
   const rememberAddComment: ({ comment, type, id }: { comment: string; type: string; id: number }) => void = ({ comment, type, id }: { comment: string; type: string; id: number }): void => {
     const localStorage = window.localStorage;
@@ -93,5 +91,14 @@ export default function useComments() {
     }
   };
 
-  return { rememberAddComment, checkIfYouHaveToGiveComment, deleteGradeToGive, addComment };
+  const getListComment = async ({ type, id, page }: { type: string; id: number; page: number }) => {
+    switch (type) {
+      case "article":
+        return await articeGetListComments(id, page);
+      default:
+        return null;
+    }
+  };
+
+  return { rememberAddComment, checkIfYouHaveToGiveComment, deleteGradeToGive, addComment, getListComment };
 }

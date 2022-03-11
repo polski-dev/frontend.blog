@@ -5,6 +5,14 @@ export interface ArticeGetListCommentsType {
     createdAt: string;
     description: string;
   } | null;
+  meta?: {
+    pagination: {
+      page: number;
+      total: number;
+      pageSize: number;
+      pageCount: number;
+    };
+  };
   error?: {
     status: number;
     name: string;

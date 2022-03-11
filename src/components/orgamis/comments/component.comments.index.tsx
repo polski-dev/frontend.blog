@@ -1,10 +1,10 @@
 import Image from "next/image";
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Avatar from "assets/icon/avatar.svg";
 import { useSession } from "next-auth/react";
 import { time } from "function/function.index";
+import useComments from "hooks/hooks.useComments";
 import { CommentsType } from "./component.comments.type";
 import { TextArea } from "components/atoms/textarea/component.textarea.index";
 import { ButtonSubmit } from "components/atoms/button/component.button.index";
@@ -12,13 +12,14 @@ import { Comments, BoxComments, BoxCommentsTitle, Form, BoxCommentAvatar, Commen
 
 export default function CommentsComponent({ data }: { data: CommentsType }): JSX.Element {
   const [comments, setComments] = useState(data);
+  const { getListComment } = useComments();
   const { data: session } = useSession();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  console.log(comments);
+
   return (
     <Comments>
       <BoxComments id={`boxCommentsId1`}>
