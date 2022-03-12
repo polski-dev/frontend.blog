@@ -64,10 +64,9 @@ export async function getStaticProps({ params }: any): Promise<any> {
 
 export async function getStaticPaths(): Promise<any> {
   const countPage: ArticeWithOnlyTitleType = await articeWithOnlyTitleGetPreview(0);
-  const { pageCount } = countPage?.data?.article?.meta?.pagination;
 
   const allArticle: any[] = await Promise.all(
-    new Array(pageCount).fill(undefined).map(async (_: undefined, i: number): Promise<any> => {
+    new Array(countPage.data.article.meta.pagination.pageCount).fill(undefined).map(async (_: undefined, i: number): Promise<any> => {
       const articeWithOnlyTitle: ArticeWithOnlyTitleType = await articeWithOnlyTitleGetPreview(i);
       return articeWithOnlyTitle?.data?.article?.data;
     })

@@ -132,12 +132,34 @@ export const BoxAuthorAvatar: StyledComponent<any, any> = styled.div`
     align-items: center;
     padding-top: 0.8rem;
     justify-content: center;
-    border: 0.1rem solid ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorBorder};
     background-color: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorButtonBg};
+    border: 0.1rem solid ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorBorder};
 
     svg {
       height: 3.2rem;
       fill: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorTextDesactive};
     }
   }
+`;
+
+export const ErrorMessageText: StyledComponent<any, any> = styled.div`
+  text-align: center;
+  margin-left: 5.8rem;
+  border-radius: 0.6rem;
+  width: calc(100% - 5.8rem);
+  margin-bottom: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.main};
+  background-color: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorDangerBg};
+  border: 0.1rem solid ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorDangerBorder};
+  padding: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.small} ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.main};
+`;
+
+export const SuccesMessage: StyledComponent<any, any> = styled.div`
+  text-align: center;
+  margin-left: 5.8rem;
+  border-radius: 0.6rem;
+  width: calc(100% - 5.8rem);
+  margin-bottom: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.main};
+  background-color: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorSuccessBg};
+  border: 0.1rem solid ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorSuccessBorder};
+  padding: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.small} ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.main};
 `;

@@ -15,8 +15,8 @@ const settings: MainSettingsTemplate = {
   colorFooterBg: "#171717",
   colorDangerBg: "rgba(255, 0, 0, 0.1)",
   colorDangerBorder: "red",
-  colorSuccessBg: "rgba(0, 128, 0, 0.1)",
   colorSuccessBorder: "green",
+  colorSuccessBg: "rgba(0, 128, 0, 0.1)",
 
   // settings break
   break: { small: "0.75rem", main: "1.5rem", big: "3rem" },

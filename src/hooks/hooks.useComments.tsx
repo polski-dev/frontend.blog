@@ -9,6 +9,11 @@ export default function useComments() {
     localStorage?.setItem("comment", JSON.stringify({ comment, type, id }));
   };
 
+  const readCommentToAdd: () => { id: number | null; type: string | null; comment: string | null } = (): { id: number | null; type: string | null; comment: string | null } => {
+    const comment: string | null = window.localStorage.getItem("comment");
+    return !!comment ? JSON.parse(comment) : { id: null, type: null, comment: null };
+  };
+
   const checkIfYouHaveToGiveComment: () => boolean = (): boolean => {
     const localStorage = window.localStorage;
     const comment: string | null = localStorage?.getItem("comment");
@@ -91,14 +96,14 @@ export default function useComments() {
     }
   };
 
-  const getListComment = async ({ type, id, page }: { type: string; id: number; page: number }) => {
+  const getListComment = async ({ type, id, page }: { type: string; id: number; page: number }): Promise<ArticeGetListCommentsType> => {
     switch (type) {
       case "article":
         return await articeGetListComments(id, page);
       default:
-        return null;
+        return articeGetListCommentsInitialState;
     }
   };
 
-  return { rememberAddComment, checkIfYouHaveToGiveComment, deleteGradeToGive, addComment, getListComment };
+  return { rememberAddComment, checkIfYouHaveToGiveComment, deleteGradeToGive, addComment, getListComment, readCommentToAdd };
 }

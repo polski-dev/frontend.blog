@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import { kebabCase, deburr } from "lodash";
 import Avatar from "assets/icon/avatar.svg";
+
 import { setSlug, time } from "function/function.index";
 import { MarkdownComponents } from "./component.articleFull.markdownblock";
 import CommentList from "components/orgamis/comments/component.comments.index";
@@ -65,7 +66,7 @@ export default function SectionArticleFull({ data: post, type }: { data: ArticeF
             <ReactMarkdown components={MarkdownComponents}>{post?.data?.article?.data?.attributes?.content}</ReactMarkdown>
           </Content>
         </BoxContent>
-        <CommentList data={post.data.article.data.attributes.comments} />
+        <CommentList type={type} data={post.data.article.data.attributes.comments} id={post.data.article.data.id} slug={`/a/${post.data.article.data.id}/${kebabCase(deburr(post.data.article.data.attributes.title.toLowerCase()))}`} />
       </Article>
     </Section>
   );

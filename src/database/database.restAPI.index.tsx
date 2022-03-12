@@ -66,6 +66,7 @@ const articeWithOnlyTitleRestAPIGetPreview: (page: number) => Promise<ArticeWith
 const articeAddViewGet: (id: number) => Promise<ArticeAddViewType> = async (id: number): Promise<ArticeAddViewType> => await fetchAPI({ path: `/api/article/addview/${id}` });
 const articeAddComments: (idArticle: number, description: string, authorization: string) => Promise<ArticeAddCommentsType> = async (idArticle: number, description: string, authorization: string): Promise<ArticeAddCommentsType> =>
   await fetchAPI({ path: `/api/article/comment/add/${idArticle}`, authorization, body: { description } });
+
 const articeGetListComments: (idArticle: number, page: number) => Promise<ArticeGetListCommentsType> = async (idArticle: number, page: number): Promise<ArticeGetListCommentsType> =>
   await fetchAPI({ path: `/api/article/comment/getlist/${idArticle}/${page}`, method: "GET" });
 

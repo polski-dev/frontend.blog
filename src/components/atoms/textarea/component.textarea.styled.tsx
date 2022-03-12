@@ -16,8 +16,9 @@ export const TextAreaStyled: StyledComponent<any, any> = styled.textarea<InputSt
   max-width: 100%;
   font-size: 1.5rem;
   border-radius: 0.6rem;
-  color: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorText};
+
   padding: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.main};
+  color: ${({ theme, error }: { theme: MainSettingsTemplate; error: boolean }): string => (error ? theme.colorLink : theme.colorText)};
   background: ${({ theme, error }: { theme: MainSettingsTemplate; error: boolean }): string => (error ? theme.colorDangerBg : theme.colorInputBgDark)};
   border: 1px solid ${({ theme, error }: { theme: MainSettingsTemplate; error: boolean }): string => (error ? theme.colorDangerBorder : theme.colorBorder)};
 
@@ -28,6 +29,10 @@ export const TextAreaStyled: StyledComponent<any, any> = styled.textarea<InputSt
     transition: background-color 5000s ease-in-out 0s;
     -webkit-text-fill-color: ${({ theme, error }: { theme: MainSettingsTemplate; error: boolean }): string => theme.colorText};
     box-shadow: 0 0 0px 1000px ${({ theme, error }: { theme: MainSettingsTemplate; error: boolean }): string => (error ? theme.colorDangerBg : theme.colorInputBgDark)} inset;
+  }
+
+  &::placeholder {
+    color: ${({ theme, error }: { theme: MainSettingsTemplate; error: boolean }): string => (error ? theme.colorLink : theme.colorText)};
   }
 
   &:focus {
