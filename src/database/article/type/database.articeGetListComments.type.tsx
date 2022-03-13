@@ -4,7 +4,14 @@ export interface ArticeGetListCommentsType {
     id: number;
     createdAt: string;
     description: string;
-  } | null;
+    author: {
+      id: number;
+      username: string;
+      avatar: {
+        url: string;
+      };
+    };
+  }[];
   meta?: {
     pagination: {
       page: number;

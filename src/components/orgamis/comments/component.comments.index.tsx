@@ -15,7 +15,7 @@ import { Comments, BoxComments, BoxCommentsTitle, Form, BoxCommentAvatar, Commen
 
 import { ErrorMessage } from "@hookform/error-message";
 
-export default function CommentsComponent({ data, type, id, slug }: { data: CommentsType; type: string; id: string; slug: string }): JSX.Element {
+export default function CommentsComponent({ data, type, id, slug }: { data: CommentsType; type: string; id: number; slug: string }): JSX.Element {
   const { data: session } = useSession();
   const [comments, setComments] = useState(data);
   const { readCallBackURL, addCallBackURL } = useCallBackURL();
@@ -39,9 +39,11 @@ export default function CommentsComponent({ data, type, id, slug }: { data: Comm
   }, []);
 
   useEffect(() => {
-    getListComment({ type: "article", id: 1, page: 1 }).then((data: ArticeGetListCommentsType): void => {
+    getListComment({ type, id, page: 1 }).then((data: ArticeGetListCommentsType): void => {
+      console.log(data);
       typeof data.meta?.pagination.total === "number" && setCommentsQuanty(data.meta?.pagination.total);
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -50,7 +52,7 @@ export default function CommentsComponent({ data, type, id, slug }: { data: Comm
         <BoxCommentsTitle>Komentarze ( {commentsQuanty} )</BoxCommentsTitle>
         <Form
           onSubmit={handleSubmit(({ commentsDescription }: any): void => {
-            rememberAddComment({ comment: commentsDescription, type, id: parseInt(id) });
+            rememberAddComment({ comment: commentsDescription, type, id });
             if (!!session) {
               setStatusAddingComment("expectancy");
               addComment().then((data: ArticeAddCommentsType) => {
@@ -59,10 +61,12 @@ export default function CommentsComponent({ data, type, id, slug }: { data: Comm
                     message: "Serwer ma problem z dodaniem komentarza , spróbuj jeszcze raz za kilka minut",
                   });
                 else if (data.data?.add) {
+                  console.log(data);
                   reset();
                 } else {
                 }
                 setStatusAddingComment("fulfilled");
+                setTimeout(() => setStatusAddingComment("pending"), 5000);
               });
             } else {
               addCallBackURL({ to: slug, name: type });

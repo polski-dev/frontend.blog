@@ -66,7 +66,7 @@ export default function SectionArticleFull({ data: post, type }: { data: ArticeF
             <ReactMarkdown components={MarkdownComponents}>{post?.data?.article?.data?.attributes?.content}</ReactMarkdown>
           </Content>
         </BoxContent>
-        <CommentList type={type} data={post.data.article.data.attributes.comments} id={post.data.article.data.id} slug={`/a/${post.data.article.data.id}/${kebabCase(deburr(post.data.article.data.attributes.title.toLowerCase()))}`} />
+        <CommentList type={type} data={post.data.article.data.attributes.comments} id={parseInt(post.data.article.data.id)} slug={`/a/${post.data.article.data.id}/${kebabCase(deburr(post.data.article.data.attributes.title.toLowerCase()))}`} />
       </Article>
     </Section>
   );

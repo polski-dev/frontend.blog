@@ -1,8 +1,9 @@
+import tag from "./slice/tag/store.slice.tag";
 import { configureStore } from "@reduxjs/toolkit";
-import tagReducer from "./slice/tag/store.slice.tag";
+import comment from "./slice/comment/store.slice.comment";
 
 export const store = configureStore({
-  reducer: { tag: tagReducer },
+  reducer: { tag, comment },
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
