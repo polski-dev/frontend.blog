@@ -5,9 +5,9 @@ import { MenuGrade } from "components/templates/menu/component.menu.index";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
 import { SquareShortArticle } from "components/atoms/animation/comonent.animation.index";
 import { SectionArticleFull } from "components/templates/section/component.section.index";
-import { articeWithOnlyTitleGetPreview, ArticeWithOnlyTitleType, articeFullByIdGetPreview, ArticeFullByIdType } from "database/database.graphQL.index";
+import { articeWithOnlyTitleGetPreview, ArticeWithOnlyTitleType, articeFullByIdGetPreview, ArticeFullByIdType, articeGetListComments, ArticeGetListCommentsType } from "database/database.graphQL.index";
 
-const Article: NextPage<any> = ({ article, slug }: { article: ArticeFullByIdType; slug: string }): JSX.Element => {
+const Article: NextPage<any> = ({ article, slug, comments }: { article: ArticeFullByIdType; slug: string; comments: ArticeGetListCommentsType }): JSX.Element => {
   return (
     <>
       <Head>
@@ -19,13 +19,13 @@ const Article: NextPage<any> = ({ article, slug }: { article: ArticeFullByIdType
             <MenuGrade
               slug={slug}
               type="article"
+              comments={comments.meta?.pagination.total || 0}
               views={article.data.article.data.attributes.views}
               id={parseInt(article?.data?.article?.data?.id)}
               gradeStats={article?.data?.article?.data?.attributes?.grades}
-              comments={article.data.article.data.attributes.comments.data.length}
             />
             <Col xs={12} md={9}>
-              <SectionArticleFull data={article} type="article" />
+              <SectionArticleFull data={{ article, comments }} type="article" />
             </Col>
           </Row>
         </Container>
@@ -47,6 +47,7 @@ const Article: NextPage<any> = ({ article, slug }: { article: ArticeFullByIdType
 export async function getStaticProps({ params }: any): Promise<any> {
   // article full
   const article: ArticeFullByIdType = await articeFullByIdGetPreview(parseInt(params.article[0]));
+  const comments = await articeGetListComments(parseInt(params.article[0]), 1);
 
   if (!article) {
     return {
@@ -57,6 +58,7 @@ export async function getStaticProps({ params }: any): Promise<any> {
   return {
     props: {
       article,
+      comments,
       slug: `/${params.article[0]}/${params.article[1]}`,
     },
   };

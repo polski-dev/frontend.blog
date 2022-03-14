@@ -6,20 +6,18 @@ import { useSession } from "next-auth/react";
 import { time } from "function/function.index";
 import useComments from "hooks/hooks.useComments";
 import useCallBackURL from "hooks/hooks.useCallBackURL";
-import { CommentsType } from "./component.comments.type";
-import { ArticeAddCommentsType, ArticeGetListCommentsType } from "database/database.graphQL.index";
 import { TextArea } from "components/atoms/textarea/component.textarea.index";
 import { ButtonSubmit } from "components/atoms/button/component.button.index";
 import { ItemLoad } from "components/atoms/animation/comonent.animation.index";
+import { ArticeAddCommentsType, ArticeGetListCommentsType } from "database/database.graphQL.index";
 import { Comments, BoxComments, BoxCommentsTitle, Form, BoxCommentAvatar, CommentContent, ListComments, Comment, CommentAuthorName, CommentDescription, BoxAuthorAvatar, ErrorMessageText, SuccesMessage } from "./component.comments.style";
 
 import { ErrorMessage } from "@hookform/error-message";
 
-export default function CommentsComponent({ data, type, id, slug }: { data: CommentsType; type: string; id: number; slug: string }): JSX.Element {
+export default function CommentsComponent({ data, type, id, slug }: { data: ArticeGetListCommentsType; type: string; id: number; slug: string }): JSX.Element {
   const { data: session } = useSession();
   const [comments, setComments] = useState(data);
   const { readCallBackURL, addCallBackURL } = useCallBackURL();
-  const [commentsQuanty, setCommentsQuanty] = useState(0);
   const [statusAddingComment, setStatusAddingComment] = useState("pending");
   const { getListComment, rememberAddComment, checkIfYouHaveToGiveComment, addComment, readCommentToAdd } = useComments();
 
@@ -32,24 +30,10 @@ export default function CommentsComponent({ data, type, id, slug }: { data: Comm
     formState: { errors },
   } = useForm();
 
-  useEffect(() => {
-    const commentToAdd: string | null = readCommentToAdd().comment;
-    if (commentToAdd) setValue("commentsDescription", commentToAdd || "");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    getListComment({ type, id, page: 1 }).then((data: ArticeGetListCommentsType): void => {
-      console.log(data);
-      typeof data.meta?.pagination.total === "number" && setCommentsQuanty(data.meta?.pagination.total);
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   return (
     <Comments>
       <BoxComments id={`boxCommentsId1`}>
-        <BoxCommentsTitle>Komentarze ( {commentsQuanty} )</BoxCommentsTitle>
+        <BoxCommentsTitle>Komentarze ( {comments.meta?.pagination.total} )</BoxCommentsTitle>
         <Form
           onSubmit={handleSubmit(({ commentsDescription }: any): void => {
             rememberAddComment({ comment: commentsDescription, type, id });
@@ -100,8 +84,8 @@ export default function CommentsComponent({ data, type, id, slug }: { data: Comm
               return (
                 <Comment key={comment.id}>
                   <BoxCommentAvatar>
-                    {!!comment?.attributes?.author?.data.attributes?.avatar?.data?.attributes?.url ? (
-                      <Image width={50} height={50} placeholder="blur" blurDataURL="/img/blur.png" src={comment?.attributes?.author?.data.attributes?.avatar?.data?.attributes?.url} alt={comment?.attributes?.author?.data?.attributes?.username || ""} />
+                    {!!comment?.author?.avatar.url ? (
+                      <Image width={50} height={50} placeholder="blur" blurDataURL="/img/blur.png" src={comment?.author?.avatar.url} alt={comment.author.username} />
                     ) : (
                       <BoxAuthorAvatar>
                         <Avatar />
@@ -110,12 +94,12 @@ export default function CommentsComponent({ data, type, id, slug }: { data: Comm
                   </BoxCommentAvatar>
                   <CommentContent>
                     <CommentAuthorName>
-                      {comment?.attributes?.author?.data?.attributes?.username || "Author Name not found "}{" "}
+                      {comment.author.username}
                       <span>
-                        {time.nameOfTheMonths(comment?.attributes?.createdAt)} ( {time.countDays(comment?.attributes?.createdAt)} )
+                        {time.nameOfTheMonths(comment.createdAt)} ( {time.countDays(comment.createdAt)} )
                       </span>
                     </CommentAuthorName>
-                    <CommentDescription>{comment.attributes.description}</CommentDescription>
+                    <CommentDescription>{comment.description}</CommentDescription>
                   </CommentContent>
                 </Comment>
               );

@@ -2,7 +2,7 @@ export interface ArticeGetListCommentsType {
   data: {
     add: boolean;
     id: number;
-    createdAt: string;
+    createdAt: Date;
     description: string;
     author: {
       id: number;

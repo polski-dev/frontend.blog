@@ -4,22 +4,13 @@ import { useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import { kebabCase, deburr } from "lodash";
 import Avatar from "assets/icon/avatar.svg";
-
 import { setSlug, time } from "function/function.index";
 import { MarkdownComponents } from "./component.articleFull.markdownblock";
 import CommentList from "components/orgamis/comments/component.comments.index";
-import { ArticeFullByIdType, articeAddViewGet } from "database/database.restAPI.index";
+import { ArticeFullByIdType, articeAddViewGet, ArticeGetListCommentsType } from "database/database.restAPI.index";
 import { Section, Title, Article, BoxContent, Content, BoxAuthor, BoxAuthorImg, BoxAuthorAvatar, AuthorData, AuthorName, DateAdded, TitleArticle, ListTags, Tag } from "./component.listShortArticle.style";
 
-export default function SectionArticleFull({ data: post, type }: { data: ArticeFullByIdType; type: string }): JSX.Element {
-  useEffect(() => {
-    const localStorage = window.localStorage;
-    if (!localStorage[`article${post.data.article.data.id}`]) {
-      articeAddViewGet(parseInt(post.data.article.data.id));
-      localStorage.setItem(`article${post.data.article.data.id}`, "true");
-    }
-  }, [post]);
-
+export default function SectionArticleFull({ data: { article: post, comments }, type }: { data: { article: ArticeFullByIdType; comments: ArticeGetListCommentsType }; type: string }): JSX.Element {
   return (
     <Section>
       <Title>{type === "article" ? "Artykuł" : "Video"}</Title>
@@ -39,7 +30,10 @@ export default function SectionArticleFull({ data: post, type }: { data: ArticeF
             <AuthorData>
               <Link href={`/${new setSlug("user").setContent}/${post?.data?.article?.data?.attributes?.author?.data?.id}/${kebabCase(deburr(post?.data?.article?.data?.attributes?.author?.data?.attributes?.username.toLowerCase()))}`}>
                 <a title={post?.data?.article?.data?.attributes?.author?.data?.attributes?.username}>
-                  <AuthorName>{post?.data?.article?.data?.attributes?.author?.data?.attributes?.username}</AuthorName>
+                  <AuthorName>
+                    {post?.data?.article?.data?.attributes?.author?.data?.attributes?.username}
+                    {}{" "}
+                  </AuthorName>
                 </a>
               </Link>
               <DateAdded>
@@ -66,7 +60,7 @@ export default function SectionArticleFull({ data: post, type }: { data: ArticeF
             <ReactMarkdown components={MarkdownComponents}>{post?.data?.article?.data?.attributes?.content}</ReactMarkdown>
           </Content>
         </BoxContent>
-        <CommentList type={type} data={post.data.article.data.attributes.comments} id={parseInt(post.data.article.data.id)} slug={`/a/${post.data.article.data.id}/${kebabCase(deburr(post.data.article.data.attributes.title.toLowerCase()))}`} />
+        <CommentList type={type} data={comments} id={parseInt(post.data.article.data.id)} slug={`/a/${post.data.article.data.id}/${kebabCase(deburr(post.data.article.data.attributes.title.toLowerCase()))}`} />
       </Article>
     </Section>
   );
