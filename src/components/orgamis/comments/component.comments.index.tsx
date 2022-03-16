@@ -5,6 +5,7 @@ import Avatar from "assets/icon/avatar.svg";
 import { useSession } from "next-auth/react";
 import { time } from "function/function.index";
 import useComments from "hooks/hooks.useComments";
+import { NextRouter, useRouter } from "next/router";
 import useCallBackURL from "hooks/hooks.useCallBackURL";
 import { TextArea } from "components/atoms/textarea/component.textarea.index";
 import { ButtonSubmit } from "components/atoms/button/component.button.index";
@@ -16,11 +17,12 @@ import { ErrorMessage } from "@hookform/error-message";
 
 export default function CommentsComponent({ data, type, id, slug }: { data: ArticeGetListCommentsType; type: string; id: number; slug: string }): JSX.Element {
   const { data: session } = useSession();
+  const router: NextRouter = useRouter();
   const [comments, setComments] = useState(data);
   const { readCallBackURL, addCallBackURL } = useCallBackURL();
-  const [commentsQuantity, setCommentsQuantity] = useState(data);
+  const [commentsQuantity, setCommentsQuantity] = useState(data.meta?.pagination.total || 0);
   const [statusAddingComment, setStatusAddingComment] = useState("pending");
-  const { getListComment, rememberAddComment, checkIfYouHaveToGiveComment, addComment, readCommentToAdd } = useComments();
+  const { getListComment, rememberAddComment, checkIfYouHaveToGiveComment, addComment, readCommentToAdd, setReadCommentToAdd } = useComments();
 
   const {
     reset,
@@ -31,29 +33,35 @@ export default function CommentsComponent({ data, type, id, slug }: { data: Arti
     formState: { errors },
   } = useForm();
 
+  useEffect(() => {
+    if (!!readCommentToAdd?.comment?.length) setValue("commentsDescription", `${readCommentToAdd.comment}`);
+  }, [readCommentToAdd, setValue]);
+
   return (
     <Comments>
       <BoxComments id={`boxCommentsId1`}>
-        <BoxCommentsTitle>Komentarze ( {comments.meta?.pagination.total} )</BoxCommentsTitle>
+        <BoxCommentsTitle>Komentarze ( {commentsQuantity} )</BoxCommentsTitle>
         <Form
           onSubmit={handleSubmit(({ commentsDescription }: any): void => {
             rememberAddComment({ comment: commentsDescription, type, id });
             if (!!session) {
               setStatusAddingComment("expectancy");
               addComment().then((data: ArticeAddCommentsType) => {
-                if (!!data.error?.message)
-                  setError("commentsDescription", {
-                    message: "Serwer ma problem z dodaniem komentarza , spróbuj jeszcze raz za kilka minut",
-                  });
-                else if (data.data?.add) {
+                if (data.data?.add) {
+                  setCommentsQuantity(commentsQuantity + 1);
+                  setStatusAddingComment("fulfilled");
+                  setTimeout(() => setStatusAddingComment("pending"), 5000);
                   reset();
                 } else {
+                  setError("commentsDescription", {
+                    message: "Spróbuj jeszcze raz za kilka minut",
+                  });
+                  setStatusAddingComment("pending");
                 }
-                setStatusAddingComment("fulfilled");
-                setTimeout(() => setStatusAddingComment("pending"), 5000);
               });
             } else {
               addCallBackURL({ to: slug, name: type });
+              router.replace("/auth/signin");
             }
           })}
         >
@@ -73,7 +81,7 @@ export default function CommentsComponent({ data, type, id, slug }: { data: Arti
           {statusAddingComment === "expectancy" ? (
             <ItemLoad height={7.7} style={{ width: "calc(100% - 5.8rem)", marginLeft: "1.5rem" }} />
           ) : (
-            <TextArea id="commentsDescription" name="commentsDescription" error={errors.commentsDescription} placeholder="Napisz komentarz..." register={register} required={"This is required."} />
+            <TextArea id="commentsDescription" defaultValue={readCommentToAdd?.comment || ""} name="commentsDescription" error={errors.commentsDescription} placeholder="Napisz komentarz..." register={register} required={"This is required."} />
           )}
           {statusAddingComment === "expectancy" ? <ItemLoad height={2.9} style={{ width: "6rem", marginLeft: "auto" }} /> : <ButtonSubmit title="dodaj">Dodaj</ButtonSubmit>}
         </Form>
