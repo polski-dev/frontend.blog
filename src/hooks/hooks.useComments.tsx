@@ -30,7 +30,7 @@ export default function useComments() {
   };
 
   const addComment: () => Promise<ArticeAddCommentsType> = async (): Promise<ArticeAddCommentsType> => {
-    if (!checkIfYouHaveToGiveComment() || !readCommentToAdd.comment.length)
+    if (!checkIfYouHaveToGiveComment() || !readCommentToAdd?.comment?.length)
       return {
         data: null,
         error: {
