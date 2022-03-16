@@ -1,18 +1,8 @@
 import { useSession } from "next-auth/react";
-import { RootState } from "store/store.index";
-import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { commentsAdd, commentsAddMore } from "store/slice/comment/store.slice.comment";
 import { articeGetListComments, ArticeGetListCommentsType, articeGetListCommentsInitialState, articeAddComments, ArticeAddCommentsType, articeAddCommentsInitialState } from "database/database.restAPI.index";
 
 export default function useComments() {
   const { data: session } = useSession();
-  const dispatch = useDispatch();
-  const store = useSelector((state: RootState) => state);
-
-  useEffect(() => {
-    console.log(store);
-  }, [store]);
 
   const rememberAddComment: ({ comment, type, id }: { comment: string; type: string; id: number }) => void = ({ comment, type, id }: { comment: string; type: string; id: number }): void => {
     const localStorage = window.localStorage;
