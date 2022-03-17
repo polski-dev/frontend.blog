@@ -47,17 +47,7 @@ const Article: NextPage<any> = ({ article, slug, comments }: { article: ArticeFu
 export async function getStaticProps({ params }: any): Promise<any> {
   // article full
   const article: ArticeFullByIdType = await articeFullByIdGetPreview(parseInt(params.article[0]));
-  const countPageComments: ArticeGetListCommentsType = await articeGetListComments(parseInt(params.article[0]), 1);
-
-  const allComments: any[] = await Promise.all(
-    new Array(countPageComments.meta?.pagination.pageCount).fill(undefined).map(async (_: undefined, i: number): Promise<any> => {
-      const comments: ArticeGetListCommentsType = await articeGetListComments(parseInt(params.article[0]), i + 1);
-      return comments.data;
-    })
-  );
-
-  countPageComments.data = [].concat(...allComments);
-  const comments: ArticeGetListCommentsType = countPageComments;
+  const comments: ArticeGetListCommentsType = await articeGetListComments(parseInt(params.article[0]), 1);
 
   if (!article) {
     return {

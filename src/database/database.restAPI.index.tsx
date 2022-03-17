@@ -39,6 +39,7 @@ import {
   articeAddCommentsInitialState,
   ArticeGetListCommentsType,
   articeGetListCommentsInitialState,
+  ArticeGetListCommentsItemType,
 } from "./database.graphQL.index";
 import { method } from "lodash";
 
@@ -105,6 +106,7 @@ export type {
   ArticeAddGradeType,
   ArticeAddCommentsType,
   ArticeGetListCommentsType,
+  ArticeGetListCommentsItemType,
 };
 
 export {

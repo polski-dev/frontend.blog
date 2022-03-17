@@ -1,15 +1,24 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, MutableRefObject } from "react";
 import { useSession } from "next-auth/react";
+import useWindowData from "hooks/hooks.windowData";
 import { articeGetListComments, ArticeGetListCommentsType, articeGetListCommentsInitialState, articeAddComments, ArticeAddCommentsType, articeAddCommentsInitialState } from "database/database.restAPI.index";
 
-export default function useComments() {
+export default function useComments({ data, type, id }: { data: ArticeGetListCommentsType; type: string; id: number }) {
+  const { height } = useWindowData();
   const { data: session } = useSession();
+  const [comments, setComments] = useState(data);
+  const [iAmWaitingForAnswer, setIamWaitingForAnswer] = useState(false);
   const [readCommentToAdd, setReadCommentToAdd] = useState({ id: 0, type: "", comment: "" });
+  const itemsRef: MutableRefObject<any> = useRef(null);
 
-  useEffect(() => {
-    const comment: string | null = window.localStorage.getItem("comment");
-    setReadCommentToAdd(!!comment ? JSON.parse(comment) : { id: null, type: null, comment: null });
-  }, []);
+  const getListComment = async ({ type, id, page }: { type: string; id: number; page: number }): Promise<ArticeGetListCommentsType> => {
+    switch (type) {
+      case "article":
+        return await articeGetListComments(id, page);
+      default:
+        return articeGetListCommentsInitialState;
+    }
+  };
 
   const rememberAddComment: ({ comment, type, id }: { comment: string; type: string; id: number }) => void = ({ comment, type, id }: { comment: string; type: string; id: number }): void => {
     const localStorage = window.localStorage;
@@ -70,7 +79,6 @@ export default function useComments() {
       switch (readCommentToAdd?.type) {
         case "article":
           const res: ArticeAddCommentsType = await articeAddComments(readCommentToAdd?.id, readCommentToAdd.comment, `Bearer ${session?.jwt}`);
-          console.log("pl");
           if (!!res.error?.message)
             return {
               data: null,
@@ -115,14 +123,40 @@ export default function useComments() {
     }
   };
 
-  const getListComment = async ({ type, id, page }: { type: string; id: number; page: number }): Promise<ArticeGetListCommentsType> => {
-    switch (type) {
-      case "article":
-        return await articeGetListComments(id, page);
-      default:
-        return articeGetListCommentsInitialState;
-    }
-  };
+  useEffect(() => {
+    getListComment({ id, type, page: 1 }).then((data: ArticeGetListCommentsType) => setComments(data));
+  }, [id, type]);
 
-  return { rememberAddComment, checkIfYouHaveToGiveComment, deleteGradeToGive, addComment, getListComment, readCommentToAdd, setReadCommentToAdd };
+  useEffect(() => {
+    let check = setTimeout(() => {}, 200);
+
+    function loadArticle() {
+      clearTimeout(check);
+      check = setTimeout(() => {
+        const heightEl: any = itemsRef.current.getBoundingClientRect().y;
+        if ((!!comments.meta?.pagination.page ? comments.meta?.pagination.page : 1) < (!!comments.meta?.pagination.pageCount ? comments.meta?.pagination.pageCount : 1) && !iAmWaitingForAnswer && heightEl - height < 0) setIamWaitingForAnswer(true);
+      }, 200);
+    }
+
+    document.addEventListener("scroll", loadArticle);
+    return () => document.removeEventListener("scroll", loadArticle);
+  }, [itemsRef, height, iAmWaitingForAnswer, comments]);
+
+  useEffect(() => {
+    if (iAmWaitingForAnswer) {
+      getListComment({ id, type, page: (!!comments.meta?.pagination.page ? comments.meta?.pagination.page : 1) + 1 }).then((res: ArticeGetListCommentsType) => {
+        comments.data = [...comments.data, ...res.data];
+        comments.meta = res.meta;
+        setComments(comments);
+        setIamWaitingForAnswer(false);
+      });
+    }
+  }, [id, type, comments, iAmWaitingForAnswer]);
+
+  useEffect(() => {
+    const comment: string | null = window.localStorage.getItem("comment");
+    setReadCommentToAdd(!!comment ? JSON.parse(comment) : { id: null, type: null, comment: null });
+  }, []);
+
+  return { rememberAddComment, deleteGradeToGive, addComment, readCommentToAdd, itemsRef, comments, iAmWaitingForAnswer };
 }

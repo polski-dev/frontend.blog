@@ -1,17 +1,19 @@
-export interface ArticeGetListCommentsType {
-  data: {
-    add: boolean;
+export interface ArticeGetListCommentsItemType {
+  add: boolean;
+  id: number;
+  createdAt: Date;
+  description: string;
+  author: {
     id: number;
-    createdAt: Date;
-    description: string;
-    author: {
-      id: number;
-      username: string;
-      avatar: {
-        url: string;
-      };
+    username: string;
+    avatar: {
+      url: string;
     };
-  }[];
+  };
+}
+
+export interface ArticeGetListCommentsType {
+  data: ArticeGetListCommentsItemType[];
   meta?: {
     pagination: {
       page: number;

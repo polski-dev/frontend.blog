@@ -3,27 +3,24 @@ import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import Avatar from "assets/icon/avatar.svg";
 import { useSession } from "next-auth/react";
-import { time } from "function/function.index";
 import useComments from "hooks/hooks.useComments";
 import { NextRouter, useRouter } from "next/router";
+import { ErrorMessage } from "@hookform/error-message";
 import useCallBackURL from "hooks/hooks.useCallBackURL";
+import CommentsItemComponent from "./item/component.comments.item";
 import { TextArea } from "components/atoms/textarea/component.textarea.index";
 import { ButtonSubmit } from "components/atoms/button/component.button.index";
 import { ItemLoad } from "components/atoms/animation/comonent.animation.index";
 import { SquareComment } from "components/atoms/animation/comonent.animation.index";
-import { ArticeAddCommentsType, ArticeGetListCommentsType } from "database/database.graphQL.index";
+import { ArticeAddCommentsType, ArticeGetListCommentsType, ArticeGetListCommentsItemType } from "database/database.graphQL.index";
 import { Comments, BoxComments, BoxCommentsTitle, Form, BoxCommentAvatar, CommentContent, ListComments, Comment, CommentAuthorName, CommentDescription, BoxAuthorAvatar, ErrorMessageText, SuccesMessage } from "./component.comments.style";
-
-import { ErrorMessage } from "@hookform/error-message";
 
 export default function CommentsComponent({ data, type, id, slug }: { data: ArticeGetListCommentsType; type: string; id: number; slug: string }): JSX.Element {
   const { data: session } = useSession();
   const router: NextRouter = useRouter();
-  const [comments, setComments] = useState(data);
-  const { readCallBackURL, addCallBackURL } = useCallBackURL();
-  const [commentsQuantity, setCommentsQuantity] = useState(data.meta?.pagination.total || 0);
+  const { addCallBackURL } = useCallBackURL();
   const [statusAddingComment, setStatusAddingComment] = useState("pending");
-  const { getListComment, rememberAddComment, checkIfYouHaveToGiveComment, addComment, readCommentToAdd, setReadCommentToAdd } = useComments();
+  const { rememberAddComment, addComment, readCommentToAdd, itemsRef, comments, iAmWaitingForAnswer } = useComments({ data, type, id });
 
   const {
     reset,
@@ -38,14 +35,10 @@ export default function CommentsComponent({ data, type, id, slug }: { data: Arti
     if (!!readCommentToAdd?.comment?.length) setValue("commentsDescription", `${readCommentToAdd.comment}`);
   }, [readCommentToAdd, setValue]);
 
-  useEffect(() => {
-    getListComment({ id, type, page: 1 }).then((data: ArticeGetListCommentsType) => setComments(data));
-  }, [getListComment, id, type]);
-
   return (
     <Comments>
       <BoxComments id={`boxCommentsId1`}>
-        <BoxCommentsTitle>Komentarze ( {commentsQuantity} )</BoxCommentsTitle>
+        <BoxCommentsTitle>Komentarze ( {comments.meta?.pagination.total || 0} )</BoxCommentsTitle>
         <Form
           onSubmit={handleSubmit(({ commentsDescription }: any): void => {
             rememberAddComment({ comment: commentsDescription, type, id });
@@ -53,7 +46,6 @@ export default function CommentsComponent({ data, type, id, slug }: { data: Arti
               setStatusAddingComment("expectancy");
               addComment().then((data: ArticeAddCommentsType) => {
                 if (data.data?.add) {
-                  setCommentsQuantity(commentsQuantity + 1);
                   setStatusAddingComment("fulfilled");
                   setTimeout(() => setStatusAddingComment("pending"), 5000);
                   reset();
@@ -92,31 +84,18 @@ export default function CommentsComponent({ data, type, id, slug }: { data: Arti
         </Form>
 
         <ListComments>
-          <SquareComment />
           {!!comments?.data?.length &&
-            comments?.data.map((comment, i: number): JSX.Element => {
-              return (
-                <Comment key={i}>
-                  <BoxCommentAvatar>
-                    {!!comment?.author?.avatar.url ? (
-                      <Image width={50} height={50} placeholder="blur" blurDataURL="/img/blur.png" src={comment?.author?.avatar.url} alt={comment.author.username} />
-                    ) : (
-                      <BoxAuthorAvatar>
-                        <Avatar />
-                      </BoxAuthorAvatar>
-                    )}
-                  </BoxCommentAvatar>
-                  <CommentContent>
-                    <CommentAuthorName>
-                      {comment?.author?.username}{" "}
-                      <span>
-                        {time.nameOfTheMonths(comment?.createdAt)} ( {time.countDays(comment?.createdAt)} )
-                      </span>
-                    </CommentAuthorName>
-                    <CommentDescription>{comment?.description}</CommentDescription>
-                  </CommentContent>
-                </Comment>
-              );
+            comments?.data.map((comment: ArticeGetListCommentsItemType, i: number): JSX.Element => {
+              switch (comments.data.length - 1 === i) {
+                case true:
+                  return <CommentsItemComponent key={i} data={comment} ref={itemsRef} />;
+                default:
+                  return <CommentsItemComponent key={i} data={comment} />;
+              }
+            })}
+          {iAmWaitingForAnswer &&
+            new Array(10).fill(undefined).map((_: any, i: number) => {
+              return <SquareComment key={i} />;
             })}
         </ListComments>
       </BoxComments>

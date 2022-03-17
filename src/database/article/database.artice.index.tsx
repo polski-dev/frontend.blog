@@ -22,7 +22,7 @@ import { articeAddGradeInitialState } from "./initialState/database.articeAddGra
 import { ArticeAddCommentsType } from "./type/database.articeAddComments.type";
 import { articeAddCommentsInitialState } from "./initialState/database.articeAddComments.initialState";
 //
-import { ArticeGetListCommentsType } from "./type/database.articeGetListComments.type";
+import { ArticeGetListCommentsType, ArticeGetListCommentsItemType } from "./type/database.articeGetListComments.type";
 import { articeGetListCommentsInitialState } from "./initialState/database.articeGetListComments.initialState";
 
 // metchods
@@ -49,7 +49,7 @@ const articeAddCommentsGet: (description: string, articleId: number, authorizati
 const articeGetListComments: (articleId: number, page: number) => Promise<ArticeGetListCommentsType> = async (articleId: number, page: number): Promise<ArticeGetListCommentsType> =>
   await fetchRestAPI({ path: `${process.env.NEXT_PUBLIC_API_URL}/api/article/${articleId}/comment/${page}`, method: "GET" });
 
-export type { ArticleShortType, ArticeFullByIdType, ArticeWithOnlyTitleType, ArticeAddViewType, ArticeAddGradeType, ArticeAddCommentsType, ArticeGetListCommentsType };
+export type { ArticleShortType, ArticeFullByIdType, ArticeWithOnlyTitleType, ArticeAddViewType, ArticeAddGradeType, ArticeAddCommentsType, ArticeGetListCommentsType, ArticeGetListCommentsItemType };
 export {
   articleShortGetPreview,
   articleShortInitialState,

@@ -3,7 +3,7 @@ import type { ContentShortType } from "./content/database.content.index";
 import { contentShortGetPreview, contentShortInitialState } from "./content/database.content.index";
 
 // article
-import type { ArticleShortType, ArticeFullByIdType, ArticeWithOnlyTitleType, ArticeAddViewType, ArticeAddGradeType, ArticeAddCommentsType, ArticeGetListCommentsType } from "./article/database.artice.index";
+import type { ArticleShortType, ArticeFullByIdType, ArticeWithOnlyTitleType, ArticeAddViewType, ArticeAddGradeType, ArticeAddCommentsType, ArticeGetListCommentsType, ArticeGetListCommentsItemType } from "./article/database.artice.index";
 import {
   articleShortGetPreview,
   articleShortInitialState,
@@ -80,6 +80,7 @@ export type {
   ArticeAddGradeType,
   ArticeAddCommentsType,
   ArticeGetListCommentsType,
+  ArticeGetListCommentsItemType,
 };
 
 export {
