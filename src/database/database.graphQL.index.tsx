@@ -22,8 +22,23 @@ import {
 } from "./article/database.artice.index";
 
 // video
-import type { VideoShortType } from "./video/database.video.index";
-import { videoShortGetPreview, videoShortInitialState } from "./video/database.video.index";
+import type { VideoShortType, VideoFullByIdType, VideoWithOnlyTitleType, VideoAddViewType, VideoAddGradeType, VideoAddCommentsType, VideoGetListCommentsType, VideoGetListCommentsItemType } from "./video/database.video.index";
+import {
+  videoShortGetPreview,
+  videoShortInitialState,
+  videoFullByIdGetPreview,
+  videoFullByIdInitialState,
+  videoWithOnlyTitleGetPreview,
+  videoWithOnlyTitleInitialState,
+  videoAddViewGet,
+  videoAddViewInitialState,
+  videoAddGradeGet,
+  videoAddGradeInitialState,
+  videoAddCommentsGet,
+  videoAddCommentsInitialState,
+  videoGetListComments,
+  videoGetListCommentsInitialState,
+} from "./video/database.video.index";
 
 // tag
 import type { TagWithOnlyTitleType } from "./tag/database.tag.index";
@@ -63,6 +78,13 @@ export type {
   ContentShortType,
   ArticleShortType,
   VideoShortType,
+  VideoFullByIdType,
+  VideoWithOnlyTitleType,
+  VideoAddViewType,
+  VideoAddGradeType,
+  VideoAddCommentsType,
+  VideoGetListCommentsType,
+  VideoGetListCommentsItemType,
   TagWithOnlyTitleType,
   SearchSugestContentType,
   SearchShortContentType,
@@ -90,6 +112,18 @@ export {
   articleShortInitialState,
   videoShortGetPreview,
   videoShortInitialState,
+  videoFullByIdGetPreview,
+  videoFullByIdInitialState,
+  videoWithOnlyTitleGetPreview,
+  videoWithOnlyTitleInitialState,
+  videoAddViewGet,
+  videoAddViewInitialState,
+  videoAddGradeGet,
+  videoAddGradeInitialState,
+  videoAddCommentsGet,
+  videoAddCommentsInitialState,
+  videoGetListComments,
+  videoGetListCommentsInitialState,
   tagWithOnlyTitleAllGetPreviewList,
   tagWithOnlyTitleInitialState,
   searchSugestContentGetPreview,
