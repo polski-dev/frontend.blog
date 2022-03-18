@@ -7,6 +7,19 @@ import {
   tagWithOnlyTitleInitialState,
   VideoShortType,
   videoShortInitialState,
+  VideoFullByIdType,
+  videoFullByIdInitialState,
+  VideoWithOnlyTitleType,
+  videoWithOnlyTitleInitialState,
+  VideoAddViewType,
+  videoAddViewInitialState,
+  VideoAddGradeType,
+  videoAddGradeInitialState,
+  VideoAddCommentsType,
+  videoAddCommentsInitialState,
+  VideoGetListCommentsType,
+  videoGetListCommentsInitialState,
+  VideoGetListCommentsItemType,
   ArticleShortType,
   articleShortInitialState,
   SearchSugestContentType,
@@ -41,7 +54,6 @@ import {
   articeGetListCommentsInitialState,
   ArticeGetListCommentsItemType,
 } from "./database.graphQL.index";
-import { method } from "lodash";
 
 // search
 const searchSugestContentGetPreview: (search: string) => Promise<SearchSugestContentType> = async (search: string): Promise<SearchSugestContentType> => await fetchAPI({ path: `/api/search/sugest/0/${search}` });
@@ -76,6 +88,15 @@ const articeAddGradeGet: (id: number, authorization: string, grade: string) => P
 
 // video
 const videoShortGetPreview: (page: number, waitingroom: boolean) => Promise<VideoShortType> = async (page: number, waitingroom: boolean): Promise<VideoShortType> => await fetchAPI({ path: `/api/video/${page}`, body: { waitingroom } });
+const videoShortRestAPIGetPreview: (id: number) => Promise<VideoFullByIdType> = async (id: number): Promise<VideoFullByIdType> => await fetchAPI({ path: `/api/video/fullbyid/${id}` });
+const videoWithOnlyTitleRestAPIGetPreview: (page: number) => Promise<VideoWithOnlyTitleType> = async (page: number): Promise<VideoWithOnlyTitleType> => await fetchAPI({ path: `/api/video/videoWithOnlyTitle/${page}` });
+const videoAddViewGet: (id: number) => Promise<VideoAddViewType> = async (id: number): Promise<VideoAddViewType> => await fetchAPI({ path: `/api/video/addview/${id}` });
+const videoAddComments: (idVideo: number, description: string, authorization: string) => Promise<VideoAddCommentsType> = async (idVideo: number, description: string, authorization: string): Promise<VideoAddCommentsType> =>
+  await fetchAPI({ path: `/api/video/comment/add/${idVideo}`, authorization, body: { description } });
+const videoGetListComments: (idVideo: number, page: number) => Promise<VideoGetListCommentsType> = async (idVideo: number, page: number): Promise<VideoGetListCommentsType> =>
+  await fetchAPI({ path: `/api/video/comment/getlist/${idVideo}/${page}`, method: "GET" });
+const videoAddGradeGet: (id: number, authorization: string, grade: string) => Promise<VideoAddGradeType> = async (id: number, authorization: string, grade: string): Promise<VideoAddGradeType> =>
+  await fetchAPI({ path: `/api/video/grade/${id}`, authorization, body: { grade } });
 
 // auth
 const authSingUpPost: (username: string, email: string, password: string) => Promise<AuthSingUpType> = async (username: string, email: string, password: string): Promise<AuthSingUpType> =>
@@ -90,6 +111,13 @@ export type {
   ContentShortType,
   TagWithOnlyTitleType,
   VideoShortType,
+  VideoFullByIdType,
+  VideoWithOnlyTitleType,
+  VideoAddViewType,
+  VideoAddGradeType,
+  VideoAddCommentsType,
+  VideoGetListCommentsType,
+  VideoGetListCommentsItemType,
   ArticleShortType,
   SearchSugestContentType,
   SearchShortContentType,
@@ -116,6 +144,18 @@ export {
   tagWithOnlyTitleAllGetPreviewList,
   videoShortInitialState,
   videoShortGetPreview,
+  videoWithOnlyTitleRestAPIGetPreview,
+  videoShortRestAPIGetPreview,
+  videoFullByIdInitialState,
+  videoWithOnlyTitleInitialState,
+  videoAddViewGet,
+  videoAddViewInitialState,
+  videoAddGradeGet,
+  videoGetListComments,
+  videoAddComments,
+  videoAddGradeInitialState,
+  videoAddCommentsInitialState,
+  videoGetListCommentsInitialState,
   articleShortInitialState,
   articleShortGetPreview,
   searchSugestContentInitialState,

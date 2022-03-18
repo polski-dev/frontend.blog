@@ -1,6 +1,6 @@
 export const videoFullByIdQuery = `
 query($id: ID!) {
-	video: articles(id: $id) {
+	video: video(id: $id) {
 	  data {
 		id
 		attributes {

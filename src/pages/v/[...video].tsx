@@ -8,6 +8,7 @@ import { SectionArticleFull } from "components/templates/section/component.secti
 import { videoWithOnlyTitleGetPreview, VideoWithOnlyTitleType, videoFullByIdGetPreview, VideoFullByIdType, videoGetListComments, VideoGetListCommentsType } from "database/database.graphQL.index";
 
 const Article: NextPage<any> = ({ video, slug, comments }: { video: VideoFullByIdType; slug: string; comments: VideoGetListCommentsType }): JSX.Element => {
+  console.log(video);
   return (
     <>
       <Head>
@@ -60,7 +61,7 @@ export async function getStaticProps({ params }: any): Promise<any> {
 export async function getStaticPaths(): Promise<any> {
   const countPage: VideoWithOnlyTitleType = await videoWithOnlyTitleGetPreview(0);
 
-  const allArticle: any[] = await Promise.all(
+  const allVideo: any[] = await Promise.all(
     new Array(countPage.data.video.meta.pagination.pageCount).fill(undefined).map(async (_: undefined, i: number): Promise<any> => {
       const videoWithOnlyTitle: VideoWithOnlyTitleType = await videoWithOnlyTitleGetPreview(i);
       return videoWithOnlyTitle?.data?.video?.data;
@@ -68,7 +69,7 @@ export async function getStaticPaths(): Promise<any> {
   );
 
   return {
-    paths: [].concat.apply([], allArticle).map((item: any) => `/v/${item.id}/${kebabCase(deburr(item.attributes.title.toLowerCase()))}`),
+    paths: [].concat.apply([], allVideo).map((item: any) => `/v/${item.id}/${kebabCase(deburr(item.attributes.title.toLowerCase()))}`),
     fallback: true,
   };
 }

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useSession } from "next-auth/react";
-import { articeAddGradeGet, ArticeAddGradeType, articeAddGradeInitialState } from "database/database.restAPI.index";
+import { articeAddGradeGet, ArticeAddGradeType, articeAddGradeInitialState, videoAddGradeGet, VideoAddGradeType, videoAddGradeInitialState } from "database/database.restAPI.index";
 
 export default function useGrade() {
   const { data: session } = useSession();
@@ -29,22 +29,29 @@ export default function useGrade() {
 
       switch (data?.type) {
         case "article":
-          const res = await articeAddGradeGet(data.id, `Bearer ${session?.jwt}`, data.grade);
+          const resArticeAddGrade = await articeAddGradeGet(data.id, `Bearer ${session?.jwt}`, data.grade);
           localStorage.removeItem("grande");
-          return res;
+          return resArticeAddGrade;
+        case "video":
+          const resVideoAddGrade = await videoAddGradeGet(data.id, `Bearer ${session?.jwt}`, data.grade);
+          localStorage.removeItem("grande");
+          return resVideoAddGrade;
         default:
           return { data: null, err: true, msg: "unexpected error" };
       }
     }
   };
 
-  const checkGrade: ({ type, id }: { type: string; id: number }) => Promise<ArticeAddGradeType> = async ({ type, id }: { type: string; id: number }): Promise<ArticeAddGradeType> => {
+  const checkGrade: ({ type, id }: { type: string; id: number }) => Promise<ArticeAddGradeType | VideoAddGradeType> = async ({ type, id }: { type: string; id: number }): Promise<ArticeAddGradeType | VideoAddGradeType> => {
     if (!session) return { data: null, err: true, msg: "singin" };
     else {
       switch (type) {
         case "article":
-          const res: ArticeAddGradeType | { data: null; err: boolean; msg: string } = await articeAddGradeGet(id, `Bearer ${session?.jwt}`, "");
-          return res;
+          const resArticeAddGrade: ArticeAddGradeType | { data: null; err: boolean; msg: string } = await articeAddGradeGet(id, `Bearer ${session?.jwt}`, "");
+          return resArticeAddGrade;
+        case "video":
+          const resVideoAddGrade: VideoAddGradeType | { data: null; err: boolean; msg: string } = await videoAddGradeGet(id, `Bearer ${session?.jwt}`, "");
+          return resVideoAddGrade;
         default:
           return { data: null, err: true, msg: "unexpected error" };
       }
