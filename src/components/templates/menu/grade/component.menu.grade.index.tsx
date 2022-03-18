@@ -46,11 +46,11 @@ export default function MenuGrade({ gradeStats, views, comments, id, type, slug 
   };
 
   useEffect(() => {
-    checkGrade({ type: "article", id }).then((res: ArticeAddGradeType | { data: null; err: boolean; msg: string }) => {
+    checkGrade({ type: type, id }).then((res: ArticeAddGradeType | { data: null; err: boolean; msg: string }) => {
       if (!res.data && res?.err) return null;
       res?.data?.voice && setChoisedGrade(res.data?.voice);
     });
-  }, [id, checkGrade]);
+  }, [id, type, checkGrade]);
 
   return (
     <BoxMenu>

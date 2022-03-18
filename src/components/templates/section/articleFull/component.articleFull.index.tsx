@@ -1,19 +1,18 @@
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import { kebabCase, deburr } from "lodash";
 import Avatar from "assets/icon/avatar.svg";
 import { setSlug, time } from "function/function.index";
 import { MarkdownComponents } from "./component.articleFull.markdownblock";
 import CommentList from "components/orgamis/comments/component.comments.index";
-import { ArticeFullByIdType, articeAddViewGet, ArticeGetListCommentsType } from "database/database.restAPI.index";
+import { ArticeFullByIdType, ArticeGetListCommentsType } from "database/database.restAPI.index";
 import { Section, Title, Article, BoxContent, Content, BoxAuthor, BoxAuthorImg, BoxAuthorAvatar, AuthorData, AuthorName, DateAdded, TitleArticle, ListTags, Tag } from "./component.listShortArticle.style";
 
 export default function SectionArticleFull({ data: { article: post, comments }, type }: { data: { article: ArticeFullByIdType; comments: ArticeGetListCommentsType }; type: string }): JSX.Element {
   return (
     <Section>
-      <Title>{type === "article" ? "Artykuł" : "Video"}</Title>
+      <Title>Artykuł</Title>
       <Article>
         {post?.data?.article?.data?.attributes?.cover?.data?.attributes?.url && <Image width={930} height={300} alt={post.data.article.data.attributes.title} src={post.data.article.data.attributes.cover.data.attributes.url} />}
         <BoxContent>

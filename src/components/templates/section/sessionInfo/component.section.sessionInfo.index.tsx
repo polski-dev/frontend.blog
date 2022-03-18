@@ -8,8 +8,8 @@ import { ItemLoad } from "components/atoms/animation/comonent.animation.index";
 
 export default function SectionSessionInfo({ users }: { users: number }) {
   const router = useRouter();
+  const { readCallBackURL } = useCallBackURL();
   const { data: session, status } = useSession();
-  const { readCallBackURL, deleteCallBackURL } = useCallBackURL();
   const [messageSucces, setMessageSucces] = useState("");
 
   useEffect(() => {
@@ -25,6 +25,15 @@ export default function SectionSessionInfo({ users }: { users: number }) {
     switch (readCallBackURL.name) {
       case "article":
         setMessageSucces("do artykułu");
+        break;
+      case "video":
+        setMessageSucces("do video");
+        break;
+      case "user":
+        setMessageSucces("do strony użytkownika");
+        break;
+      case "tag":
+        setMessageSucces("do strony tagu");
         break;
       default:
         setMessageSucces("na stronę główną");

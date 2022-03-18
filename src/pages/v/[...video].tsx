@@ -4,7 +4,7 @@ import { kebabCase, deburr } from "lodash";
 import { MenuGrade } from "components/templates/menu/component.menu.index";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
 import { SquareShortArticle } from "components/atoms/animation/comonent.animation.index";
-import { SectionArticleFull } from "components/templates/section/component.section.index";
+import { SectionVideoFull } from "components/templates/section/component.section.index";
 import { videoWithOnlyTitleGetPreview, VideoWithOnlyTitleType, videoFullByIdGetPreview, VideoFullByIdType, videoGetListComments, VideoGetListCommentsType } from "database/database.graphQL.index";
 
 const Article: NextPage<any> = ({ video, slug, comments }: { video: VideoFullByIdType; slug: string; comments: VideoGetListCommentsType }): JSX.Element => {
@@ -19,7 +19,7 @@ const Article: NextPage<any> = ({ video, slug, comments }: { video: VideoFullByI
           <Row>
             <MenuGrade slug={slug} type="video" comments={comments.meta?.pagination.total || 0} views={video.data.video.data.attributes.views} id={parseInt(video?.data?.video?.data?.id)} gradeStats={video?.data?.video?.data?.attributes?.grades} />
             <Col xs={12} md={9}>
-              {/* <SectionArticleFull data={{ video, comments }} type="video" /> */}
+              <SectionVideoFull data={{ video, comments }} type="video" />
             </Col>
           </Row>
         </Container>

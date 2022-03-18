@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, MutableRefObject } from "react";
 import { useSession } from "next-auth/react";
 import useWindowData from "hooks/hooks.windowData";
-import { articeGetListComments, ArticeGetListCommentsType, articeGetListCommentsInitialState, articeAddComments, ArticeAddCommentsType, articeAddCommentsInitialState } from "database/database.restAPI.index";
+import { articeGetListComments, ArticeGetListCommentsType, articeAddComments, ArticeAddCommentsType, videoGetListComments, VideoGetListCommentsType, videoAddComments, VideoAddCommentsType } from "database/database.restAPI.index";
 
 export default function useComments({ data, type, id }: { data: ArticeGetListCommentsType; type: string; id: number }) {
   const { height } = useWindowData();
@@ -11,12 +11,12 @@ export default function useComments({ data, type, id }: { data: ArticeGetListCom
   const [readCommentToAdd, setReadCommentToAdd] = useState({ id: 0, type: "", comment: "" });
   const itemsRef: MutableRefObject<any> = useRef(null);
 
-  const getListComment = async ({ type, id, page }: { type: string; id: number; page: number }): Promise<ArticeGetListCommentsType> => {
+  const getListComment = async ({ type, id, page }: { type: string; id: number; page: number }): Promise<ArticeGetListCommentsType | VideoGetListCommentsType | void> => {
     switch (type) {
       case "article":
         return await articeGetListComments(id, page);
-      default:
-        return articeGetListCommentsInitialState;
+      case "video":
+        return await videoGetListComments(id, page);
     }
   };
 
@@ -38,7 +38,7 @@ export default function useComments({ data, type, id }: { data: ArticeGetListCom
     localStorage.removeItem("callBackURL");
   };
 
-  const addComment: () => Promise<ArticeAddCommentsType> = async (): Promise<ArticeAddCommentsType> => {
+  const addComment: () => Promise<ArticeAddCommentsType | VideoAddCommentsType> = async (): Promise<ArticeAddCommentsType | VideoAddCommentsType> => {
     if (!checkIfYouHaveToGiveComment() || !readCommentToAdd?.comment?.length)
       return {
         data: null,
@@ -78,8 +78,8 @@ export default function useComments({ data, type, id }: { data: ArticeGetListCom
     else {
       switch (readCommentToAdd?.type) {
         case "article":
-          const res: ArticeAddCommentsType = await articeAddComments(readCommentToAdd?.id, readCommentToAdd.comment, `Bearer ${session?.jwt}`);
-          if (!!res.error?.message)
+          const resArticeAddComments = await articeAddComments(readCommentToAdd?.id, readCommentToAdd.comment, `Bearer ${session?.jwt}`);
+          if (!!resArticeAddComments.error?.message)
             return {
               data: null,
               error: {
@@ -99,7 +99,31 @@ export default function useComments({ data, type, id }: { data: ArticeGetListCom
             };
           localStorage.removeItem("comment");
           setReadCommentToAdd({ id: 0, type: "", comment: "" });
-          return res;
+          return resArticeAddComments;
+
+        case "video":
+          const resVideoAddComments = await videoAddComments(readCommentToAdd?.id, readCommentToAdd.comment, `Bearer ${session?.jwt}`);
+          if (!!resVideoAddComments.error?.message)
+            return {
+              data: null,
+              error: {
+                status: 400,
+                name: "TypeError",
+                message: `Application Error`,
+                details: {
+                  errors: [
+                    {
+                      path: [`ApplicationError`],
+                      message: `Application Error on BackEnd`,
+                      name: "ApplicationError",
+                    },
+                  ],
+                },
+              },
+            };
+          localStorage.removeItem("comment");
+          setReadCommentToAdd({ id: 0, type: "", comment: "" });
+          return resVideoAddComments;
 
         default:
           return {
@@ -124,13 +148,13 @@ export default function useComments({ data, type, id }: { data: ArticeGetListCom
   };
 
   useEffect(() => {
-    getListComment({ id, type, page: 1 }).then((data: ArticeGetListCommentsType) => setComments(data));
+    getListComment({ id, type, page: 1 }).then((data: ArticeGetListCommentsType | VideoGetListCommentsType | void) => !!data && setComments(data));
   }, [id, type]);
 
   useEffect(() => {
     let check = setTimeout(() => {}, 200);
 
-    function loadArticle() {
+    function loadComment() {
       clearTimeout(check);
       check = setTimeout(() => {
         const heightEl: any = itemsRef.current.getBoundingClientRect().y;
@@ -138,16 +162,18 @@ export default function useComments({ data, type, id }: { data: ArticeGetListCom
       }, 200);
     }
 
-    document.addEventListener("scroll", loadArticle);
-    return () => document.removeEventListener("scroll", loadArticle);
+    document.addEventListener("scroll", loadComment);
+    return () => document.removeEventListener("scroll", loadComment);
   }, [itemsRef, height, iAmWaitingForAnswer, comments]);
 
   useEffect(() => {
     if (iAmWaitingForAnswer) {
-      getListComment({ id, type, page: (!!comments.meta?.pagination.page ? comments.meta?.pagination.page : 1) + 1 }).then((res: ArticeGetListCommentsType) => {
-        comments.data = [...comments.data, ...res.data];
-        comments.meta = res.meta;
-        setComments(comments);
+      getListComment({ id, type, page: (!!comments.meta?.pagination.page ? comments.meta?.pagination.page : 1) + 1 }).then((res: ArticeGetListCommentsType | VideoGetListCommentsType | void) => {
+        if (!!res) {
+          comments.data = [...comments.data, ...res.data];
+          comments.meta = res.meta;
+          setComments(comments);
+        }
         setIamWaitingForAnswer(false);
       });
     }

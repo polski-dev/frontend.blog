@@ -12,10 +12,10 @@ import { TextArea } from "components/atoms/textarea/component.textarea.index";
 import { ButtonSubmit } from "components/atoms/button/component.button.index";
 import { ItemLoad } from "components/atoms/animation/comonent.animation.index";
 import { SquareComment } from "components/atoms/animation/comonent.animation.index";
-import { ArticeAddCommentsType, ArticeGetListCommentsType, ArticeGetListCommentsItemType } from "database/database.graphQL.index";
+import { ArticeAddCommentsType, ArticeGetListCommentsType, ArticeGetListCommentsItemType, VideoAddCommentsType, VideoGetListCommentsType, VideoGetListCommentsItemType } from "database/database.graphQL.index";
 import { Comments, BoxComments, BoxCommentsTitle, Form, BoxCommentAvatar, CommentContent, ListComments, Comment, CommentAuthorName, CommentDescription, BoxAuthorAvatar, ErrorMessageText, SuccesMessage } from "./component.comments.style";
 
-export default function CommentsComponent({ data, type, id, slug }: { data: ArticeGetListCommentsType; type: string; id: number; slug: string }): JSX.Element {
+export default function CommentsComponent({ data, type, id, slug }: { data: ArticeGetListCommentsType | VideoGetListCommentsType; type: string; id: number; slug: string }): JSX.Element {
   const { data: session } = useSession();
   const router: NextRouter = useRouter();
   const { addCallBackURL } = useCallBackURL();
@@ -44,7 +44,7 @@ export default function CommentsComponent({ data, type, id, slug }: { data: Arti
             rememberAddComment({ comment: commentsDescription, type, id });
             if (!!session) {
               setStatusAddingComment("expectancy");
-              addComment().then((data: ArticeAddCommentsType) => {
+              addComment().then((data: ArticeAddCommentsType | VideoAddCommentsType) => {
                 if (data.data?.add) {
                   setStatusAddingComment("fulfilled");
                   setTimeout(() => setStatusAddingComment("pending"), 5000);
@@ -85,7 +85,7 @@ export default function CommentsComponent({ data, type, id, slug }: { data: Arti
 
         <ListComments>
           {!!comments?.data?.length &&
-            comments?.data.map((comment: ArticeGetListCommentsItemType, i: number): JSX.Element => {
+            comments?.data.map((comment: ArticeGetListCommentsItemType | VideoGetListCommentsItemType, i: number): JSX.Element => {
               switch (comments.data.length - 1 === i) {
                 case true:
                   return <CommentsItemComponent key={i} data={comment} ref={itemsRef} />;
