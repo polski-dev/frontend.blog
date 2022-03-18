@@ -156,10 +156,12 @@ export default function useComments({ data, type, id }: { data: ArticeGetListCom
 
     function loadComment() {
       clearTimeout(check);
-      check = setTimeout(() => {
-        const heightEl: any = itemsRef.current.getBoundingClientRect().y;
-        if ((!!comments.meta?.pagination.page ? comments.meta?.pagination.page : 1) < (!!comments.meta?.pagination.pageCount ? comments.meta?.pagination.pageCount : 1) && !iAmWaitingForAnswer && heightEl - height < 0) setIamWaitingForAnswer(true);
-      }, 200);
+
+      if (!!itemsRef.current)
+        check = setTimeout(() => {
+          const heightEl: any = itemsRef.current.getBoundingClientRect().y;
+          if ((!!comments.meta?.pagination.page ? comments.meta?.pagination.page : 1) < (!!comments.meta?.pagination.pageCount ? comments.meta?.pagination.pageCount : 1) && !iAmWaitingForAnswer && heightEl - height < 0) setIamWaitingForAnswer(true);
+        }, 200);
     }
 
     document.addEventListener("scroll", loadComment);
