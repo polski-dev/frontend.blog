@@ -7,8 +7,7 @@ import { SquareShortArticle } from "components/atoms/animation/comonent.animatio
 import { SectionVideoFull } from "components/templates/section/component.section.index";
 import { videoWithOnlyTitleGetPreview, VideoWithOnlyTitleType, videoFullByIdGetPreview, VideoFullByIdType, videoGetListComments, VideoGetListCommentsType } from "database/database.graphQL.index";
 
-const Article: NextPage<any> = ({ video, slug, comments }: { video: VideoFullByIdType; slug: string; comments: VideoGetListCommentsType }): JSX.Element => {
-  console.log(video);
+const VideoPage: NextPage<any> = ({ video, slug, comments }: { video: VideoFullByIdType; slug: string; comments: VideoGetListCommentsType }): JSX.Element => {
   return (
     <>
       <Head>
@@ -62,7 +61,7 @@ export async function getStaticPaths(): Promise<any> {
   const countPage: VideoWithOnlyTitleType = await videoWithOnlyTitleGetPreview(0);
 
   const allVideo: any[] = await Promise.all(
-    new Array(countPage.data.video.meta.pagination.pageCount).fill(undefined).map(async (_: undefined, i: number): Promise<any> => {
+    new Array(countPage?.data?.video?.meta?.pagination?.pageCount).fill(undefined).map(async (_: undefined, i: number): Promise<any> => {
       const videoWithOnlyTitle: VideoWithOnlyTitleType = await videoWithOnlyTitleGetPreview(i);
       return videoWithOnlyTitle?.data?.video?.data;
     })
@@ -74,4 +73,4 @@ export async function getStaticPaths(): Promise<any> {
   };
 }
 
-export default Article;
+export default VideoPage;

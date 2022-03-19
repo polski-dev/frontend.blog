@@ -40,6 +40,8 @@ import {
   authSingInInitialState,
   UserByIdType,
   userByIdInitialState,
+  UserGetListType,
+  userGetListInitialState,
   ArticeFullByIdType,
   articeFullByIdInitialState,
   ArticeWithOnlyTitleType,
@@ -106,6 +108,8 @@ const authSingInPost: (email: string, password: string) => Promise<AuthSingInTyp
 
 // user
 const userByIdGetPreview: (id: number) => Promise<UserByIdType> = async (id: number): Promise<UserByIdType> => await fetchAPI({ path: `/api/user/byid/${id}` });
+
+const userGetListPreview: (page: number) => Promise<UserGetListType> = async (page: number): Promise<UserGetListType> => await fetchAPI({ path: `/api/user/${page}` });
 
 export type {
   ContentShortType,

@@ -70,8 +70,8 @@ import type { AuthSingUpType, AuthSingInType } from "./auth/database.auth.index"
 import { authSingUpPost, authSingUpInitialState, authSingInPost, authSingInInitialState } from "./auth/database.auth.index";
 
 // User
-import type { UserByIdType } from "./user/database.user.index";
-import { userByIdGetPreview, userByIdInitialState } from "./user/database.user.index";
+import type { UserByIdType, UserGetListType } from "./user/database.user.index";
+import { userByIdGetPreview, userByIdInitialState, userGetListPreview, userGetListInitialState } from "./user/database.user.index";
 
 // export
 export type {
@@ -96,6 +96,7 @@ export type {
   AuthSingUpType,
   AuthSingInType,
   UserByIdType,
+  UserGetListType,
   ArticeFullByIdType,
   ArticeWithOnlyTitleType,
   ArticeAddViewType,
@@ -146,6 +147,8 @@ export {
   authSingInPost,
   userByIdInitialState,
   userByIdGetPreview,
+  userGetListInitialState,
+  userGetListPreview,
   articeFullByIdInitialState,
   articeFullByIdGetPreview,
   articeWithOnlyTitleInitialState,

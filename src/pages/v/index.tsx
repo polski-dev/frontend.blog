@@ -7,7 +7,7 @@ import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexbo
 import { SectionArticleShortList } from "components/templates/section/component.section.index";
 import { contentShortGetPreview, ContentShortType, tagWithOnlyTitleAllGetPreviewList, TagWithOnlyTitleType } from "database/database.graphQL.index";
 
-const HomeVideo: NextPage<any, {}> = ({ tag, content }: { tag: TagWithOnlyTitleType; content: ContentShortType }): JSX.Element => {
+const VideoHomePage: NextPage<any, {}> = ({ tag, content }: { tag: TagWithOnlyTitleType; content: ContentShortType }): JSX.Element => {
   const { updateTagHome, store } = useDispatchTagToStore();
   useEffect(() => {
     if (!store.tag.home.data.length) updateTagHome(tag);
@@ -52,4 +52,4 @@ export async function getStaticProps(): Promise<any> {
   };
 }
 
-export default HomeVideo;
+export default VideoHomePage;
