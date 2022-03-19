@@ -3,9 +3,9 @@ import { NextPage } from "next";
 import { kebabCase, deburr } from "lodash";
 import { MenuGrade } from "components/templates/menu/component.menu.index";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
-import { SquareShortArticle } from "components/atoms/animation/comonent.animation.index";
 import { SectionVideoFull } from "components/templates/section/component.section.index";
-import { userByIdGetPreview, UserByIdType } from "database/database.graphQL.index";
+import { SquareShortArticle } from "components/atoms/animation/comonent.animation.index";
+import { userGetListPreview, UserGetListType, userByIdGetPreview, UserByIdType } from "database/database.graphQL.index";
 
 const UserPage: NextPage<any> = (): JSX.Element => {
   return (
@@ -28,7 +28,7 @@ const UserPage: NextPage<any> = (): JSX.Element => {
 
 export async function getStaticProps({ params }: any): Promise<any> {
   // article full
-  const user: UserByIdType = await userByIdGetPreview(parseInt(params.user[0]));
+  const user: UserGetListType = await userGetListPreview(parseInt(params.user[0]));
 
   if (!user) {
     return {
@@ -45,17 +45,25 @@ export async function getStaticProps({ params }: any): Promise<any> {
 }
 
 export async function getStaticPaths(): Promise<any> {
-  const countPage: UserByIdType = await userByIdGetPreview(0);
+  const countPage: UserGetListType = await userGetListPreview(0);
 
-  const allVideo: any[] = await Promise.all(
-    new Array(countPage?.data?.video?.meta?.pagination?.pageCount).fill(undefined).map(async (_: undefined, i: number): Promise<any> => {
-      const videoWithOnlyTitle: VideoWithOnlyTitleType = await videoWithOnlyTitleGetPreview(i);
-      return videoWithOnlyTitle?.data?.video?.data;
+  const allUser: any[] = await Promise.all(
+    new Array(countPage?.data?.usersPermissionsUsers?.meta?.pagination?.pageCount).fill(undefined).map(async (_: undefined, i: number): Promise<any> => {
+      const users: UserGetListType = await userGetListPreview(i);
+
+      return users?.data?.usersPermissionsUsers?.data;
     })
   );
 
   return {
-    paths: [].concat.apply([], allVideo).map((item: any) => `/v/${item.id}/${kebabCase(deburr(item.attributes.title.toLowerCase()))}`),
+    paths: [].concat.apply([], allUser).map(
+      (user: {
+        id: string;
+        attributes: {
+          username: string;
+        };
+      }) => `/u/${user.id}/${kebabCase(deburr(user.attributes.username.toLowerCase()))}`
+    ),
     fallback: true,
   };
 }
