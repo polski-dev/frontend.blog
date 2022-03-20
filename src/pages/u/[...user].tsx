@@ -7,11 +7,10 @@ import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexbo
 import { userGetListPreview, UserGetListType, userByIdGetPreview, UserByIdType } from "database/database.graphQL.index";
 
 const UserPage: NextPage<any> = ({ user }: { user: UserByIdType }): JSX.Element => {
-  console.log(user);
   return (
     <>
       <Head>
-        <title>{user.data?.user.data.attributes.username || "Użytkownik"} | POLSKI.DEV 👩‍💻👨‍💻</title>
+        <title>ij | POLSKI.DEV 👩‍💻👨‍💻</title>
       </Head>
       <div style={{ width: "100%", height: "10rem", backgroundColor: "#5F6367" }}></div>
       <Container>
@@ -39,7 +38,6 @@ export async function getStaticProps({ params }: any): Promise<any> {
   return {
     props: {
       user,
-      slug: `/${params.user[0]}/${params.user[1]}`,
     },
   };
 }
