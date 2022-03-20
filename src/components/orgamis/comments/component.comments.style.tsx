@@ -43,9 +43,9 @@ export const BoxCommentAvatar: StyledComponent<any, any> = styled.div`
   display: none;
 
   @media all and (min-width: 526px) {
-    width: 4.2rem;
+    width: 8.5rem;
     display: flex;
-    height: 4.2rem;
+    height: 8.5rem;
     overflow: hidden;
     position: relative;
     border-radius: 100%;

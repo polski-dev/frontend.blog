@@ -13,7 +13,7 @@ export default NextAuth({
         const res: AuthSingInType = await authSingInPost(identifier.toString(), password.toString());
         const avatar: UserByIdType | null = res.data?.login?.user?.id ? await userByIdGetPreview(parseInt(res.data?.login.user.id)) : null;
         if (!!res?.errors) return null;
-        return { jwt: res.data?.login.jwt, user: { ...res.data?.login.user, email: identifier.toString(), picture: avatar?.data?.user?.data?.attributes?.avatar?.data?.attributes?.url } };
+        return { jwt: res.data?.login.jwt, user: { ...res.data?.login.user, email: identifier.toString(), picture: avatar?.data?.user?.data?.attributes?.avatar?.data.attributes.url } };
       },
     }),
   ],

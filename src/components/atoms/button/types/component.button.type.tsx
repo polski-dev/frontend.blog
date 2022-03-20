@@ -1,9 +1,9 @@
 export interface ButtonDefaultType {
+  style?: any;
   title: string;
   active?: boolean;
   className?: string;
   onClick?: () => void;
-
   children: JSX.Element | string;
 }
 

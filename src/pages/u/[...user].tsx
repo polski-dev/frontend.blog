@@ -1,24 +1,26 @@
 import Head from "next/head";
 import { NextPage } from "next";
 import { kebabCase, deburr } from "lodash";
-import { MenuGrade } from "components/templates/menu/component.menu.index";
+import { MenuUser } from "components/templates/menu/component.menu.index";
+import { UserInfo } from "components/templates/user/component.user.index";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
 import { SectionVideoFull } from "components/templates/section/component.section.index";
 import { SquareShortArticle } from "components/atoms/animation/comonent.animation.index";
 import { userGetListPreview, UserGetListType, userByIdGetPreview, UserByIdType } from "database/database.graphQL.index";
 
-const UserPage: NextPage<any> = (): JSX.Element => {
+const UserPage: NextPage<any> = ({ user }: { user: UserByIdType }): JSX.Element => {
+  console.log(user.data?.user.data.attributes.username);
   return (
     <>
       <Head>
-        <title>Blog | POLSKI.DEV 👩‍💻👨‍💻</title>
+        <title>{user.data?.user.data.attributes.username || "Użytkownik"} | POLSKI.DEV 👩‍💻👨‍💻</title>
       </Head>
-
+      <div style={{ width: "100%", height: "10rem", backgroundColor: "#5F6367" }}></div>
       <Container>
         <Row>
-          ok
+          <MenuUser />
           <Col xs={12} md={9}>
-            ok
+            <UserInfo />
           </Col>
         </Row>
       </Container>
@@ -28,7 +30,7 @@ const UserPage: NextPage<any> = (): JSX.Element => {
 
 export async function getStaticProps({ params }: any): Promise<any> {
   // article full
-  const user: UserGetListType = await userGetListPreview(parseInt(params.user[0]));
+  const user: UserByIdType = await userByIdGetPreview(parseInt(params.user[0]));
 
   if (!user) {
     return {
@@ -62,7 +64,7 @@ export async function getStaticPaths(): Promise<any> {
         attributes: {
           username: string;
         };
-      }) => `/u/${user.id}/${kebabCase(deburr(user.attributes.username.toLowerCase()))}`
+      }) => `/u/${user?.id}/${kebabCase(deburr(user?.attributes?.username.toLowerCase()))}`
     ),
     fallback: true,
   };
