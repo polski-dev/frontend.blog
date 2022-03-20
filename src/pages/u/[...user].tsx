@@ -4,8 +4,6 @@ import { kebabCase, deburr } from "lodash";
 import { MenuUser } from "components/templates/menu/component.menu.index";
 import { UserInfo } from "components/templates/user/component.user.index";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
-import { SectionVideoFull } from "components/templates/section/component.section.index";
-import { SquareShortArticle } from "components/atoms/animation/comonent.animation.index";
 import { userGetListPreview, UserGetListType, userByIdGetPreview, UserByIdType } from "database/database.graphQL.index";
 
 const UserPage: NextPage<any> = ({ user }: { user: UserByIdType }): JSX.Element => {
