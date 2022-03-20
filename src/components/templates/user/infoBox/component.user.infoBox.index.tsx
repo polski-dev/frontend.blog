@@ -16,7 +16,7 @@ export default function UserInfoBoxComponent() {
       <Avatar>
         <AvatarBasic />
       </Avatar>
-      <Button title="subskrybuj" style={{ right: "1.5rem", top: "1.5rem", position: "absolute" }}>
+      <Button title="subskrybuj" className="btn">
         Subskrybuj
       </Button>
       <Name>Paweł Niedźwiecki</Name>
@@ -41,22 +41,16 @@ export default function UserInfoBoxComponent() {
               <Youtube />
             </a>
           </Link>
-        </Item>
-        <Item>
           <Link href="/">
             <a>
               <Google />
             </a>
           </Link>
-        </Item>
-        <Item>
           <Link href="/">
             <a>
               <Instagram />
             </a>
           </Link>
-        </Item>
-        <Item>
           <Link href="/">
             <a>
               <Github />

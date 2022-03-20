@@ -9,7 +9,7 @@ import { SquareShortArticle } from "components/atoms/animation/comonent.animatio
 import { userGetListPreview, UserGetListType, userByIdGetPreview, UserByIdType } from "database/database.graphQL.index";
 
 const UserPage: NextPage<any> = ({ user }: { user: UserByIdType }): JSX.Element => {
-  console.log(user.data?.user.data.attributes.username);
+  console.log(user);
   return (
     <>
       <Head>
