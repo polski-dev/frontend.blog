@@ -7,7 +7,6 @@ query($id: ID!) {
 		  about
 		  city
 		  country
-		  birthday
 		  username
 		  createdAt
 		  github
@@ -22,8 +21,24 @@ query($id: ID!) {
 			  }
 			}
 		  }
+		  skilks {
+			data {
+			  id
+			  attributes {
+				title
+			  }
+			}
+		  }
+		  learn {
+			data {
+			  id
+			  attributes {
+				title
+			  }
+			}
+		  }
 		}
 	  }
 	}
-  }
+  }  
  `;

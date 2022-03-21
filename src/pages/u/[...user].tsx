@@ -7,10 +7,11 @@ import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexbo
 import { userGetListPreview, UserGetListType, userByIdGetPreview, UserByIdType } from "database/database.graphQL.index";
 
 const UserPage: NextPage<any> = ({ user }: { user: UserByIdType }): JSX.Element => {
+  console.log(user);
   return (
     <>
       <Head>
-        <title>ij | POLSKI.DEV 👩‍💻👨‍💻</title>
+        <title> | POLSKI.DEV 👩‍💻👨‍💻</title>
       </Head>
       <div style={{ width: "100%", height: "10rem", backgroundColor: "#5F6367" }}></div>
       <Container>

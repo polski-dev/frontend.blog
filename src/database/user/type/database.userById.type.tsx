@@ -7,9 +7,8 @@ export interface UserByIdType {
           about: null | string;
           city: null | string;
           country: null | string;
-          birthday: null | string;
-          username: null | string;
-          createdAt: null | string;
+          username: string;
+          createdAt: Date;
           github: null | string;
           tiktok: null | string;
           website: null | string;
@@ -18,12 +17,28 @@ export interface UserByIdType {
           avatar: {
             data: {
               attributes: {
-                url: string;
+                url: null | string;
               };
             };
           };
+          skilks: {
+            data: {
+              id: string;
+              attributes: {
+                title: string;
+              };
+            }[];
+          };
+          learn: {
+            data: {
+              id: string;
+              attributes: {
+                title: string;
+              };
+            }[];
+          };
         };
-      };
+      } | null;
     };
   };
   error?: {
