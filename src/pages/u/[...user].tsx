@@ -7,7 +7,6 @@ import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexbo
 import { userGetListPreview, UserGetListType, userByIdGetPreview, UserByIdType } from "database/database.graphQL.index";
 
 const UserPage: NextPage<any> = ({ user }: { user: UserByIdType }): JSX.Element => {
-  console.log(user);
   return (
     <>
       <Head>
@@ -18,7 +17,7 @@ const UserPage: NextPage<any> = ({ user }: { user: UserByIdType }): JSX.Element 
         <Row>
           <MenuUser />
           <Col xs={12} md={9}>
-            <UserInfo />
+            <UserInfo data={user} />
           </Col>
         </Row>
       </Container>
