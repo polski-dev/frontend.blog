@@ -18,7 +18,7 @@ export default function SectionVideoFull({ data: { video, comments }, type }: { 
         <BoxContent>
           <BoxAuthor>
             <BoxAuthorImg>
-              {video?.data.video.data.attributes?.author.data?.attributes.avatar.data.attributes.url ? (
+              {video?.data?.video?.data?.attributes?.author.data?.attributes?.avatar?.data?.attributes?.url ? (
                 <Image width={42} height={42} placeholder="blur" blurDataURL="/img/blur.png" alt={video.data.video.data.attributes.author.data.attributes.username} src={video.data.video.data.attributes?.author.data?.attributes.avatar.data.attributes.url} />
               ) : (
                 <BoxAuthorAvatar>

@@ -18,7 +18,7 @@ export default function SectionArticleFull({ data: { article: post, comments }, 
         <BoxContent>
           <BoxAuthor>
             <BoxAuthorImg>
-              {post?.data.article.data.attributes?.author.data?.attributes.avatar.data.attributes.url ? (
+              {post?.data?.article?.data?.attributes?.author?.data?.attributes?.avatar?.data?.attributes?.url ? (
                 <Image width={42} height={42} placeholder="blur" blurDataURL="/img/blur.png" alt={post.data.article.data.attributes.author.data.attributes.username} src={post.data.article.data.attributes?.author.data?.attributes.avatar.data.attributes.url} />
               ) : (
                 <BoxAuthorAvatar>

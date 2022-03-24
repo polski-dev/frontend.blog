@@ -16,7 +16,7 @@ const VideoPage: NextPage<any> = ({ video, slug, comments }: { video: VideoFullB
       {!!video ? (
         <Container>
           <Row>
-            <MenuGrade slug={slug} type="video" comments={comments.meta?.pagination.total || 0} views={video.data.video.data.attributes.views} id={parseInt(video?.data?.video?.data?.id)} gradeStats={video?.data?.video?.data?.attributes?.grades} />
+            <MenuGrade slug={slug} type="video" comments={comments?.meta?.pagination?.total || 0} views={video?.data?.video?.data?.attributes.views} id={parseInt(video?.data?.video?.data?.id)} gradeStats={video?.data?.video?.data?.attributes?.grades} />
             <Col xs={12} md={9}>
               <SectionVideoFull data={{ video, comments }} type="video" />
             </Col>
