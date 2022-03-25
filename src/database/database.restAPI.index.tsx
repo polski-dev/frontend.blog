@@ -42,6 +42,10 @@ import {
   userByIdInitialState,
   UserGetListType,
   userGetListInitialState,
+  UserSubscriptionStatusType,
+  userSubscriptionStatusInitialState,
+  UserSubscriptionToggleType,
+  userSubscriptionToggleInitialState,
   ArticeFullByIdType,
   articeFullByIdInitialState,
   ArticeWithOnlyTitleType,
@@ -111,6 +115,12 @@ const userByIdGetPreview: (id: number) => Promise<UserByIdType> = async (id: num
 
 const userGetListPreview: (page: number) => Promise<UserGetListType> = async (page: number): Promise<UserGetListType> => await fetchAPI({ path: `/api/user/${page}` });
 
+const userSubscriptionStatusGet: (idUser: number, authorization: string) => Promise<UserSubscriptionStatusType> = async (idUser: number, authorization: string): Promise<UserSubscriptionStatusType> =>
+  await fetchAPI({ path: `/api/user/subscription/status/${idUser}`, authorization: `Bearer ${authorization}` });
+
+const userSubscriptionToggleGet: (idUser: number, authorization: string) => Promise<UserSubscriptionStatusType> = async (idUser: number, authorization: string): Promise<UserSubscriptionStatusType> =>
+  await fetchAPI({ path: `/api/user/subscription/toggle/${idUser}`, authorization: `Bearer ${authorization}` });
+
 export type {
   ContentShortType,
   TagWithOnlyTitleType,
@@ -132,6 +142,9 @@ export type {
   AuthSingUpType,
   AuthSingInType,
   UserByIdType,
+  UserGetListType,
+  UserSubscriptionStatusType,
+  UserSubscriptionToggleType,
   ArticeFullByIdType,
   ArticeWithOnlyTitleType,
   ArticeAddViewType,
@@ -180,6 +193,12 @@ export {
   authSingInPost,
   userByIdInitialState,
   userByIdGetPreview,
+  userGetListInitialState,
+  userGetListPreview,
+  userSubscriptionStatusInitialState,
+  userSubscriptionStatusGet,
+  userSubscriptionToggleInitialState,
+  userSubscriptionToggleGet,
   articleShortRestAPIGetPreview,
   articeFullByIdInitialState,
   articeWithOnlyTitleRestAPIGetPreview,

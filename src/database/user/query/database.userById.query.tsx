@@ -2,6 +2,7 @@ export const userByIdQuery = `
 query($id: ID!) {
 	user: usersPermissionsUser(id: $id) {
 	  data {
+		id
 		attributes {
 		  views
 		  about

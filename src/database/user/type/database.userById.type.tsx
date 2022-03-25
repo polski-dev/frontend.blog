@@ -2,6 +2,7 @@ export interface UserByIdType {
   data?: {
     user: {
       data: {
+        id: string;
         attributes: {
           views: number;
           about: null | string;
