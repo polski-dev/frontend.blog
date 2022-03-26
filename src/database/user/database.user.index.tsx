@@ -14,6 +14,9 @@ import { userSubscriptionStatusInitialState } from "./initialState/database.user
 //
 import { UserSubscriptionToggleType } from "./type/database.userSubscriptionToggle.type";
 import { userSubscriptionToggleInitialState } from "./initialState/database.userSubscriptionToggle.initialState";
+//
+import { UserStatisticsType } from "./type/database.userStatistics.type";
+import { userStatisticsInitialState } from "./initialState/database.userStatistics.initialState";
 
 // metchods
 const userByIdGetPreview: (id: number) => Promise<UserByIdType> = async (id: number): Promise<UserByIdType> => await fetchGraphQLAPI(userByIdQuery, { variables: { id } });
@@ -27,5 +30,18 @@ const userSubscriptionStatusGet: (idUser: number, authorization: string) => Prom
 const userSubscriptionToggleGet: (idUser: number, authorization: string) => Promise<UserSubscriptionStatusType> = async (idUser: number, authorization: string): Promise<UserSubscriptionStatusType> =>
   await fetchRestAPI({ path: `${process.env.NEXT_PUBLIC_API_URL}/api/user/${idUser}/subscribe/toggle`, authorization });
 
-export type { UserByIdType, UserGetListType, UserSubscriptionStatusType, UserSubscriptionToggleType };
-export { userByIdGetPreview, userByIdInitialState, userGetListPreview, userGetListInitialState, userSubscriptionStatusGet, userSubscriptionStatusInitialState, userSubscriptionToggleGet, userSubscriptionToggleInitialState };
+const userStatisticsGet: (idUser: number) => Promise<UserStatisticsType> = async (idUser: number): Promise<UserStatisticsType> => await fetchRestAPI({ path: `${process.env.NEXT_PUBLIC_API_URL}/api/user/${idUser}/statistics` });
+
+export type { UserByIdType, UserGetListType, UserSubscriptionStatusType, UserSubscriptionToggleType, UserStatisticsType };
+export {
+  userByIdGetPreview,
+  userByIdInitialState,
+  userGetListPreview,
+  userGetListInitialState,
+  userSubscriptionStatusGet,
+  userSubscriptionStatusInitialState,
+  userSubscriptionToggleGet,
+  userSubscriptionToggleInitialState,
+  userStatisticsGet,
+  userStatisticsInitialState,
+};

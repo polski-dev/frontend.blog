@@ -46,6 +46,8 @@ import {
   userSubscriptionStatusInitialState,
   UserSubscriptionToggleType,
   userSubscriptionToggleInitialState,
+  UserStatisticsType,
+  userStatisticsInitialState,
   ArticeFullByIdType,
   articeFullByIdInitialState,
   ArticeWithOnlyTitleType,
@@ -121,6 +123,8 @@ const userSubscriptionStatusGet: (idUser: number, authorization: string) => Prom
 const userSubscriptionToggleGet: (idUser: number, authorization: string) => Promise<UserSubscriptionStatusType> = async (idUser: number, authorization: string): Promise<UserSubscriptionStatusType> =>
   await fetchAPI({ path: `/api/user/subscription/toggle/${idUser}`, authorization: `Bearer ${authorization}` });
 
+const userStatisticsGet: (idUser: number) => Promise<UserStatisticsType> = async (idUser: number): Promise<UserStatisticsType> => await fetchAPI({ path: `/api/user/statistics/${idUser}` });
+
 export type {
   ContentShortType,
   TagWithOnlyTitleType,
@@ -145,6 +149,7 @@ export type {
   UserGetListType,
   UserSubscriptionStatusType,
   UserSubscriptionToggleType,
+  UserStatisticsType,
   ArticeFullByIdType,
   ArticeWithOnlyTitleType,
   ArticeAddViewType,
@@ -199,6 +204,8 @@ export {
   userSubscriptionStatusGet,
   userSubscriptionToggleInitialState,
   userSubscriptionToggleGet,
+  userStatisticsInitialState,
+  userStatisticsGet,
   articleShortRestAPIGetPreview,
   articeFullByIdInitialState,
   articeWithOnlyTitleRestAPIGetPreview,
