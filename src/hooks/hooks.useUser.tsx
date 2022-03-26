@@ -2,13 +2,24 @@ import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { NextRouter, useRouter } from "next/router";
 import useCallBackURL from "hooks/hooks.useCallBackURL";
-import { userSubscriptionStatusGet, userSubscriptionStatusInitialState, UserSubscriptionStatusType, userSubscriptionToggleGet, userSubscriptionToggleInitialState, UserSubscriptionToggleType } from "database/database.restAPI.index";
+import {
+  userSubscriptionStatusGet,
+  userSubscriptionStatusInitialState,
+  UserSubscriptionStatusType,
+  userSubscriptionToggleGet,
+  userSubscriptionToggleInitialState,
+  UserSubscriptionToggleType,
+  userStatisticsInitialState,
+  userStatisticsGet,
+  UserStatisticsType,
+} from "database/database.restAPI.index";
 
-export default function useUser({ type, id, slug }: { type: string; id: number; slug: string }) {
+export default function useUser({ type, id, slug }: { type: string; id: number; slug?: string }) {
   const router: NextRouter = useRouter();
   const { data: session } = useSession();
   const { addCallBackURL } = useCallBackURL();
   const [statusSubscription, setStatusSubsctiption] = useState(false);
+  const [statistics, setStatistics] = useState(userStatisticsInitialState);
 
   const subscriptionStatusGet = async (): Promise<UserSubscriptionStatusType> => {
     switch (type) {
@@ -19,9 +30,18 @@ export default function useUser({ type, id, slug }: { type: string; id: number; 
     }
   };
 
+  const statisticsGet = async (): Promise<UserStatisticsType> => {
+    switch (type) {
+      case "user":
+        return await userStatisticsGet(id);
+      default:
+        return userStatisticsInitialState;
+    }
+  };
+
   const subscriptionToggleGet = async (): Promise<UserSubscriptionToggleType | void> => {
     if (!session) {
-      addCallBackURL({ name: "user", to: slug });
+      addCallBackURL({ name: "user", to: slug || "" });
       router.replace("/auth/signin");
     } else
       switch (type) {
@@ -44,5 +64,12 @@ export default function useUser({ type, id, slug }: { type: string; id: number; 
     }
   }, [session, id, type]);
 
-  return { statusSubscription, setStatusSubsctiption, subscriptionStatusGet, subscriptionToggleGet };
+  useEffect(() => {
+    (async () => {
+      const feshStatistics = await userStatisticsGet(id);
+      setStatistics(feshStatistics);
+    })();
+  }, [id]);
+
+  return { statistics, statusSubscription, setStatusSubsctiption, subscriptionStatusGet, subscriptionToggleGet, statisticsGet };
 }
