@@ -1,6 +1,6 @@
 // content
-import type { ContentShortType } from "./content/database.content.index";
-import { contentShortGetPreview, contentShortInitialState } from "./content/database.content.index";
+import type { ContentShortType, ContentShortFromUserType } from "./content/database.content.index";
+import { contentShortGetPreview, contentShortInitialState, contentShortFromUserGetPreview, contentShortFromUserInitialState } from "./content/database.content.index";
 
 // article
 import type { ArticleShortType, ArticeFullByIdType, ArticeWithOnlyTitleType, ArticeAddViewType, ArticeAddGradeType, ArticeAddCommentsType, ArticeGetListCommentsType, ArticeGetListCommentsItemType } from "./article/database.artice.index";
@@ -87,6 +87,7 @@ import {
 // export
 export type {
   ContentShortType,
+  ContentShortFromUserType,
   ArticleShortType,
   VideoShortType,
   VideoFullByIdType,
@@ -123,6 +124,8 @@ export type {
 export {
   contentShortGetPreview,
   contentShortInitialState,
+  contentShortFromUserGetPreview,
+  contentShortFromUserInitialState,
   articleShortGetPreview,
   articleShortInitialState,
   videoShortGetPreview,
