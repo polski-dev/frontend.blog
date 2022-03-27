@@ -13,13 +13,20 @@ import {
   searchShortTagGetPreview,
   SearchShortUserType,
   searchShortUserGetPreview,
+  ContentShortFromUserType,
+  contentShortFromUserGetPreview,
 } from "database/database.restAPI.index";
 
-export const selectAPI = async (type: string, content: any, page: number, search?: string) => {
+export const selectAPI = async ({ type, content, page, search, userId }: { type: string; content: any; page: number; search?: string; userId?: number }) => {
   switch (type) {
     case "all":
       const all: any = await contentShortGetPreview(page, false);
       content.data.all.data = [...content.data.all.data, ...all?.data.all?.data];
+      break;
+    case "allFromUser":
+      const allFromUser: ContentShortFromUserType = await contentShortFromUserGetPreview(page, userId || 0);
+      const data = !!allFromUser?.data.all?.data?.length ? allFromUser.data.all.data : [];
+      content.data.all.data = [...content.data.all.data, ...data];
       break;
     case "allWaitingRoom":
       const allWaitingRoom: any = await contentShortGetPreview(page, true);

@@ -2,6 +2,7 @@ export const setTypeContent = (type: string) => {
   switch (type) {
     case "all":
     case "search":
+    case "allFromUser":
     case "allWaitingRoom":
       return "all";
     case "video":

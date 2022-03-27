@@ -3,6 +3,8 @@ import fetchAPI from "./fetchAPI/database.fetchAPI.restAPI";
 import {
   ContentShortType,
   contentShortInitialState,
+  ContentShortFromUserType,
+  contentShortFromUserInitialState,
   TagWithOnlyTitleType,
   tagWithOnlyTitleInitialState,
   VideoShortType,
@@ -73,6 +75,7 @@ const searchShortUserGetPreview: (page: number, search: string) => Promise<Searc
 
 // content
 const contentShortGetPreview: (page: number, waitingroom: boolean) => Promise<ContentShortType> = async (page: number, waitingroom: boolean): Promise<ContentShortType> => await fetchAPI({ path: `/api/content/${page}`, body: { waitingroom } });
+const contentShortFromUserGetPreview: (page: number, userId: number) => Promise<ContentShortFromUserType> = async (page: number, userId: number): Promise<ContentShortFromUserType> => await fetchAPI({ path: `api/content/fromuser/${page}/${userId}` });
 
 // tag
 const tagWithOnlyTitleAllGetPreviewList: (page: number) => Promise<TagWithOnlyTitleType> = async (page: number): Promise<TagWithOnlyTitleType> => await fetchAPI({ path: `/api/tag/${page}` });
@@ -127,6 +130,7 @@ const userStatisticsGet: (idUser: number) => Promise<UserStatisticsType> = async
 
 export type {
   ContentShortType,
+  ContentShortFromUserType,
   TagWithOnlyTitleType,
   VideoShortType,
   VideoFullByIdType,
@@ -162,6 +166,8 @@ export type {
 export {
   contentShortInitialState,
   contentShortGetPreview,
+  contentShortFromUserInitialState,
+  contentShortFromUserGetPreview,
   tagWithOnlyTitleInitialState,
   tagWithOnlyTitleAllGetPreviewList,
   videoShortInitialState,
