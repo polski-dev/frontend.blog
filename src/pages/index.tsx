@@ -24,8 +24,8 @@ const Home: NextPage<any, {}> = ({ tag, content }: { tag: TagWithOnlyTitleType; 
             title="Filtruj"
             data={[
               { slug: "/", title: "Wszystko", quantity: content.data.all?.meta.pagination.total || 0 },
-              { slug: "/a", title: "Artykuły", quantity: content.data.article.meta.pagination.total },
-              { slug: "/v", title: "Video", quantity: content.data.video.meta.pagination.total },
+              { slug: "/a", title: "Artykuły", quantity: content.data.article?.meta.pagination.total || 0 },
+              { slug: "/v", title: "Video", quantity: content.data.video?.meta.pagination.total || 0 },
             ]}
           />
           <Col xs={12} md={9}>

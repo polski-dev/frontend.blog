@@ -115,7 +115,7 @@ export interface ContentShortType {
         };
       };
     };
-    article: {
+    article?: {
       data: {
         id: string;
         attributes: {
@@ -176,7 +176,7 @@ export interface ContentShortType {
         };
       };
     };
-    video: {
+    video?: {
       data: {
         id: string;
         attributes: {

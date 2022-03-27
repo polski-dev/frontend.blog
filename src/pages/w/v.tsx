@@ -24,8 +24,8 @@ const WaitingroomVideo: NextPage<any, ContentShortType> = ({ tag, content }: { t
             title="Filtruj"
             data={[
               { slug: "/w", title: "Wszystko", quantity: content.data.all?.meta.pagination.total || 0 },
-              { slug: "/w/a", title: "Artykuły", quantity: content.data.article.meta.pagination.total },
-              { slug: "/w/v", title: "Video", quantity: content.data.video.meta.pagination.total },
+              { slug: "/w/a", title: "Artykuły", quantity: content?.data?.article?.meta?.pagination?.total || 0 },
+              { slug: "/w/v", title: "Video", quantity: content?.data?.video?.meta?.pagination?.total || 0 },
             ]}
           />
           <Col xs={12} md={9}>

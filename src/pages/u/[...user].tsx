@@ -19,7 +19,7 @@ const UserPage: NextPage<any> = ({ user, content, slug }: { user: UserByIdType; 
           <MenuUser data={{ id: (user?.data?.user?.data?.id && parseInt(user?.data?.user?.data?.id)) || 0, learn: user?.data?.user?.data?.attributes?.learn || { data: [] }, skilks: user?.data?.user?.data?.attributes?.skilks || { data: [] } }} />
           <Col xs={12} md={9}>
             <UserInfo data={{ user, slug }} />
-            <SectionArticleShortList data={content} type="allFromUser" />
+            <SectionArticleShortList data={content} userId={(user?.data?.user?.data?.id && parseInt(user?.data?.user?.data?.id)) || 0} type="allFromUser" />
           </Col>
         </Row>
       </Container>

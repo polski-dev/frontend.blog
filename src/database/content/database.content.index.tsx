@@ -17,22 +17,27 @@ const contentShortGetPreview: (page: number, waitingroom: boolean) => Promise<Co
   if (!data) return contentShortInitialState;
 
   // add type content
-  data?.data?.article.data.forEach((art: any) => (art.type = "article"));
+  data?.data?.article?.data.forEach((art: any) => (art.type = "article"));
   data?.data?.video?.data.forEach((art: any) => (art.type = "video"));
 
   // count page for all content
-  const pageCount = Math.ceil((data?.data?.article.meta.pagination.total + data?.data?.video.meta.pagination.total) / 10);
+  const totalArticle = data?.data?.article?.meta?.pagination?.total || 0;
+  const totalVideo = data?.data?.video?.meta?.pagination?.total || 0;
+  const pageCount = Math.ceil((totalArticle + totalVideo) / 10);
+
+  const allArticle = data?.data?.article?.data || [];
+  const allVideo = data?.data?.video?.data || [];
 
   return {
     data: {
       all: {
-        data: orderBy([...data?.data?.article?.data, ...data?.data?.video?.data], (item) => item.attributes.createdAt, ["desc"]),
+        data: orderBy([...allArticle, ...allVideo], (item) => item.attributes.createdAt, ["desc"]),
         meta: {
           pagination: {
             page: page + 1,
             pageSize: 20,
             pageCount: pageCount === 0 ? 1 : pageCount,
-            total: data.data.article.meta.pagination.total + data.data.video.meta.pagination.total,
+            total: totalArticle + totalVideo,
           },
         },
       },
@@ -47,22 +52,27 @@ const contentShortFromUserGetPreview: (page: number, userId: number) => Promise<
   if (!data) return contentShortFromUserInitialState;
 
   // add type content
-  data?.data?.article.data.forEach((art: any) => (art.type = "article"));
+  data?.data?.article?.data.forEach((art: any) => (art.type = "article"));
   data?.data?.video?.data.forEach((art: any) => (art.type = "video"));
 
   // count page for all content
-  const pageCount = Math.ceil((data?.data?.article.meta.pagination.total + data?.data?.video.meta.pagination.total) / 10);
+  const totalArticle = data?.data?.article?.meta?.pagination?.total || 0;
+  const totalVideo = data?.data?.video?.meta?.pagination?.total || 0;
+  const pageCount = Math.ceil((totalArticle + totalVideo) / 10);
+
+  const allArticle = data?.data?.article?.data || [];
+  const allVideo = data?.data?.video?.data || [];
 
   return {
     data: {
       all: {
-        data: orderBy([...data?.data?.article?.data, ...data?.data?.video?.data], (item) => item.attributes.createdAt, ["desc"]),
+        data: orderBy([...allArticle, ...allVideo], (item) => item.attributes.createdAt, ["desc"]),
         meta: {
           pagination: {
             page: page + 1,
             pageSize: 20,
             pageCount: pageCount === 0 ? 1 : pageCount,
-            total: data.data.article.meta.pagination.total + data.data.video.meta.pagination.total,
+            total: totalArticle + totalVideo,
           },
         },
       },

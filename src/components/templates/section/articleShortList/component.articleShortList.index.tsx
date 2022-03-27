@@ -8,7 +8,7 @@ import { SquareShortArticle } from "components/atoms/animation/comonent.animatio
 import selectTemplateForContent from "./switchs/component.listShortArticle.selectTemplate";
 import { Section, Title, BoxInformation, Info, NotFound } from "./style/component.listShortArticle.style";
 
-export default function SectionArticleShortList({ data, type, loadData, search, userId }: { data: any; type: string; loadData?: boolean; search?: string; userId?: number }): JSX.Element {
+export default function SectionArticleShortList({ data, type, loadData, search, userId = 0 }: { data: any; type: string; loadData?: boolean; search?: string; userId?: number }): JSX.Element {
   const { width, height } = useWindowData();
   const [page, setPage] = useState(1);
   const [content, setContent] = useState(data);
@@ -22,12 +22,13 @@ export default function SectionArticleShortList({ data, type, loadData, search, 
   // i check if can download next contents
   useEffect(() => {
     let check = setTimeout(() => {}, 200);
+    const typeContent = setTypeContent(type) || "all";
 
     function loadArticle() {
       clearTimeout(check);
       check = setTimeout(() => {
         const heightEl: any = articeRef?.current?.getBoundingClientRect().y;
-        if (page < content.data[setTypeContent(type)].meta.pagination.pageCount && !iAmWaitingForAnswer && heightEl - height < 0) setIamWaitingForAnswer(true);
+        if (page < content?.data[typeContent]?.meta?.pagination?.pageCount && !iAmWaitingForAnswer && heightEl - height < 0) setIamWaitingForAnswer(true);
       }, 200);
     }
 
@@ -51,7 +52,7 @@ export default function SectionArticleShortList({ data, type, loadData, search, 
     <Section>
       <Title>{selectHeader(type, search)}</Title>
 
-      {content.data[setTypeContent(type)].data.map((item: any, i: number) => selectTemplateForContent(item, i, articeRef))}
+      {content?.data[setTypeContent(type)]?.data?.length && content.data[setTypeContent(type)].data.map((item: any, i: number) => selectTemplateForContent(item, i, articeRef))}
 
       {iAmWaitingForAnswer || loadData ? (
         <>
@@ -59,7 +60,7 @@ export default function SectionArticleShortList({ data, type, loadData, search, 
             return <SquareShortArticle key={i} last={new Array(10).length - 1 === i} />;
           })}
         </>
-      ) : !!content.data[setTypeContent(type)].data.length ? (
+      ) : content?.data[setTypeContent(type)]?.data?.length ? (
         <BoxInformation>
           <Info>Właśnie dotarłeś do końca internetów, brawo :)</Info>
           <Confetti width={width} height={2 * height} style={{ width: "100%", position: "absolute" }} />
