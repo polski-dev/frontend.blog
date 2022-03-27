@@ -1,5 +1,5 @@
 export interface TagFullByIdType {
-  data: {
+  data?: {
     tag: {
       data: {
         id: string;
