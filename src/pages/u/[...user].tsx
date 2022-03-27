@@ -55,10 +55,12 @@ export async function getStaticPaths(): Promise<any> {
   const allUser: any[] = await Promise.all(
     new Array(countPage?.data?.usersPermissionsUsers?.meta?.pagination?.pageCount).fill(undefined).map(async (_: undefined, i: number): Promise<any> => {
       const users: UserGetListType = await userGetListPreview(i);
-
+      console.log(users);
       return users?.data?.usersPermissionsUsers?.data;
     })
   );
+
+  console.log(allUser);
 
   return {
     paths: [].concat.apply([], allUser).map(

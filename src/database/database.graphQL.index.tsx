@@ -41,8 +41,8 @@ import {
 } from "./video/database.video.index";
 
 // tag
-import type { TagWithOnlyTitleType } from "./tag/database.tag.index";
-import { tagWithOnlyTitleAllGetPreviewList, tagWithOnlyTitleInitialState } from "./tag/database.tag.index";
+import type { TagWithOnlyTitleType, TagFullByIdType } from "./tag/database.tag.index";
+import { tagWithOnlyTitleAllGetPreviewList, tagWithOnlyTitleInitialState, tagFullByIdGetPreview, tagFullByIdInitialState } from "./tag/database.tag.index";
 
 // search
 import type { SearchShortContentType, SearchSugestContentType, SearchShortArticleType, SearchShortVideoType, SearchShortTagType, SearchShortUserType } from "./search/database.search.index";
@@ -98,6 +98,7 @@ export type {
   VideoGetListCommentsType,
   VideoGetListCommentsItemType,
   TagWithOnlyTitleType,
+  TagFullByIdType,
   SearchSugestContentType,
   SearchShortContentType,
   SearchShortArticleType,
@@ -144,6 +145,8 @@ export {
   videoGetListCommentsInitialState,
   tagWithOnlyTitleAllGetPreviewList,
   tagWithOnlyTitleInitialState,
+  tagFullByIdGetPreview,
+  tagFullByIdInitialState,
   searchSugestContentGetPreview,
   searchSugestContentInitialState,
   searchShortContentGetPreview,
