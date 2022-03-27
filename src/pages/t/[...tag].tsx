@@ -5,13 +5,14 @@ import { MenuUser } from "components/templates/menu/component.menu.index";
 import { UserInfo } from "components/templates/user/component.user.index";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
 import { SectionArticleShortList } from "components/templates/section/component.section.index";
-import { tagWithOnlyTitleAllGetPreviewList, TagWithOnlyTitleType } from "database/database.graphQL.index";
+import { tagWithOnlyTitleAllGetPreviewList, TagWithOnlyTitleType, tagFullByIdGetPreview, TagFullByIdType } from "database/database.graphQL.index";
 
-const TagPage: NextPage<any> = ({ slug }: { slug: string }): JSX.Element => {
+const TagPage: NextPage<any> = ({ tag, slug }: { tag: TagFullByIdType; slug: string }): JSX.Element => {
+  console.log(tag);
   return (
     <>
       <Head>
-        <title> | POLSKI.DEV 👩‍💻👨‍💻</title>
+        <title>{tag?.data?.tag?.data?.attributes?.title && tag?.data?.tag?.data?.attributes?.title} | POLSKI.DEV 👩‍💻👨‍💻</title>
       </Head>
       <div style={{ width: "100%", height: "10rem", backgroundColor: "#5F6367" }}></div>
       <Container>
@@ -28,18 +29,19 @@ const TagPage: NextPage<any> = ({ slug }: { slug: string }): JSX.Element => {
 };
 
 export async function getStaticProps({ params }: any): Promise<any> {
-  // // article full
-  // const tag: TagWithOnlyTitleType = await tagWithOnlyTitleAllGetPreviewList(parseInt(params.tag[0]));
+  // tag full
+  const tag: TagFullByIdType = await tagFullByIdGetPreview(parseInt(params.tag[0]));
 
-  // if (!tag) {
-  //   return {
-  //     notFound: true,
-  //   };
-  // }
+  if (!tag) {
+    return {
+      notFound: true,
+    };
+  }
 
   return {
     props: {
-      // slug: `/t/${params.tag[0]}/${params.tag[1]}`,
+      tag,
+      slug: `/t/${params.tag[0]}/${params.tag[1]}`,
     },
   };
 }

@@ -1,5 +1,5 @@
 export interface TagFullByIdType {
-  data?: {
+  data: {
     tag: {
       data: {
         id: string;
@@ -15,14 +15,6 @@ export interface TagFullByIdType {
               };
             };
           };
-        };
-      }[];
-      meta: {
-        pagination: {
-          page: number;
-          total: number;
-          pageSize: number;
-          pageCount: number;
         };
       };
     };

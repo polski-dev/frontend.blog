@@ -1,6 +1,6 @@
 export const tagFullByIdQuery = `
 query($tagID: ID!) {
-	tag(filters: { id: { eq: $tagID } }) {
+	tag: tags(id: $tagID) {
 	  data {
 		id
 		attributes {
@@ -17,14 +17,6 @@ query($tagID: ID!) {
 		  }
 		}
 	  }
-	  meta {
-		pagination {
-		  page
-		  total
-		  pageSize
-		  pageCount
-		}
-	  }
 	}
-  } 
+  }
  `;

@@ -11,7 +11,7 @@ const UserPage: NextPage<any> = ({ user, content, slug }: { user: UserByIdType; 
   return (
     <>
       <Head>
-        <title> | POLSKI.DEV 👩‍💻👨‍💻</title>
+        <title>{!!user?.data?.user?.data?.attributes?.username && user?.data?.user?.data?.attributes?.username} | POLSKI.DEV 👩‍💻👨‍💻</title>
       </Head>
       <div style={{ width: "100%", height: "10rem", backgroundColor: "#5F6367" }}></div>
       <Container>
