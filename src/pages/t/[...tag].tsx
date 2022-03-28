@@ -1,26 +1,24 @@
 import Head from "next/head";
 import { NextPage } from "next";
 import { kebabCase, deburr, parseInt } from "lodash";
-import { MenuUser } from "components/templates/menu/component.menu.index";
-import { UserInfo } from "components/templates/user/component.user.index";
+import { MenuTag } from "components/templates/menu/component.menu.index";
+import { InfoBoxTagPage } from "components/templates/boxInfo/component.boxInfo.index";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
 import { SectionArticleShortList } from "components/templates/section/component.section.index";
 import { tagWithOnlyTitleAllGetPreviewList, TagWithOnlyTitleType, tagFullByIdGetPreview, TagFullByIdType } from "database/database.graphQL.index";
 
 const TagPage: NextPage<any> = ({ tag, slug }: { tag: TagFullByIdType; slug: string }): JSX.Element => {
-  console.log(tag);
   return (
     <>
       <Head>
         <title>{tag?.data?.tag?.data?.attributes?.title && tag?.data?.tag?.data?.attributes?.title} | POLSKI.DEV 👩‍💻👨‍💻</title>
       </Head>
-      <div style={{ width: "100%", height: "10rem", backgroundColor: "#5F6367" }}></div>
       <Container>
         <Row>
-          {/* <MenuUser data={{ id: (user?.data?.user?.data?.id && parseInt(user?.data?.user?.data?.id)) || 0, learn: user?.data?.user?.data?.attributes?.learn || { data: [] }, skilks: user?.data?.user?.data?.attributes?.skilks || { data: [] } }} /> */}
+          <MenuTag data={{ cover: tag?.data?.tag?.data?.attributes?.cover?.data?.attributes?.url }} />
           <Col xs={12} md={9}>
-            {/* <UserInfo data={{ user, slug }} />
-            <SectionArticleShortList data={content} userId={(user?.data?.user?.data?.id && parseInt(user?.data?.user?.data?.id)) || 0} type="allFromUser" /> */}
+            <InfoBoxTagPage data={{ id: (tag?.data?.tag?.data?.id && parseInt(tag?.data?.tag.data.id)) || 0, title: tag?.data?.tag?.data?.attributes?.title || "Error", description: tag?.data?.tag?.data?.attributes?.description }} />
+            {/*         <SectionArticleShortList data={content} userId={(user?.data?.user?.data?.id && parseInt(user?.data?.user?.data?.id)) || 0} type="allFromUser" /> */}
           </Col>
         </Row>
       </Container>

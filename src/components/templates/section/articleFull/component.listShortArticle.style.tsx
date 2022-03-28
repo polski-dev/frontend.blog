@@ -184,7 +184,6 @@ export const BoxAuthorImg: StyledComponent<any, any> = styled.div`
   height: 4.2rem;
   overflow: hidden;
   position: relative;
-
   border-radius: 100%;
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.6);
 `;
@@ -337,4 +336,3 @@ export const NotFound: StyledComponent<any, any> = styled.div`
   height: calc(100vh - 20rem);
   background-color: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorPostBg};
 `;
-
