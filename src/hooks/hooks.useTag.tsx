@@ -3,70 +3,53 @@ import { useSession } from "next-auth/react";
 import { NextRouter, useRouter } from "next/router";
 import useCallBackURL from "hooks/hooks.useCallBackURL";
 import {
-  userSubscriptionStatusGet,
-  userSubscriptionStatusInitialState,
-  UserSubscriptionStatusType,
-  userSubscriptionToggleGet,
-  userSubscriptionToggleInitialState,
-  UserSubscriptionToggleType,
-  userStatisticsInitialState,
-  userStatisticsGet,
-  UserStatisticsType,
+  tagSubscriptionStatusGet,
+  tagSubscriptionStatusInitialState,
+  TagSubscriptionStatusType,
+  tagSubscriptionToggleGet,
+  tagSubscriptionToggleInitialState,
+  TagSubscriptionToggleType,
+  tagStatisticsInitialState,
+  tagStatisticsGet,
+  TagStatisticsType,
 } from "database/database.restAPI.index";
 
-export default function useUser({ type, id, slug }: { type: string; id: number; slug?: string }) {
+export default function useTag({ id, slug }: { id: number; slug?: string }) {
   const router: NextRouter = useRouter();
   const { data: session } = useSession();
   const { addCallBackURL } = useCallBackURL();
   const [statusSubscription, setStatusSubsctiption] = useState(false);
-  const [statistics, setStatistics] = useState(userStatisticsInitialState);
+  const [statistics, setStatistics] = useState(tagStatisticsInitialState);
 
-  const subscriptionStatusGet = async (): Promise<UserSubscriptionStatusType> => {
-    switch (type) {
-      case "user":
-        return !!session?.jwt ? await userSubscriptionStatusGet(id, `${session?.jwt}`) : userSubscriptionStatusInitialState;
-      default:
-        return userSubscriptionStatusInitialState;
-    }
+  const subscriptionStatusGet = async (): Promise<TagSubscriptionStatusType> => {
+    return !!session?.jwt ? await tagSubscriptionStatusGet(id, `${session?.jwt}`) : tagSubscriptionStatusInitialState;
   };
 
-  const statisticsGet = async (): Promise<UserStatisticsType> => {
-    switch (type) {
-      case "user":
-        return await userStatisticsGet(id);
-      default:
-        return userStatisticsInitialState;
-    }
+  const statisticsGet = async (): Promise<TagStatisticsType> => {
+    return await tagStatisticsGet(id);
   };
 
-  const subscriptionToggleGet = async (): Promise<UserSubscriptionToggleType | void> => {
+  const subscriptionToggleGet = async (): Promise<TagSubscriptionToggleType | void> => {
     if (!session) {
-      addCallBackURL({ name: "user", to: slug || "" });
+      addCallBackURL({ name: "tag", to: slug || "" });
       router.replace("/auth/signin");
-    } else
-      switch (type) {
-        case "user":
-          !!session?.jwt ? await userSubscriptionToggleGet(id, `${session?.jwt}`) : userSubscriptionToggleInitialState;
-          const newStatus: UserSubscriptionStatusType = await subscriptionStatusGet();
-          newStatus?.data?.status != statusSubscription && setStatusSubsctiption(!!newStatus?.data?.status);
-          break;
-      }
-  };
-
-  useEffect(() => {
-    switch (type) {
-      case "user":
-        (async () => {
-          const status = !!session?.jwt ? await userSubscriptionStatusGet(id, `${session?.jwt}`) : userSubscriptionStatusInitialState;
-          status.data?.status && setStatusSubsctiption(status.data?.status);
-        })();
-        break;
+    } else {
+      !!session?.jwt ? await tagSubscriptionToggleGet(id, `${session?.jwt}`) : tagSubscriptionToggleInitialState;
+      const newStatus: TagSubscriptionStatusType = await subscriptionStatusGet();
+      newStatus?.data?.status != statusSubscription && setStatusSubsctiption(!!newStatus?.data?.status);
     }
-  }, [session, id, type]);
+  };
 
   useEffect(() => {
     (async () => {
-      const feshStatistics = await userStatisticsGet(id);
+      const status = !!session?.jwt ? await tagSubscriptionStatusGet(id, `${session?.jwt}`) : tagSubscriptionStatusInitialState;
+      status.data?.status && setStatusSubsctiption(status.data?.status);
+    })();
+  }, [session, id]);
+
+  useEffect(() => {
+    (async () => {
+      const feshStatistics = await tagStatisticsGet(id);
       setStatistics(feshStatistics);
     })();
   }, [id]);

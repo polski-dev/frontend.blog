@@ -1,5 +1,6 @@
 import Head from "next/head";
 import { NextPage } from "next";
+import useTag from "hooks/hooks.useTag";
 import { kebabCase, deburr, parseInt } from "lodash";
 import { MenuTag } from "components/templates/menu/component.menu.index";
 import { InfoBoxTagPage } from "components/templates/boxInfo/component.boxInfo.index";
@@ -8,6 +9,11 @@ import { SectionArticleShortList } from "components/templates/section/component.
 import { tagWithOnlyTitleAllGetPreviewList, TagWithOnlyTitleType, tagFullByIdGetPreview, TagFullByIdType } from "database/database.graphQL.index";
 
 const TagPage: NextPage<any> = ({ tag, slug }: { tag: TagFullByIdType; slug: string }): JSX.Element => {
+  const { statistics, statusSubscription } = useTag({ id: (!!tag?.data?.tag.data.id && parseInt(tag.data?.tag.data.id)) || 0, slug });
+
+  console.log(statistics);
+
+  console.log(statusSubscription);
   return (
     <>
       <Head>
