@@ -11,12 +11,13 @@ export const InfoBoxTag: StyledComponent<any, any> = styled.div`
   background-color: ${({ theme }: { theme: MainSettingsTemplate }) => theme.colorPostBg};
 
   .btn {
-    top: 5rem;
-    right: calc(50% - 5.1rem);
+    left: 1.5rem;
     position: absolute;
+    top: ${({ theme }: { theme: MainSettingsTemplate }) => theme.break.main};
 
     @media all and (min-width: 520px) {
-      top: 1.5rem;
+      top: 2rem;
+      left: auto;
       right: 1.5rem;
     }
   }
@@ -26,7 +27,13 @@ export const Title: StyledComponent<any, any> = styled.h1`
   width: 100%;
   display: block;
   height: max-content;
+  margin-top: ${({ theme }: { theme: MainSettingsTemplate }) => theme.break.big};
   padding-bottom: ${({ theme }: { theme: MainSettingsTemplate }) => theme.break.main};
+
+  @media all and (min-width: 520px) {
+    margin-top: 0;
+    line-height: 1;
+  }
 
   span {
     opacity: 0.3;

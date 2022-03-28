@@ -7,6 +7,14 @@ import {
   contentShortFromUserInitialState,
   TagWithOnlyTitleType,
   tagWithOnlyTitleInitialState,
+  TagFullByIdType,
+  tagFullByIdInitialState,
+  TagSubscriptionStatusType,
+  tagSubscriptionStatusInitialState,
+  TagSubscriptionToggleType,
+  tagSubscriptionToggleInitialState,
+  TagStatisticsType,
+  tagStatisticsInitialState,
   VideoShortType,
   videoShortInitialState,
   VideoFullByIdType,
@@ -80,6 +88,14 @@ const contentShortFromUserGetPreview: (page: number, userId: number) => Promise<
 // tag
 const tagWithOnlyTitleAllGetPreviewList: (page: number) => Promise<TagWithOnlyTitleType> = async (page: number): Promise<TagWithOnlyTitleType> => await fetchAPI({ path: `/api/tag/${page}` });
 
+const tagSubscriptionStatusGet: (idTag: number, authorization: string) => Promise<TagSubscriptionStatusType> = async (idTag: number, authorization: string): Promise<TagSubscriptionStatusType> =>
+  await fetchAPI({ path: `/api/tag/subscription/status/${idTag}`, authorization: `Bearer ${authorization}` });
+
+const tagSubscriptionToggleGet: (idTag: number, authorization: string) => Promise<TagSubscriptionStatusType> = async (idTag: number, authorization: string): Promise<TagSubscriptionStatusType> =>
+  await fetchAPI({ path: `/api/tag/subscription/toggle/${idTag}`, authorization: `Bearer ${authorization}` });
+
+const tagStatisticsGet: (idTag: number) => Promise<TagStatisticsType> = async (idTag: number): Promise<TagStatisticsType> => await fetchAPI({ path: `/api/tag/statistics/${idTag}` });
+
 // article
 const articleShortGetPreview: (page: number, waitingroom: boolean) => Promise<ArticleShortType> = async (page: number, waitingroom: boolean): Promise<ArticleShortType> => await fetchAPI({ path: `/api/article/${page}`, body: { waitingroom } });
 
@@ -132,6 +148,10 @@ export type {
   ContentShortType,
   ContentShortFromUserType,
   TagWithOnlyTitleType,
+  TagFullByIdType,
+  TagSubscriptionStatusType,
+  TagSubscriptionToggleType,
+  TagStatisticsType,
   VideoShortType,
   VideoFullByIdType,
   VideoWithOnlyTitleType,
@@ -170,6 +190,13 @@ export {
   contentShortFromUserGetPreview,
   tagWithOnlyTitleInitialState,
   tagWithOnlyTitleAllGetPreviewList,
+  tagFullByIdInitialState,
+  tagSubscriptionStatusInitialState,
+  tagSubscriptionStatusGet,
+  tagSubscriptionToggleInitialState,
+  tagSubscriptionToggleGet,
+  tagStatisticsInitialState,
+  tagStatisticsGet,
   videoShortInitialState,
   videoShortGetPreview,
   videoWithOnlyTitleRestAPIGetPreview,

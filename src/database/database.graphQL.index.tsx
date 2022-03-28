@@ -41,8 +41,19 @@ import {
 } from "./video/database.video.index";
 
 // tag
-import type { TagWithOnlyTitleType, TagFullByIdType } from "./tag/database.tag.index";
-import { tagWithOnlyTitleAllGetPreviewList, tagWithOnlyTitleInitialState, tagFullByIdGetPreview, tagFullByIdInitialState } from "./tag/database.tag.index";
+import type { TagWithOnlyTitleType, TagFullByIdType, TagSubscriptionStatusType, TagSubscriptionToggleType, TagStatisticsType } from "./tag/database.tag.index";
+import {
+  tagWithOnlyTitleAllGetPreviewList,
+  tagWithOnlyTitleInitialState,
+  tagFullByIdGetPreview,
+  tagFullByIdInitialState,
+  tagSubscriptionStatusGet,
+  tagSubscriptionStatusInitialState,
+  tagSubscriptionToggleGet,
+  tagSubscriptionToggleInitialState,
+  tagStatisticsGet,
+  tagStatisticsInitialState,
+} from "./tag/database.tag.index";
 
 // search
 import type { SearchShortContentType, SearchSugestContentType, SearchShortArticleType, SearchShortVideoType, SearchShortTagType, SearchShortUserType } from "./search/database.search.index";
@@ -99,6 +110,9 @@ export type {
   VideoGetListCommentsItemType,
   TagWithOnlyTitleType,
   TagFullByIdType,
+  TagSubscriptionStatusType,
+  TagSubscriptionToggleType,
+  TagStatisticsType,
   SearchSugestContentType,
   SearchShortContentType,
   SearchShortArticleType,
@@ -147,6 +161,12 @@ export {
   tagWithOnlyTitleInitialState,
   tagFullByIdGetPreview,
   tagFullByIdInitialState,
+  tagSubscriptionStatusGet,
+  tagSubscriptionStatusInitialState,
+  tagSubscriptionToggleGet,
+  tagSubscriptionToggleInitialState,
+  tagStatisticsGet,
+  tagStatisticsInitialState,
   searchSugestContentGetPreview,
   searchSugestContentInitialState,
   searchShortContentGetPreview,
