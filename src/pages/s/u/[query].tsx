@@ -2,15 +2,14 @@ import Head from "next/head";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import useDispatchTagToStore from "hooks/hooks.dispatchTagToStore";
-import { searchShortContentGetPreview, searchShortContentInitialState, SearchShortContentType, tagWithOnlyTitleAllGetPreviewList } from "database/database.restAPI.index";
+import { searchShortContentGetPreview, searchShortContentInitialState, SearchShortContentType } from "database/database.restAPI.index";
 import { MenuPrimary } from "components/templates/menu/component.menu.index";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
 import { SectionArticleShortList } from "components/templates/section/component.section.index";
 
 const Search: NextPage = () => {
   const { query } = useRouter().query;
-  const { updateTagHome, store } = useDispatchTagToStore();
+
   const [loadData, setLoadData] = useState(true);
   const [content, setContent] = useState(searchShortContentInitialState);
 
@@ -23,10 +22,6 @@ const Search: NextPage = () => {
       }
     })();
   }, [query]);
-
-  useEffect(() => {
-    if (!store.tag.home.data.length) (async (): Promise<void> => updateTagHome(await tagWithOnlyTitleAllGetPreviewList(0)))();
-  }, [store, updateTagHome]);
 
   return (
     <>

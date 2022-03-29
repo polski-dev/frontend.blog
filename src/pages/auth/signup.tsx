@@ -1,18 +1,11 @@
 import Head from "next/head";
 import { NextPage } from "next";
-import { useEffect } from "react";
-import useDispatchTagToStore from "hooks/hooks.dispatchTagToStore";
 import { MenuPrimary } from "components/templates/menu/component.menu.index";
 import { SectionSingUp } from "components/templates/section/component.section.index";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
-import { tagWithOnlyTitleAllGetPreviewList, TagWithOnlyTitleType, countUserGetPreview, CountUserType } from "database/database.graphQL.index";
+import { countUserGetPreview, CountUserType } from "database/database.graphQL.index";
 
-const SingUp: NextPage<any, TagWithOnlyTitleType> = ({ tag, countUser }: { tag: TagWithOnlyTitleType; countUser: CountUserType }): JSX.Element => {
-  const { updateTagHome, store } = useDispatchTagToStore();
-  useEffect(() => {
-    if (!store.tag.home.data.length) updateTagHome(tag);
-  }, [store, updateTagHome, tag]);
-
+const SingUp: NextPage<any, any> = ({ countUser }: { countUser: CountUserType }): JSX.Element => {
   return (
     <>
       <Head>
@@ -31,15 +24,11 @@ const SingUp: NextPage<any, TagWithOnlyTitleType> = ({ tag, countUser }: { tag: 
 };
 
 export async function getStaticProps(): Promise<any> {
-  // tag
-  const tag: TagWithOnlyTitleType = await tagWithOnlyTitleAllGetPreviewList(0);
-
   // cont user
   const countUser: CountUserType = await countUserGetPreview();
 
   return {
     props: {
-      tag,
       countUser,
     },
   };
