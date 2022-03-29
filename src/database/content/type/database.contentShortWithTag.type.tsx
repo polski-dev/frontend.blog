@@ -252,7 +252,7 @@ export interface ContentShortWithTagType {
         };
       };
     };
-    users?: {
+    user?: {
       data: {
         id: string;
         attributes: {

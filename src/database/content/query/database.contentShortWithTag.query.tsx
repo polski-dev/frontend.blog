@@ -129,7 +129,7 @@ query($page: Int!, $tagId: ID!) {
       }
     }
   }
-  users: usersPermissionsUsers(
+  user: usersPermissionsUsers(
     pagination: { start: $page }
     filters: { followtags: { id: { eq: $tagId } } }
   ) {

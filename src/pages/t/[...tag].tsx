@@ -2,20 +2,34 @@ import Head from "next/head";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 import useTag from "hooks/hooks.useTag";
-import { kebabCase, deburr, parseInt, identity } from "lodash";
+import { kebabCase, deburr, parseInt } from "lodash";
 import { MenuPrimary } from "components/templates/menu/component.menu.index";
 import { InfoBoxTagPage } from "components/templates/boxInfo/component.boxInfo.index";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
 import { SectionArticleShortList } from "components/templates/section/component.section.index";
-import { tagWithOnlyTitleAllGetPreviewList, TagWithOnlyTitleType, tagFullByIdGetPreview, TagFullByIdType } from "database/database.graphQL.index";
+import { tagWithOnlyTitleAllGetPreviewList, TagWithOnlyTitleType, tagFullByIdGetPreview, TagFullByIdType, contentShortWithTagGetPreview, ContentShortWithTagType } from "database/database.graphQL.index";
 import { useEffect, useState } from "react";
 
-const TagPage: NextPage<any> = ({ tag, slug, slugVideo, slugArticle, slugFollowuser }: { tag: TagFullByIdType; slug: string; slugVideo: string; slugArticle: string; slugFollowuser: string }): JSX.Element => {
+const TagPage: NextPage<any> = ({ tag, slug, slugVideo, slugArticle, slugFollowuser, content }: { tag: TagFullByIdType; slug: string; slugVideo: string; slugArticle: string; slugFollowuser: string; content: ContentShortWithTagType }): JSX.Element => {
   const { asPath } = useRouter();
-  const [content, setContent] = useState();
+  const [type, setType] = useState("all");
   const { statistics, statusSubscription, subscriptionToggleGet } = useTag({ id: (!!tag?.data?.tag.data.id && parseInt(tag.data?.tag.data.id)) || 0, slug });
+
   useEffect(() => {
-    console.log(asPath.split(slug + "#")[1]);
+    switch (asPath.split(slug + "#")[1]) {
+      case "a":
+        setType("articleWithTag");
+        break;
+      case "v":
+        setType("videoWithTag");
+        break;
+      case "u":
+        setType("userWithTag");
+        break;
+      default:
+        setType("allWithTag");
+        break;
+    }
   }, [asPath, slug]);
 
   return (
@@ -46,7 +60,7 @@ const TagPage: NextPage<any> = ({ tag, slug, slugVideo, slugArticle, slugFollowu
                 subscriptionToggleGet,
               }}
             />
-            {/*         <SectionArticleShortList data={content} userId={(user?.data?.user?.data?.id && parseInt(user?.data?.user?.data?.id)) || 0} type="allFromUser" /> */}
+            <SectionArticleShortList data={content} tagId={(!!tag?.data?.tag.data.id && parseInt(tag.data?.tag.data.id)) || 0} type={type} />
           </Col>
         </Row>
       </Container>
@@ -55,9 +69,11 @@ const TagPage: NextPage<any> = ({ tag, slug, slugVideo, slugArticle, slugFollowu
 };
 
 export async function getStaticProps({ params }: any): Promise<any> {
+  const content: ContentShortWithTagType = await contentShortWithTagGetPreview(0, params.tag[0]);
+
   // tag full
   const tag: TagFullByIdType = await tagFullByIdGetPreview(parseInt(params.tag[0]));
-  console.log(params);
+
   if (!tag) {
     return {
       notFound: true,
@@ -67,6 +83,7 @@ export async function getStaticProps({ params }: any): Promise<any> {
   return {
     props: {
       tag,
+      content,
       slug: `/t/${params.tag[0]}/${params.tag[1]}`,
       slugFollowuser: `/t/${params.tag[0]}/${params.tag[1]}#u`,
       slugVideo: `/t/${params.tag[0]}/${params.tag[1]}#v`,

@@ -35,7 +35,7 @@ export const contentShortWithTagInitialState: ContentShortWithTagType = {
         },
       },
     },
-    users: {
+    user: {
       data: [],
       meta: {
         pagination: {

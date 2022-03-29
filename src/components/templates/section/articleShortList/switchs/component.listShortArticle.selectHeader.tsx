@@ -24,5 +24,13 @@ export const selectHeader = (type: string, search?: string) => {
       return `Wynik wyszukiwania użytkowników: ${search}`;
     case "allFromUser":
       return `Posty użytkownika`;
+    case "allWithTag":
+      return `Wszystko z tagiem`;
+    case "articleWithTag":
+      return `Artykuły z tagiem`;
+    case "videoWithTag":
+      return `Video z tagiem`;
+    case "userWithTag":
+      return `Obserwujący tag`;
   }
 };

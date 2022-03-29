@@ -8,7 +8,7 @@ import { SquareShortArticle } from "components/atoms/animation/comonent.animatio
 import selectTemplateForContent from "./switchs/component.listShortArticle.selectTemplate";
 import { Section, Title, BoxInformation, Info, NotFound } from "./style/component.listShortArticle.style";
 
-export default function SectionArticleShortList({ data, type, loadData, search, userId = 0 }: { data: any; type: string; loadData?: boolean; search?: string; userId?: number }): JSX.Element {
+export default function SectionArticleShortList({ data, type, loadData, search, userId = 0, tagId = 0 }: { data: any; type: string; loadData?: boolean; search?: string; userId?: number; tagId?: number }): JSX.Element {
   const { width, height } = useWindowData();
   const [page, setPage] = useState(1);
   const [content, setContent] = useState(data);
@@ -40,13 +40,13 @@ export default function SectionArticleShortList({ data, type, loadData, search, 
   useEffect(() => {
     (async (): Promise<void> => {
       if (iAmWaitingForAnswer) {
-        await selectAPI({ type, content, page, search, userId });
+        await selectAPI({ type, content, page, search, userId, tagId });
         setPage(page + 1);
         setContent(content);
         setIamWaitingForAnswer(false);
       }
     })();
-  }, [iAmWaitingForAnswer, data, type, content, page, search, userId]);
+  }, [iAmWaitingForAnswer, data, type, content, page, search, userId, tagId]);
 
   return (
     <Section>

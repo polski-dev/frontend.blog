@@ -92,17 +92,17 @@ const contentShortWithTagGetPreview: (page: number, tagId: number) => Promise<Co
   // add type content
   data?.data?.article?.data.forEach((art: any) => (art.type = "article"));
   data?.data?.video?.data.forEach((art: any) => (art.type = "video"));
-  data?.data?.users?.data.forEach((user: any) => (user.type = "users"));
+  data?.data?.user?.data.forEach((user: any) => (user.type = "user"));
 
   // count page for all content
   const totalArticle = data?.data?.article?.meta?.pagination?.total || 0;
   const totalVideo = data?.data?.video?.meta?.pagination?.total || 0;
-  const totalUsers = data?.data?.users?.meta?.pagination?.total || 0;
+  const totalUsers = data?.data?.user?.meta?.pagination?.total || 0;
   const pageCount = Math.ceil((totalArticle + totalVideo + totalUsers) / 10);
 
   const allArticle = data?.data?.article?.data || [];
   const allVideo = data?.data?.video?.data || [];
-  const allUsers = data?.data?.users?.data || [];
+  const allUsers = data?.data?.user?.data || [];
 
   return {
     data: {

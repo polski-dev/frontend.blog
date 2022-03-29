@@ -15,9 +15,11 @@ import {
   searchShortUserGetPreview,
   ContentShortFromUserType,
   contentShortFromUserGetPreview,
+  ContentShortWithTagType,
+  contentShortWithTagGetPreview,
 } from "database/database.restAPI.index";
 
-export const selectAPI = async ({ type, content, page, search, userId }: { type: string; content: any; page: number; search?: string; userId?: number }) => {
+export const selectAPI = async ({ type, content, page, search, userId, tagId }: { type: string; content: any; page: number; search?: string; userId?: number; tagId?: number }) => {
   switch (type) {
     case "all":
       const all: any = await contentShortGetPreview(page, false);
@@ -25,8 +27,28 @@ export const selectAPI = async ({ type, content, page, search, userId }: { type:
       break;
     case "allFromUser":
       const allFromUser: ContentShortFromUserType = await contentShortFromUserGetPreview(page, userId || 0);
-      const data = !!allFromUser?.data.all?.data?.length ? allFromUser.data.all.data : [];
-      content.data.all.data = [...content.data.all.data, ...data];
+      const allFromUserData = !!allFromUser?.data.all?.data?.length ? allFromUser.data.all.data : [];
+      content.data.all.data = [...content.data.all.data, ...allFromUserData];
+      break;
+    case "allWithTag":
+      const allWithTag: ContentShortWithTagType = await contentShortWithTagGetPreview(page, tagId || 0);
+      const allWithTagData = !!allWithTag?.data.all?.data?.length ? allWithTag.data.all.data : [];
+      content.data.all.data = [...content.data.all.data, ...allWithTagData];
+      break;
+    case "articleWithTag":
+      const articleWithTag: ContentShortWithTagType = await contentShortWithTagGetPreview(page, tagId || 0);
+      const articleWithTagData = !!articleWithTag?.data.article?.data?.length ? articleWithTag.data.article?.data : [];
+      content.data.article.data = [...content.data.article.data, ...articleWithTagData];
+      break;
+    case "videoWithTag":
+      const videoWithTag: ContentShortWithTagType = await contentShortWithTagGetPreview(page, tagId || 0);
+      const videoWithTagData = !!videoWithTag?.data.article?.data?.length ? videoWithTag.data.article?.data : [];
+      content.data.video.data = [...content.data.video.data, ...videoWithTagData];
+      break;
+    case "userWithTag":
+      const userWithTag: ContentShortWithTagType = await contentShortWithTagGetPreview(page, tagId || 0);
+      const userWithTagData = !!userWithTag?.data.user?.data?.length ? userWithTag.data.user?.data : [];
+      content.data.user.data = [...content.data.user.data, ...userWithTagData];
       break;
     case "allWaitingRoom":
       const allWaitingRoom: any = await contentShortGetPreview(page, true);
