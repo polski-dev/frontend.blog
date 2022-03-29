@@ -13,7 +13,7 @@ import { GlobalStyle, Bg, BoxMenu, Cover, OffMenu, BoxContent, FiltrListContent,
 
 type menuPromaryType = {
   title: string;
-  cover?: string;
+  cover?: string | boolean;
   data: { slug: string; title: string; quantity: number }[];
 };
 
@@ -33,7 +33,7 @@ export default function MenuPrimary({ title, data, cover }: menuPromaryType) {
         <BoxContent>
           {!!data?.length && data.filter((item) => !!item.quantity).length ? (
             <>
-              {cover && <Cover>{!cover ? <Avatar /> : <Image layout="fill" placeholder="blur" blurDataURL="/img/blur.png" src={cover} alt={"pl"} />}</Cover>}
+              {typeof cover === "string" && <Cover>{!cover ? <Avatar /> : <Image layout="fill" placeholder="blur" blurDataURL="/img/blur.png" src={cover} alt={"pl"} />}</Cover>}
               <Title>{title}</Title>
               <FiltrListContent>
                 {data.map((item, i: number) => {

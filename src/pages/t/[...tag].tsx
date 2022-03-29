@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 
 const TagPage: NextPage<any> = ({ tag, slug, slugVideo, slugArticle, slugFollowuser, content }: { tag: TagFullByIdType; slug: string; slugVideo: string; slugArticle: string; slugFollowuser: string; content: ContentShortWithTagType }): JSX.Element => {
   const { asPath } = useRouter();
-  const [type, setType] = useState("all");
+  const [type, setType] = useState("allWithTag");
   const { statistics, statusSubscription, subscriptionToggleGet } = useTag({ id: (!!tag?.data?.tag.data.id && parseInt(tag.data?.tag.data.id)) || 0, slug });
 
   useEffect(() => {
@@ -41,7 +41,7 @@ const TagPage: NextPage<any> = ({ tag, slug, slugVideo, slugArticle, slugFollowu
         <Row>
           <MenuPrimary
             title="Filtruj"
-            cover={tag.data?.tag.data.attributes.cover.data.attributes.url}
+            cover={tag?.data?.tag?.data?.attributes?.cover?.data?.attributes?.url || false}
             data={[
               { slug, title: "Wszystko", quantity: statistics?.data?.addArticle && statistics?.data?.addVideo && statistics?.data?.followuser ? statistics?.data?.addArticle + statistics?.data?.addVideo + statistics?.data?.followuser : 0 },
               { slug: slugArticle, title: "Artykuły", quantity: statistics?.data?.addArticle ? statistics.data?.addArticle : 0 },
