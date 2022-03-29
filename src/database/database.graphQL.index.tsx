@@ -1,6 +1,6 @@
 // content
-import type { ContentShortType, ContentShortFromUserType } from "./content/database.content.index";
-import { contentShortGetPreview, contentShortInitialState, contentShortFromUserGetPreview, contentShortFromUserInitialState } from "./content/database.content.index";
+import type { ContentShortType, ContentShortFromUserType, ContentShortWithTagType } from "./content/database.content.index";
+import { contentShortGetPreview, contentShortInitialState, contentShortFromUserGetPreview, contentShortFromUserInitialState, contentShortWithTagGetPreview, contentShortWithTagInitialState } from "./content/database.content.index";
 
 // article
 import type { ArticleShortType, ArticeFullByIdType, ArticeWithOnlyTitleType, ArticeAddViewType, ArticeAddGradeType, ArticeAddCommentsType, ArticeGetListCommentsType, ArticeGetListCommentsItemType } from "./article/database.artice.index";
@@ -99,6 +99,7 @@ import {
 export type {
   ContentShortType,
   ContentShortFromUserType,
+  ContentShortWithTagType,
   ArticleShortType,
   VideoShortType,
   VideoFullByIdType,
@@ -141,6 +142,8 @@ export {
   contentShortInitialState,
   contentShortFromUserGetPreview,
   contentShortFromUserInitialState,
+  contentShortWithTagGetPreview,
+  contentShortWithTagInitialState,
   articleShortGetPreview,
   articleShortInitialState,
   videoShortGetPreview,

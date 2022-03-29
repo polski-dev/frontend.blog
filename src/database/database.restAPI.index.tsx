@@ -5,6 +5,8 @@ import {
   contentShortInitialState,
   ContentShortFromUserType,
   contentShortFromUserInitialState,
+  ContentShortWithTagType,
+  contentShortWithTagInitialState,
   TagWithOnlyTitleType,
   tagWithOnlyTitleInitialState,
   TagFullByIdType,
@@ -84,6 +86,7 @@ const searchShortUserGetPreview: (page: number, search: string) => Promise<Searc
 // content
 const contentShortGetPreview: (page: number, waitingroom: boolean) => Promise<ContentShortType> = async (page: number, waitingroom: boolean): Promise<ContentShortType> => await fetchAPI({ path: `/api/content/${page}`, body: { waitingroom } });
 const contentShortFromUserGetPreview: (page: number, userId: number) => Promise<ContentShortFromUserType> = async (page: number, userId: number): Promise<ContentShortFromUserType> => await fetchAPI({ path: `api/content/fromuser/${page}/${userId}` });
+const contentShortWithTagGetPreview: (page: number, tagId: number) => Promise<ContentShortWithTagType> = async (page: number, tagId: number): Promise<ContentShortWithTagType> => await fetchAPI({ path: `api/content/withtag/${page}/${tagId}` });
 
 // tag
 const tagWithOnlyTitleAllGetPreviewList: (page: number) => Promise<TagWithOnlyTitleType> = async (page: number): Promise<TagWithOnlyTitleType> => await fetchAPI({ path: `/api/tag/${page}` });
@@ -147,6 +150,7 @@ const userStatisticsGet: (idUser: number) => Promise<UserStatisticsType> = async
 export type {
   ContentShortType,
   ContentShortFromUserType,
+  ContentShortWithTagType,
   TagWithOnlyTitleType,
   TagFullByIdType,
   TagSubscriptionStatusType,
@@ -188,6 +192,8 @@ export {
   contentShortGetPreview,
   contentShortFromUserInitialState,
   contentShortFromUserGetPreview,
+  contentShortWithTagInitialState,
+  contentShortWithTagGetPreview,
   tagWithOnlyTitleInitialState,
   tagWithOnlyTitleAllGetPreviewList,
   tagFullByIdInitialState,

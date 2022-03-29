@@ -1,4 +1,4 @@
-import styled, { StyledComponent, ThemeProps } from "styled-components";
+import styled, { StyledComponent } from "styled-components";
 import { MainSettingsTemplate } from "assets/style/types.mainSettingsTemplate";
 
 export const InfoBoxTag: StyledComponent<any, any> = styled.div`
@@ -6,8 +6,8 @@ export const InfoBoxTag: StyledComponent<any, any> = styled.div`
   display: block;
   position: relative;
   border-radius: 0.6rem;
-  margin-top: ${({ theme }: { theme: MainSettingsTemplate }) => theme.break.main};
   padding: ${({ theme }: { theme: MainSettingsTemplate }) => theme.break.main};
+  margin-top: ${({ theme }: { theme: MainSettingsTemplate }) => theme.break.big};
   background-color: ${({ theme }: { theme: MainSettingsTemplate }) => theme.colorPostBg};
 
   .btn {

@@ -1,4 +1,5 @@
-import styled, { css, createGlobalStyle } from "styled-components";
+import styled, { css, createGlobalStyle, StyledComponent, ThemeProps } from "styled-components";
+import { MainSettingsTemplate } from "assets/style/types.mainSettingsTemplate";
 
 type PowerType = {
   power: boolean;
@@ -96,6 +97,26 @@ export const OffMenu = styled.button`
     span {
       background-color: ${({ theme }) => theme.colorLinkActive};
     }
+  }
+`;
+
+export const Cover: StyledComponent<any, any> = styled.div`
+  width: 100%;
+  height: 20rem;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  align-items: flex-end;
+  border-radius: 0.6rem;
+  justify-content: center;
+  margin-bottom: ${({ theme }) => theme.break.big};
+  background-color: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorButtonBg};
+
+  svg {
+    width: 60%;
+    bottom: -1rem;
+    position: relative;
+    fill: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorTextDesactive};
   }
 `;
 
