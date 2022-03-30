@@ -12,7 +12,7 @@ import { MenuContext } from "providers/providers.menu";
 import { ButtonLinkIn } from "components/atoms/button/component.button.index";
 import SearchBar from "components/molecules/searchBar/component.searchBar.index";
 import { Row, Container } from "components/orgamis/flexboxgrid/index.flexboxgrid";
-import { Header, Hambuger, Logo, SerachBox, UserPanelBox, Menu, Item, BoxAuthUser, BoxAuthorAvatar, BoxOptionUser, BoxOptionUserHeader, BoxAuthUserOption } from "./index.header.style";
+import { Header, Hambuger, Logo, SerachBox, UserPanelBox, Menu, Item, BoxAuthUser, BoxAuthorAvatar, BoxOptionUser, BoxOptionUserHeader } from "./index.header.style";
 
 const HeaderComponent = () => {
   const { data } = useSession();
@@ -57,9 +57,12 @@ const HeaderComponent = () => {
                   </BoxAuthorAvatar>
                   <BoxOptionUser power={powerUserBox}>
                     <BoxOptionUserHeader>Witaj, {data.user?.name}</BoxOptionUserHeader>
-                    <BoxAuthUserOption onClick={() => signOut()} title="wyloguj">
+                    <Link href="/d">
+                      <a title="panel użytkownika">Panel użytkownika</a>
+                    </Link>
+                    <button onClick={() => signOut()} title="wyloguj">
                       Wyloguj
-                    </BoxAuthUserOption>
+                    </button>
                   </BoxOptionUser>
                 </BoxAuthUser>
               ) : (

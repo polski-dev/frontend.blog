@@ -220,10 +220,10 @@ export const Item = styled.li<ItemType>`
     font-size: 1.2rem;
     white-space: nowrap;
     text-decoration: solid;
-    cursor: ${({ theme, active }) => (active ? "no-drop" : "pionier")};
-    padding: ${({ theme }) => theme.break.small} ${({ theme }) => theme.break.main};
+    cursor: ${({ active }) => (active ? "no-drop" : "pionier")};
     color: ${({ theme, active }) => (active ? theme.colorLinkActive : theme.colorLink)};
     border-bottom: 1px solid ${({ theme, active }) => (active ? theme.colorLinkActive : theme.colorBorder)};
+    padding: ${({ theme }) => theme.break.small} ${({ theme }) => theme.break.main};
 
     &:hover {
       border-bottom: 1px solid ${({ theme }) => theme.colorLinkActive};
@@ -294,6 +294,23 @@ export const BoxOptionUser = styled.div`
   background-color: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorMainBg};
   border: 0.1rem solid ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorBorder};
   padding: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.small};
+
+  a,
+  button {
+    width: 100%;
+    border: none;
+    display: block;
+    text-align: right;
+    font-size: 1.2rem;
+    background-color: transparent;
+
+    color: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorLink};
+    padding: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.small};
+
+    &:hover {
+      color: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorLinkActive};
+    }
+  }
 `;
 
 export const BoxOptionUserHeader = styled.p`
@@ -307,21 +324,5 @@ export const BoxOptionUserHeader = styled.p`
     display: block;
     margin-top: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.small};
     background-color: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorBorder};
-  }
-`;
-
-export const BoxAuthUserOption = styled.div`
-  cursor: pointer;
-  text-align: right;
-  font-size: 1.2rem;
-  color: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorLink};
-  padding-bottom: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.small};
-
-  &:last-of-type {
-    padding-bottom: 0;
-  }
-
-  &:hover {
-    color: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorLinkActive};
   }
 `;

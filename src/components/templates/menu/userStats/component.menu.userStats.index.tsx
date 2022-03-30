@@ -29,7 +29,7 @@ export default function MenuUserComponent({
     };
   };
 }) {
-  const { statistics } = useUser({ id, type: "user" });
+  const { statistics } = useUser({ id });
 
   return (
     <>

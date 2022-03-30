@@ -32,6 +32,12 @@ export default function SectionSessionInfo({ users }: { users: number }) {
       case "user":
         setMessageSucces("do strony użytkownika");
         break;
+      case "dasbord":
+        setMessageSucces("do panelu użytkownika");
+        break;
+      case "dasbordEdit":
+        setMessageSucces("do panelu edycji użytkownika");
+        break;
       case "tag":
         setMessageSucces("do strony tagu");
         break;

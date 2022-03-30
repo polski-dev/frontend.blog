@@ -14,7 +14,7 @@ import { Button } from "components/atoms/button/component.button.index";
 import { UserInfoBox, Avatar, Name, Description, List, Item } from "./component.user.infoBox.style";
 
 export default function UserInfoBoxComponent({ data: { user, slug } }: { data: { user: UserByIdType; slug: string } }) {
-  const { statusSubscription, subscriptionToggleGet } = useUser({ type: "user", id: (user?.data?.user?.data?.id && parseInt(user?.data?.user?.data?.id)) || 0, slug });
+  const { statusSubscription, subscriptionToggleGet } = useUser({ id: (user?.data?.user?.data?.id && parseInt(user?.data?.user?.data?.id)) || 0, slug });
 
   return (
     <UserInfoBox>
