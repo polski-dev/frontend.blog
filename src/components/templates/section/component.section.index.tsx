@@ -5,5 +5,6 @@ import SectionArticleFull from "./articleFull/component.articleFull.index";
 import SectionSessionInfo from "./sessionInfo/component.section.sessionInfo.index";
 import SectionArticleShortList from "./articleShortList/component.articleShortList.index";
 import SectionDasbordUserInfo from "./dasbordUserInfo/component.section.dasbordUserInfo.index";
+import SectionDasbordUserEditData from "./dasbordUserEditData/component.section.dasbordUserEditData.index";
 
-export { SectionArticleShortList, SectionArticleFull, SectionVideoFull, SectionSingIn, SectionSingUp, SectionSessionInfo, SectionDasbordUserInfo };
+export { SectionArticleShortList, SectionArticleFull, SectionVideoFull, SectionSingIn, SectionSingUp, SectionSessionInfo, SectionDasbordUserInfo, SectionDasbordUserEditData };
