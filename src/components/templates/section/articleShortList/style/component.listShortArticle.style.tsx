@@ -47,6 +47,7 @@ export const Article: StyledComponent<any, any> = styled.article`
 
   .titleArticle {
     display: block;
+    max-width: 100%;
     width: max-content;
     position: relative;
   }
@@ -144,7 +145,8 @@ export const DateAdded: StyledComponent<any, any> = styled.p`
 `;
 
 export const TitleArticle: StyledComponent<any, any> = styled.h3`
-  display: flex;
+  display: block;
+  max-width: 100%;
   width: max-content;
   position: relative;
 
