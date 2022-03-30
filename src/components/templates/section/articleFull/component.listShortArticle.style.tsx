@@ -180,7 +180,8 @@ export const Content: StyledComponent<any, any> = styled.div`
 export const BoxCodeTitle: StyledComponent<any, any> = styled.p``;
 
 export const BoxAuthorImg: StyledComponent<any, any> = styled.div`
-  width: 4.2rem;
+  min-width: 4.2rem;
+  max-width: 4.2rem;
   height: 4.2rem;
   overflow: hidden;
   position: relative;
@@ -192,7 +193,8 @@ export const BoxAuthorAvatar: StyledComponent<any, any> = styled.div`
   display: none;
 
   @media all and (min-width: 526px) {
-    width: 4.2rem;
+    min-width: 4.2rem;
+    max-width: 4.2rem;
     display: flex;
     height: 4.2rem;
     overflow: hidden;

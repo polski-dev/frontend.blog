@@ -69,7 +69,11 @@ export const BoxContent: StyledComponent<any, any> = styled.div`
   }
 
   .btnUser {
-    margin: auto 0 auto auto;
+    margin: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.main} 0 auto auto;
+
+    @media all and (min-width: 768px) {
+      margin-top: 0;
+    }
   }
 
   .btnTag {
@@ -80,11 +84,13 @@ export const BoxContent: StyledComponent<any, any> = styled.div`
 export const BoxAuthor: StyledComponent<any, any> = styled.div`
   width: 100%;
   display: flex;
+  flex-wrap: wrap;
   margin: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.main} 0;
 `;
 
 export const BoxAuthorImg: StyledComponent<any, any> = styled.div`
-  width: 4.2rem;
+  min-width: 4.2rem;
+  max-width: 4.2rem;
   height: 4.2rem;
   overflow: hidden;
   position: relative;
@@ -93,7 +99,8 @@ export const BoxAuthorImg: StyledComponent<any, any> = styled.div`
 `;
 
 export const BoxAuthorAvatar: StyledComponent<any, any> = styled.div`
-  width: 4.2rem;
+  min-width: 4.2rem;
+  max-width: 4.2rem;
   display: flex;
   height: 4.2rem;
   overflow: hidden;
@@ -116,6 +123,7 @@ export const AuthorData: StyledComponent<any, any> = styled.div`
   position: relative;
   flex-direction: column;
   justify-content: center;
+  width: calc(100% - 4.2rem);
   padding-left: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.small};
 
   a {
@@ -189,8 +197,8 @@ export const ListStats: StyledComponent<any, any> = styled.ul`
   flex-wrap: wrap;
 
   @media all and (min-width: 768px) {
-    width: calc(100% - 8rem);
     padding-left: 4.95rem;
+    width: calc(100% - 8rem);
   }
 `;
 
