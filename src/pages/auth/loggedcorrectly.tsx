@@ -13,8 +13,7 @@ const Loggedcorrectly: NextPage<any, TagWithOnlyTitleType> = ({ countUser }: { c
       </Head>
       <Container>
         <Row>
-          <MenuPrimary title="Filtruj" data={[]} />
-          <Col xs={12} md={9}>
+          <Col xs={12}>
             <SectionSessionInfo users={countUser.data.user.meta.pagination.total} />
           </Col>
         </Row>

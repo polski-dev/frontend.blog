@@ -7,7 +7,6 @@ export const Section: StyledComponent<any, any> = styled.section`
   position: relative;
   flex-direction: column;
   justify-content: center;
-  height: calc(100vh - 18rem);
   padding: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.big};
 `;
 
@@ -30,7 +29,7 @@ export const Content: StyledComponent<any, any> = styled.p`
   border-radius: 0.6em;
   flex-direction: column;
   justify-content: center;
-  height: calc(100vh - 18rem);
+  height: calc(100vh - 23rem);
   margin: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.main} 0;
   background-color: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorPostBg};
 `;

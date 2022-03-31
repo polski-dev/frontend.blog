@@ -13,8 +13,7 @@ const SingIn: NextPage<any, TagWithOnlyTitleType> = ({ countUser }: { countUser:
       </Head>
       <Container>
         <Row>
-          <MenuPrimary title="Filtruj" data={[]} />
-          <Col xs={12} md={9}>
+          <Col xs={12}>
             <SectionSingIn users={countUser.data.user.meta.pagination.total} />
           </Col>
         </Row>

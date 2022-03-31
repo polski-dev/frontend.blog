@@ -35,7 +35,7 @@ const UserPanelPage: NextPage<any> = (): JSX.Element => {
             ]}
           />
           <Col xs={12} md={9}>
-            <SectionDasbordUserEditData />
+            <SectionDasbordUserEditData data={{ session }} />
           </Col>
         </Row>
       </Container>

@@ -13,8 +13,7 @@ const SingUp: NextPage<any, any> = ({ countUser }: { countUser: CountUserType })
       </Head>
       <Container>
         <Row>
-          <MenuPrimary title="Filtruj" data={[]} />
-          <Col xs={12} md={9}>
+          <Col xs={12}>
             <SectionSingUp users={countUser.data.user.meta.pagination.total} />
           </Col>
         </Row>

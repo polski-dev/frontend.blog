@@ -12,8 +12,7 @@ const Contact: NextPage<any, any> = (): JSX.Element => {
       </Head>
       <Container>
         <Row>
-          <MenuPrimary title="Filtruj" data={[]} />
-          <Col xs={12} md={9}>
+          <Col xs={12}>
             <h5 style={{ marginTop: "3rem", paddingBottom: "1.5rem" }}>Kontakt</h5>
             <div
               style={{
