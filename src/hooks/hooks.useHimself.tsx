@@ -13,7 +13,7 @@ import {
   userHimselfDeleteInitialState,
 } from "database/database.restAPI.index";
 
-export default function useHimself({ id, slug }: { id: number; slug?: string }) {
+export default function useHimself() {
   const { data: session } = useSession();
   const [userHimselfData, setUserHimselfData] = useState(userHimselfDataInitialState);
   const [userHimselfDataEditEmail, setUserHimselfDataEditEmail] = useState(userHimselfDataEditEmailInitialState);
@@ -22,12 +22,15 @@ export default function useHimself({ id, slug }: { id: number; slug?: string }) 
   const [userHimselfDelete, setUserHimselfDelete] = useState(userHimselfDeleteInitialState);
 
   useEffect(() => {
-    if (!!session?.jwt)
+    if (session?.jwt)
       (async () => {
-        const data = await userHimselfDataGetPreview(typeof session?.jwt === "string" ? session?.jwt : "");
+        const jwt = typeof session?.jwt === "string" ? session?.jwt : false;
+        console.log(jwt);
+        const data = jwt ? await userHimselfDataGetPreview(jwt) : userHimselfDataInitialState;
+        console.log(data, "ok");
         setUserHimselfData(data);
       })();
-  }, [userHimselfData, session, userHimselfDataEditEmail, userHimselfDataEditPassword, userHimselfDataEditPublic, userHimselfDelete]);
+  }, [session, userHimselfDataEditEmail, userHimselfDataEditPassword, userHimselfDataEditPublic, userHimselfDelete]);
 
   const userHimselfDataEditEmailGet = async (email: string) => {
     const editEmailData = await userHimselfDataEditEmailGetPreview(typeof session?.jwt === "string" ? session?.jwt : "", email);

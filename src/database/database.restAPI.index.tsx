@@ -157,13 +157,13 @@ const userSubscriptionToggleGet: (idUser: number, authorization: string) => Prom
 
 const userStatisticsGet: (idUser: number) => Promise<UserStatisticsType> = async (idUser: number): Promise<UserStatisticsType> => await fetchAPI({ path: `/api/user/statistics/${idUser}` });
 
-const userHimselfDataGetPreview: (authorization: string) => Promise<UserHimselfDataType> = async (authorization: string): Promise<UserHimselfDataType> => await fetchAPI({ path: `/api/user/himself/data`, authorization });
+const userHimselfDataGetPreview: (authorization: string) => Promise<UserHimselfDataType> = async (authorization: string): Promise<UserHimselfDataType> => await fetchAPI({ path: `/api/user/himself/data`, authorization: `Bearer ${authorization}` });
 
 const userHimselfDataEditEmailGetPreview: (authorization: string, email: string) => Promise<UserHimselfDataEditEmailType> = async (authorization: string, email: string): Promise<UserHimselfDataEditEmailType> =>
-  await fetchAPI({ path: `/api/user/himself/update/email`, authorization, body: { email } });
+  await fetchAPI({ path: `/api/user/himself/update/email`, authorization: `Bearer ${authorization}`, body: { email } });
 
 const userHimselfDataEditPasswordGetPreview: (authorization: string, password: string) => Promise<UserHimselfDataEditPasswordType> = async (authorization: string, password: string): Promise<UserHimselfDataEditPasswordType> =>
-  await fetchAPI({ path: `/api/user/himself/update/password`, authorization, body: { password } });
+  await fetchAPI({ path: `/api/user/himself/update/password`, authorization: `Bearer ${authorization}`, body: { password } });
 
 const userHimselfDataEditPublicGetPreview: (
   authorization: string,
@@ -171,9 +171,10 @@ const userHimselfDataEditPublicGetPreview: (
 ) => Promise<UserHimselfDataEditPublicType> = async (
   authorization: string,
   data: { username?: string; about?: string; website?: string; youtube?: string; instagram?: string; tiktok?: string; github?: string; city?: string; country?: string }
-): Promise<UserHimselfDataEditPublicType> => await fetchAPI({ path: `/api/user/himself/update/public`, authorization, body: { ...data } });
+): Promise<UserHimselfDataEditPublicType> => await fetchAPI({ path: `/api/user/himself/update/public`, authorization: `Bearer ${authorization}`, body: { ...data } });
 
-const userHimselfDeleteTypeGetPreview: (authorization: string) => Promise<UserHimselfDeleteType> = async (authorization: string): Promise<UserHimselfDeleteType> => await fetchAPI({ path: `/api/user/himself/update/delete`, authorization });
+const userHimselfDeleteTypeGetPreview: (authorization: string) => Promise<UserHimselfDeleteType> = async (authorization: string): Promise<UserHimselfDeleteType> =>
+  await fetchAPI({ path: `/api/user/himself/update/delete`, authorization: `Bearer ${authorization}` });
 
 export type {
   ContentShortType,

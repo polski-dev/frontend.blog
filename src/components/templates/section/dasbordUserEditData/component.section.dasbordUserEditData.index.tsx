@@ -2,12 +2,17 @@ import Link from "next/link";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
 import Avatar from "assets/icon/avatar.svg";
+import useHimself from "hooks/hooks.useHimself";
 import { emailRegex, passwordRegex } from "assets/regex/index.regex";
 import { ButtonSubmit } from "components/atoms/button/component.button.index";
 import { Input, TextArea, enumInputType } from "components/molecules/form/component.form.index";
 import { Section, Header, Title, Content, Description, AuthorAvatr, Form, InfoInput } from "./component.section.dasbordUserEditData.style";
 
 export default function SectionDasbordUserEditData({ data: { session } }: { data: { session?: { user?: { email?: string | undefined | null; image?: string | undefined | null; name?: string | undefined | null } } | null } }) {
+  const { userHimselfData } = useHimself();
+
+  console.log(userHimselfData);
+
   const {
     setError,
     register,
