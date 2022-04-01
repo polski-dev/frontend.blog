@@ -73,6 +73,16 @@ import {
   ArticeGetListCommentsType,
   articeGetListCommentsInitialState,
   ArticeGetListCommentsItemType,
+  UserHimselfDataType,
+  userHimselfDataInitialState,
+  UserHimselfDataEditEmailType,
+  userHimselfDataEditEmailInitialState,
+  UserHimselfDataEditPasswordType,
+  userHimselfDataEditPasswordInitialState,
+  UserHimselfDataEditPublicType,
+  userHimselfDataEditPublicInitialState,
+  UserHimselfDeleteType,
+  userHimselfDeleteInitialState,
 } from "./database.graphQL.index";
 
 // search
@@ -147,6 +157,24 @@ const userSubscriptionToggleGet: (idUser: number, authorization: string) => Prom
 
 const userStatisticsGet: (idUser: number) => Promise<UserStatisticsType> = async (idUser: number): Promise<UserStatisticsType> => await fetchAPI({ path: `/api/user/statistics/${idUser}` });
 
+const userHimselfDataGetPreview: (authorization: string) => Promise<UserHimselfDataType> = async (authorization: string): Promise<UserHimselfDataType> => await fetchAPI({ path: `/api/user/himself/data`, authorization });
+
+const userHimselfDataEditEmailGetPreview: (authorization: string, email: string) => Promise<UserHimselfDataEditEmailType> = async (authorization: string, email: string): Promise<UserHimselfDataEditEmailType> =>
+  await fetchAPI({ path: `/api/user/himself/update/email`, authorization, body: { email } });
+
+const userHimselfDataEditPasswordGetPreview: (authorization: string, password: string) => Promise<UserHimselfDataEditPasswordType> = async (authorization: string, password: string): Promise<UserHimselfDataEditPasswordType> =>
+  await fetchAPI({ path: `/api/user/himself/update/password`, authorization, body: { password } });
+
+const userHimselfDataEditPublicGetPreview: (
+  authorization: string,
+  data: { username?: string; about?: string; website?: string; youtube?: string; instagram?: string; tiktok?: string; github?: string; city?: string; country?: string }
+) => Promise<UserHimselfDataEditPublicType> = async (
+  authorization: string,
+  data: { username?: string; about?: string; website?: string; youtube?: string; instagram?: string; tiktok?: string; github?: string; city?: string; country?: string }
+): Promise<UserHimselfDataEditPublicType> => await fetchAPI({ path: `/api/user/himself/update/public`, authorization, body: { ...data } });
+
+const userHimselfDeleteTypeGetPreview: (authorization: string) => Promise<UserHimselfDeleteType> = async (authorization: string): Promise<UserHimselfDeleteType> => await fetchAPI({ path: `/api/user/himself/update/delete`, authorization });
+
 export type {
   ContentShortType,
   ContentShortFromUserType,
@@ -178,6 +206,11 @@ export type {
   UserSubscriptionStatusType,
   UserSubscriptionToggleType,
   UserStatisticsType,
+  UserHimselfDataType,
+  UserHimselfDataEditEmailType,
+  UserHimselfDataEditPasswordType,
+  UserHimselfDataEditPublicType,
+  UserHimselfDeleteType,
   ArticeFullByIdType,
   ArticeWithOnlyTitleType,
   ArticeAddViewType,
@@ -245,6 +278,16 @@ export {
   userSubscriptionToggleGet,
   userStatisticsInitialState,
   userStatisticsGet,
+  userHimselfDataGetPreview,
+  userHimselfDataInitialState,
+  userHimselfDataEditEmailGetPreview,
+  userHimselfDataEditEmailInitialState,
+  userHimselfDataEditPasswordGetPreview,
+  userHimselfDataEditPasswordInitialState,
+  userHimselfDataEditPublicGetPreview,
+  userHimselfDataEditPublicInitialState,
+  userHimselfDeleteTypeGetPreview,
+  userHimselfDeleteInitialState,
   articleShortRestAPIGetPreview,
   articeFullByIdInitialState,
   articeWithOnlyTitleRestAPIGetPreview,
