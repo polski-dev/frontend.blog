@@ -17,6 +17,22 @@ import { userSubscriptionToggleInitialState } from "./initialState/database.user
 //
 import { UserStatisticsType } from "./type/database.userStatistics.type";
 import { userStatisticsInitialState } from "./initialState/database.userStatistics.initialState";
+//
+
+import { UserHimselfDataType } from "./type/database.userHimselfData.type";
+import { userHimselfDataInitialState } from "./initialState/database.userHimselfData.initialState";
+//
+import { UserHimselfDataEditEmailType } from "./type/database.userHimselfDataEditEmail.type";
+import { userHimselfDataEditEmailInitialState } from "./initialState/database.userHimselfDataEditEmail.initialState";
+//
+import { UserHimselfDataEditPasswordType } from "./type/database.userHimselfDataEditPassword.type";
+import { userHimselfDataEditPasswordInitialState } from "./initialState/database.userHimselfDataEditPassword.initialState";
+//
+import { UserHimselfDataEditPublicType } from "./type/database.userHimselfDataEditPublic.type";
+import { userHimselfDataEditPublicInitialState } from "./initialState/database.userHimselfDataEditPublic.initialState";
+//
+import { UserHimselfDeleteType } from "./type/database.userHimselfDelete.type";
+import { userHimselfDeleteInitialState } from "./initialState/database.userHimselfDelete.initialState";
 
 // metchods
 const userByIdGetPreview: (id: number) => Promise<UserByIdType> = async (id: number): Promise<UserByIdType> => await fetchGraphQLAPI(userByIdQuery, { variables: { id } });
@@ -32,7 +48,26 @@ const userSubscriptionToggleGet: (idUser: number, authorization: string) => Prom
 
 const userStatisticsGet: (idUser: number) => Promise<UserStatisticsType> = async (idUser: number): Promise<UserStatisticsType> => await fetchRestAPI({ path: `${process.env.NEXT_PUBLIC_API_URL}/api/user/${idUser}/statistics` });
 
-export type { UserByIdType, UserGetListType, UserSubscriptionStatusType, UserSubscriptionToggleType, UserStatisticsType };
+const userHimselfDataGetPreview: (authorization: string) => Promise<UserHimselfDataType> = async (authorization: string): Promise<UserHimselfDataType> => await fetchRestAPI({ path: `${process.env.NEXT_PUBLIC_API_URL}/api/user/himself/data`, authorization });
+
+const userHimselfDataEditEmailGetPreview: (authorization: string, email: string) => Promise<UserHimselfDataEditEmailType> = async (authorization: string, email: string): Promise<UserHimselfDataEditEmailType> =>
+  await fetchRestAPI({ path: `${process.env.NEXT_PUBLIC_API_URL}/api/user/himself/data/email`, authorization, body: { email } });
+
+const userHimselfDataEditPasswordGetPreview: (authorization: string, password: string) => Promise<UserHimselfDataEditPasswordType> = async (authorization: string, password: string): Promise<UserHimselfDataEditPasswordType> =>
+  await fetchRestAPI({ path: `${process.env.NEXT_PUBLIC_API_URL}/api/user/himself/data/password`, authorization, body: { password } });
+
+const userHimselfDataEditPublicGetPreview: (
+  authorization: string,
+  data: { username?: string; about?: string; website?: string; youtube?: string; instagram?: string; tiktok?: string; github?: string; city?: string; country?: string }
+) => Promise<UserHimselfDataEditPublicType> = async (
+  authorization: string,
+  data: { username?: string; about?: string; website?: string; youtube?: string; instagram?: string; tiktok?: string; github?: string; city?: string; country?: string }
+): Promise<UserHimselfDataEditPublicType> => await fetchRestAPI({ path: `${process.env.NEXT_PUBLIC_API_URL}/api/user/himself/data/public`, authorization, body: { ...data } });
+
+const userHimselfDeleteTypeGetPreview: (authorization: string) => Promise<UserHimselfDeleteType> = async (authorization: string): Promise<UserHimselfDeleteType> =>
+  await fetchRestAPI({ path: `${process.env.NEXT_PUBLIC_API_URL}/api/user/himself/data/delete`, authorization });
+
+export type { UserByIdType, UserGetListType, UserSubscriptionStatusType, UserSubscriptionToggleType, UserStatisticsType, UserHimselfDataType, UserHimselfDataEditEmailType, UserHimselfDataEditPasswordType, UserHimselfDataEditPublicType, UserHimselfDeleteType };
 export {
   userByIdGetPreview,
   userByIdInitialState,
@@ -44,4 +79,14 @@ export {
   userSubscriptionToggleInitialState,
   userStatisticsGet,
   userStatisticsInitialState,
+  userHimselfDataGetPreview,
+  userHimselfDataInitialState,
+  userHimselfDataEditEmailGetPreview,
+  userHimselfDataEditEmailInitialState,
+  userHimselfDataEditPasswordGetPreview,
+  userHimselfDataEditPasswordInitialState,
+  userHimselfDataEditPublicGetPreview,
+  userHimselfDataEditPublicInitialState,
+  userHimselfDeleteTypeGetPreview,
+  userHimselfDeleteInitialState,
 };

@@ -81,7 +81,18 @@ import type { AuthSingUpType, AuthSingInType } from "./auth/database.auth.index"
 import { authSingUpPost, authSingUpInitialState, authSingInPost, authSingInInitialState } from "./auth/database.auth.index";
 
 // User
-import type { UserByIdType, UserGetListType, UserSubscriptionStatusType, UserSubscriptionToggleType, UserStatisticsType } from "./user/database.user.index";
+import type {
+  UserByIdType,
+  UserGetListType,
+  UserSubscriptionStatusType,
+  UserSubscriptionToggleType,
+  UserStatisticsType,
+  UserHimselfDataType,
+  UserHimselfDataEditEmailType,
+  UserHimselfDataEditPasswordType,
+  UserHimselfDataEditPublicType,
+  UserHimselfDeleteType,
+} from "./user/database.user.index";
 import {
   userByIdGetPreview,
   userByIdInitialState,
@@ -93,6 +104,16 @@ import {
   userSubscriptionToggleInitialState,
   userStatisticsGet,
   userStatisticsInitialState,
+  userHimselfDataGetPreview,
+  userHimselfDataInitialState,
+  userHimselfDataEditEmailGetPreview,
+  userHimselfDataEditEmailInitialState,
+  userHimselfDataEditPasswordGetPreview,
+  userHimselfDataEditPasswordInitialState,
+  userHimselfDataEditPublicGetPreview,
+  userHimselfDataEditPublicInitialState,
+  userHimselfDeleteTypeGetPreview,
+  userHimselfDeleteInitialState,
 } from "./user/database.user.index";
 
 // export
@@ -128,6 +149,11 @@ export type {
   UserSubscriptionStatusType,
   UserSubscriptionToggleType,
   UserStatisticsType,
+  UserHimselfDataType,
+  UserHimselfDataEditEmailType,
+  UserHimselfDataEditPasswordType,
+  UserHimselfDataEditPublicType,
+  UserHimselfDeleteType,
   ArticeFullByIdType,
   ArticeWithOnlyTitleType,
   ArticeAddViewType,
@@ -198,6 +224,16 @@ export {
   userSubscriptionToggleInitialState,
   userStatisticsGet,
   userStatisticsInitialState,
+  userHimselfDataGetPreview,
+  userHimselfDataInitialState,
+  userHimselfDataEditEmailGetPreview,
+  userHimselfDataEditEmailInitialState,
+  userHimselfDataEditPasswordGetPreview,
+  userHimselfDataEditPasswordInitialState,
+  userHimselfDataEditPublicGetPreview,
+  userHimselfDataEditPublicInitialState,
+  userHimselfDeleteTypeGetPreview,
+  userHimselfDeleteInitialState,
   articeFullByIdInitialState,
   articeFullByIdGetPreview,
   articeWithOnlyTitleInitialState,
