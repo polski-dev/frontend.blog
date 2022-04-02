@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useSession } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 import { NextRouter, useRouter } from "next/router";
 import {
   userHimselfDataEditEmailGetPreview,
@@ -67,7 +67,10 @@ export default function useHimself() {
   const userHimselfDeleteGet = async () => {
     const deleteData = await userHimselfDeleteTypeGetPreview(typeof session?.jwt === "string" ? session?.jwt : "");
     setUserHimselfDelete(deleteData);
-    if (!!deleteData?.data) router.replace("");
+    if (deleteData?.data) {
+      signOut();
+      router.replace("/");
+    }
     return deleteData;
   };
 

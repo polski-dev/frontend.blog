@@ -48,6 +48,7 @@ export const AuthorAvatr: StyledComponent<any, any> = styled.div`
   border-radius: 100%;
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.6);
   margin-bottom: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.main};
+  background-color: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorTextDesactive};
 `;
 
 export const Form: StyledComponent<any, any> = styled.form`

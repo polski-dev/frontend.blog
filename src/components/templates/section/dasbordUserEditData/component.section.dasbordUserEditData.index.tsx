@@ -113,9 +113,7 @@ export default function SectionDasbordUserEditData({ data: { session } }: { data
   const onSubmitDelete = (): void => {
     setUpdateDelete(true);
     (async () => {
-      const update = await userHimselfDeleteGet();
-      console.log(update);
-      setUpdatePassword(false);
+      await userHimselfDeleteGet();
     })();
   };
 
