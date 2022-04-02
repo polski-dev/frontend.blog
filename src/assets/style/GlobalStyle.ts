@@ -27,8 +27,7 @@ const GlobalStyle = styled.createGlobalStyle<GlobalStyleProps>`
     font-weight: normal;
     color: ${({ theme }) => theme.colorText};
     background-color: ${({ theme }) => theme.colorMainBg};
-    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji",
-      "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   }
 
   p,
@@ -44,6 +43,11 @@ const GlobalStyle = styled.createGlobalStyle<GlobalStyleProps>`
   strong {
     margin: 0;
     padding: 0;
+    font-family: "Montserrat", sans-serif;
+  }
+
+  input,
+  textarea {
     font-family: "Montserrat", sans-serif;
   }
 
