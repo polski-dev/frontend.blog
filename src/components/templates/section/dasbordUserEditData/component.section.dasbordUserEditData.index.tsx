@@ -11,7 +11,7 @@ import { Input, TextArea, enumInputType } from "components/molecules/form/compon
 import { Section, Header, Title, Content, Description, AuthorAvatr, Form, InfoInput, BoxInfo } from "./component.section.dasbordUserEditData.style";
 
 export default function SectionDasbordUserEditData({ data: { session } }: { data: { session?: { user?: { email?: string | undefined | null; image?: string | undefined | null; name?: string | undefined | null } } | null } }) {
-  const { userHimselfData, userHimselfDataEditPublicGet, userHimselfDataEditEmailGet } = useHimself();
+  const { userHimselfData, userHimselfDataEditPublicGet, userHimselfDataEditEmailGet, userHimselfDataEditPasswordGet } = useHimself();
 
   const {
     watch,
@@ -72,6 +72,45 @@ export default function SectionDasbordUserEditData({ data: { session } }: { data
       else {
         setSaveEmail(true);
         setTimeout(() => setSaveEmail(false), 2000);
+      }
+    })();
+  };
+
+  // PASSWORD START
+  const [updatePassword, setUpdatePassword] = useState(false);
+  const [savePassword, setSavePassword] = useState(false);
+
+  const {
+    setError: setErrorPassword,
+    register: registerPassword,
+    handleSubmit: handleSubmitPassword,
+    formState: { errors: errorsPassword },
+  } = useForm();
+
+  const onSubmitPassword = (data: any): void => {
+    setUpdatePassword(true);
+    (async () => {
+      if (data.password != data.passwordSecound) {
+        setErrorPassword("password", {
+          message: "Hasła nie są takie same ",
+        });
+        setErrorPassword("passwordSecound", {
+          message: "Hasła nie są takie same ",
+        });
+      } else {
+        const update = await userHimselfDataEditPasswordGet(data.password);
+        setUpdatePassword(false);
+        if (!!update?.error) {
+          setErrorPassword("passwordSecound", {
+            message: "Nie hasło jest nie prawidłowe lub spróbuj za kilka minut jeszcze raz",
+          });
+          setErrorPassword("password", {
+            message: "Nie hasło jest nie prawidłowe lub spróbuj za kilka minut jeszcze raz",
+          });
+        } else {
+          setSavePassword(true);
+          setTimeout(() => setSavePassword(false), 2000);
+        }
       }
     })();
   };
@@ -165,12 +204,13 @@ export default function SectionDasbordUserEditData({ data: { session } }: { data
           )}
         </Form>
 
-        <Form className="privateData">
-          {!!userHimselfData?.data ? (
+        <Form className="privateData" onSubmit={handleSubmitPassword((data) => onSubmitPassword(data))}>
+          {!!userHimselfData?.data && !updatePassword ? (
             <>
+              {savePassword && <BoxInfo>Zapisano</BoxInfo>}
               <InfoInput>min. 8 znaków, min. 1 wielka litera, min. 1 mała litera, min. 1 cyfra, min. 1 znak specjalny</InfoInput>
-              <Input id="password" name="password" pattern={passwordRegex} type={enumInputType.password} error={errors.password} placeholder="hasło" register={register} required />
-              <Input id="passwordSecound" name="passwordSecound" pattern={passwordRegex} type={enumInputType.password} error={errors.passwordSecound} placeholder="powtórz hasło" register={register} required />
+              <Input id="password" name="password" pattern={passwordRegex} type={enumInputType.password} error={errorsPassword.password} placeholder="hasło" register={registerPassword} required />
+              <Input id="passwordSecound" name="passwordSecound" pattern={passwordRegex} type={enumInputType.password} error={errorsPassword.passwordSecound} placeholder="powtórz hasło" register={registerPassword} required />
               <ButtonSubmit title="zapisz nowe hasło">zapisz nowe hasło</ButtonSubmit>
             </>
           ) : (
