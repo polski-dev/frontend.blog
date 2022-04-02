@@ -79,3 +79,18 @@ export const InfoInput = styled.div`
   text-align: left;
   padding-bottom: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.small};
 `;
+
+export const BoxInfo = styled.div`
+  width: 100%;
+  display: flex;
+  margin: 0 auto;
+  height: 3.2rem;
+  position: relative;
+  text-align: center;
+  align-items: center;
+  border-radius: 0.6rem;
+  justify-content: center;
+  margin-bottom: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.small};
+  background-color: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorSuccessBg};
+  border: 1px solid ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorSuccessBorder};
+`;

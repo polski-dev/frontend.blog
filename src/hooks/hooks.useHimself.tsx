@@ -25,9 +25,7 @@ export default function useHimself() {
     if (session?.jwt)
       (async () => {
         const jwt = typeof session?.jwt === "string" ? session?.jwt : false;
-        console.log(jwt);
         const data = jwt ? await userHimselfDataGetPreview(jwt) : userHimselfDataInitialState;
-        console.log(data, "ok");
         setUserHimselfData(data);
       })();
   }, [session, userHimselfDataEditEmail, userHimselfDataEditPassword, userHimselfDataEditPublic, userHimselfDelete]);
