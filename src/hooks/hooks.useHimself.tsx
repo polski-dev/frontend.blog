@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
+import { NextRouter, useRouter } from "next/router";
 import {
   userHimselfDataEditEmailGetPreview,
   userHimselfDataEditEmailInitialState,
@@ -15,6 +16,7 @@ import {
 
 export default function useHimself() {
   const { data: session } = useSession();
+  const router: NextRouter = useRouter();
   const [userHimselfData, setUserHimselfData] = useState(userHimselfDataInitialState);
   const [userHimselfDataEditEmail, setUserHimselfDataEditEmail] = useState(userHimselfDataEditEmailInitialState);
   const [userHimselfDataEditPassword, setUserHimselfDataEditPassword] = useState(userHimselfDataEditPasswordInitialState);
@@ -65,6 +67,7 @@ export default function useHimself() {
   const userHimselfDeleteGet = async () => {
     const deleteData = await userHimselfDeleteTypeGetPreview(typeof session?.jwt === "string" ? session?.jwt : "");
     setUserHimselfDelete(deleteData);
+    if (!!deleteData?.data) router.replace("");
     return deleteData;
   };
 

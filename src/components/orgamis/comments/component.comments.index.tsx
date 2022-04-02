@@ -78,7 +78,7 @@ export default function CommentsComponent({ data, type, id, slug }: { data: Arti
           {statusAddingComment === "expectancy" ? (
             <ItemLoad height={7.7} style={{ width: "calc(100% - 5.8rem)", marginLeft: "1.5rem" }} />
           ) : (
-            <TextArea id="commentsDescription" defaultValue={readCommentToAdd?.comment || ""} name="commentsDescription" error={errors.commentsDescription} placeholder="Napisz komentarz..." register={register} required={"This is required."} />
+            <TextArea id="commentsDescription" defaultValue={readCommentToAdd?.comment || ""} name="commentsDescription" error={errors.commentsDescription} placeholder="Napisz komentarz..." register={register} required />
           )}
           {statusAddingComment === "expectancy" ? <ItemLoad height={2.9} style={{ width: "6rem", marginLeft: "auto" }} /> : <ButtonSubmit title="dodaj">Dodaj</ButtonSubmit>}
         </Form>

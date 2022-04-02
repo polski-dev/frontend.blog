@@ -11,22 +11,13 @@ import { Input, TextArea, enumInputType } from "components/molecules/form/compon
 import { Section, Header, Title, Content, Description, AuthorAvatr, Form, InfoInput, BoxInfo } from "./component.section.dasbordUserEditData.style";
 
 export default function SectionDasbordUserEditData({ data: { session } }: { data: { session?: { user?: { email?: string | undefined | null; image?: string | undefined | null; name?: string | undefined | null } } | null } }) {
-  const { userHimselfData, userHimselfDataEditPublicGet, userHimselfDataEditEmailGet, userHimselfDataEditPasswordGet } = useHimself();
-
-  const {
-    watch,
-    setError,
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const { userHimselfData, userHimselfDataEditPublicGet, userHimselfDataEditEmailGet, userHimselfDataEditPasswordGet, userHimselfDeleteGet } = useHimself();
 
   // PUBLIC DATA START
   const [updatePublicData, setUpdatePublicData] = useState(false);
 
   const {
     watch: watchPublicData,
-    setError: setErrorPublicData,
     register: registerPublicData,
     handleSubmit: handleSubmitPublicData,
     formState: { errors: errorsPublicData },
@@ -52,7 +43,6 @@ export default function SectionDasbordUserEditData({ data: { session } }: { data
   const [saveEmail, setSaveEmail] = useState(false);
 
   const {
-    watch: watchEmail,
     setError: setErrorEmail,
     register: registerEmail,
     handleSubmit: handleSubmitEmail,
@@ -115,6 +105,20 @@ export default function SectionDasbordUserEditData({ data: { session } }: { data
     })();
   };
 
+  // Delete Acount
+  const [updateDelete, setUpdateDelete] = useState(false);
+
+  const { handleSubmit: handleSubmitDelete } = useForm();
+
+  const onSubmitDelete = (): void => {
+    setUpdateDelete(true);
+    (async () => {
+      const update = await userHimselfDeleteGet();
+      console.log(update);
+      setUpdatePassword(false);
+    })();
+  };
+
   return (
     <Section>
       <Header>Edycja danych</Header>
@@ -133,21 +137,39 @@ export default function SectionDasbordUserEditData({ data: { session } }: { data
                 id="username"
                 name="username"
                 type={enumInputType.text}
-                error={errors.username}
+                error={errorsPublicData.username}
                 placeholder="Imię i nazwisko lub nick"
                 defaultValue={!!userHimselfData?.data?.username ? userHimselfData?.data?.username : undefined}
                 register={registerPublicData}
                 required
               />
-              <TextArea id="about" name="commentsDescription" error={errors.about} defaultValue={!!userHimselfData?.data?.about ? userHimselfData?.data?.about : undefined} placeholder="Napisz coś o sobie..." register={registerPublicData} />
-              <Input id="city" name="city" type={enumInputType.text} error={errors.city} placeholder="Miasto" defaultValue={!!userHimselfData?.data?.city ? userHimselfData?.data?.city : undefined} register={registerPublicData} required />
-              <Input id="country" name="country" type={enumInputType.text} error={errors.country} placeholder="Kraj" defaultValue={!!userHimselfData?.data?.country ? userHimselfData?.data?.country : undefined} register={registerPublicData} required />
-              <Input id="website" name="website" type={enumInputType.text} error={errors.website} placeholder="Portfolio url" defaultValue={!!userHimselfData?.data?.website ? userHimselfData?.data?.website : undefined} register={registerPublicData} required />
+              <TextArea id="about" name="commentsDescription" error={errorsPublicData.about} defaultValue={!!userHimselfData?.data?.about ? userHimselfData?.data?.about : undefined} placeholder="Napisz coś o sobie..." register={registerPublicData} />
+              <Input id="city" name="city" type={enumInputType.text} error={errorsPublicData.city} placeholder="Miasto" defaultValue={!!userHimselfData?.data?.city ? userHimselfData?.data?.city : undefined} register={registerPublicData} required />
+              <Input
+                id="country"
+                name="country"
+                type={enumInputType.text}
+                error={errorsPublicData.country}
+                placeholder="Kraj"
+                defaultValue={!!userHimselfData?.data?.country ? userHimselfData?.data?.country : undefined}
+                register={registerPublicData}
+                required
+              />
+              <Input
+                id="website"
+                name="website"
+                type={enumInputType.text}
+                error={errorsPublicData.website}
+                placeholder="Portfolio url"
+                defaultValue={!!userHimselfData?.data?.website ? userHimselfData?.data?.website : undefined}
+                register={registerPublicData}
+                required
+              />
               <Input
                 id="instagram"
                 name="instagram"
                 type={enumInputType.text}
-                error={errors.instagram}
+                error={errorsPublicData.instagram}
                 placeholder="Instagram url twojego profilu"
                 defaultValue={!!userHimselfData?.data?.instagram ? userHimselfData?.data?.instagram : undefined}
                 register={registerPublicData}
@@ -156,13 +178,29 @@ export default function SectionDasbordUserEditData({ data: { session } }: { data
                 id="youtube"
                 name="youtube"
                 type={enumInputType.text}
-                error={errors.youtube}
+                error={errorsPublicData.youtube}
                 placeholder="YouTube url Twojego kanału"
                 defaultValue={!!userHimselfData?.data?.youtube ? userHimselfData?.data?.youtube : undefined}
                 register={registerPublicData}
               />
-              <Input id="tiktok" name="tiktok" type={enumInputType.text} error={errors.tiktok} placeholder="TikTok url twojego profilu" defaultValue={!!userHimselfData?.data?.tiktok ? userHimselfData?.data?.tiktok : undefined} register={registerPublicData} />
-              <Input id="github" name="github" type={enumInputType.text} error={errors.github} placeholder="Github url twojego profilu" defaultValue={!!userHimselfData?.data?.github ? userHimselfData?.data?.github : undefined} register={registerPublicData} />
+              <Input
+                id="tiktok"
+                name="tiktok"
+                type={enumInputType.text}
+                error={errorsPublicData.tiktok}
+                placeholder="TikTok url twojego profilu"
+                defaultValue={!!userHimselfData?.data?.tiktok ? userHimselfData?.data?.tiktok : undefined}
+                register={registerPublicData}
+              />
+              <Input
+                id="github"
+                name="github"
+                type={enumInputType.text}
+                error={errorsPublicData.github}
+                placeholder="Github url twojego profilu"
+                defaultValue={!!userHimselfData?.data?.github ? userHimselfData?.data?.github : undefined}
+                register={registerPublicData}
+              />
             </>
           ) : (
             <>
@@ -224,8 +262,8 @@ export default function SectionDasbordUserEditData({ data: { session } }: { data
         </Form>
 
         <Title style={{ paddingTop: "3rem" }}>Usuń konto</Title>
-        <Form className="privateData">
-          {!!userHimselfData?.data ? (
+        <Form className="privateData" onSubmit={handleSubmitDelete(() => onSubmitDelete())}>
+          {!!userHimselfData?.data && !updateDelete ? (
             <>
               <ButtonSubmit title="zapisz nowe hasło">Usuń bezpowrotnie swoje konto</ButtonSubmit>
             </>
