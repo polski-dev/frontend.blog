@@ -3,9 +3,9 @@ export interface InputInterface {
   name: string;
   error: Object;
   pattern?: Object;
+  required?: boolean;
   placeholder?: string;
   defaultValue?: string;
-  required?: boolean | string;
   register: (...props: any) => void;
 }
 
