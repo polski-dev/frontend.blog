@@ -1,23 +1,17 @@
-export default async function fetchAPISendFile({ path, body, authorization = "", method = "POST" }: { path: string; body?: {}; authorization?: string; method?: string }): Promise<any> {
-  const res = await fetch(
-    path,
-    method === "GET"
-      ? {
-          method: method,
-          headers: new Headers({
-            Authorization: authorization,
-            "Content-Type": "application/json",
-          }),
-        }
-      : {
-          method: method,
-          headers: new Headers({
-            Authorization: authorization,
-            "Content-Type": "application/json",
-          }),
-          body: JSON.stringify(body),
-        }
-  );
+export default async function fetchAPISendFile({ path, files, authorization }: { path: string; files: [{ name: string; type: string; file: any }]; authorization: string }): Promise<any> {
+  const form = new FormData();
+  files.forEach((item) => {
+    form.append(item.type, item.file);
+    form.append("name", item.name);
+  });
+
+  const res = await fetch(path, {
+    method: "POST",
+    headers: new Headers({
+      Authorization: authorization,
+      "Content-Type": "multipart/form-data",
+    }),
+  });
 
   const json = await res.json();
 
