@@ -142,13 +142,46 @@ export default function SectionDasbordUserEditData({ data: { session } }: { data
 
       <Content>
         <Title>Dane publiczne</Title>
-        <Form className="avatarData" onSubmit={handleSubmitAvatar((data) => onSubmitAvatar(data))}>
-          <AuthorAvatr>
-            {!!userHimselfData?.data?.avatar?.url && !!session ? <Image width={150} height={150} placeholder="blur" blurDataURL="/img/blur.png" alt={userHimselfData?.data?.username} src={userHimselfData?.data?.avatar?.url} /> : <Avatar />}
-          </AuthorAvatr>
-          <Input id="avatar" name="avatar" type={enumInputType.file} error={errorsAvatar.avatar} placeholder="Imię i nazwisko lub nick" register={registerAvatar} accept="image/png, image/jpeg" required />
-          <ButtonSubmit title="zmień">{!!session ? "Zmień" : "Dodaj"}</ButtonSubmit>
-        </Form>
+        {!!userHimselfData?.data ? (
+          <Form className="avatarData" onSubmit={handleSubmitAvatar((data) => onSubmitAvatar(data))}>
+            <AuthorAvatr>
+              {!!userHimselfData?.data?.avatar?.url && !!session ? <Image width={150} height={150} placeholder="blur" blurDataURL="/img/blur.png" alt={userHimselfData?.data?.username} src={userHimselfData?.data?.avatar?.url} /> : <Avatar />}
+            </AuthorAvatr>
+            <Input id="avatar" name="avatar" type={enumInputType.file} error={errorsAvatar.avatar} placeholder="Imię i nazwisko lub nick" register={registerAvatar} accept="image/png, image/jpeg" required />
+            <ButtonSubmit title="zmień">{!!session ? "Zmień" : "Dodaj"}</ButtonSubmit>
+          </Form>
+        ) : (
+          <div style={{ display: "flex", flexDirection: "column", width: "15rem", alignItems: "center" }}>
+            <ItemLoad
+              style={{
+                width: "15rem",
+                height: "15rem",
+                borderRadius: "100%",
+              }}
+            />
+            <div style={{ display: "flex", flexWrap: "wrap", width: "15rem", alignItems: "center" }}>
+              <ItemLoad
+                style={{
+                  width: "10rem",
+                  height: "3.2rem",
+                }}
+              />
+              <ItemLoad
+                style={{
+                  width: "3.2rem",
+                  height: "3.2rem",
+                  marginLeft: "1.8rem",
+                }}
+              />
+            </div>
+            <ItemLoad
+              style={{
+                width: "15rem",
+                height: "3.2rem",
+              }}
+            />
+          </div>
+        )}
         <Form className="publicData" onSubmit={handleSubmitPublicData((e: any) => e.preventDefault(e))}>
           {!!userHimselfData?.data ? (
             <>
