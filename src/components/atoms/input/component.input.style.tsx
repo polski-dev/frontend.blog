@@ -1,5 +1,6 @@
 import { InputStyledInterface } from "./component.input.type";
-import styled, { StyledComponent, ThemeProps } from "styled-components";
+import { styleDefault } from "../button/style/component.button.style";
+import styled, { css, StyledComponent, ThemeProps } from "styled-components";
 import { MainSettingsTemplate } from "assets/style/types.mainSettingsTemplate";
 
 export const Label: StyledComponent<any, any> = styled.label`
@@ -7,6 +8,27 @@ export const Label: StyledComponent<any, any> = styled.label`
   display: block;
   position: relative;
   margin: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.small} 0;
+
+  ${({ theme, file }: { theme: MainSettingsTemplate; file: boolean }) =>
+    file &&
+    css`
+      display: flex;
+
+      input {
+        padding: 0.4rem ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.main};
+      }
+
+      &::after {
+        content: "+";
+        ${styleDefault};
+        position: relative;
+        margin-left: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.main};
+
+        &:hover {
+          background-color: red;
+        }
+      }
+    `};
 `;
 
 export const Input: StyledComponent<any, any> = styled.input<InputStyledInterface>`
@@ -14,12 +36,17 @@ export const Input: StyledComponent<any, any> = styled.input<InputStyledInterfac
   border: none;
   height: 3rem;
   max-width: 100%;
+  position: relative;
   font-size: 1.5rem;
   border-radius: 0.6rem;
   color: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorText};
-  padding: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.main};
+  padding: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.small};
   border: 1px solid ${({ theme, error }: { theme: MainSettingsTemplate; error: boolean }): string => (error ? theme.colorDangerBorder : theme.colorBorder)};
   background: ${({ theme, error }: { theme: MainSettingsTemplate; error: boolean }): string => (error ? theme.colorDangerBg : theme.colorInputBgDark)};
+
+  ::-webkit-file-upload-button {
+    display: none;
+  }
 
   &:-webkit-autofill,
   &:-webkit-autofill:hover,

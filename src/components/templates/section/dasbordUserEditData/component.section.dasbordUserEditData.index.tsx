@@ -13,6 +13,25 @@ import { Section, Header, Title, Content, Description, AuthorAvatr, Form, InfoIn
 export default function SectionDasbordUserEditData({ data: { session } }: { data: { session?: { user?: { email?: string | undefined | null; image?: string | undefined | null; name?: string | undefined | null } } | null } }) {
   const { userHimselfData, userHimselfDataEditPublicGet, userHimselfDataEditEmailGet, userHimselfDataEditPasswordGet, userHimselfDeleteGet } = useHimself();
 
+  // CHANGE AVATAR
+  const [updateAvatar, setUpdateAvatar] = useState(false);
+  const [saveAvatar, setSaveAvatar] = useState(false);
+
+  const {
+    setError: setErrorAvatar,
+    register: registerAvatar,
+    handleSubmit: handleSubmitAvatar,
+    formState: { errors: errorsAvatar },
+  } = useForm();
+
+  const onSubmitAvatar = (data: any): void => {
+    setUpdateAvatar(true);
+    (async () => {
+      console.log(data);
+      console.log("upload");
+    })();
+  };
+
   // PUBLIC DATA START
   const [updatePublicData, setUpdatePublicData] = useState(false);
 
@@ -123,9 +142,12 @@ export default function SectionDasbordUserEditData({ data: { session } }: { data
 
       <Content>
         <Title>Dane publiczne</Title>
-        <Form className="avatarData">
-          <AuthorAvatr>{!!session?.user?.image && session?.user?.name ? <Image width={150} height={150} placeholder="blur" blurDataURL="/img/blur.png" alt={session?.user?.name} src={session?.user?.image} /> : <Avatar />}</AuthorAvatr>
-          <ButtonSubmit title="zmień">{!!session?.user?.image && session?.user?.name ? "Zmień" : "Dodaj"}</ButtonSubmit>
+        <Form className="avatarData" onSubmit={handleSubmitAvatar((data) => onSubmitAvatar(data))}>
+          <AuthorAvatr>
+            {!!userHimselfData?.data?.avatar?.url && !!session ? <Image width={150} height={150} placeholder="blur" blurDataURL="/img/blur.png" alt={userHimselfData?.data?.username} src={userHimselfData?.data?.avatar?.url} /> : <Avatar />}
+          </AuthorAvatr>
+          <Input id="avatar" name="avatar" type={enumInputType.file} error={errorsAvatar.avatar} placeholder="Imię i nazwisko lub nick" register={registerAvatar} accept="image/png, image/jpeg" required />
+          <ButtonSubmit title="zmień">{!!session ? "Zmień" : "Dodaj"}</ButtonSubmit>
         </Form>
         <Form className="publicData" onSubmit={handleSubmitPublicData((e: any) => e.preventDefault(e))}>
           {!!userHimselfData?.data ? (

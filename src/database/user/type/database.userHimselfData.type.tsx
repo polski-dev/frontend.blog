@@ -3,6 +3,9 @@ export interface UserHimselfDataType {
     id: number;
     username: string;
     email: string;
+    avatar: {
+      url?: string;
+    };
     provider: string;
     password: string;
     resetPasswordToken: null;

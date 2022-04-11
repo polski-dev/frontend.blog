@@ -2,7 +2,7 @@ import styled, { css, CSSObject, FlattenInterpolation, StyledComponent, ThemePro
 import { MainSettingsTemplate } from "assets/style/types.mainSettingsTemplate";
 import { ButtonLinkInType, ButtonSubmitType, ButtonType } from "../types/component.button.type";
 
-const styleDefault = css`
+export const styleDefault = css`
   border: none;
   cursor: pointer;
   font-size: 1.5rem;

@@ -67,6 +67,8 @@ const userHimselfDataEditPublicGetPreview: (
 const userHimselfDeleteTypeGetPreview: (authorization: string) => Promise<UserHimselfDeleteType> = async (authorization: string): Promise<UserHimselfDeleteType> =>
   await fetchRestAPI({ path: `${process.env.NEXT_PUBLIC_API_URL}/api/user/himself/data/delete`, authorization });
 
+// userHimselfChangeAvatar;
+
 export type { UserByIdType, UserGetListType, UserSubscriptionStatusType, UserSubscriptionToggleType, UserStatisticsType, UserHimselfDataType, UserHimselfDataEditEmailType, UserHimselfDataEditPasswordType, UserHimselfDataEditPublicType, UserHimselfDeleteType };
 export {
   userByIdGetPreview,
