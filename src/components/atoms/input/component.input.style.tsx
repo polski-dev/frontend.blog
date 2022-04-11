@@ -23,9 +23,12 @@ export const Label: StyledComponent<any, any> = styled.label`
         ${styleDefault};
         position: relative;
         margin-left: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.main};
+      }
 
-        &:hover {
-          background-color: red;
+      &:hover {
+        &::after {
+          color: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorLinkActive};
+          background: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorMainBg};
         }
       }
     `};
