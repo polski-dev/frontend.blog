@@ -1,5 +1,6 @@
 import fetchGraphQLAPI from "database/fetchAPI/database.fetchAPI.graphQL";
 import fetchRestAPI from "database/fetchAPI/database.fetchAPI.restAPI";
+import restAPISendFile from "database/fetchAPI/database.fetchAPI.restAPISendFile";
 //
 import { UserByIdType } from "./type/database.userById.type";
 import { userByIdQuery } from "./query/database.userById.query";
@@ -33,6 +34,9 @@ import { userHimselfDataEditPublicInitialState } from "./initialState/database.u
 //
 import { UserHimselfDeleteType } from "./type/database.userHimselfDelete.type";
 import { userHimselfDeleteInitialState } from "./initialState/database.userHimselfDelete.initialState";
+//
+import { UserHimselfChangeAvatarType } from "./type/database.userHimselfChangeAvatar.type";
+import { userHimselfChangeAvatarInitialState } from "./initialState/database.userHimselfChangeAvatar.initialState";
 
 // metchods
 const userByIdGetPreview: (id: number) => Promise<UserByIdType> = async (id: number): Promise<UserByIdType> => await fetchGraphQLAPI(userByIdQuery, { variables: { id } });
@@ -66,6 +70,14 @@ const userHimselfDataEditPublicGetPreview: (
 
 const userHimselfDeleteTypeGetPreview: (authorization: string) => Promise<UserHimselfDeleteType> = async (authorization: string): Promise<UserHimselfDeleteType> =>
   await fetchRestAPI({ path: `${process.env.NEXT_PUBLIC_API_URL}/api/user/himself/data/delete`, authorization });
+
+const userHimselfChangeAvatarGetPreview: ({ files, authorization }: { files: any[]; authorization: string }) => Promise<UserHimselfChangeAvatarType> = async ({
+  files,
+  authorization,
+}: {
+  files: any[];
+  authorization: string;
+}): Promise<UserHimselfChangeAvatarType> => await restAPISendFile({ path: `${process.env.NEXT_PUBLIC_API_URL}/api/user/himself/data/changeavatar`, files, authorization });
 
 // userHimselfChangeAvatar;
 
