@@ -47,7 +47,7 @@ export const CreateMessageErr: ({ status, name, message, path }: { status: numbe
       details: {
         errors: [
           {
-            path: [],
+            path,
             message,
             name,
           },

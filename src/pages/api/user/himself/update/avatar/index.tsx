@@ -1,7 +1,9 @@
 import fs from "fs";
+import FormData from "form-data";
 import formidable from "formidable";
-const FormData = require("form-data");
+import { CreateMessageErr } from "messages/messages.errAPI";
 import type { NextApiRequest, NextApiResponse } from "next";
+import IncomingForm from "formidable/Formidable";
 
 export const config = {
   api: {
@@ -9,111 +11,59 @@ export const config = {
   },
 };
 
-const errCreateMsg: ({ status, name, message, path }: { status: number; name: string; path: string[]; message: string }) => {
-  error: {
-    status: number;
-    name: string;
-    message: string;
-    details: {
-      errors: [
-        {
-          path: string[];
-          message: string;
-          name: string;
-        }
-      ];
-    };
-  };
-} = ({
-  status,
-  name,
-  message,
-  path,
-}: {
-  status: number;
-  name: string;
-  path: string[];
-  message: string;
-}): {
-  error: {
-    status: number;
-    name: string;
-    message: string;
-    details: {
-      errors: [
-        {
-          path: string[];
-          message: string;
-          name: string;
-        }
-      ];
-    };
-  };
-} => {
-  return {
-    error: {
-      status,
-      name,
-      message,
-      details: {
-        errors: [
-          {
-            path: [],
-            message,
-            name,
-          },
-        ],
-      },
-    },
-  };
+const deleteFile = (path: string): boolean => {
+  let deleteStatus: boolean = false;
+  fs.unlink(path, (status) => deleteStatus === !!status);
+  return deleteStatus;
+};
+
+const checkIsFileExiste = (path: string): boolean => {
+  let readFileStatus: boolean = false;
+  fs.readFile(path, (status) => readFileStatus === !!status);
+  return readFileStatus;
 };
 
 const post = async (req: NextApiRequest, res: NextApiResponse) => {
-  const IncomingDataFromForm = new formidable.IncomingForm();
+  const IncomingDataFromForm: IncomingForm = new formidable.IncomingForm();
 
-  IncomingDataFromForm.parse(req, async function (err: any, fields, files) {
-    if (err) return res.status(400).json({ err: true });
+  IncomingDataFromForm.parse(req, async function (err, fields, files: { avatar?: { filepath: string; originalFilename: string } }): Promise<void> {
+    if (!!err) return res.status(400).json(CreateMessageErr({ status: 400, name: "App error", path: ["formidable: has problem"], message: "App error formidable" }));
+    else if (!files?.avatar) return res.status(400).json(CreateMessageErr({ status: 400, name: "Field is empty", path: ["avatar: empty"], message: "Field with avatar is empty" }));
+    const file: null | { filepath: string; originalFilename: string } = files?.avatar ? files.avatar : null;
 
-    const file: any = typeof files?.avatar === "object" ? files.avatar : null;
+    if (!!file) {
+      if (checkIsFileExiste(`${__dirname}/${file.originalFilename}`)) deleteFile(`${__dirname}/${file.originalFilename}`);
+      const dataFile: Buffer = fs.readFileSync(file.filepath);
 
-    !!file && (await saveFile(file));
-    res.status(200).json({ ok: "ok" });
+      fs.writeFile(`${__dirname}/${file.originalFilename}`, dataFile, function (err) {
+        if (err) return res.status(400).json(CreateMessageErr({ status: 400, name: "App error", path: ["fs.writeFile: has problem"], message: "App error fs.writeFile" }));
+
+        const formData: any = new FormData();
+        formData.append("avatar", fs.createReadStream(`${__dirname}/${file.originalFilename}`));
+
+        fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/user/himself/data/changeavatar`, {
+          method: "POST",
+          headers: {
+            Authorization: req.headers.authorization || "",
+          },
+          body: formData,
+        })
+          .then(
+            (answer): Promise<void> =>
+              answer.json().then((data) => {
+                deleteFile(`${__dirname}/${file.originalFilename}`);
+                return res.status(400).json(data);
+              })
+          )
+          .catch((): void => {
+            deleteFile(`${__dirname}/${file.originalFilename}`);
+            return res.status(400).json(CreateMessageErr({ status: 400, name: "App error", path: ["fetch: has problem"], message: "App error fetch" }));
+          });
+      });
+    } else {
+      return res.status(400).json(CreateMessageErr({ status: 400, name: "App error", path: ["App error"], message: "App error" }));
+    }
   });
-};
-
-const saveFile = async (file: { filepath: string; originalFilename: string }) => {
-  fs.readFile(`${__dirname}/${file.originalFilename}`, (err) => {
-    console.log(err);
-  });
-  const data: Buffer = fs.readFileSync(file.filepath);
-
-  fs.writeFile(`${__dirname}/${file.originalFilename}`, data, function (err) {
-    if (err) throw err;
-  });
-
-  const form: any = new FormData();
-  form.append("avatar", fs.createReadStream(`${__dirname}/${file.originalFilename}`));
-
-  fetch("http://localhost:1337/api/user/himself/data/changeavatar", {
-    method: "POST",
-    headers: {
-      Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImlhdCI6MTY0OTI2OTYxNywiZXhwIjoxNjUxODYxNjE3fQ.wf8qFWd5_KgAtskc8AOQ5Fa3xkvjeSaAVyORYJRDmpU",
-    },
-    body: form,
-  })
-    .then((response) =>
-      response.json().then((d) => {
-        fs.unlink(`${__dirname}/${file.originalFilename}`, (err) => {
-          console.log(err);
-        });
-        return console.log(d);
-      })
-    )
-    .catch((err) => {
-      console.error(err);
-    });
-
-  return;
 };
 
 export default async function userHimselfAvatarChange(req: NextApiRequest, res: NextApiResponse) {
