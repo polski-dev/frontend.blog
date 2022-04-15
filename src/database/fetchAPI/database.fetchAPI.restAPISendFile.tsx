@@ -1,9 +1,8 @@
-export default async function fetchAPISendFile({ path, files, authorization }: { path: string; files: []; authorization: string }): Promise<any> {
-  const form = new FormData();
+import FormData from "form-data";
 
-  files.forEach((item) => {
-    form.append(item.type, item.file);
-  });
+export default async function fetchAPISendFile({ path, name, file, authorization }: { path: string; name: string; file: FormData; authorization: string }): Promise<any> {
+  const form = new FormData();
+  form.append(name, file);
 
   const res = await fetch(path, {
     method: "POST",
