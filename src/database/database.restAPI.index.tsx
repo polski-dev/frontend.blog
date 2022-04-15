@@ -1,4 +1,6 @@
+import FormData from "form-data";
 import fetchAPI from "./fetchAPI/database.fetchAPI.restAPI";
+import restAPISendFile from "./fetchAPI/database.fetchAPI.restAPISendFile";
 
 import {
   ContentShortType,
@@ -83,6 +85,8 @@ import {
   userHimselfDataEditPublicInitialState,
   UserHimselfDeleteType,
   userHimselfDeleteInitialState,
+  UserHimselfChangeAvatarType,
+  userHimselfChangeAvatarInitialState,
 } from "./database.graphQL.index";
 
 // search
@@ -176,6 +180,16 @@ const userHimselfDataEditPublicGetPreview: (
 const userHimselfDeleteTypeGetPreview: (authorization: string) => Promise<UserHimselfDeleteType> = async (authorization: string): Promise<UserHimselfDeleteType> =>
   await fetchAPI({ path: `/api/user/himself/update/delete`, authorization: `Bearer ${authorization}` });
 
+const userHimselfChangeAvatarGetPreview: ({ name, file, authorization }: { name: string; file: FormData; authorization: string }) => Promise<UserHimselfChangeAvatarType> = async ({
+  name,
+  file,
+  authorization,
+}: {
+  name: string;
+  file: FormData;
+  authorization: string;
+}): Promise<UserHimselfChangeAvatarType> => await restAPISendFile({ name, path: `${process.env.NEXT_PUBLIC_API_URL}/api/user/himself/data/changeavatar`, file, authorization });
+
 export type {
   ContentShortType,
   ContentShortFromUserType,
@@ -212,6 +226,7 @@ export type {
   UserHimselfDataEditPasswordType,
   UserHimselfDataEditPublicType,
   UserHimselfDeleteType,
+  UserHimselfChangeAvatarType,
   ArticeFullByIdType,
   ArticeWithOnlyTitleType,
   ArticeAddViewType,
@@ -289,6 +304,7 @@ export {
   userHimselfDataEditPublicInitialState,
   userHimselfDeleteTypeGetPreview,
   userHimselfDeleteInitialState,
+  userHimselfChangeAvatarGetPreview,
   articleShortRestAPIGetPreview,
   articeFullByIdInitialState,
   articeWithOnlyTitleRestAPIGetPreview,

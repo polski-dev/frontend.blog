@@ -92,6 +92,7 @@ import type {
   UserHimselfDataEditPasswordType,
   UserHimselfDataEditPublicType,
   UserHimselfDeleteType,
+  UserHimselfChangeAvatarType,
 } from "./user/database.user.index";
 import {
   userByIdGetPreview,
@@ -114,6 +115,7 @@ import {
   userHimselfDataEditPublicInitialState,
   userHimselfDeleteTypeGetPreview,
   userHimselfDeleteInitialState,
+  userHimselfChangeAvatarInitialState,
 } from "./user/database.user.index";
 
 // export
@@ -154,6 +156,7 @@ export type {
   UserHimselfDataEditPasswordType,
   UserHimselfDataEditPublicType,
   UserHimselfDeleteType,
+  UserHimselfChangeAvatarType,
   ArticeFullByIdType,
   ArticeWithOnlyTitleType,
   ArticeAddViewType,
@@ -234,6 +237,7 @@ export {
   userHimselfDataEditPublicInitialState,
   userHimselfDeleteTypeGetPreview,
   userHimselfDeleteInitialState,
+  userHimselfChangeAvatarInitialState,
   articeFullByIdInitialState,
   articeFullByIdGetPreview,
   articeWithOnlyTitleInitialState,
