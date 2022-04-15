@@ -1,9 +1,9 @@
 import fs from "fs";
 import FormData from "form-data";
 import formidable from "formidable";
-import { CreateMessageErr } from "messages/messages.errAPI";
-import type { NextApiRequest, NextApiResponse } from "next";
 import IncomingForm from "formidable/Formidable";
+import { CreateMessageErr } from "messages/errAPI/messages.errAPI.index";
+import type { NextApiRequest, NextApiResponse } from "next";
 
 export const config = {
   api: {
