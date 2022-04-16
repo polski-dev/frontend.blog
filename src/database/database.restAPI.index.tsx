@@ -185,7 +185,7 @@ const userHimselfChangeAvatarGetPreview: ({ files, authorization }: { files: Fil
 }: {
   files: FileList;
   authorization: string;
-}): Promise<UserHimselfChangeAvatarType> => await restAPISendFile({ name: "avatar", path: `http://polskidev.herokuapp.com/api/user/himself/data/changeavatar`, file: files[0], authorization: `Bearer ${authorization}` });
+}): Promise<UserHimselfChangeAvatarType> => await restAPISendFile({ name: "avatar", path: `https://polskidev.herokuapp.com/api/user/himself/data/changeavatar`, file: files[0], authorization: `Bearer ${authorization}` });
 
 export type {
   ContentShortType,
