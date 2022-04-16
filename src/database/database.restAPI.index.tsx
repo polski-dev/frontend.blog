@@ -1,4 +1,3 @@
-import FormData from "form-data";
 import fetchAPI from "./fetchAPI/database.fetchAPI.restAPI";
 import restAPISendFile from "./fetchAPI/database.fetchAPI.restAPISendFile";
 
@@ -180,15 +179,15 @@ const userHimselfDataEditPublicGetPreview: (
 const userHimselfDeleteTypeGetPreview: (authorization: string) => Promise<UserHimselfDeleteType> = async (authorization: string): Promise<UserHimselfDeleteType> =>
   await fetchAPI({ path: `/api/user/himself/update/delete`, authorization: `Bearer ${authorization}` });
 
-const userHimselfChangeAvatarGetPreview: ({ name, file, authorization }: { name: string; file: FormData; authorization: string }) => Promise<UserHimselfChangeAvatarType> = async ({
+const userHimselfChangeAvatarGetPreview: ({ name, files, authorization }: { name: string; files: FileList; authorization: string }) => Promise<UserHimselfChangeAvatarType> = async ({
   name,
-  file,
+  files,
   authorization,
 }: {
+  files: FileList;
   name: string;
-  file: FormData;
   authorization: string;
-}): Promise<UserHimselfChangeAvatarType> => await restAPISendFile({ name, path: `/api/user/himself/update/avatar`, file, authorization });
+}): Promise<UserHimselfChangeAvatarType> => await restAPISendFile({ name, path: `/api/user/himself/update/avatar`, file: files[0], authorization });
 
 export type {
   ContentShortType,

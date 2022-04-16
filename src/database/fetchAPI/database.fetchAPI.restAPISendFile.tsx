@@ -1,15 +1,13 @@
-import FormData from "form-data";
-
-export default async function fetchAPISendFile({ path, name, file, authorization }: { path: string; name: string; file: FormData; authorization: string }): Promise<any> {
-  const form = new FormData();
-  form.append(name, file);
+export default async function fetchAPISendFile({ path, name, file, authorization }: { path: string; name: string; file: File; authorization: string }): Promise<any> {
+  let data = new FormData();
+  data.append(name, file);
 
   const res = await fetch(path, {
     method: "POST",
-    headers: new Headers({
+    headers: {
       Authorization: authorization,
-      "Content-Type": "multipart/form-data",
-    }),
+    },
+    body: data,
   });
 
   const json = await res.json();

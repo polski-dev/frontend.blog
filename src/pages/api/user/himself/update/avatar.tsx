@@ -44,7 +44,7 @@ const post = async (req: NextApiRequest, res: NextApiResponse) => {
         fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/user/himself/data/changeavatar`, {
           method: "POST",
           headers: {
-            Authorization: req.headers.authorization || "",
+            Authorization: `Bearer ${req.headers.authorization}` || "",
           },
           body: formData,
         })

@@ -1,35 +1,37 @@
-import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Avatar from "assets/icon/avatar.svg";
+import { useEffect, useState } from "react";
 import useHimself from "hooks/hooks.useHimself";
 import { emailRegex, passwordRegex } from "assets/regex/index.regex";
 import { ButtonSubmit } from "components/atoms/button/component.button.index";
 import { ItemLoad } from "components/atoms/animation/comonent.animation.index";
 import { Input, TextArea, enumInputType } from "components/molecules/form/component.form.index";
-import { Section, Header, Title, Content, Description, AuthorAvatr, Form, InfoInput, BoxInfo } from "./component.section.dasbordUserEditData.style";
+import { Section, Header, Title, Content, AuthorAvatr, Form, InfoInput, BoxInfo } from "./component.section.dasbordUserEditData.style";
 
 export default function SectionDasbordUserEditData({ data: { session } }: { data: { session?: { user?: { email?: string | undefined | null; image?: string | undefined | null; name?: string | undefined | null } } | null } }) {
-  const { userHimselfData, userHimselfDataEditPublicGet, userHimselfDataEditEmailGet, userHimselfDataEditPasswordGet, userHimselfDeleteGet } = useHimself();
+  const { userHimselfData, userHimselfDataEditPublicGet, userHimselfDataEditEmailGet, userHimselfDataEditPasswordGet, userHimselfDeleteGet, userHimselfChangeAvatarGet } = useHimself();
 
   // CHANGE AVATAR
-  const [updateAvatar, setUpdateAvatar] = useState(false);
   const [saveAvatar, setSaveAvatar] = useState(false);
+  const [updateAvatar, setUpdateAvatar] = useState(false);
 
   const {
-    setError: setErrorAvatar,
     register: registerAvatar,
     handleSubmit: handleSubmitAvatar,
     formState: { errors: errorsAvatar },
   } = useForm();
 
-  const onSubmitAvatar = (data: any): void => {
+  const onSubmitAvatar = ({ files }: { files: FileList }): void => {
     setUpdateAvatar(true);
-    (async () => {
-      console.log(data);
-      console.log("upload");
-    })();
+    (async () =>
+      userHimselfChangeAvatarGet({ files }).then((d) => {
+        setUpdateAvatar(false);
+        if (!d?.data) {
+          setSaveAvatar(true);
+          setTimeout(() => setSaveAvatar(false), 1500);
+        }
+      }))();
   };
 
   // PUBLIC DATA START
@@ -142,8 +144,9 @@ export default function SectionDasbordUserEditData({ data: { session } }: { data
 
       <Content>
         <Title>Dane publiczne</Title>
-        {!!userHimselfData?.data ? (
-          <Form className="avatarData" onSubmit={handleSubmitAvatar((data) => onSubmitAvatar(data))}>
+        {!!userHimselfData?.data && !updateAvatar ? (
+          <Form className="avatarData" onSubmit={handleSubmitAvatar((data) => onSubmitAvatar({ files: data.avatar }))}>
+            {saveAvatar && <BoxInfo>Zapisano</BoxInfo>}
             <AuthorAvatr>
               {!!userHimselfData?.data?.avatar?.url && !!session ? <Image width={150} height={150} placeholder="blur" blurDataURL="/img/blur.png" alt={userHimselfData?.data?.username} src={userHimselfData?.data?.avatar?.url} /> : <Avatar />}
             </AuthorAvatr>

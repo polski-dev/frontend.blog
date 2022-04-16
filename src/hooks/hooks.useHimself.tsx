@@ -2,20 +2,26 @@ import FormData from "form-data";
 import { useState, useEffect } from "react";
 import { NextRouter, useRouter } from "next/router";
 import { useSession, signOut } from "next-auth/react";
+
 import {
+  UserHimselfDataEditEmailType,
   userHimselfDataEditEmailGetPreview,
   userHimselfDataEditEmailInitialState,
+  UserHimselfDataEditPasswordType,
   userHimselfDataEditPasswordGetPreview,
   userHimselfDataEditPasswordInitialState,
+  UserHimselfDataEditPublicType,
   userHimselfDataEditPublicGetPreview,
   userHimselfDataEditPublicInitialState,
+  UserHimselfDataType,
   userHimselfDataGetPreview,
   userHimselfDataInitialState,
+  UserHimselfDeleteType,
   userHimselfDeleteTypeGetPreview,
   userHimselfDeleteInitialState,
+  UserHimselfChangeAvatarType,
   userHimselfChangeAvatarGetPreview,
   userHimselfChangeAvatarInitialState,
-  UserHimselfChangeAvatarType,
 } from "database/database.restAPI.index";
 
 export default function useHimself() {
@@ -33,19 +39,21 @@ export default function useHimself() {
     if (session?.jwt)
       (async () => {
         const jwt = typeof session?.jwt === "string" ? session?.jwt : false;
-        const data = jwt ? await userHimselfDataGetPreview(jwt) : userHimselfDataInitialState;
+        const data: UserHimselfDataType = jwt ? await userHimselfDataGetPreview(jwt) : userHimselfDataInitialState;
         setUserHimselfData(data);
       })();
   }, [session, userHimselfDataEditEmail, userHimselfDataEditPassword, userHimselfDataEditPublic, userHimselfDelete, userHimselfAvatar]);
 
-  const userHimselfDataEditEmailGet: (email: string) => Promise<void> = async (email: string): Promise<void> => {
+  const userHimselfDataEditEmailGet: (email: string) => Promise<UserHimselfDataEditEmailType> = async (email: string): Promise<UserHimselfDataEditEmailType> => {
     const editEmailData = await userHimselfDataEditEmailGetPreview(typeof session?.jwt === "string" ? session?.jwt : "", email);
     setUserHimselfDataEditEmail(editEmailData);
+    return editEmailData;
   };
 
-  const userHimselfDataEditPasswordGet: (password: string) => Promise<void> = async (password: string): Promise<void> => {
+  const userHimselfDataEditPasswordGet: (password: string) => Promise<UserHimselfDataEditPasswordType> = async (password: string): Promise<UserHimselfDataEditPasswordType> => {
     const editPasswordData = await userHimselfDataEditPasswordGetPreview(typeof session?.jwt === "string" ? session?.jwt : "", password);
     setUserHimselfDataEditPassword(editPasswordData);
+    return editPasswordData;
   };
 
   const userHimselfDataEditPublicGet: ({
@@ -62,7 +70,7 @@ export default function useHimself() {
       city?: string;
       country?: string;
     };
-  }) => Promise<void> = async ({
+  }) => Promise<UserHimselfDataEditPublicType> = async ({
     data,
   }: {
     data: {
@@ -76,23 +84,28 @@ export default function useHimself() {
       city?: string;
       country?: string;
     };
-  }): Promise<void> => {
-    const publicData = await userHimselfDataEditPublicGetPreview(typeof session?.jwt === "string" ? session?.jwt : "", data);
+  }): Promise<UserHimselfDataEditPublicType> => {
+    const publicData: UserHimselfDataEditPublicType = await userHimselfDataEditPublicGetPreview(typeof session?.jwt === "string" ? session?.jwt : "", data);
     setUserHimselfDataEditPublic(publicData);
+
+    return publicData;
   };
 
-  const userHimselfDeleteGet: () => Promise<void> = async (): Promise<void> => {
-    const deleteData = await userHimselfDeleteTypeGetPreview(typeof session?.jwt === "string" ? session?.jwt : "");
+  const userHimselfDeleteGet: () => Promise<UserHimselfDeleteType> = async (): Promise<UserHimselfDeleteType> => {
+    const deleteData: UserHimselfDeleteType = await userHimselfDeleteTypeGetPreview(typeof session?.jwt === "string" ? session?.jwt : "");
     setUserHimselfDelete(deleteData);
     if (deleteData?.data) {
       signOut();
       router.replace("/");
     }
+
+    return deleteData;
   };
 
-  const userHimselfChangeAvatarGet: ({ file }: { file: FormData }) => Promise<void> = async ({ file }: { file: FormData }): Promise<void> => {
-    const ChangeAvatarStatus: UserHimselfChangeAvatarType = await userHimselfChangeAvatarGetPreview({ authorization: typeof session?.jwt === "string" ? session?.jwt : "", name: "avatar", file });
+  const userHimselfChangeAvatarGet: ({ files }: { files: FileList }) => Promise<UserHimselfChangeAvatarType> = async ({ files }: { files: FileList }): Promise<UserHimselfChangeAvatarType> => {
+    const ChangeAvatarStatus: UserHimselfChangeAvatarType = await userHimselfChangeAvatarGetPreview({ authorization: typeof session?.jwt === "string" ? session?.jwt : "", name: "avatar", files });
     setUserHimselfAvatar(ChangeAvatarStatus);
+    return ChangeAvatarStatus;
   };
 
   return { userHimselfData, userHimselfDataEditEmailGet, userHimselfDataEditPasswordGet, userHimselfDataEditPublicGet, userHimselfDeleteGet, userHimselfChangeAvatarGet };
