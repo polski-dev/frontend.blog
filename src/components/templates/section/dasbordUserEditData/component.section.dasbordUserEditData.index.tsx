@@ -28,6 +28,7 @@ export default function SectionDasbordUserEditData({ data: { session } }: { data
       userHimselfChangeAvatarGet({ files }).then((d) => {
         setUpdateAvatar(false);
         if (!d?.data) {
+          console.log(d);
           setSaveAvatar(true);
           setTimeout(() => setSaveAvatar(false), 1500);
         }

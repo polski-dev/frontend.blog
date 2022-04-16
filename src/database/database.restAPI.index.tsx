@@ -179,15 +179,13 @@ const userHimselfDataEditPublicGetPreview: (
 const userHimselfDeleteTypeGetPreview: (authorization: string) => Promise<UserHimselfDeleteType> = async (authorization: string): Promise<UserHimselfDeleteType> =>
   await fetchAPI({ path: `/api/user/himself/update/delete`, authorization: `Bearer ${authorization}` });
 
-const userHimselfChangeAvatarGetPreview: ({ name, files, authorization }: { name: string; files: FileList; authorization: string }) => Promise<UserHimselfChangeAvatarType> = async ({
-  name,
+const userHimselfChangeAvatarGetPreview: ({ files, authorization }: { files: FileList; authorization: string }) => Promise<UserHimselfChangeAvatarType> = async ({
   files,
   authorization,
 }: {
   files: FileList;
-  name: string;
   authorization: string;
-}): Promise<UserHimselfChangeAvatarType> => await restAPISendFile({ name, path: `/api/user/himself/update/avatar`, file: files[0], authorization });
+}): Promise<UserHimselfChangeAvatarType> => await restAPISendFile({ name: "avatar", path: `http://polskidev.herokuapp.com/api/user/himself/data/changeavatar`, file: files[0], authorization: `Bearer ${authorization}` });
 
 export type {
   ContentShortType,

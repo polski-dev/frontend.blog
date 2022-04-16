@@ -103,7 +103,7 @@ export default function useHimself() {
   };
 
   const userHimselfChangeAvatarGet: ({ files }: { files: FileList }) => Promise<UserHimselfChangeAvatarType> = async ({ files }: { files: FileList }): Promise<UserHimselfChangeAvatarType> => {
-    const ChangeAvatarStatus: UserHimselfChangeAvatarType = await userHimselfChangeAvatarGetPreview({ authorization: typeof session?.jwt === "string" ? session?.jwt : "", name: "avatar", files });
+    const ChangeAvatarStatus: UserHimselfChangeAvatarType = await userHimselfChangeAvatarGetPreview({ authorization: typeof session?.jwt === "string" ? session?.jwt : "", files });
     setUserHimselfAvatar(ChangeAvatarStatus);
     return ChangeAvatarStatus;
   };
