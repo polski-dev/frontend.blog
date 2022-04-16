@@ -188,7 +188,7 @@ const userHimselfChangeAvatarGetPreview: ({ name, file, authorization }: { name:
   name: string;
   file: FormData;
   authorization: string;
-}): Promise<UserHimselfChangeAvatarType> => await restAPISendFile({ name, path: `${process.env.NEXT_PUBLIC_API_URL}/api/user/himself/data/changeavatar`, file, authorization });
+}): Promise<UserHimselfChangeAvatarType> => await restAPISendFile({ name, path: `/api/user/himself/update/avatar`, file, authorization });
 
 export type {
   ContentShortType,
@@ -305,6 +305,7 @@ export {
   userHimselfDeleteTypeGetPreview,
   userHimselfDeleteInitialState,
   userHimselfChangeAvatarGetPreview,
+  userHimselfChangeAvatarInitialState,
   articleShortRestAPIGetPreview,
   articeFullByIdInitialState,
   articeWithOnlyTitleRestAPIGetPreview,
