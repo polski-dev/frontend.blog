@@ -1,7 +1,0 @@
-{
-  "functions": {
-    "api/user/himself/update/avatar": {
-      "includeFiles": "_files/**"
-    }
-  }
-}
