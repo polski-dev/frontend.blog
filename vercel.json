@@ -1,6 +1,6 @@
 {
   "functions": {
-    "api/hello.js": {
+    "/api/user/himself/update/avatar.js": {
       "includeFiles": "_files/**"
     }
   }
