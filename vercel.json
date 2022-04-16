@@ -1,6 +1,6 @@
 {
   "functions": {
-    "/api/user/himself/update/avatar.tsx": {
+    "api/user/himself/update/avatar.tsx": {
       "includeFiles": "_files/**"
     }
   }
