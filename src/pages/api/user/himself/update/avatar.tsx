@@ -1,4 +1,5 @@
 import fs from "fs";
+import { join } from "path";
 import FormData from "form-data";
 import formidable from "formidable";
 import IncomingForm from "formidable/Formidable";
@@ -32,14 +33,13 @@ const post = async (req: NextApiRequest, res: NextApiResponse) => {
     const file: null | { filepath: string; originalFilename: string } = files?.avatar ? files.avatar : null;
 
     if (!!file) {
-      if (checkIsFileExiste(`${__dirname}/${file.originalFilename}`)) deleteFile(`${__dirname}/${file.originalFilename}`);
+      if (checkIsFileExiste(join(__dirname, "_files", file.originalFilename))) deleteFile(join(__dirname, "_files", file.originalFilename));
       const dataFile: Buffer = fs.readFileSync(file.filepath);
 
-      fs.writeFile(`${__dirname}/${file.originalFilename}`, dataFile, function (err) {
+      fs.writeFile(join(__dirname, "_files", file.originalFilename), dataFile, function (err) {
         if (err) return res.status(400).json(CreateMessageErr({ status: 400, name: "App error", path: ["fs.writeFile: has problem"], message: "App error fs.writeFile" }));
-
         const formData: any = new FormData();
-        formData.append("avatar", fs.createReadStream(`${__dirname}/${file.originalFilename}`));
+        formData.append("avatar", fs.createReadStream(join(__dirname, "_files", file.originalFilename)));
 
         fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/user/himself/data/changeavatar`, {
           method: "POST",
@@ -51,12 +51,12 @@ const post = async (req: NextApiRequest, res: NextApiResponse) => {
           .then(
             (answer): Promise<void> =>
               answer.json().then((data) => {
-                deleteFile(`${__dirname}/${file.originalFilename}`);
+                //    deleteFile(join(__dirname, "_files", file.originalFilename));
                 return res.status(400).json(data);
               })
           )
           .catch((): void => {
-            deleteFile(`${__dirname}/${file.originalFilename}`);
+            //deleteFile(join(__dirname, "_files", file.originalFilename));
             return res.status(400).json(CreateMessageErr({ status: 400, name: "App error", path: ["fetch: has problem"], message: "App error fetch" }));
           });
       });
