@@ -6,7 +6,7 @@ import { NextRouter, useRouter } from "next/router";
 import useAddCallBackURL from "hooks/hooks.useCallBackURL";
 import { MenuPrimary } from "components/templates/menu/component.menu.index";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
-import { SectionDasbordUserInfo } from "components/templates/section/component.section.index";
+import {} from "components/templates/section/component.section.index";
 
 const UserPanelPage: NextPage<any> = (): JSX.Element => {
   const router: NextRouter = useRouter();
@@ -15,7 +15,7 @@ const UserPanelPage: NextPage<any> = (): JSX.Element => {
 
   useEffect(() => {
     if (status === "unauthenticated") {
-      addCallBackURL({ to: "/d", name: "dasbord" });
+      addCallBackURL({ to: "/d/e", name: "dasbordEdit" });
       router.push("/auth/signin");
     }
   }, [status, router, addCallBackURL]);
@@ -25,7 +25,6 @@ const UserPanelPage: NextPage<any> = (): JSX.Element => {
       <Head>
         <title>Panel użytkownika | POLSKI.DEV 👩‍💻👨‍💻</title>
       </Head>
-
       <Container>
         <Row>
           <MenuPrimary
@@ -37,7 +36,7 @@ const UserPanelPage: NextPage<any> = (): JSX.Element => {
             ]}
           />
           <Col xs={12} md={9}>
-            <SectionDasbordUserInfo data={{ username: session?.user?.name ? session?.user?.name : null, description: session ? "Hej co coś robimy?" : null }} />
+            ok
           </Col>
         </Row>
       </Container>

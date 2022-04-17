@@ -57,6 +57,9 @@ const HeaderComponent = () => {
                   </BoxAuthorAvatar>
                   <BoxOptionUser power={powerUserBox}>
                     <BoxOptionUserHeader>Witaj, {data.user?.name}</BoxOptionUserHeader>
+                    <Link href="/d/a">
+                      <a title="panel użytkownika">Dodaj artykół</a>
+                    </Link>
                     <Link href="/d">
                       <a title="panel użytkownika">Panel użytkownika</a>
                     </Link>

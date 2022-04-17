@@ -1,4 +1,3 @@
-import FormData from "form-data";
 import { useState, useEffect } from "react";
 import { NextRouter, useRouter } from "next/router";
 import { useSession, signOut } from "next-auth/react";
