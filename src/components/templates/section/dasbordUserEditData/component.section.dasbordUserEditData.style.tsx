@@ -7,7 +7,7 @@ export const Section: StyledComponent<any, any> = styled.section`
   position: relative;
   flex-direction: column;
   justify-content: center;
-  padding: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.big};
+  padding: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.big} 0;
 `;
 
 export const Header: StyledComponent<any, any> = styled.h5`
@@ -53,17 +53,29 @@ export const AuthorAvatr: StyledComponent<any, any> = styled.div`
 
 export const Form: StyledComponent<any, any> = styled.form`
   display: flex;
+  align-items: center;
   flex-direction: column;
   justify-content: flex-start;
   padding-bottom: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.big};
 
+  button {
+    width: 100%;
+  }
+
   &.avatarData {
-    width: 15rem;
+    width: 100%;
+    @media all and (min-width: 768px) {
+      width: 15rem;
+    }
   }
 
   &.publicData {
-    width: calc(100% - 18rem);
-    padding-left: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.big};
+    width: 100%;
+
+    @media all and (min-width: 768px) {
+      width: calc(100% - 18rem);
+      padding-left: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.big};
+    }
   }
 
   &.privateData {
