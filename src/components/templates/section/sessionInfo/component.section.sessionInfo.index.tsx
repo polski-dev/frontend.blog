@@ -41,6 +41,8 @@ export default function SectionSessionInfo({ users }: { users: number }) {
       case "tag":
         setMessageSucces("do strony tagu");
         break;
+      case "dasbordAddArticle":
+        setMessageSucces("do tworzenia artykułu");
       default:
         setMessageSucces("na stronę główną");
         break;

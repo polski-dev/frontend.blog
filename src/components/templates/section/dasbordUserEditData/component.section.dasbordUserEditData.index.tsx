@@ -12,7 +12,7 @@ import { Section, Header, Title, Content, AuthorAvatr, Form, InfoInput, BoxInfo 
 export default function SectionDasbordUserEditData({ data: { session } }: { data: { session?: { user?: { email?: string | undefined | null; image?: string | undefined | null; name?: string | undefined | null } } | null } }) {
   const { userHimselfData, userHimselfDataEditPublicGet, userHimselfDataEditEmailGet, userHimselfDataEditPasswordGet, userHimselfDeleteGet, userHimselfChangeAvatarGet } = useHimself();
 
-  // CHANGE AVATAR
+  // Change avatar
   const [saveAvatar, setSaveAvatar] = useState(false);
   const [updateAvatar, setUpdateAvatar] = useState(false);
 

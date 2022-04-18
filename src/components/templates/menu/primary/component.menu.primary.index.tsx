@@ -19,8 +19,9 @@ type menuPromaryType = {
 
 export default function MenuPrimary({ title, data, cover }: menuPromaryType) {
   const { asPath } = useRouter();
-  const { powerMenu, setPowerMenu } = useContext(MenuContext);
+  const { powerMenu, setPowerMenu, setShowMenu } = useContext(MenuContext);
 
+  setShowMenu(!!data?.length);
   return (
     <>
       <GlobalStyle power={powerMenu} />

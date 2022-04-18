@@ -9,11 +9,7 @@ export const Header = styled.header`
   border-bottom: 1px solid ${({ theme }) => theme.colorBorder};
 `;
 
-type HambugerType = {
-  mode: string;
-};
-
-export const Hambuger = styled.button<HambugerType>`
+export const Hambuger = styled.button`
   padding: 0;
   width: 2.5rem;
   height: 2rem;
@@ -27,13 +23,9 @@ export const Hambuger = styled.button<HambugerType>`
   justify-content: space-between;
   margin-left: ${({ theme }) => theme.break.main};
 
-  ${({ mode }) =>
-    mode !== "hide" &&
-    css`
-      @media all and (min-width: 768px) {
-        display: none;
-      }
-    `}
+  @media all and (min-width: 768px) {
+    display: none;
+  }
 
   span {
     left: 0;

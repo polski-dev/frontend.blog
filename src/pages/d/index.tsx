@@ -33,7 +33,7 @@ const UserPanelPage: NextPage<any> = (): JSX.Element => {
             data={[
               { slug: "/d", title: "Start", quantity: 1 },
               { slug: "/d/a", title: "Dodaj artykół", quantity: 2 },
-              { slug: "/d/e", title: "Edycja danych", quantity: 3 },
+              { slug: "/d/d", title: "Edycja danych", quantity: 3 },
             ]}
           />
           <Col xs={12} md={9}>
