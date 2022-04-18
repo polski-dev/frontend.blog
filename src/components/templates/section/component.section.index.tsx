@@ -6,5 +6,6 @@ import SectionSessionInfo from "./sessionInfo/component.section.sessionInfo.inde
 import SectionArticleShortList from "./articleShortList/component.articleShortList.index";
 import SectionDasbordUserInfo from "./dasbordUserInfo/component.section.dasbordUserInfo.index";
 import SectionDasbordUserEditData from "./dasbordUserEditData/component.section.dasbordUserEditData.index";
+import SectionDasbordUserAddArticle from "./dasbordUserAddArticle/component.section.dasbordUserAddArticle.index";
 
-export { SectionArticleShortList, SectionArticleFull, SectionVideoFull, SectionSingIn, SectionSingUp, SectionSessionInfo, SectionDasbordUserInfo, SectionDasbordUserEditData };
+export { SectionArticleShortList, SectionArticleFull, SectionVideoFull, SectionSingIn, SectionSingUp, SectionSessionInfo, SectionDasbordUserInfo, SectionDasbordUserEditData, SectionDasbordUserAddArticle };

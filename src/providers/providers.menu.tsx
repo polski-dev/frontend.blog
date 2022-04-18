@@ -1,17 +1,17 @@
 import { createContext, useState, useEffect } from "react";
 
 export type GlobalContentMenu = {
-  modeMenu: string;
-  setModeMenu: (state: string) => void;
+  showMenu: boolean;
+  setShowMenu: (state: boolean) => void;
   powerMenu: boolean;
   setPowerMenu: (state: boolean) => void;
 };
 
 export const MenuContext = createContext<GlobalContentMenu>({
-  modeMenu: "display",
-  setModeMenu: () => {},
+  showMenu: true,
+  setShowMenu: (): void => {},
   powerMenu: false,
-  setPowerMenu: () => {},
+  setPowerMenu: (): void => {},
 });
 
 type ProviderMenuType = {
@@ -19,14 +19,14 @@ type ProviderMenuType = {
 };
 
 export default function ProviderMenu({ children }: ProviderMenuType) {
-  const [modeMenu, setModeMenu] = useState("display");
+  const [showMenu, setShowMenu] = useState(true);
   const [powerMenu, setPowerMenu] = useState(false);
 
   return (
     <MenuContext.Provider
       value={{
-        modeMenu,
-        setModeMenu,
+        showMenu,
+        setShowMenu,
         powerMenu,
         setPowerMenu,
       }}
