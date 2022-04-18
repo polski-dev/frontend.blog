@@ -7,7 +7,7 @@ export const Section: StyledComponent<any, any> = styled.section`
   position: relative;
   flex-direction: column;
   justify-content: center;
-  padding: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.big};
+  padding: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.big} 0;
 `;
 
 export const Header: StyledComponent<any, any> = styled.h5`
