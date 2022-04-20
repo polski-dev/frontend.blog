@@ -1,12 +1,12 @@
+import dynamic from "next/dynamic";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
-import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
-import { Input, TextArea, CheckBox, enumInputType } from "components/molecules/form/component.form.index";
-import { Section, Header, Title } from "./component.section.dasbordUserAddArticle.style";
-
 import "@uiw/react-markdown-preview/markdown.css";
-import dynamic from "next/dynamic";
+import { ButtonSubmit } from "components/atoms/button/component.button.index";
+import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
+import { Section, Header, Title, Form } from "./component.section.dasbordUserAddArticle.style";
+import { Input, TextArea, CheckBox, Radio, enumInputType } from "components/molecules/form/component.form.index";
 
 const MDEditor = dynamic<any>((): any => import("@uiw/react-md-editor").then((mod) => mod.default), { ssr: false });
 
@@ -14,7 +14,7 @@ export default function SectionDasbordAddArticle({ data: { title } }: { data: { 
   const { data: session, status } = useSession();
   const [type, setType] = useState("a");
   const [addArticle, setAddArticle] = useState(true);
-  const [value, setValue] = useState("**Hello world!!!**");
+  const [value, setValue] = useState("**Dodaj treść artykułu!!**");
 
   const {
     watch,
@@ -26,27 +26,33 @@ export default function SectionDasbordAddArticle({ data: { title } }: { data: { 
   return (
     <Section>
       <Header>{title}</Header>
-      <Container className="container">
-        <Row>
-          <Col xs={12}>
-            <Title>typ wpisu</Title>
-          </Col>
-          <Col xs={12}>
-            <Input id="title" name="title" type={enumInputType.text} error={errors.title} placeholder="Tytuł wpisu" defaultValue={undefined} register={register} required />
-          </Col>
-          <Col xs={12}>
-            <Title>tytuł wpisu</Title>
-          </Col>
-          <Col xs={12}>
-            <Input id="title" name="title" type={enumInputType.text} error={errors.title} placeholder="Tytuł wpisu" defaultValue={undefined} register={register} required />
-          </Col>
-          <Col xs={12}>
-            <div data-color-mode="dark" style={{ paddingBottom: "3rem" }}>
+      <Form>
+        <Container className="container">
+          <Row>
+            <Col xs={12}>
+              <Radio name="x" value="pol" error={errors.title} register={register} required />
+            </Col>
+            <Col xs={12}>
+              <Radio name="x" value="podddl" error={errors.title} register={register} required />
+            </Col>
+            <Col xs={12}>
+              <Input id="tytuł wpisu" name="title" type={enumInputType.text} error={errors.title} placeholder="Tytuł wpisu" defaultValue={undefined} register={register} required />
+            </Col>
+            <Col xs={12}>
+              <Input id="cover" name="cover" type={enumInputType.file} error={errors.avatar} placeholder="Dodaj okładkę" register={register} accept="image/png, image/jpeg" required />
+            </Col>
+            <Col xs={12}>
               <MDEditor value={value} onChange={setValue} />
-            </div>
-          </Col>
-        </Row>
-      </Container>
+            </Col>
+            <Col xs={12}>
+              <Input id="tagi" name="tagi" type={enumInputType.text} error={errors.title} placeholder="Tagi" defaultValue={undefined} register={register} required />
+            </Col>
+            <Col xs={12}>
+              <ButtonSubmit title="dodaj">Dodaj</ButtonSubmit>
+            </Col>
+          </Row>
+        </Container>
+      </Form>
     </Section>
   );
 }

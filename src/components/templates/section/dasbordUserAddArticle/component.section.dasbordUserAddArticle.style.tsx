@@ -292,9 +292,10 @@ export const Section: StyledComponent<any, any> = styled.section`
   .w-md-editor {
     text-align: left;
     position: relative;
-    border-radius: 0.6rem;
     padding-bottom: 1px;
+    border-radius: 0.6rem;
     color: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorLink};
+    margin: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.small} 0;
     background-color: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorMainBg};
     border: 0.1rem solid ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorBorder};
   }
@@ -302,7 +303,6 @@ export const Section: StyledComponent<any, any> = styled.section`
   .w-md-editor-content {
     position: relative;
     border-radius: 0 0 3px 0;
-    height: calc(100% - 39.1px);
   }
 
   .w-md-editor-input {
@@ -370,4 +370,15 @@ export const Header: StyledComponent<any, any> = styled.h5`
 
 export const Title: StyledComponent<any, any> = styled.h6`
   padding: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.main} 0 ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.small} 0;
+`;
+
+export const Form: StyledComponent<any, any> = styled.form`
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+
+  button {
+    display: block;
+    margin: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.small} 0 ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.main} auto;
+  }
 `;
