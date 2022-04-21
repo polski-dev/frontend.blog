@@ -9,8 +9,8 @@ export const Label: StyledComponent<any, any> = styled.label`
   position: relative;
   margin: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.small} 0;
 
-  ${({ theme, file }: { theme: MainSettingsTemplate; file: boolean }) =>
-    file &&
+  ${({ theme, type }: { theme: MainSettingsTemplate; type: string }): any =>
+    type === "file" &&
     css`
       display: flex;
 
@@ -20,8 +20,11 @@ export const Label: StyledComponent<any, any> = styled.label`
 
       &::after {
         content: "+";
+        display: flex;
         ${styleDefault};
         position: relative;
+        align-items: center;
+        justify-content: center;
         margin-left: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.main};
       }
 
@@ -37,15 +40,19 @@ export const Label: StyledComponent<any, any> = styled.label`
 export const Input: StyledComponent<any, any> = styled.input<InputStyledInterface>`
   width: 100%;
   border: none;
-  height: 3rem;
   max-width: 100%;
   position: relative;
-  font-size: 1.5rem;
   border-radius: 0.6rem;
   color: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorText};
   padding: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.small};
   border: 1px solid ${({ theme, error }: { theme: MainSettingsTemplate; error: boolean }): string => (error ? theme.colorDangerBorder : theme.colorBorder)};
   background: ${({ theme, error }: { theme: MainSettingsTemplate; error: boolean }): string => (error ? theme.colorDangerBg : theme.colorInputBgDark)};
+
+  ${({ type }: any): any =>
+    type === "file" &&
+    css`
+      display: none !important;
+    `}
 
   ::-webkit-file-upload-button {
     display: none;
@@ -63,4 +70,18 @@ export const Input: StyledComponent<any, any> = styled.input<InputStyledInterfac
   &:focus {
     outline: none;
   }
+`;
+
+export const Span: StyledComponent<any, any> = styled.span`
+  width: 100%;
+  border: none;
+  display: flex;
+  max-width: 100%;
+  position: relative;
+  font-size: 1.5rem;
+  border-radius: 0.6rem;
+  color: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorText};
+  padding: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.small};
+  border: 1px solid ${({ theme, error }: { theme: MainSettingsTemplate; error: boolean }): string => (error ? theme.colorDangerBorder : theme.colorBorder)};
+  background: ${({ theme, error }: { theme: MainSettingsTemplate; error: boolean }): string => (error ? theme.colorDangerBg : theme.colorInputBgDark)};
 `;

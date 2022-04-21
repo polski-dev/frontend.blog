@@ -382,3 +382,12 @@ export const Form: StyledComponent<any, any> = styled.form`
     margin: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.small} 0 ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.main} auto;
   }
 `;
+
+export const Preview: StyledComponent<any, any> = styled.div`
+  width: 100%;
+  height: 28rem;
+  border-radius: 0.6rem;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+`;

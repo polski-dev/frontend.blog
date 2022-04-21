@@ -151,7 +151,7 @@ export default function SectionDasbordUserEditData({ data: { session } }: { data
             <AuthorAvatr>
               {!!userHimselfData?.data?.avatar?.url && !!session ? <Image width={150} height={150} placeholder="blur" blurDataURL="/img/blur.png" alt={userHimselfData?.data?.username} src={userHimselfData?.data?.avatar?.url} /> : <Avatar />}
             </AuthorAvatr>
-            <Input id="avatar" name="avatar" type={enumInputType.file} error={errorsAvatar.avatar} placeholder="Imię i nazwisko lub nick" register={registerAvatar} accept="image/png, image/jpeg" required />
+            <Input id="avatar" name="avatar" type={enumInputType.file} error={errorsAvatar.avatar} placeholder="dodaj..." register={registerAvatar} accept="image/png, image/jpeg" required />
             <ButtonSubmit title="zmień">{!!session ? "Zmień" : "Dodaj"}</ButtonSubmit>
           </Form>
         ) : (
