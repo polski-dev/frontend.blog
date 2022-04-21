@@ -22,7 +22,7 @@ export default function SectionDasbordAddArticle({ data: { title } }: { data: { 
     handleSubmit,
     formState: { errors },
   } = useForm();
-
+  console.log(watch().typ);
   return (
     <Section>
       <Header>{title}</Header>
@@ -30,10 +30,13 @@ export default function SectionDasbordAddArticle({ data: { title } }: { data: { 
         <Container className="container">
           <Row>
             <Col xs={12}>
-              <Radio name="x" value="pol" error={errors.title} register={register} required />
+              <Title>Co dodajesz?</Title>
             </Col>
-            <Col xs={12}>
-              <Radio name="x" value="podddl" error={errors.title} register={register} required />
+            <Col xs={6}>
+              <Radio name="typ" value="artykuł" error={errors.title} register={register} required checked />
+            </Col>
+            <Col xs={6}>
+              <Radio name="typ" value="video" error={errors.title} register={register} required />
             </Col>
             <Col xs={12}>
               <Input id="tytuł wpisu" name="title" type={enumInputType.text} error={errors.title} placeholder="Tytuł wpisu" defaultValue={undefined} register={register} required />
@@ -41,6 +44,11 @@ export default function SectionDasbordAddArticle({ data: { title } }: { data: { 
             <Col xs={12}>
               <Input id="cover" name="cover" type={enumInputType.file} error={errors.avatar} placeholder="Dodaj okładkę" register={register} accept="image/png, image/jpeg" required />
             </Col>
+            {watch().typ === "video" && (
+              <Col xs={12}>
+                <Input id="youtube" name="youtube" type={enumInputType.text} error={errors.title} placeholder="YouTube url" defaultValue={undefined} register={register} required />
+              </Col>
+            )}
             <Col xs={12}>
               <MDEditor value={value} onChange={setValue} />
             </Col>
