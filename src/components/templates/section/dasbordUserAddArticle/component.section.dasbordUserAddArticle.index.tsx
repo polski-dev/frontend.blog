@@ -1,13 +1,13 @@
 import dynamic from "next/dynamic";
 import { useForm } from "react-hook-form";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 
 import "@uiw/react-markdown-preview/markdown.css";
 import { ButtonSubmit } from "components/atoms/button/component.button.index";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
 import { Section, Header, Title, Form, Preview } from "./component.section.dasbordUserAddArticle.style";
-import { Input, TextArea, CheckBox, Radio, InputForTags, enumInputType } from "components/molecules/form/component.form.index";
+import { Input, Radio, InputForTags, enumInputType } from "components/molecules/form/component.form.index";
 
 const MDEditor = dynamic<any>((): any => import("@uiw/react-md-editor").then((mod) => mod.default), { ssr: false });
 
@@ -25,8 +25,6 @@ export default function SectionDasbordAddArticle({ data: { title } }: { data: { 
   } = useForm();
 
   const cover = watch("cover");
-
-  const tag = watch("tags");
 
   useEffect(() => {
     if (!!cover?.length) {

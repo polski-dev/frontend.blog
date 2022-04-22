@@ -28,7 +28,6 @@ export default function SectionDasbordUserEditData({ data: { session } }: { data
       userHimselfChangeAvatarGet({ files }).then((d) => {
         setUpdateAvatar(false);
         if (!d?.data) {
-          console.log(d);
           setSaveAvatar(true);
           setTimeout(() => setSaveAvatar(false), 1500);
         }
@@ -148,9 +147,7 @@ export default function SectionDasbordUserEditData({ data: { session } }: { data
         {!!userHimselfData?.data && !updateAvatar ? (
           <Form className="avatarData" onSubmit={handleSubmitAvatar((data) => onSubmitAvatar({ files: data.avatar }))}>
             {saveAvatar && <BoxInfo>Zapisano</BoxInfo>}
-            <AuthorAvatr>
-              {!!userHimselfData?.data?.avatar?.url && !!session ? <Image width={150} height={150} placeholder="blur" blurDataURL="/img/blur.png" alt={userHimselfData?.data?.username} src={userHimselfData?.data?.avatar?.url} /> : <Avatar />}
-            </AuthorAvatr>
+            <AuthorAvatr>{!!userHimselfData?.data?.avatar?.url && !!session ? <Image width={150} height={150} placeholder="blur" blurDataURL="/img/blur.png" alt={userHimselfData?.data?.username} src={userHimselfData?.data?.avatar?.url} /> : <Avatar />}</AuthorAvatr>
             <Input id="avatar" name="avatar" type={enumInputType.file} error={errorsAvatar.avatar} placeholder="dodaj..." register={registerAvatar} accept="image/png, image/jpeg" required />
             <ButtonSubmit title="zmień">{!!session ? "Zmień" : "Dodaj"}</ButtonSubmit>
           </Form>
@@ -190,74 +187,15 @@ export default function SectionDasbordUserEditData({ data: { session } }: { data
           {!!userHimselfData?.data ? (
             <>
               {updatePublicData && <BoxInfo>Zapisano</BoxInfo>}
-              <Input
-                id="username"
-                name="username"
-                type={enumInputType.text}
-                error={errorsPublicData.username}
-                placeholder="Imię i nazwisko lub nick"
-                defaultValue={!!userHimselfData?.data?.username ? userHimselfData?.data?.username : undefined}
-                register={registerPublicData}
-                required
-              />
+              <Input id="username" name="username" type={enumInputType.text} error={errorsPublicData.username} placeholder="Imię i nazwisko lub nick" defaultValue={!!userHimselfData?.data?.username ? userHimselfData?.data?.username : undefined} register={registerPublicData} required />
               <TextArea id="about" name="commentsDescription" error={errorsPublicData.about} defaultValue={!!userHimselfData?.data?.about ? userHimselfData?.data?.about : undefined} placeholder="Napisz coś o sobie..." register={registerPublicData} />
               <Input id="city" name="city" type={enumInputType.text} error={errorsPublicData.city} placeholder="Miasto" defaultValue={!!userHimselfData?.data?.city ? userHimselfData?.data?.city : undefined} register={registerPublicData} required />
-              <Input
-                id="country"
-                name="country"
-                type={enumInputType.text}
-                error={errorsPublicData.country}
-                placeholder="Kraj"
-                defaultValue={!!userHimselfData?.data?.country ? userHimselfData?.data?.country : undefined}
-                register={registerPublicData}
-                required
-              />
-              <Input
-                id="website"
-                name="website"
-                type={enumInputType.text}
-                error={errorsPublicData.website}
-                placeholder="Portfolio url"
-                defaultValue={!!userHimselfData?.data?.website ? userHimselfData?.data?.website : undefined}
-                register={registerPublicData}
-                required
-              />
-              <Input
-                id="instagram"
-                name="instagram"
-                type={enumInputType.text}
-                error={errorsPublicData.instagram}
-                placeholder="Instagram url twojego profilu"
-                defaultValue={!!userHimselfData?.data?.instagram ? userHimselfData?.data?.instagram : undefined}
-                register={registerPublicData}
-              />
-              <Input
-                id="youtube"
-                name="youtube"
-                type={enumInputType.text}
-                error={errorsPublicData.youtube}
-                placeholder="YouTube url Twojego kanału"
-                defaultValue={!!userHimselfData?.data?.youtube ? userHimselfData?.data?.youtube : undefined}
-                register={registerPublicData}
-              />
-              <Input
-                id="tiktok"
-                name="tiktok"
-                type={enumInputType.text}
-                error={errorsPublicData.tiktok}
-                placeholder="TikTok url twojego profilu"
-                defaultValue={!!userHimselfData?.data?.tiktok ? userHimselfData?.data?.tiktok : undefined}
-                register={registerPublicData}
-              />
-              <Input
-                id="github"
-                name="github"
-                type={enumInputType.text}
-                error={errorsPublicData.github}
-                placeholder="Github url twojego profilu"
-                defaultValue={!!userHimselfData?.data?.github ? userHimselfData?.data?.github : undefined}
-                register={registerPublicData}
-              />
+              <Input id="country" name="country" type={enumInputType.text} error={errorsPublicData.country} placeholder="Kraj" defaultValue={!!userHimselfData?.data?.country ? userHimselfData?.data?.country : undefined} register={registerPublicData} required />
+              <Input id="website" name="website" type={enumInputType.text} error={errorsPublicData.website} placeholder="Portfolio url" defaultValue={!!userHimselfData?.data?.website ? userHimselfData?.data?.website : undefined} register={registerPublicData} required />
+              <Input id="instagram" name="instagram" type={enumInputType.text} error={errorsPublicData.instagram} placeholder="Instagram url twojego profilu" defaultValue={!!userHimselfData?.data?.instagram ? userHimselfData?.data?.instagram : undefined} register={registerPublicData} />
+              <Input id="youtube" name="youtube" type={enumInputType.text} error={errorsPublicData.youtube} placeholder="YouTube url Twojego kanału" defaultValue={!!userHimselfData?.data?.youtube ? userHimselfData?.data?.youtube : undefined} register={registerPublicData} />
+              <Input id="tiktok" name="tiktok" type={enumInputType.text} error={errorsPublicData.tiktok} placeholder="TikTok url twojego profilu" defaultValue={!!userHimselfData?.data?.tiktok ? userHimselfData?.data?.tiktok : undefined} register={registerPublicData} />
+              <Input id="github" name="github" type={enumInputType.text} error={errorsPublicData.github} placeholder="Github url twojego profilu" defaultValue={!!userHimselfData?.data?.github ? userHimselfData?.data?.github : undefined} register={registerPublicData} />
             </>
           ) : (
             <>
@@ -278,17 +216,7 @@ export default function SectionDasbordUserEditData({ data: { session } }: { data
           {!!userHimselfData?.data && !updateEmail ? (
             <>
               {saveEmail && <BoxInfo>Zapisano</BoxInfo>}
-              <Input
-                id="email"
-                name="email"
-                type={enumInputType.email}
-                pattern={emailRegex}
-                error={errorsEmail.email}
-                placeholder="email"
-                defaultValue={!!userHimselfData?.data?.email ? userHimselfData?.data?.email : undefined}
-                register={registerEmail}
-                required
-              />
+              <Input id="email" name="email" type={enumInputType.email} pattern={emailRegex} error={errorsEmail.email} placeholder="email" defaultValue={!!userHimselfData?.data?.email ? userHimselfData?.data?.email : undefined} register={registerEmail} required />
               <ButtonSubmit title="zapisz nowy adres email">zapisz nowy adres email</ButtonSubmit>
             </>
           ) : (
