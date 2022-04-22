@@ -48,6 +48,7 @@ const GlobalStyle = styled.createGlobalStyle<GlobalStyleProps>`
 
   input,
   textarea {
+    font-size: 1.6rem;
     font-family: "Montserrat", sans-serif;
   }
 

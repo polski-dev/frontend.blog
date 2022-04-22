@@ -1,28 +1,32 @@
 import dynamic from "next/dynamic";
 import { useForm } from "react-hook-form";
-import { useEffect, useState, useRef } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
+
 import "@uiw/react-markdown-preview/markdown.css";
 import { ButtonSubmit } from "components/atoms/button/component.button.index";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
 import { Section, Header, Title, Form, Preview } from "./component.section.dasbordUserAddArticle.style";
-import { Input, TextArea, CheckBox, Radio, enumInputType } from "components/molecules/form/component.form.index";
+import { Input, TextArea, CheckBox, Radio, InputForTags, enumInputType } from "components/molecules/form/component.form.index";
 
 const MDEditor = dynamic<any>((): any => import("@uiw/react-md-editor").then((mod) => mod.default), { ssr: false });
 
 export default function SectionDasbordAddArticle({ data: { title } }: { data: { title: string } }) {
   const { data: session, status } = useSession();
   const [preview, setPreview] = useState("");
-  const [value, setValue] = useState("**Dodaj treść artykułu!!**");
+  const [valueDescription, setValueDescription] = useState("**Dodaj treść artykułu!!**");
 
   const {
     watch,
     register,
+    setValue,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
   const cover = watch("cover");
+
+  const tag = watch("tags");
 
   useEffect(() => {
     if (!!cover?.length) {
@@ -41,7 +45,7 @@ export default function SectionDasbordAddArticle({ data: { title } }: { data: { 
             <Col xs={12}>
               <Title>Co dodajesz?</Title>
             </Col>
-
+            <Col xs={12}></Col>
             <Col xs={6}>
               <Radio name="typ" value="artykuł" error={errors.title} register={register} required checked />
             </Col>
@@ -66,10 +70,10 @@ export default function SectionDasbordAddArticle({ data: { title } }: { data: { 
             )}
 
             <Col xs={12}>
-              <MDEditor value={value} onChange={setValue} />
+              <MDEditor value={valueDescription} onChange={setValueDescription} />
             </Col>
             <Col xs={12}>
-              <Input id="tagi" name="tagi" type={enumInputType.text} error={errors.title} placeholder="Tagi" defaultValue={undefined} register={register} required />
+              <InputForTags setValue={setValue} id="tags" name="tags" error={errors.tags} placeholder="Dodaj tagi..." defaultValue={undefined} register={register} required />
             </Col>
             <Col xs={12}>
               <ButtonSubmit title="dodaj">Dodaj</ButtonSubmit>

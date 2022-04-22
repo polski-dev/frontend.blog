@@ -5,7 +5,7 @@ import { ButtonLinkInType, ButtonSubmitType, ButtonType } from "../types/compone
 export const styleDefault = css`
   border: none;
   cursor: pointer;
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   transition: all 0.3s;
   padding: 0.5rem 1rem;
   border-radius: 0.3rem;
