@@ -10,7 +10,7 @@ export default function InputForTagsComponent({ id, name, defaultValue, placehol
 
   useEffect(() => {
     setValue(id, tags);
-  }, [tags, id, setValue, setTags]);
+  }, [tags, valueInput, id, setValue, setTags]);
 
   const deleteTag = (id: number) => {
     let arr: string[] = [...tags];
