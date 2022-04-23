@@ -1,23 +1,23 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { InputInterface } from "./component.inputForTags.type";
 import { Label, Input, Span } from "./component.inputForTags.style";
 
 export default function InputForTagsComponent({ id, name, defaultValue, placeholder, pattern, error, setValue, register, required }: InputInterface) {
   const tagsState: string[] = [];
+  const [active, setActive] = useState(false);
   const [tags, setTags] = useState(tagsState);
   const [valueInput, setValueInput] = useState("");
   const regex = /[!@#$%^&*()_+{}[\];:'"\|,<.>?\/`~=*§£\ ]/g;
 
-  useEffect(() => {
-    setValue(id, tags);
-  }, [tags, valueInput, id, setValue, setTags]);
-
-  const deleteTag = (id: number) => {
-    let arr: string[] = [...tags];
-    if (tags.length > 1) arr.splice(id, 1);
-    else arr = [];
-    setTags(arr);
-  };
+  const deleteTag = useCallback(
+    (id: number): void => {
+      let arr: string[] = [...tags];
+      if (tags.length > 1) arr.splice(id, 1);
+      else arr = [];
+      setTags(arr);
+    },
+    [tags]
+  );
 
   const addTag = (e: any) => {
     const value = e?.target?.value;
@@ -27,6 +27,20 @@ export default function InputForTagsComponent({ id, name, defaultValue, placehol
       setValueInput("");
     }
   };
+
+  const deleteLastTag = useCallback(
+    (e: KeyboardEvent): void => {
+      if (active && e.keyCode === 8 && !valueInput.length) deleteTag(tags.length - 1);
+    },
+    [active, tags, valueInput, deleteTag]
+  );
+
+  useEffect(() => setValue(id, tags), [tags, valueInput, id, setValue, setTags]);
+
+  useEffect(() => {
+    window.addEventListener("keydown", deleteLastTag, false);
+    return () => window.removeEventListener("keydown", deleteLastTag, false);
+  }, [deleteLastTag]);
 
   return (
     <>
@@ -42,7 +56,18 @@ export default function InputForTagsComponent({ id, name, defaultValue, placehol
             );
           })}
 
-        <Input id={id} placeholder={placeholder} type="text" value={valueInput} />
+        <Input
+          id={id}
+          placeholder={placeholder}
+          type="text"
+          value={valueInput}
+          onFocus={() => {
+            if (!active) setActive(true);
+          }}
+          onBlur={() => {
+            if (!!active) setActive(false);
+          }}
+        />
       </Label>
       <Input name={name} style={{ display: "none" }} defaultValue={defaultValue} error={!!error} {...register(id, { pattern, required })} />
     </>
