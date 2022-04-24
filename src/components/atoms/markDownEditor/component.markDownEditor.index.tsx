@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, TextareaHTMLAttributes } from "react";
 import ReactMarkdown from "react-markdown";
 import Bolt from "assets/icon/bolt.svg";
 import Italic from "assets/icon/italic.svg";
@@ -81,22 +81,17 @@ const toolsSelect = (list: string[] | string[][]): any => {
 const toolDisplay = (list: string[] | string[][]) => toolsSelect(list).map((item: { type: string; name?: string }): JSX.Element | undefined => toolSelect(item));
 
 export default function MarkDownEditorComponent({ id, name, defaultValue, placeholder, pattern, error, setValue, register, required }: MarkDownEditorTypes): JSX.Element {
-  const [textAreaValue, setTextAreaValue] = useState("");
+  const [textAreaValue, setTextAreaValue] = useState("kupa");
   const areaContent: React.RefObject<HTMLTextAreaElement> = useRef(null);
 
+  const selectTxt = (e: React.ChangeEvent<any>): void => {
+    console.log(e?.target?.selectionStart);
+    console.log(e?.target?.selectionEnd);
+    console.log(e?.target?.value?.substring(e?.target?.selectionStart, e?.target?.selectionEnd));
+  };
+
   useEffect(() => setValue(textAreaValue), [textAreaValue, setValue]);
-
-  useEffect((): void => {
-    const area: HTMLTextAreaElement | null = areaContent.current;
-
-    const selectTxt = (e: any) => {
-      console.log(e?.target?.value?.substring(e?.target?.selectionStart, e?.target?.selectionEnd));
-    };
-
-    area?.addEventListener("change", (e: any): void => setTextAreaValue(e?.target?.value));
-    area?.addEventListener("select", (e: any): void => selectTxt(e));
-  }, [areaContent]);
-
+  console.log(textAreaValue);
   return (
     <>
       <Editor htmlFor={id}>
@@ -106,7 +101,12 @@ export default function MarkDownEditorComponent({ id, name, defaultValue, placeh
             ["quote", "list", "listNumber"],
             ["code", "imageUpload"],
           ])}
-          <Tool title="Trash">
+          <Tool
+            title="Trash"
+            onClick={(): void => {
+              !!textAreaValue.length && setTextAreaValue("");
+            }}
+          >
             <Trash />
           </Tool>
 
@@ -114,9 +114,8 @@ export default function MarkDownEditorComponent({ id, name, defaultValue, placeh
             <Eye />
           </Tool>
         </ToolsList>
-        <TextArea id={id} ref={areaContent}>
-          {textAreaValue}
-        </TextArea>
+        <TextArea id={id} ref={areaContent} onChange={(e: React.ChangeEvent<HTMLTextAreaElement>): void => setTextAreaValue(e.target.value)} onSelect={(e: React.ChangeEvent<HTMLTextAreaElement>) => selectTxt(e)} value={textAreaValue} />
+
         <Preview>oko</Preview>
       </Editor>
       <TextArea id={id} name={name} defaultValue={defaultValue} error={!!error} {...(register(id, { pattern, required }) as any)} placeholder={placeholder} style={{ display: "none" }} />

@@ -20,7 +20,7 @@ export default function InputComponent({ id, name, defaultValue, type, placehold
         if (type === "file") handleClick();
       }}
     >
-      <Input id={id} name={name} defaultValue={defaultValue} placeholder={placeholder} accept={accept} type={type} error={!!error} {...register(id, { pattern, required })} />
+      <Input id={id} name={name} defaultValue={defaultValue} placeholder={placeholder} accept={accept} type={type} error={!!error} {...(register(id, { pattern, required }) as any)} />
       {type === enumInputType.file && <Span>{nameFile}</Span>}
     </Label>
   );
