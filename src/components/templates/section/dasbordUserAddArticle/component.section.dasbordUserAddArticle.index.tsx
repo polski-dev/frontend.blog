@@ -18,6 +18,16 @@ export default function SectionDasbordAddArticle({ data: { title } }: { data: { 
     formState: { errors },
   } = useForm();
 
+  const cover = watch("cover");
+
+  useEffect(() => {
+    if (!!cover?.length) {
+      const reader = new FileReader();
+      reader.addEventListener("load", () => typeof reader.result === "string" && setPreview(reader.result), false);
+      reader.readAsDataURL(cover[0]);
+    }
+  }, [cover]);
+
   return (
     <Section>
       <Header>{title}</Header>

@@ -69,7 +69,7 @@ export default function InputForTagsComponent({ id, name, defaultValue, placehol
           }}
         />
       </Label>
-      <Input name={name} style={{ display: "none" }} defaultValue={defaultValue} error={!!error} {...register(id, { pattern, required })} />
+      <Input name={name} style={{ display: "none" }} defaultValue={defaultValue} error={!!error} {...(register(id, { pattern, required }) as any)} />
     </>
   );
 }

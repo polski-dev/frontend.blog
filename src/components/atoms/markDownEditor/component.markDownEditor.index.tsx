@@ -81,13 +81,20 @@ const toolsSelect = (list: string[] | string[][]): any => {
 const toolDisplay = (list: string[] | string[][]) => toolsSelect(list).map((item: { type: string; name?: string }): JSX.Element | undefined => toolSelect(item));
 
 export default function MarkDownEditorComponent({ id, name, defaultValue, placeholder, pattern, error, setValue, register, required }: MarkDownEditorTypes): JSX.Element {
+  const [textAreaValue, setTextAreaValue] = useState("");
   const areaContent: React.RefObject<HTMLTextAreaElement> = useRef(null);
+
+  useEffect(() => setValue(textAreaValue), [textAreaValue, setValue]);
 
   useEffect((): void => {
     const area: HTMLTextAreaElement | null = areaContent.current;
-    if (!!area) {
-      area.addEventListener("select", (e: any) => console.log(e?.target?.value?.substring(e?.target?.selectionStart, e?.target?.selectionEnd)));
-    }
+
+    const selectTxt = (e: any) => {
+      console.log(e?.target?.value?.substring(e?.target?.selectionStart, e?.target?.selectionEnd));
+    };
+
+    area?.addEventListener("change", (e: any): void => setTextAreaValue(e?.target?.value));
+    area?.addEventListener("select", (e: any): void => selectTxt(e));
   }, [areaContent]);
 
   return (
@@ -107,10 +114,12 @@ export default function MarkDownEditorComponent({ id, name, defaultValue, placeh
             <Eye />
           </Tool>
         </ToolsList>
-        <TextArea id={id} ref={areaContent}></TextArea>
+        <TextArea id={id} ref={areaContent}>
+          {textAreaValue}
+        </TextArea>
         <Preview>oko</Preview>
       </Editor>
-      <TextArea id={id} name={name} defaultValue={defaultValue} error={!!error} {...register(id, { pattern, required })} placeholder={placeholder} style={{ display: "none" }} />
+      <TextArea id={id} name={name} defaultValue={defaultValue} error={!!error} {...(register(id, { pattern, required }) as any)} placeholder={placeholder} style={{ display: "none" }} />
     </>
   );
 }
