@@ -7,7 +7,7 @@ export default function InputForTagsComponent({ id, name, defaultValue, placehol
   const [active, setActive] = useState(false);
   const [tags, setTags] = useState(tagsState);
   const [valueInput, setValueInput] = useState("");
-  const regex = /[!@#$%^&*()_+{}[\];:'"\|,<.>?\/`~=*§£\ ]/g;
+  const regex: RegExp = /[!@#$%^&*()_+{}[\];:'"\|,<.>?\/`~=*§£\ ]/g;
 
   const deleteTag = useCallback(
     (id: number): void => {
@@ -20,7 +20,7 @@ export default function InputForTagsComponent({ id, name, defaultValue, placehol
   );
 
   const addTag = (e: any) => {
-    const value = e?.target?.value;
+    const value = e?.target?.value.toLowerCase();
     setValueInput(value);
     if (value.split(regex).length > 1) {
       setTags([...tags, ...value.split(regex).filter((item: string) => item.length > 0)]);

@@ -3,7 +3,7 @@ export interface ButtonDefaultType {
   title: string;
   active?: boolean;
   className?: string;
-  onClick?: () => void;
+  onClick?: (e: Event) => void;
   children: JSX.Element | string;
 }
 

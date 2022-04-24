@@ -376,11 +376,6 @@ export const Form: StyledComponent<any, any> = styled.form`
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-
-  button {
-    display: block;
-    margin: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.small} 0 ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.main} auto;
-  }
 `;
 
 export const Preview: StyledComponent<any, any> = styled.div`

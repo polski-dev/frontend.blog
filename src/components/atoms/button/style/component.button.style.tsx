@@ -3,13 +3,15 @@ import { MainSettingsTemplate } from "assets/style/types.mainSettingsTemplate";
 import { ButtonLinkInType, ButtonSubmitType, ButtonType } from "../types/component.button.type";
 
 export const styleDefault = css`
+  display: flex;
   border: none;
   cursor: pointer;
   font-size: 1.6rem;
+  align-items: center;
   transition: all 0.3s;
   padding: 0.5rem 1rem;
   border-radius: 0.3rem;
-  display: inline-block;
+  justify-content: center;
   color: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorLink};
   background: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorButtonBg};
   border: 0.1rem solid ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorBorder};
