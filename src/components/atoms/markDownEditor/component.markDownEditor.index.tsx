@@ -1,123 +1,63 @@
-import React, { useState, useRef, useEffect, TextareaHTMLAttributes } from "react";
 import ReactMarkdown from "react-markdown";
-import Bolt from "assets/icon/bolt.svg";
-import Italic from "assets/icon/italic.svg";
-import Underline from "assets/icon/underline.svg";
-import Strikethrough from "assets/icon/strikethrough.svg";
-import Quote from "assets/icon/quote.svg";
-import List from "assets/icon/list.svg";
-import ListNumber from "assets/icon/listNumber.svg";
 
-import Link from "assets/icon/link.svg";
-import Code from "assets/icon/code.svg";
-import ImageUpload from "assets/icon/image.svg";
-
-import Trash from "assets/icon/trash.svg";
-
-import Eye from "assets/icon/eye.svg";
-
+import React, { useState, useRef, useEffect } from "react";
+import Tools from "./tools/component.markDownEditor.tools.index";
 import { MarkDownEditorTypes } from "./component.markDownEditor.type";
-import { Editor, ToolsList, Tool, BreakLine, TextArea, Preview } from "./component.markDownEditor.styled";
-
-const iconSelect = (name?: string) => {
-  switch (name) {
-    case "bold":
-      return <Bolt />;
-    case "italic":
-      return <Italic />;
-    case "underline":
-      return <Underline />;
-    case "strikethrough":
-      return <Strikethrough />;
-    case "quote":
-      return <Quote />;
-    case "list":
-      return <List />;
-    case "listNumber":
-      return <ListNumber />;
-    case "link":
-      return <Link />;
-    case "code":
-      return <Code />;
-    case "imageUpload":
-      return <ImageUpload />;
-    default:
-      return <>Error</>;
-  }
-};
-
-const toolSelect = ({ type, name }: { type: string; name?: string }): JSX.Element | undefined => {
-  switch (type) {
-    case "button":
-      return (
-        <Tool
-          title={name || "brak"}
-          onClick={(): void => {
-            console.log("MarkDownEditor" + name);
-          }}
-        >
-          {iconSelect(name)}
-        </Tool>
-      );
-    case "break":
-      return <BreakLine />;
-  }
-};
-
-const toolsSelect = (list: string[] | string[][]): any => {
-  let arr: { type: string; name?: string }[] = [];
-
-  list.forEach((item: string | string[], index: number) => {
-    if (Array.isArray(item)) toolsSelect(item).map((child: { type: string; name?: string }): number => arr.push(child));
-    else if (typeof item === "string") {
-      arr.push({ type: "button", name: item });
-      if (list.length - 1 === index) arr.push({ type: "break" });
-    }
-  });
-
-  return arr;
-};
-
-const toolDisplay = (list: string[] | string[][]) => toolsSelect(list).map((item: { type: string; name?: string }): JSX.Element | undefined => toolSelect(item));
+import { Editor, ContentArea, TextArea, Preview } from "./component.markDownEditor.styled";
 
 export default function MarkDownEditorComponent({ id, name, defaultValue, placeholder, pattern, error, setValue, register, required }: MarkDownEditorTypes): JSX.Element {
-  const [textAreaValue, setTextAreaValue] = useState("kupa");
+  const [txt, setTxt] = useState("## Dodaj opis...");
+  const [nextLine, setNextLine] = useState({ selectionStart: 0, next: false });
   const areaContent: React.RefObject<HTMLTextAreaElement> = useRef(null);
+  const [selectValue, setSelectValue] = useState({ selectionStart: 0, selectionEnd: 0 });
 
-  const selectTxt = (e: React.ChangeEvent<any>): void => {
-    console.log(e?.target?.selectionStart);
-    console.log(e?.target?.selectionEnd);
-    console.log(e?.target?.value?.substring(e?.target?.selectionStart, e?.target?.selectionEnd));
-  };
+  const contentEditable = React.useRef(null);
 
-  useEffect(() => setValue(textAreaValue), [textAreaValue, setValue]);
-  console.log(textAreaValue);
+  useEffect(() => setValue(txt), [txt, setValue]);
+
+  const changeTxt = (e: React.ChangeEvent<any>): void => setSelectValue({ selectionStart: e?.target?.selectionStart || 0, selectionEnd: e?.target?.selectionEnd || 0 });
+
+  useEffect(() => {
+    const area: HTMLTextAreaElement | null = areaContent?.current;
+    area && area.addEventListener("keydown", (e: any): void | false => e?.keyCode === 13 && setNextLine({ selectionStart: e?.target?.selectionStart, next: true }));
+
+    return (): void => {
+      area && area.removeEventListener("keydown", (e: any): void | false => e?.keyCode === 13 && setNextLine({ selectionStart: e?.target?.selectionStart, next: true }));
+    };
+  }, []);
+
+  useEffect(() => {
+    if (nextLine.next) {
+      const arr = txt.split("");
+      console.log(arr, "arr");
+      arr.splice(nextLine.selectionStart, 0, `\n`);
+      console.log(arr, "splice");
+      console.log(arr.join(""), "toString");
+      setTxt(arr.join(""));
+      console.log(arr.join(""));
+      setNextLine({ selectionStart: 0, next: false });
+    }
+  }, [txt, nextLine]);
+  console.log(txt);
+
+  console.log("pawel".slice(0, 2));
   return (
     <>
       <Editor htmlFor={id}>
-        <ToolsList>
-          {toolDisplay([
-            ["bold", "italic", "underline", "strikethrough"],
+        <Tools
+          listTools={[
+            ["header", "bold", "italic", "underline", "strikethrough"],
             ["quote", "list", "listNumber"],
             ["code", "imageUpload"],
-          ])}
-          <Tool
-            title="Trash"
-            onClick={(): void => {
-              !!textAreaValue.length && setTextAreaValue("");
-            }}
-          >
-            <Trash />
-          </Tool>
-
-          <Tool title="preview" style={{ marginLeft: "auto" }}>
-            <Eye />
-          </Tool>
-        </ToolsList>
-        <TextArea id={id} ref={areaContent} onChange={(e: React.ChangeEvent<HTMLTextAreaElement>): void => setTextAreaValue(e.target.value)} onSelect={(e: React.ChangeEvent<HTMLTextAreaElement>) => selectTxt(e)} value={textAreaValue} />
+          ]}
+        />
+        <ContentArea contentEditable={true} id={id} ref={areaContent} onInput={(e: any): void => setTxt(e.currentTarget.textContent)} onSelect={(e: React.ChangeEvent<HTMLTextAreaElement>) => changeTxt(e)} suppressContentEditableWarning={true}>
+          <>{txt}</>
+        </ContentArea>
 
         <Preview>oko</Preview>
       </Editor>
+      <ReactMarkdown>{txt}</ReactMarkdown>
       <TextArea id={id} name={name} defaultValue={defaultValue} error={!!error} {...(register(id, { pattern, required }) as any)} placeholder={placeholder} style={{ display: "none" }} />
     </>
   );
