@@ -41,13 +41,14 @@ const iconSelect = (name?: string) => {
   }
 };
 
-const toolSelect = ({ type, name, id }: { type: string; name?: string; id: string }): JSX.Element | undefined => {
+const toolSelect = ({ type, name, id, active }: { type: string; name?: string; id: string; active: boolean }): JSX.Element | undefined => {
   switch (type) {
     case "button":
       return (
         <Tool
-          title={name || "brak"}
           key={id}
+          active={active}
+          title={name || "brak"}
           onClick={(): void => {
             console.log("MarkDownEditor" + name);
           }}
@@ -70,18 +71,18 @@ const toolSelect = ({ type, name, id }: { type: string; name?: string; id: strin
   }
 };
 
-const toolsSelect = (list: string[] | string[][]): any => {
-  let arr: { type: string; name?: string; id: string }[] = [];
+const toolsSelect = (list: string[] | string[][], active: string[]): any => {
+  let arr: { type: string; name?: string; id: string; active: boolean | { h1: boolean; h2: boolean; h3: boolean; h4: boolean; h5: boolean } }[] = [];
 
   list.forEach((item: string | string[], index: number) => {
-    if (Array.isArray(item)) toolsSelect(item).map((child: { type: string; name?: string; id: string }): number => arr.push(child));
+    if (Array.isArray(item)) toolsSelect(item, active).map((child: { type: string; name?: string; id: string; active: boolean }): number => arr.push(child));
     else if (typeof item === "string") {
-      arr.push({ type: "button", name: item, id: `${index}${item}Button` });
-      if (list.length - 1 === index) arr.push({ type: "break", id: `${index}Break` });
+      arr.push({ type: "button", name: item, id: `${index}${item}Button`, active: active.includes(item as any) });
+      if (list.length - 1 === index) arr.push({ type: "break", id: `${index}Break`, active: false });
     }
   });
 
   return arr;
 };
 
-export const toolDisplay = (list: string[] | string[][]) => toolsSelect(list).map((item: { type: string; name?: string; id: string }): JSX.Element | undefined => toolSelect(item));
+export const toolDisplay = (list: string[] | string[][], active: string[]) => toolsSelect(list, active).map((item: { type: string; name?: string; id: string; active: boolean }): JSX.Element | undefined => toolSelect(item));

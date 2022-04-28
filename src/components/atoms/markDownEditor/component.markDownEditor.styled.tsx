@@ -45,8 +45,8 @@ export const Tool: StyledComponent<any, any> = styled.div`
   padding: 0.5rem 1rem;
   border-radius: 0.6rem;
   justify-content: center;
-  background: transparent;
   margin-right: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.small};
+  background: ${({ active, theme }: { active: boolean; theme: MainSettingsTemplate }) => (active ? theme.colorMainBg : "transparent")};
 
   &::after {
     opacity: 0;
@@ -160,11 +160,16 @@ export const BreakLine: StyledComponent<any, any> = styled.div`
   }
 `;
 
-export const ContentArea: StyledComponent<any, any> = styled.div`
+export const ContentArea: StyledComponent<any, any> = styled.textarea`
   min-height: 40rem;
   border: none;
   min-width: 100%;
   max-width: 100%;
+  font-variant-ligatures: no-common-ligatures;
+  white-space: pre-wrap;
+  word-break: break-word;
+  word-wrap: break-word;
+
   background-color: transparent;
   color: ${({ theme }: { theme: MainSettingsTemplate }): string => theme.colorText};
   padding: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.main};
@@ -179,5 +184,91 @@ export const TextArea: StyledComponent<any, any> = styled.text`
 `;
 
 export const Preview: StyledComponent<any, any> = styled.div`
-  display: none;
+  width: 100%;
+  display: block;
+  position: relative;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  ul,
+  ol,
+  img {
+    margin-bottom: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.main};
+  }
+
+  ul {
+    list-style: disc;
+    margin-left: 1.5rem;
+  }
+
+  ol {
+    display: block;
+    margin-left: 2.8rem;
+    list-style: decimal-leading-zero;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  blockquote {
+    width: 100%;
+    display: flex;
+    position: relative;
+    align-items: center;
+    border-radius: 0.6rem;
+    justify-content: center;
+    background-color: #404040;
+    padding: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.big};
+    margin: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.main} 0;
+    border: 1px solid ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorBorder};
+
+    &::before,
+    &::after {
+      line-height: 0;
+      font-size: 6rem;
+      font-weight: bold;
+      position: absolute;
+    }
+
+    &::before {
+      bottom: 4rem;
+      content: ",,";
+      left: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.small};
+    }
+
+    &::after {
+      top: 3rem;
+      content: '"';
+      right: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.small};
+    }
+
+    p {
+      margin: 0;
+      text-align: center;
+    }
+  }
+
+  pre {
+    p {
+      font-size: 1rem;
+      font-weight: bold;
+      margin-top: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.big};
+      color: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorTextDesactive};
+      margin-bottom: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.small};
+    }
+    pre {
+      margin-top: 0;
+      border-radius: 0.6rem;
+      border: 1px solid ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorBorder};
+      code {
+        display: flex !important;
+      }
+    }
+  }
 `;

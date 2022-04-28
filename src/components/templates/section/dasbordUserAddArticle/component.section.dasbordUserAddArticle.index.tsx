@@ -1,15 +1,18 @@
 import { useForm } from "react-hook-form";
-import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
+
+import React, { Children, useEffect, useState } from "react";
 import { ButtonSubmit } from "components/atoms/button/component.button.index";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
 import { Section, Header, Title, Form, Preview } from "./component.section.dasbordUserAddArticle.style";
 import { Input, Radio, InputForTags, MarkDownEditor, enumInputType } from "components/molecules/form/component.form.index";
+import { stopCoverage } from "v8";
 
 export default function SectionDasbordAddArticle({ data: { title } }: { data: { title: string } }) {
   const { data: session, status } = useSession();
   const [preview, setPreview] = useState("");
-
+  const editorRef = React.useRef(null);
+  const testRef = React.useRef(null);
   const {
     watch,
     register,
