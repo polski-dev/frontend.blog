@@ -1,7 +1,7 @@
 import styled, { StyledComponent, ThemeProps } from "styled-components";
 import { MainSettingsTemplate } from "assets/style/types.mainSettingsTemplate";
 
-export const Editor: StyledComponent<any, any> = styled.div`
+export const EditorBox: StyledComponent<any, any> = styled.div`
   width: 100%;
   display: flex;
   flex-wrap: wrap;
