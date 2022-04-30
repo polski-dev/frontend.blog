@@ -26,19 +26,14 @@ export default class EditorWizard {
     return this._tree;
   }
 
-  toolsActive(): void {
-    console.log(this._tree);
-  }
-
-  update({ typ, payload, positionCursor, callback }: { typ: typeType; payload: payloadType; positionCursor: positionCursorType; callback?: callBackType }): void {
-    if (this._typ != typ || this._payload != payload || this._positionCursor != positionCursor) {
+  updateTree({ typ, payload, positionCursor, callback }: { typ: string; payload: payloadType; positionCursor: positionCursorType; callback?: callBackType }): void {
+    if (this._payload != payload || this._positionCursor != positionCursor) {
       this._typ = typ;
       this._payload = payload;
       this._positionCursor = positionCursor;
       clearTimeout(this._iCreateTree);
       this._iCreateTree = setTimeout(() => {
         if (this._typ === "md") this._tree = fromMarkdown(payload);
-        this.toolsActive();
         !!callback && callback(this._tree);
       }, 30);
     }

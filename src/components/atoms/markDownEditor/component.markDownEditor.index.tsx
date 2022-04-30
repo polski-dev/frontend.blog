@@ -70,7 +70,7 @@ export default function MarkDownEditorComponent({ id, name, defaultValue, placeh
     //   setTxt(arr.join(""));
     // }
 
-    Editor.update({ typ: "md", payload: txt, positionCursor: { selectionStart: 1, selectionEnd: 1 } });
+    Editor.updateTree({ payload: txt, positionCursor: { selectionStart: 1, selectionEnd: 1 } });
   }, [txt, Editor]);
   // const bold = /\*{2}(.*?)\*{2}/gm;
   // const italic = /\*(?![*\s])(?:[^*]*[^*\s])?\*/gm;
