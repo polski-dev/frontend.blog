@@ -13,17 +13,17 @@ import { Tool, ToolOptions, Options, BreakLine } from "../component.markDownEdit
 
 const iconSelect = (name?: string) => {
   switch (name) {
-    case "header":
+    case "heading":
       return <Header />;
-    case "bold":
+    case "strong":
       return <Bolt />;
-    case "italic":
+    case "emphasis":
       return <Italic />;
     case "underline":
       return <Underline />;
-    case "strikethrough":
+    case "delete":
       return <Strikethrough />;
-    case "quote":
+    case "blockquote":
       return <Quote />;
     case "list":
       return <List />;
@@ -78,7 +78,6 @@ const toolsSelect = (list: string[] | string[][], active: string[]): any => {
     if (Array.isArray(item)) toolsSelect(item, active).map((child: { type: string; name?: string; id: string; active: boolean }): number => arr.push(child));
     else if (typeof item === "string") {
       arr.push({ type: "button", name: item, id: `${index}${item}Button`, active: active.includes(item as any) });
-      if (list.length - 1 === index) arr.push({ type: "break", id: `${index}Break`, active: false });
     }
   });
 

@@ -1,11 +1,12 @@
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import { fromMarkdown } from "mdast-util-from-markdown";
 import { toMarkdown } from "mdast-util-to-markdown";
-import React, { useState, useRef, useEffect } from "react";
+import React, { useMemo, useState, useRef, useEffect } from "react";
 import Tools from "./tools/component.markDownEditor.tools.index";
 import { MarkDownEditorTypes } from "./component.markDownEditor.type";
-import { EditorBox, ContentArea, TextArea, Preview } from "./component.markDownEditor.styled";
 import EditorWizard from "./editor/component.markDownEditor.editor";
+import { EditorBox, ContentArea, TextArea, Preview } from "./component.markDownEditor.styled";
 
 // MODEL
 // root: {
@@ -46,20 +47,25 @@ import EditorWizard from "./editor/component.markDownEditor.editor";
 
 export default function MarkDownEditorComponent({ id, name, defaultValue, placeholder, pattern, error, setValue, register, required }: MarkDownEditorTypes): JSX.Element {
   const stateTxt = `## Ddwwad \n\n Paweł jest soko mi**st *rz * em** jsa `;
-  const stateSelectValue = { selectionStart: 0, selectionEnd: 0 };
+  const stateSelectValue: any = { selectionStart: 0, selectionEnd: 0 };
   const [txt, setTxt] = useState(stateTxt);
   const activeToolsInitState: string[] = [];
   const [activeTools, setActiveTools] = useState(activeToolsInitState);
   const areaContent: React.RefObject<HTMLTextAreaElement> = useRef(null);
   const [selectValue, setSelectValue] = useState(stateSelectValue);
-  const Editor = new EditorWizard("md", stateTxt, stateSelectValue);
 
+  const Editor: EditorWizard = useMemo((): EditorWizard => new EditorWizard("md", stateTxt, { selectionStart: 0, selectionEnd: 0 }), [stateTxt]);
+
+  useEffect(() => setValue(txt), [txt, setValue]);
+
+  useEffect(() => setActiveTools(Editor.activeTools({ positionCursor: selectValue })), [selectValue, Editor]);
+
+  console.log(activeTools);
   // console.log(fromMarkdown(txt));
   // console.log(toMarkdown(fromMarkdown(txt)));
-  useEffect(() => setValue(txt), [txt, setValue]);
   // console.log(selectValue);
 
-  console.log(Editor.start);
+  Editor.start;
   useEffect(() => {
     // if (selectValue.selectionStart != selectValue.selectionEnd) {
     //   const arr = txt.split("\n\n");
@@ -70,7 +76,7 @@ export default function MarkDownEditorComponent({ id, name, defaultValue, placeh
     //   setTxt(arr.join(""));
     // }
 
-    Editor.updateTree({ typ: "md", payload: txt, positionCursor: { selectionStart: 1, selectionEnd: 1 } });
+    Editor.updateTree({ typ: "md", payload: txt, positionCursor: { selectionStart: 1, selectionEnd: 1 }, callback: (tree) => console.log(tree) });
   }, [txt, Editor]);
   // const bold = /\*{2}(.*?)\*{2}/gm;
   // const italic = /\*(?![*\s])(?:[^*]*[^*\s])?\*/gm;
@@ -117,8 +123,8 @@ export default function MarkDownEditorComponent({ id, name, defaultValue, placeh
         <Tools
           activeTools={activeTools}
           listTools={[
-            ["header", "bold", "italic", "underline", "strikethrough"],
-            ["quote", "list", "listNumber"],
+            ["heading", "strong", "emphasis", "delete"],
+            ["blockquote", "list"],
             ["code", "imageUpload"],
           ]}
         />
@@ -129,7 +135,7 @@ export default function MarkDownEditorComponent({ id, name, defaultValue, placeh
         <Preview>oko</Preview>
       </EditorBox>
       <Preview>
-        <ReactMarkdown>{txt}</ReactMarkdown>
+        <ReactMarkdown remarkPlugins={[remarkGfm]}>{txt}</ReactMarkdown>
       </Preview>
 
       <TextArea id={id} name={name} defaultValue={defaultValue} error={!!error} {...(register(id, { pattern, required }) as any)} placeholder={placeholder} style={{ display: "none" }} />
