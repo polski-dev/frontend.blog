@@ -124,7 +124,7 @@ export default function MarkDownEditorComponent({ id, name, defaultValue, placeh
           activeTools={activeTools}
           listTools={[
             ["heading", "strong", "emphasis", "delete"],
-            ["blockquote", "list"],
+            ["blockquote", "list", "link"],
             ["code", "imageUpload"],
           ]}
         />
