@@ -1,7 +1,9 @@
 import remarkGfm from "remark-gfm";
+import { remove } from "unist-util-remove";
 import { toMarkdown } from "mdast-util-to-markdown";
 import { fromMarkdown } from "mdast-util-from-markdown";
 import { findAndReplace } from "hast-util-find-and-replace";
+
 import { gfmTaskListItem } from "micromark-extension-gfm-task-list-item";
 import { gfmTaskListItemFromMarkdown, gfmTaskListItemToMarkdown } from "mdast-util-gfm-task-list-item";
 import type { typeType, payloadType, positionCursorType, iCreateTreeType, treeType, callBackType } from "./component.markDownEditor.type";
@@ -43,8 +45,12 @@ export default class EditorWizard {
     if (!!positionCursor) this._positionCursor = positionCursor;
     if (tree?.children != null) for (let i: number = 0; i < tree.children?.length; i++) arr.push(...this.activeTools({ tree: tree?.children[i] }));
     else if (!tree) for (let i: number = 0; i < this._tree.children?.length; i++) arr.push(...this.activeTools({ tree: this._tree?.children[i] }));
-    if (!!tree && (tree?.position?.start.offset || 0) <= this._positionCursor.selectionStart && (tree?.position?.end.offset || 0) >= this._positionCursor.selectionEnd && tree.type != "text" && tree.type != "paragraph") arr.push(tree?.type);
+    if (!!tree && (tree?.position?.start.offset || 0) <= this._positionCursor.selectionStart && (tree?.position?.end.offset || 0) >= this._positionCursor.selectionEnd && tree.type != "text" && tree.type != "paragraph") arr.push(tree);
     return arr;
+  }
+
+  switchTool({ find, replace }: { find: { value: string; type: string }; replace: { value: string; type: string } }): treeType {
+    return this._tree;
   }
 
   updateTree({ typ, payload, positionCursor, callback }: { typ: string; payload: payloadType; positionCursor: positionCursorType; callback?: callBackType }): void {

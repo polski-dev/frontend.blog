@@ -3,7 +3,7 @@ import Trash from "assets/icon/trash.svg";
 import { toolDisplay } from "./component.markDownEditor.tools.function";
 import { ToolsList, Tool } from "./../component.markDownEditor.styled";
 
-export default function ToolForEditorComponent({ listTools, activeTools }: { listTools: string[] | string[][]; activeTools: string[] }): JSX.Element {
+export default function ToolForEditorComponent({ listTools, activeTools }: { listTools: string[] | string[][]; activeTools: { type: string; depth?: number | null }[] }): JSX.Element {
   return (
     <ToolsList>
       {toolDisplay(listTools, activeTools)}

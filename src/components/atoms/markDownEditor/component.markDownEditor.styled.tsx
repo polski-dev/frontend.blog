@@ -143,20 +143,9 @@ export const Options: StyledComponent<any, any> = styled.div`
     }
   }};
 
+  background-color: ${({ active, theme }: { active: boolean; theme: MainSettingsTemplate }) => (active ? theme.colorBorder : "transparent")};
   &:hover {
     background: ${({ theme }: { theme: MainSettingsTemplate }): string => theme.colorBorder};
-  }
-`;
-
-export const BreakLine: StyledComponent<any, any> = styled.div`
-  display: none;
-
-  @media all and (min-width: 1140px) {
-    height: 3rem;
-    display: block;
-    min-width: 0.2rem;
-    background: ${({ theme }: { theme: MainSettingsTemplate }): string => theme.colorMainBg};
-    margin-right: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.small};
   }
 `;
 

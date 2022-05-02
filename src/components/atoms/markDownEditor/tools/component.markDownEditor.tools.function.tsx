@@ -9,7 +9,7 @@ import ImageUpload from "assets/icon/image.svg";
 import Underline from "assets/icon/underline.svg";
 import ListNumber from "assets/icon/listNumber.svg";
 import Strikethrough from "assets/icon/strikethrough.svg";
-import { Tool, ToolOptions, Options, BreakLine } from "../component.markDownEditor.styled";
+import { Tool, ToolOptions, Options } from "../component.markDownEditor.styled";
 
 const iconSelect = (name?: string) => {
   switch (name) {
@@ -41,7 +41,11 @@ const iconSelect = (name?: string) => {
   }
 };
 
-const toolSelect = ({ type, name, id, active }: { type: string; name?: string; id: string; active: boolean }): JSX.Element | undefined => {
+const toolSelect = ({ type, name, id, active, depth }: { type: string; name?: string; id: string; active: boolean; depth?: number | null }): JSX.Element | undefined => {
+  console.log(type);
+
+  console.log(name);
+
   switch (type) {
     case "button":
       return (
@@ -54,34 +58,54 @@ const toolSelect = ({ type, name, id, active }: { type: string; name?: string; i
           }}
         >
           {iconSelect(name)}
-          {name === "header" && (
+          {name === "heading" && (
             <ToolOptions>
-              <Options type={"h1"}>H1</Options>
-              <Options type={"h2"}>H2</Options>
-              <Options type={"h3"}>H3</Options>
-              <Options type={"h4"}>H4</Options>
-              <Options type={"h5"}>H5</Options>
-              <Options type={"h6"}>H6</Options>
+              <Options type={"h1"} active={depth === 1 && true}>
+                H1
+              </Options>
+              <Options type={"h2"} active={depth === 2 && true}>
+                H2
+              </Options>
+              <Options type={"h3"} active={depth === 3 && true}>
+                H3
+              </Options>
+              <Options type={"h4"} active={depth === 4 && true}>
+                H4
+              </Options>
+              <Options type={"h5"} active={depth === 5 && true}>
+                H5
+              </Options>
+              <Options type={"h6"} active={depth === 6 && true}>
+                H6
+              </Options>
             </ToolOptions>
           )}
         </Tool>
       );
-    case "break":
-      return <BreakLine key={id} />;
   }
 };
 
-const toolsSelect = (list: string[] | string[][], active: string[]): any => {
-  let arr: { type: string; name?: string; id: string; active: boolean | { h1: boolean; h2: boolean; h3: boolean; h4: boolean; h5: boolean } }[] = [];
+const toolsSelect = (list: string[] | string[][], activeTools: { type: string; depth?: number | null }[]): any => {
+  let arr: { type: string; name?: string; id: string; active: boolean; depth?: number | null }[] = [];
 
   list.forEach((item: string | string[], index: number) => {
-    if (Array.isArray(item)) toolsSelect(item, active).map((child: { type: string; name?: string; id: string; active: boolean }): number => arr.push(child));
+    if (Array.isArray(item)) toolsSelect(item, activeTools).map((child: { type: string; name?: string; id: string; active: boolean }): number => arr.push(child));
     else if (typeof item === "string") {
-      arr.push({ type: "button", name: item, id: `${index}${item}Button`, active: active.includes(item as any) });
+      let active: boolean = false;
+      let depth: null | number = null;
+
+      activeTools.forEach((a: { type: string; depth?: number | null }): void => {
+        a.type === item && (active = true);
+        typeof a?.depth === "number" && (depth = a.depth);
+      });
+
+      console.log(active);
+
+      arr.push({ type: "button", name: item, id: `${index}${item}Button`, active, depth });
     }
   });
 
   return arr;
 };
 
-export const toolDisplay = (list: string[] | string[][], active: string[]) => toolsSelect(list, active).map((item: { type: string; name?: string; id: string; active: boolean }): JSX.Element | undefined => toolSelect(item));
+export const toolDisplay = (list: string[] | string[][], activeTools: { type: string; depth?: number | null }[]) => toolsSelect(list, activeTools).map((item: { type: string; name?: string; id: string; active: boolean; depth?: number | null }): JSX.Element | undefined => toolSelect(item));

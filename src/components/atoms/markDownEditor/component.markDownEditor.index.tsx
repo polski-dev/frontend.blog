@@ -49,7 +49,7 @@ export default function MarkDownEditorComponent({ id, name, defaultValue, placeh
   const stateTxt = `## Ddwwad \n\n Paweł jest soko mi**st *rz * em** jsa `;
   const stateSelectValue: any = { selectionStart: 0, selectionEnd: 0 };
   const [txt, setTxt] = useState(stateTxt);
-  const activeToolsInitState: string[] = [];
+  const activeToolsInitState: any[] = [];
   const [activeTools, setActiveTools] = useState(activeToolsInitState);
   const areaContent: React.RefObject<HTMLTextAreaElement> = useRef(null);
   const [selectValue, setSelectValue] = useState(stateSelectValue);
