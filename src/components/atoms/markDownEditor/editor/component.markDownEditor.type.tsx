@@ -1,7 +1,11 @@
 export type Root = import("mdast").Root;
 
 export type typeType = string;
-export type payloadType = string;
+export type contentType = string;
+export interface payloadType {
+  content: contentType;
+  callBackUpdateContent: (content: string) => void;
+}
 export type selectionStartType = number;
 export type selectionEndType = number;
 export interface positionCursorType {

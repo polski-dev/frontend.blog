@@ -42,10 +42,6 @@ const iconSelect = (name?: string) => {
 };
 
 const toolSelect = ({ type, name, id, active, depth }: { type: string; name?: string; id: string; active: boolean; depth?: number | null }): JSX.Element | undefined => {
-  console.log(type);
-
-  console.log(name);
-
   switch (type) {
     case "button":
       return (
@@ -95,11 +91,10 @@ const toolsSelect = (list: string[] | string[][], activeTools: { type: string; d
       let depth: null | number = null;
 
       activeTools.forEach((a: { type: string; depth?: number | null }): void => {
+        console.log(a);
         a.type === item && (active = true);
         typeof a?.depth === "number" && (depth = a.depth);
       });
-
-      console.log(active);
 
       arr.push({ type: "button", name: item, id: `${index}${item}Button`, active, depth });
     }

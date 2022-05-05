@@ -6,7 +6,7 @@ import { findAndReplace } from "hast-util-find-and-replace";
 
 import { gfmTaskListItem } from "micromark-extension-gfm-task-list-item";
 import { gfmTaskListItemFromMarkdown, gfmTaskListItemToMarkdown } from "mdast-util-gfm-task-list-item";
-import type { typeType, payloadType, positionCursorType, iCreateTreeType, treeType, callBackType } from "./component.markDownEditor.type";
+import type { typeType, contentType, payloadType, positionCursorType, iCreateTreeType, treeType, callBackType } from "./component.markDownEditor.type";
 import { gfmFootnote } from "micromark-extension-gfm-footnote";
 import { gfmFootnoteFromMarkdown, gfmFootnoteToMarkdown } from "mdast-util-gfm-footnote";
 import { gfmStrikethrough } from "micromark-extension-gfm-strikethrough";
@@ -19,7 +19,7 @@ export default class EditorWizard {
   private _iCreateTree: iCreateTreeType;
   private _positionCursor: positionCursorType;
 
-  constructor(typ: typeType, payload: payloadType, positionCursor: positionCursorType) {
+  constructor({ typ, payload, positionCursor }: { typ: typeType; payload: payloadType; positionCursor: positionCursorType }) {
     this._typ = typ;
     this._payload = payload;
     this._positionCursor = positionCursor;
@@ -29,10 +29,11 @@ export default class EditorWizard {
 
   get start(): treeType {
     if (this._typ === "md")
-      this._tree = fromMarkdown(this._payload, {
+      this._tree = fromMarkdown(this._payload.content, {
         extensions: [gfmFootnote(), gfmTaskListItem, gfmStrikethrough()],
         mdastExtensions: [gfmFootnoteFromMarkdown(), gfmTaskListItemFromMarkdown, gfmStrikethroughFromMarkdown],
       });
+    setTimeout(() => this.switchTool({ type: "emphasis", power: false, position: { end: { offset: 45 }, start: { offset: 36 } } }), 500);
     return this._tree;
   }
 
@@ -49,23 +50,39 @@ export default class EditorWizard {
     return arr;
   }
 
-  switchTool({ find, replace }: { find: { value: string; type: string }; replace: { value: string; type: string } }): treeType {
-    return this._tree;
+  // when i switch tools on keyboard or in menu Editor
+  switchTool({ type, value, power, position }: { type: string; value?: string; power: boolean; position: { end: { offset: number }; start: { offset: number } } }): void {
+    const changeStatus = (children: any[]) => {
+      let arr: any[] = [];
+
+      children.forEach((child): void => {
+        if (child?.position?.start.offset <= position.start.offset && child?.position?.end.offset >= position.end.offset) {
+          if (!power && type === child.type && child?.position?.start.offset === position.start.offset && child?.position?.end.offset === position.end.offset) arr = [...arr, ...child.children];
+          else arr = [...arr, { ...child, children: changeStatus(child.children) }];
+        } else arr.push(child);
+      });
+
+      return arr;
+    };
+
+    this._tree.children = changeStatus(this._tree.children);
+
+    this._payload.callBackUpdateContent(toMarkdown(this._tree));
   }
 
-  updateTree({ typ, payload, positionCursor, callback }: { typ: string; payload: payloadType; positionCursor: positionCursorType; callback?: callBackType }): void {
-    if (this._payload != payload || this._positionCursor != positionCursor) {
+  // when i change content in DOM
+  updateTree({ typ, content, positionCursor }: { typ: string; content: contentType; positionCursor: positionCursorType }): void {
+    if (this._payload.content != content || this._positionCursor != positionCursor) {
       this._typ = typ;
-      this._payload = payload;
+      this._payload.content = content;
       this._positionCursor = positionCursor;
       clearTimeout(this._iCreateTree);
       this._iCreateTree = setTimeout(() => {
         if (this._typ === "md")
-          this._tree = fromMarkdown(this._payload, {
+          this._tree = fromMarkdown(this._payload.content, {
             extensions: [gfmFootnote(), gfmTaskListItem, gfmStrikethrough()],
             mdastExtensions: [gfmFootnoteFromMarkdown(), gfmTaskListItemFromMarkdown, gfmStrikethroughFromMarkdown],
           });
-        !!callback && callback(this._tree);
       }, 300);
     }
   }
