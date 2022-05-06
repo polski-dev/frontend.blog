@@ -6,7 +6,7 @@ import { findAndReplace } from "hast-util-find-and-replace";
 
 import { gfmTaskListItem } from "micromark-extension-gfm-task-list-item";
 import { gfmTaskListItemFromMarkdown, gfmTaskListItemToMarkdown } from "mdast-util-gfm-task-list-item";
-import type { typeType, contentType, payloadType, positionCursorType, iCreateTreeType, treeType, callBackType } from "./component.markDownEditor.type";
+import type { typeType, contentType, payloadType, positionCursorType, iCreateTreeType, treeType, callBackType, childrenType, editorSwitchToolTypes, editorUpdateTreeType } from "../types/component.markDownEditor.type";
 import { gfmFootnote } from "micromark-extension-gfm-footnote";
 import { gfmFootnoteFromMarkdown, gfmFootnoteToMarkdown } from "mdast-util-gfm-footnote";
 import { gfmStrikethrough } from "micromark-extension-gfm-strikethrough";
@@ -27,31 +27,30 @@ export default class EditorWizard {
     this._tree = { type: "root", children: [], position: { end: { line: 1, column: 1, offset: 0 }, start: { line: 1, column: 1, offset: 0 } } };
   }
 
-  get start(): treeType {
+  start(): void {
     if (this._typ === "md")
       this._tree = fromMarkdown(this._payload.content, {
         extensions: [gfmFootnote(), gfmTaskListItem, gfmStrikethrough()],
         mdastExtensions: [gfmFootnoteFromMarkdown(), gfmTaskListItemFromMarkdown, gfmStrikethroughFromMarkdown],
       });
+
     setTimeout(() => this.switchTool({ type: "emphasis", power: false, position: { end: { offset: 45 }, start: { offset: 36 } } }), 500);
-    return this._tree;
   }
 
   get readTree(): treeType {
     return this._tree;
   }
 
-  activeTools({ tree, positionCursor }: { tree?: any; positionCursor?: positionCursorType }): string[] {
-    let arr: string[] = [];
-    if (!!positionCursor) this._positionCursor = positionCursor;
-    if (tree?.children != null) for (let i: number = 0; i < tree.children?.length; i++) arr.push(...this.activeTools({ tree: tree?.children[i] }));
-    else if (!tree) for (let i: number = 0; i < this._tree.children?.length; i++) arr.push(...this.activeTools({ tree: this._tree?.children[i] }));
-    if (!!tree && (tree?.position?.start.offset || 0) <= this._positionCursor.selectionStart && (tree?.position?.end.offset || 0) >= this._positionCursor.selectionEnd && tree.type != "text" && tree.type != "paragraph") arr.push(tree);
-    return arr;
+  activeTools({ tool, tree }: { tool: string; tree?: childrenType }): boolean | void {
+    console.log(tree, "tree");
+    if (tree?.children != null) tree.children.forEach((tree: any) => this.activeTools({ tool, tree }));
+    else if (!tree) this._tree.children.forEach((tree: any) => this.activeTools({ tool, tree }));
+    else if (!!tree && (tree?.position?.start.offset || 0) <= this._positionCursor.selectionStart && (tree?.position?.end.offset || 0) >= this._positionCursor.selectionEnd && tree.type != tool) true;
+    else false;
   }
 
   // when i switch tools on keyboard or in menu Editor
-  switchTool({ type, value, power, position }: { type: string; value?: string; power: boolean; position: { end: { offset: number }; start: { offset: number } } }): void {
+  switchTool({ type, value, power, position }: editorSwitchToolTypes): treeType {
     const changeStatus = (children: any[]) => {
       let arr: any[] = [];
 
@@ -66,12 +65,13 @@ export default class EditorWizard {
     };
 
     this._tree.children = changeStatus(this._tree.children);
-
     this._payload.callBackUpdateContent(toMarkdown(this._tree));
+
+    return this._tree;
   }
 
   // when i change content in DOM
-  updateTree({ typ, content, positionCursor }: { typ: string; content: contentType; positionCursor: positionCursorType }): void {
+  updateTree({ typ, content, positionCursor }: editorUpdateTreeType): void {
     if (this._payload.content != content || this._positionCursor != positionCursor) {
       this._typ = typ;
       this._payload.content = content;

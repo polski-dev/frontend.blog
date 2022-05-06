@@ -10,8 +10,9 @@ import Underline from "assets/icon/underline.svg";
 import ListNumber from "assets/icon/listNumber.svg";
 import Strikethrough from "assets/icon/strikethrough.svg";
 import { Tool, ToolOptions, Options } from "../component.markDownEditor.styled";
+import { toolTypes } from "../types/component.markDownEditor.type";
 
-const iconSelect = (name?: string) => {
+export const iconSelect = (name?: string) => {
   switch (name) {
     case "heading":
       return <Header />;
@@ -41,7 +42,7 @@ const iconSelect = (name?: string) => {
   }
 };
 
-const toolSelect = ({ type, name, id, active, depth }: { type: string; name?: string; id: string; active: boolean; depth?: number | null }): JSX.Element | undefined => {
+const toolSelect = ({ type, name, id, active, depth, editor }: { type: string; name?: string; id: string; active: boolean; depth?: number | null; editor: EditorWizard }): JSX.Element | undefined => {
   switch (type) {
     case "button":
       return (
@@ -50,7 +51,9 @@ const toolSelect = ({ type, name, id, active, depth }: { type: string; name?: st
           active={active}
           title={name || "brak"}
           onClick={(): void => {
-            console.log("MarkDownEditor" + name);
+            console.log(name);
+            editor.switchTool({ type: name || "", power: active, position: { start: { offset: 1 }, end: { offset: 0 } } });
+            console.log(editor.readTree);
           }}
         >
           {iconSelect(name)}
@@ -81,26 +84,25 @@ const toolSelect = ({ type, name, id, active, depth }: { type: string; name?: st
   }
 };
 
-const toolsSelect = (list: string[] | string[][], activeTools: { type: string; depth?: number | null }[]): any => {
-  let arr: { type: string; name?: string; id: string; active: boolean; depth?: number | null }[] = [];
+const toolsSelect = ({ listTools, activeTools, editor }: toolsDisplayTypes): any => {
+  let arr: toolTypes[] = [];
 
-  list.forEach((item: string | string[], index: number) => {
-    if (Array.isArray(item)) toolsSelect(item, activeTools).map((child: { type: string; name?: string; id: string; active: boolean }): number => arr.push(child));
-    else if (typeof item === "string") {
+  listTools.forEach((tools: string | string[], index: number) => {
+    if (Array.isArray(tools)) toolsSelect({ listTools: tools, activeTools, editor }).map((child: toolTypes): number => arr.push(child));
+    else if (typeof tools === "string") {
       let active: boolean = false;
       let depth: null | number = null;
 
       activeTools.forEach((a: { type: string; depth?: number | null }): void => {
-        console.log(a);
         a.type === item && (active = true);
         typeof a?.depth === "number" && (depth = a.depth);
       });
 
-      arr.push({ type: "button", name: item, id: `${index}${item}Button`, active, depth });
+      arr.push({ type: "button", name: item, id: `${index}${item}Button`, active, depth, editor });
     }
   });
 
   return arr;
 };
 
-export const toolDisplay = (list: string[] | string[][], activeTools: { type: string; depth?: number | null }[]) => toolsSelect(list, activeTools).map((item: { type: string; name?: string; id: string; active: boolean; depth?: number | null }): JSX.Element | undefined => toolSelect(item));
+export const toolsDisplay = ({ listTools, activeTools, editor }: toolsDisplayTypes) => toolsSelect({ listTools, activeTools, editor }).map((item: toolsDisplayTypes): JSX.Element | undefined => toolSelect(item));
