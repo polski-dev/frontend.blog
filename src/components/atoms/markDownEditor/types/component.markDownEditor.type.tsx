@@ -21,17 +21,17 @@ export interface positionCursorType {
   selectionEnd: selectionEndType;
 }
 
-export interface childrenType {
+export interface childInTreeType {
   type: string;
-  children?: childrenType[];
+  children?: childInTreeType[];
   depth?: number | null;
   position: { start: { line: number; column: number; offset: number }; end: { line: number; column: number; offset: number } };
 }
-[];
 
-export interface toolsTypes {
-  editor: EditorWizard;
+export interface ToolForEditorComponentPropsTypes {
   listTools: string[];
+  callBack: (param: any) => void;
+  activeTools: childInTreeType[];
 }
 
 // interface for params method
