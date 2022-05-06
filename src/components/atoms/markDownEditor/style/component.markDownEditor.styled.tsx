@@ -38,11 +38,11 @@ export const Tool: StyledComponent<any, any> = styled.div`
   display: flex;
   min-width: 5rem;
   cursor: pointer;
+  padding: 0 1rem;
   font-size: 1.6rem;
+  transition: all 0;
   position: relative;
   align-items: center;
-  transition: all 0;
-  padding: 0.5rem 1rem;
   border-radius: 0.6rem;
   justify-content: center;
   margin-right: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.small};
@@ -100,6 +100,15 @@ export const Tool: StyledComponent<any, any> = styled.div`
   svg {
     height: 2rem;
   }
+`;
+
+export const BoxIcon: StyledComponent<any, any> = styled.div`
+  width: 100%;
+  display: flex;
+  max-width: 100%;
+  align-items: center;
+  padding: 0.5rem 0;
+  justify-content: center;
 `;
 
 export const ToolOptions: StyledComponent<any, any> = styled.ul`

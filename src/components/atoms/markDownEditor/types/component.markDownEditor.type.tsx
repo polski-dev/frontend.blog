@@ -1,5 +1,3 @@
-import EditorWizard from "./../editor/component.markDownEditor.editor";
-
 // type
 export type treeType = Root;
 export type typeType = string;
@@ -16,7 +14,7 @@ export interface payloadType {
   callBackUpdateContent: (content: string) => void;
 }
 
-export interface positionCursorType {
+export interface positionSelectType {
   selectionStart: selectionStartType;
   selectionEnd: selectionEndType;
 }
@@ -30,15 +28,15 @@ export interface childInTreeType {
 
 export interface ToolForEditorComponentPropsTypes {
   listTools: string[];
-  callBack: (param: any) => void;
   activeTools: childInTreeType[];
+  callBack: ({ child, power }: { child?: childInTreeType; power: boolean }) => void;
 }
 
 // interface for params method
 
 export interface editorActiveToolsTypes {
   tree?: any;
-  positionCursor?: positionCursorType;
+  positionSelect?: positionSelectType;
 }
 
 export interface editorSwitchToolTypes {
@@ -52,5 +50,4 @@ export interface editorSwitchToolTypes {
 export interface editorUpdateTreeType {
   typ: string;
   content: contentType;
-  positionCursor: positionCursorType;
 }

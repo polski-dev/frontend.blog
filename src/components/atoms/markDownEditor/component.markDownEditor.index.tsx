@@ -7,17 +7,21 @@ import { EditorBox, ContentArea, TextArea, Preview } from "./style/component.mar
 import { childInTreeType } from "./types/component.markDownEditor.type";
 
 export default function MarkDownEditorComponent({ id, name, defaultValue, placeholder, pattern, error, setValue, register, required }: any): JSX.Element {
-  const areaContent: React.RefObject<HTMLTextAreaElement> = useRef(null);
   const initialStateActiveTools: childInTreeType[] = [];
-  const [activeTools, setActiveTools] = useState(initialStateActiveTools);
-  const [selectValue, setSelectValue] = useState({ selectionStart: 0, selectionEnd: 0 });
-  const [content, setContent] = useState("## Ddwwad \n\n Paweł jest soko mi**stem** jsa");
-  const Editor: EditorWizard = useMemo((): EditorWizard => new EditorWizard({ typ: "md", payload: { content, callBackUpdateContent: setContent }, positionCursor: selectValue }), [content, selectValue]);
+  const areaContent: React.RefObject<HTMLTextAreaElement> = useRef(null);
 
-  useEffect(() => Editor.start(), [Editor]);
-  useEffect(() => setValue(content), [content, setValue]);
-  useEffect(() => setActiveTools(Editor.activeTools({ positionCursor: selectValue })), [selectValue, Editor]);
-  useEffect(() => Editor.updateTree({ typ: "md", content, positionCursor: selectValue }), [content, selectValue, Editor]);
+  const [activeTools, setActiveTools] = useState(initialStateActiveTools);
+  const [content, setContent] = useState("## Ddwwad \n\n Paweł jest soko mi**stem** jsa");
+  const [positionSelect, setPositionSelect] = useState({ selectionStart: 0, selectionEnd: 0 });
+  const Editor: EditorWizard = useMemo((): EditorWizard => new EditorWizard({ typ: "md", content, positionSelect }), [content, positionSelect]);
+  useMemo(() => Editor.start(), [Editor]);
+  useMemo(() => setValue(content), [content, setValue]);
+
+  useEffect(() => Editor.updateTree({ typ: "md", content }), [content, Editor]);
+  useEffect(() => {
+    Editor.updatePositionSelect({ positionSelect });
+    setActiveTools(Editor.activeTools({ positionSelect }));
+  }, [positionSelect, Editor]);
 
   return (
     <>
@@ -25,21 +29,27 @@ export default function MarkDownEditorComponent({ id, name, defaultValue, placeh
         <Tools
           listTools={["heading", "strong", "emphasis", "delete", "blockquote", "list", "link", "code", "imageUpload"]}
           activeTools={activeTools}
-          callBack={({ type, name }) => {
-            console.log(name);
+          callBack={({ child, power }: { child?: childInTreeType; power: boolean }) => {
+            if (!!child && !power) setContent(Editor.removeTool({ child }));
+            else if (!!child && power) setContent(Editor.changeTool({ child }));
           }}
         />
-        <ContentArea id={id} ref={areaContent} onChange={(e: React.ChangeEvent<HTMLTextAreaElement>): void => setContent(e.target.value)} onSelect={(e: React.ChangeEvent<HTMLTextAreaElement>) => setSelectValue({ selectionStart: e.target.selectionStart, selectionEnd: e.target.selectionEnd })}>
-          {content}
-        </ContentArea>
 
-        <Preview>oko</Preview>
+        <ContentArea
+          id={id}
+          value={content}
+          ref={areaContent}
+          onChange={(e: React.ChangeEvent<HTMLTextAreaElement>): void => setContent(e.target.value)}
+          onSelect={(e: React.ChangeEvent<HTMLTextAreaElement>): void => setPositionSelect({ selectionStart: e.target.selectionStart, selectionEnd: e.target.selectionEnd })}
+        />
+
+        <Preview>{content}</Preview>
       </EditorBox>
       <Preview>
         <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
       </Preview>
 
-      <TextArea id={id} name={name} defaultValue={defaultValue} error={!!error} {...(register(id, { pattern, required }) as any)} placeholder={placeholder} style={{ display: "none" }} />
+      <TextArea id={id} name={name} defaultValue={content} error={!!error} {...(register(id, { pattern, required }) as any)} placeholder={placeholder} style={{ display: "none" }} />
     </>
   );
 }
