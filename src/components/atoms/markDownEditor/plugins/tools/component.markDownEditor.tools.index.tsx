@@ -23,7 +23,7 @@ export default function ToolForEditorComponent({ listTools, activeTools, callBac
         );
       })}
       <Tool
-        title="Trash"
+        title="trash"
         onClick={(e: Event): void => {
           e.preventDefault();
           callBack({ power: false, type: "trash" });
@@ -32,7 +32,14 @@ export default function ToolForEditorComponent({ listTools, activeTools, callBac
         {iconSelect("trash")}
       </Tool>
 
-      <Tool title="preview" style={{ marginLeft: "auto" }}>
+      <Tool
+        title="preview"
+        style={{ marginLeft: "auto" }}
+        onClick={(e: Event): void => {
+          e.preventDefault();
+          callBack({ power: false, type: "view" });
+        }}
+      >
         {iconSelect("eye")}
       </Tool>
     </ToolsList>

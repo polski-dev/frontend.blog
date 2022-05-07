@@ -1,3 +1,4 @@
+import ReactMarkdown from "react-markdown";
 import styled, { StyledComponent, ThemeProps } from "styled-components";
 import { MainSettingsTemplate } from "assets/style/types.mainSettingsTemplate";
 
@@ -159,16 +160,15 @@ export const Options: StyledComponent<any, any> = styled.div`
 `;
 
 export const ContentArea: StyledComponent<any, any> = styled.textarea`
-  min-height: 40rem;
   border: none;
   min-width: 100%;
   max-width: 100%;
-  font-variant-ligatures: no-common-ligatures;
+  min-height: 40rem;
   white-space: pre-wrap;
-  word-break: break-word;
   word-wrap: break-word;
-
+  word-break: break-word;
   background-color: transparent;
+  font-variant-ligatures: no-common-ligatures;
   color: ${({ theme }: { theme: MainSettingsTemplate }): string => theme.colorText};
   padding: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.main};
 
@@ -181,10 +181,12 @@ export const TextArea: StyledComponent<any, any> = styled.text`
   display: none;
 `;
 
-export const Preview: StyledComponent<any, any> = styled.div`
+export const Preview: StyledComponent<any, any> = styled(ReactMarkdown)`
   width: 100%;
   display: block;
+  min-height: 40rem;
   position: relative;
+  padding: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.main};
 
   h1,
   h2,

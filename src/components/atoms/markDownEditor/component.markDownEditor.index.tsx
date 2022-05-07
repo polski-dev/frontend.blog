@@ -10,6 +10,7 @@ export default function MarkDownEditorComponent({ id, name, defaultValue, placeh
   const initialStateActiveTools: childInTreeType[] = [];
   const areaContent: React.RefObject<HTMLTextAreaElement> = useRef(null);
 
+  const [view, setView] = useState("md");
   const [activeTools, setActiveTools] = useState(initialStateActiveTools);
   const [content, setContent] = useState("## Ddwwad \n\n Paweł jest soko mi**stem** jsa");
   const [positionSelect, setPositionSelect] = useState({ selectionStart: 0, selectionEnd: 0 });
@@ -33,26 +34,25 @@ export default function MarkDownEditorComponent({ id, name, defaultValue, placeh
             if (!!child && !power) setContent(Editor.removeTool({ child }));
             else if (!!child && power) setContent(Editor.changeTool({ child }));
             else if (!child && !power && type === "trash") setContent(Editor.deleteWholeTree());
+            else if (!child && !power && type === "view") setView(view === "md" ? "preview" : "md");
           }}
         />
 
-        <ContentArea
-          id={id}
-          value={content}
-          ref={areaContent}
-          onChange={(e: React.ChangeEvent<HTMLTextAreaElement>): void => setContent(e.target.value)}
-          onSelect={(e: React.ChangeEvent<HTMLTextAreaElement>): void => {
-            console.log(e.target.value.slice(e.target.selectionStart, e.target.selectionEnd));
-            setPositionSelect({ selectionStart: e.target.selectionStart, selectionEnd: e.target.selectionEnd });
-          }}
-        />
-
-        <Preview>{content}</Preview>
+        {view === "md" ? (
+          <ContentArea
+            id={id}
+            value={content}
+            ref={areaContent}
+            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>): void => setContent(e.target.value)}
+            onSelect={(e: React.ChangeEvent<HTMLTextAreaElement>): void => {
+              console.log(e.target.value.slice(e.target.selectionStart, e.target.selectionEnd));
+              setPositionSelect({ selectionStart: e.target.selectionStart, selectionEnd: e.target.selectionEnd });
+            }}
+          />
+        ) : (
+          <Preview>{content}</Preview>
+        )}
       </EditorBox>
-      <Preview>
-        <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
-      </Preview>
-
       <TextArea id={id} name={name} defaultValue={content} error={!!error} {...(register(id, { pattern, required }) as any)} placeholder={placeholder} style={{ display: "none" }} />
     </>
   );
