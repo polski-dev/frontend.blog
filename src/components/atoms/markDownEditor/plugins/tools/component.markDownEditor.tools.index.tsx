@@ -22,7 +22,13 @@ export default function ToolForEditorComponent({ listTools, activeTools, callBac
           </Tool>
         );
       })}
-      <Tool title="Trash" onClick={(): void => console.log("trash")}>
+      <Tool
+        title="Trash"
+        onClick={(e: Event): void => {
+          e.preventDefault();
+          callBack({ power: false, type: "trash" });
+        }}
+      >
         {iconSelect("trash")}
       </Tool>
 

@@ -1,16 +1,12 @@
-import remarkGfm from "remark-gfm";
-import { remove } from "unist-util-remove";
 import { toMarkdown } from "mdast-util-to-markdown";
 import { fromMarkdown } from "mdast-util-from-markdown";
-import { findAndReplace } from "hast-util-find-and-replace";
-
-import { gfmTaskListItem } from "micromark-extension-gfm-task-list-item";
-import { gfmTaskListItemFromMarkdown, gfmTaskListItemToMarkdown } from "mdast-util-gfm-task-list-item";
-import type { typeType, contentType, payloadType, positionSelectType, iCreateTreeType, treeType, callBackType, childInTreeType, editorSwitchToolTypes, editorUpdateTreeType } from "../types/component.markDownEditor.type";
 import { gfmFootnote } from "micromark-extension-gfm-footnote";
-import { gfmFootnoteFromMarkdown, gfmFootnoteToMarkdown } from "mdast-util-gfm-footnote";
+import { gfmTaskListItem } from "micromark-extension-gfm-task-list-item";
 import { gfmStrikethrough } from "micromark-extension-gfm-strikethrough";
+import { gfmFootnoteFromMarkdown, gfmFootnoteToMarkdown } from "mdast-util-gfm-footnote";
+import { gfmTaskListItemFromMarkdown, gfmTaskListItemToMarkdown } from "mdast-util-gfm-task-list-item";
 import { gfmStrikethroughFromMarkdown, gfmStrikethroughToMarkdown } from "mdast-util-gfm-strikethrough";
+import type { typeType, positionSelectType, iCreateTreeType, treeType, childInTreeType, editorUpdateTreeType } from "../types/component.markDownEditor.type";
 
 export default class EditorWizard {
   private _typ: typeType;
@@ -50,6 +46,7 @@ export default class EditorWizard {
     if (tree?.children != null) for (let i: number = 0; i < tree.children?.length; i++) arr.push(...this.activeTools({ tree: tree?.children[i] }));
     else if (!tree) for (let i: number = 0; i < this._tree.children?.length; i++) arr.push(...this.activeTools({ tree: this._tree?.children[i] }));
     if (!!tree && (tree?.position?.start.offset || 0) <= this._positionSelect.selectionStart && (tree?.position?.end.offset || 0) >= this._positionSelect.selectionEnd && tree.type != "text" && tree.type != "paragraph") arr.push(tree);
+    console.log(this._tree, "ok");
     return arr;
   }
 
@@ -73,6 +70,8 @@ export default class EditorWizard {
 
     return this._content;
   }
+
+  addTool({ child }: { child: childInTreeType }) {}
 
   changeTool({ child }: { child: childInTreeType }): string {
     const changeStatus = (children: any[]) => {
@@ -112,6 +111,12 @@ export default class EditorWizard {
         }
       }, 200);
     }
+  }
+
+  deleteWholeTree(): string {
+    this._tree.children = [];
+    this._content = toMarkdown(this._tree);
+    return this._content;
   }
 
   updatePositionSelect({ positionSelect }: { positionSelect: positionSelectType }): void {

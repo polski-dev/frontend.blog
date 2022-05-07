@@ -29,7 +29,7 @@ export interface childInTreeType {
 export interface ToolForEditorComponentPropsTypes {
   listTools: string[];
   activeTools: childInTreeType[];
-  callBack: ({ child, power }: { child?: childInTreeType; power: boolean }) => void;
+  callBack: ({ child, power, type }: { child?: childInTreeType; power: boolean; type?: string }) => void;
 }
 
 // interface for params method

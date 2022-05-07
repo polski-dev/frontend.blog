@@ -29,9 +29,10 @@ export default function MarkDownEditorComponent({ id, name, defaultValue, placeh
         <Tools
           listTools={["heading", "strong", "emphasis", "delete", "blockquote", "list", "link", "code", "imageUpload"]}
           activeTools={activeTools}
-          callBack={({ child, power }: { child?: childInTreeType; power: boolean }) => {
+          callBack={({ child, power, type }: { child?: childInTreeType; power: boolean; type?: string }) => {
             if (!!child && !power) setContent(Editor.removeTool({ child }));
             else if (!!child && power) setContent(Editor.changeTool({ child }));
+            else if (!child && !power && type === "trash") setContent(Editor.deleteWholeTree());
           }}
         />
 
@@ -40,7 +41,10 @@ export default function MarkDownEditorComponent({ id, name, defaultValue, placeh
           value={content}
           ref={areaContent}
           onChange={(e: React.ChangeEvent<HTMLTextAreaElement>): void => setContent(e.target.value)}
-          onSelect={(e: React.ChangeEvent<HTMLTextAreaElement>): void => setPositionSelect({ selectionStart: e.target.selectionStart, selectionEnd: e.target.selectionEnd })}
+          onSelect={(e: React.ChangeEvent<HTMLTextAreaElement>): void => {
+            console.log(e.target.value.slice(e.target.selectionStart, e.target.selectionEnd));
+            setPositionSelect({ selectionStart: e.target.selectionStart, selectionEnd: e.target.selectionEnd });
+          }}
         />
 
         <Preview>{content}</Preview>
