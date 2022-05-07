@@ -11,16 +11,9 @@ export const Section: StyledComponent<any, any> = styled.section`
 
   .container {
     border-radius: 0.6em;
-    padding-top: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.main};
+    padding: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.main};
     margin: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.main} 0;
     background-color: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorPostBg};
-  }
-
-  .test {
-    border: 1px solid red;
-    &:focus {
-      outline: none;
-    }
   }
 `;
 
@@ -37,6 +30,11 @@ export const Form: StyledComponent<any, any> = styled.form`
   width: 100%;
   display: flex;
   flex-wrap: wrap;
+
+  button {
+    margin-left: auto;
+    margin-top: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.small};
+  }
 `;
 
 export const Preview: StyledComponent<any, any> = styled.div`
