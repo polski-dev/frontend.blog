@@ -1,20 +1,21 @@
-import remarkGfm from "remark-gfm";
-import ReactMarkdown from "react-markdown";
-import Tools from "./plugins/tools/component.markDownEditor.tools.index";
 import React, { useMemo, useState, useRef, useEffect } from "react";
 import EditorWizard from "./editor/component.markDownEditor.editor";
-import { EditorBox, ContentArea, TextArea, Preview } from "./style/component.markDownEditor.styled";
 import { childInTreeType } from "./types/component.markDownEditor.type";
+import Tools from "./plugins/tools/component.markDownEditor.tools.index";
+import { EditorBox, ContentArea, TextArea, Preview } from "./style/component.markDownEditor.styled";
 
 export default function MarkDownEditorComponent({ id, name, defaultValue, placeholder, pattern, error, setValue, register, required }: any): JSX.Element {
   const initialStateActiveTools: childInTreeType[] = [];
-  const areaContent: React.RefObject<HTMLTextAreaElement> = useRef(null);
 
   const [view, setView] = useState("md");
   const [activeTools, setActiveTools] = useState(initialStateActiveTools);
   const [content, setContent] = useState("## Ddwwad \n\n Paweł jest soko mi**stem** jsa");
   const [positionSelect, setPositionSelect] = useState({ selectionStart: 0, selectionEnd: 0 });
+
+  const areaContent: React.RefObject<HTMLTextAreaElement> = useRef(null);
+
   const Editor: EditorWizard = useMemo((): EditorWizard => new EditorWizard({ typ: "md", content, positionSelect }), [content, positionSelect]);
+
   useMemo(() => Editor.start(), [Editor]);
   useMemo(() => setValue(content), [content, setValue]);
 
@@ -44,10 +45,7 @@ export default function MarkDownEditorComponent({ id, name, defaultValue, placeh
             value={content}
             ref={areaContent}
             onChange={(e: React.ChangeEvent<HTMLTextAreaElement>): void => setContent(e.target.value)}
-            onSelect={(e: React.ChangeEvent<HTMLTextAreaElement>): void => {
-              console.log(e.target.value.slice(e.target.selectionStart, e.target.selectionEnd));
-              setPositionSelect({ selectionStart: e.target.selectionStart, selectionEnd: e.target.selectionEnd });
-            }}
+            onSelect={(e: React.ChangeEvent<HTMLTextAreaElement>): void => setPositionSelect({ selectionStart: e.target.selectionStart, selectionEnd: e.target.selectionEnd })}
           />
         ) : (
           <Preview>{content}</Preview>
