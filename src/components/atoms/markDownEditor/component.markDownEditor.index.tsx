@@ -1,5 +1,5 @@
 import React, { useMemo, useState, useRef, useEffect } from "react";
-import EditorWizard from "./editor/component.markDownEditor.editor";
+import EditorWizard from "./editor/component.markDownEditor.core";
 import { childInTreeType } from "./types/component.markDownEditor.type";
 import Tools from "./plugins/tools/component.markDownEditor.tools.index";
 import { EditorBox, ContentArea, TextArea, Preview } from "./style/component.markDownEditor.styled";

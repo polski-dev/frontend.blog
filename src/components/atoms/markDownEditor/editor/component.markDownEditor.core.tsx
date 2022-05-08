@@ -46,7 +46,7 @@ export default class EditorWizard {
     if (tree?.children != null) for (let i: number = 0; i < tree.children?.length; i++) arr.push(...this.activeTools({ tree: tree?.children[i] }));
     else if (!tree) for (let i: number = 0; i < this._tree.children?.length; i++) arr.push(...this.activeTools({ tree: this._tree?.children[i] }));
     if (!!tree && (tree?.position?.start.offset || 0) <= this._positionSelect.selectionStart && (tree?.position?.end.offset || 0) >= this._positionSelect.selectionEnd && tree.type != "text" && tree.type != "paragraph") arr.push(tree);
-    console.log(this._tree, "ok");
+
     return arr;
   }
 
@@ -71,7 +71,23 @@ export default class EditorWizard {
     return this._content;
   }
 
-  addTool({ child }: { child: childInTreeType }) {}
+  addTool({ type, position }: { type: string; position: positionSelectType }): string {
+    const changeStatus = (children: any[]) => {
+      let arr: any[] = [];
+      children.forEach((item): void => {
+        if (position.selectionEnd === position.selectionStart && item?.position?.start.offset < position.selectionEnd) {
+        } else if (item?.position?.start.offset <= position.selectionStart && item?.position?.start.offset < position.selectionEnd && item?.position?.end.offset >= position.selectionEnd) {
+          console.log(item);
+        } else arr.push(item);
+      });
+
+      return arr;
+    };
+
+    this._tree.children = changeStatus(this._tree.children);
+    this._content = toMarkdown(this._tree);
+    return this._content;
+  }
 
   changeTool({ child }: { child: childInTreeType }): string {
     const changeStatus = (children: any[]) => {
