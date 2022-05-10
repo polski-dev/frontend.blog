@@ -19,17 +19,31 @@ export interface positionSelectType {
   selectionEnd: selectionEndType;
 }
 
+export interface positionType {
+  start: { line: number; column: number; offset: number };
+  end: { line: number; column: number; offset: number };
+}
+
 export interface childInTreeType {
   type: string;
+  value?: string;
+  depth?: number;
+  position: positionType;
   children?: childInTreeType[];
-  depth?: number | null;
-  position: { start: { line: number; column: number; offset: number }; end: { line: number; column: number; offset: number } };
+}
+
+export interface callBackToolsPropsTypes {
+  type?: string;
+  power?: boolean;
+  child?: childInTreeType;
+  position?: positionSelectType;
+  options?: { depth?: number };
 }
 
 export interface ToolForEditorComponentPropsTypes {
   listTools: string[];
   activeTools: childInTreeType[];
-  callBack: ({ child, power, type }: { child?: childInTreeType; power: boolean; type?: string }) => void;
+  callBack: ({ child, power, type, options }: callBackToolsPropsTypes) => void;
 }
 
 // interface for params method
@@ -44,7 +58,7 @@ export interface editorSwitchToolTypes {
   power: boolean;
   value?: string;
   depth?: number | null;
-  position: { end: { offset: number }; start: { offset: number } };
+  position: positionType;
 }
 
 export interface editorUpdateTreeType {

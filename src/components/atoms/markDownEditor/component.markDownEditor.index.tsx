@@ -1,6 +1,6 @@
 import React, { useMemo, useState, useRef, useEffect } from "react";
 import EditorWizard from "./editor/component.markDownEditor.core";
-import { childInTreeType } from "./types/component.markDownEditor.type";
+import { childInTreeType, callBackToolsPropsTypes } from "./editor/types/component.markDownEditor.type";
 import Tools from "./plugins/tools/component.markDownEditor.tools.index";
 import { EditorBox, ContentArea, TextArea, Preview } from "./style/component.markDownEditor.styled";
 
@@ -20,6 +20,7 @@ export default function MarkDownEditorComponent({ id, name, defaultValue, placeh
   useMemo(() => setValue(content), [content, setValue]);
 
   useEffect(() => Editor.updateTree({ typ: "md", content }), [content, Editor]);
+  useEffect(() => console.log(Editor.readTree), [Editor, content]);
   useEffect(() => {
     Editor.updatePositionSelect({ positionSelect });
     setActiveTools(Editor.activeTools({ positionSelect }));
@@ -31,11 +32,11 @@ export default function MarkDownEditorComponent({ id, name, defaultValue, placeh
         <Tools
           listTools={["heading", "strong", "emphasis", "delete", "blockquote", "list", "link", "code", "imageUpload"]}
           activeTools={activeTools}
-          callBack={({ child, power, type }: { child?: childInTreeType; power: boolean; type?: string }) => {
-            if (!!child && !power) setContent(Editor.removeTool({ child }));
-            else if (!!child && power) setContent(Editor.changeTool({ child }));
-            else if (!child && !power && type === "trash") setContent(Editor.deleteWholeTree());
+          callBack={({ child, power, type, options }: callBackToolsPropsTypes): void => {
+            if (!!child && !!power) setContent(Editor.removeTool({ child }));
+            else if (type === "trash") setContent(Editor.deleteWholeTree());
             else if (!child && !power && type === "view") setView(view === "md" ? "preview" : "md");
+            else if (type) setContent(Editor.addTool({ type, position: positionSelect, options }));
           }}
         />
 

@@ -1,24 +1,28 @@
 import { iconSelect } from "./component.markDownEditor.tools.switch";
 import { ToolsList, Tool, BoxIcon } from "../../style/component.markDownEditor.styled";
 import HeaderOptionsComponent from "./component.markDownEditor.tools.headerOptions";
-import { ToolForEditorComponentPropsTypes, childInTreeType } from "../../types/component.markDownEditor.type";
+import { ToolForEditorComponentPropsTypes, childInTreeType } from "../../editor/types/component.markDownEditor.type";
 
 export default function ToolForEditorComponent({ listTools, activeTools, callBack }: ToolForEditorComponentPropsTypes): JSX.Element {
   return (
     <ToolsList>
       {listTools.map((toolName: string, index: number): JSX.Element => {
-        let active: childInTreeType[] = activeTools.filter((activeTool: childInTreeType): boolean => activeTool.type === toolName);
+        const tool: childInTreeType | undefined = activeTools.filter((activeTool: childInTreeType): boolean => activeTool.type === toolName)[0];
+        let active: boolean = !!tool;
+
         return (
-          <Tool key={index} title={toolName} active={!!active.length}>
+          <Tool key={index} title={toolName} active={active}>
             <BoxIcon
               onClick={(e: Event) => {
                 e.preventDefault();
-                callBack({ child: active[0], power: false });
+
+                callBack({ child: tool, power: active, type: toolName });
               }}
             >
               {iconSelect(toolName)}
             </BoxIcon>
-            {toolName === "heading" && <HeaderOptionsComponent activeTool={active[0]} callBack={callBack} />}
+
+            {toolName === "heading" && <HeaderOptionsComponent tool={tool} callBack={callBack} />}
           </Tool>
         );
       })}

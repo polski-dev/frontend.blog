@@ -1,14 +1,22 @@
 import { toMarkdown } from "mdast-util-to-markdown";
 import { fromMarkdown } from "mdast-util-from-markdown";
 import { gfmFootnote } from "micromark-extension-gfm-footnote";
+import createChild from "./element/component.markDownEditor.createChild";
 import { gfmTaskListItem } from "micromark-extension-gfm-task-list-item";
 import { gfmStrikethrough } from "micromark-extension-gfm-strikethrough";
 import { gfmFootnoteFromMarkdown, gfmFootnoteToMarkdown } from "mdast-util-gfm-footnote";
 import { gfmTaskListItemFromMarkdown, gfmTaskListItemToMarkdown } from "mdast-util-gfm-task-list-item";
 import { gfmStrikethroughFromMarkdown, gfmStrikethroughToMarkdown } from "mdast-util-gfm-strikethrough";
-import type { typeType, positionSelectType, iCreateTreeType, treeType, childInTreeType, editorUpdateTreeType } from "../types/component.markDownEditor.type";
+import type { typeType, positionSelectType, iCreateTreeType, treeType, childInTreeType, editorUpdateTreeType, callBackToolsPropsTypes } from "./types/component.markDownEditor.type";
 
-export default class EditorWizard {
+/**
+ * EditorWizard.
+ *
+ * @class EditorWizard
+ * @extends {createChild}
+ */
+
+export default class EditorWizard extends createChild {
   private _typ: typeType;
   private _tree: treeType;
   private _content: string;
@@ -17,6 +25,7 @@ export default class EditorWizard {
   private _positionSelect: positionSelectType;
 
   constructor({ typ, content, positionSelect }: { typ: typeType; content: string; positionSelect: positionSelectType }) {
+    super();
     this._typ = typ;
     this._content = content;
     this._positionSelect = positionSelect;
@@ -56,8 +65,10 @@ export default class EditorWizard {
 
       children.forEach((item): void => {
         if (item?.position?.start.offset <= child.position.start.offset && item?.position?.end.offset >= child.position.end.offset) {
-          if (child.type === item.type && item?.position?.start.offset === child.position.start.offset && item?.position?.end.offset === child.position.end.offset) arr = [...arr, ...item.children];
-          else arr = [...arr, { ...item, children: changeStatus(item.children) }];
+          if (child.type === item.type && item?.position?.start.offset === child.position.start.offset && item?.position?.end.offset === child.position.end.offset) {
+            if (child.type === "heading" || child.type === "code" || child.type === "blockquote" || child.type === "list") arr.push({ ...item, type: "paragraph" });
+            else arr = [...arr, ...item.children];
+          } else arr = [...arr, { ...item, children: changeStatus(item.children) }];
         } else arr.push(item);
       });
 
@@ -71,42 +82,24 @@ export default class EditorWizard {
     return this._content;
   }
 
-  addTool({ type, position }: { type: string; position: positionSelectType }): string {
+  addTool({ type, power, position, options }: callBackToolsPropsTypes): string {
+    // console.log(type, position, options);
     const changeStatus = (children: any[]) => {
       let arr: any[] = [];
-      children.forEach((item): void => {
-        if (position.selectionEnd === position.selectionStart && item?.position?.start.offset < position.selectionEnd) {
-        } else if (item?.position?.start.offset <= position.selectionStart && item?.position?.start.offset < position.selectionEnd && item?.position?.end.offset >= position.selectionEnd) {
-          console.log(item);
-        } else arr.push(item);
-      });
+      children.forEach((child: childInTreeType, index: number): void => {
+        if (child.position.start.offset <= (position?.selectionStart || 0) && child.position.end.offset >= (position?.selectionEnd || 0)) {
+          console.log({ ...child, type, ...options }, "ok");
+          if (type === "heading" || type === "code" || type === "blockquote" || type === "list") arr.push({ ...child, type, ...options });
+          else arr.push(child);
+        } else arr.push(child);
 
+        if (children.length === index + 1 && child.position.end.offset < (position?.selectionStart || 0)) arr.push({ type, ...options, child: [] });
+      });
       return arr;
     };
 
     this._tree.children = changeStatus(this._tree.children);
     this._content = toMarkdown(this._tree);
-    return this._content;
-  }
-
-  changeTool({ child }: { child: childInTreeType }): string {
-    const changeStatus = (children: any[]) => {
-      let arr: any[] = [];
-
-      children.forEach((item): void => {
-        if (item?.position?.start.offset <= child.position.start.offset && item?.position?.end.offset >= child.position.end.offset) {
-          if (child.type === item.type && item?.position?.start.offset === child.position.start.offset && item?.position?.end.offset === child.position.end.offset) arr = [...arr, child];
-          else arr = [...arr, { ...item, children: changeStatus(item.children) }];
-        } else arr.push(item);
-      });
-
-      return arr;
-    };
-
-    this._treeOld = this._tree;
-    this._tree.children = changeStatus(this._tree.children);
-    this._content = toMarkdown(this._tree);
-
     return this._content;
   }
 
@@ -123,6 +116,7 @@ export default class EditorWizard {
             extensions: [gfmFootnote(), gfmTaskListItem, gfmStrikethrough()],
             mdastExtensions: [gfmFootnoteFromMarkdown(), gfmTaskListItemFromMarkdown, gfmStrikethroughFromMarkdown],
           });
+          console.log(this._tree);
           this._tree = md;
         }
       }, 200);
