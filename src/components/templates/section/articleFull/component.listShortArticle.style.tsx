@@ -105,6 +105,20 @@ export const Content: StyledComponent<any, any> = styled.div`
     margin-bottom: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.main};
   }
 
+  img {
+    width: 100%;
+    display: block;
+  }
+
+  a {
+    font-weight: bold;
+    color: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorLinkActive};
+
+    &:hover {
+      color: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorLink};
+    }
+  }
+
   ul {
     list-style: disc;
     margin-left: 1.5rem;

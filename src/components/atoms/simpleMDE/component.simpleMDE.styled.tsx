@@ -716,7 +716,10 @@ export const SimpleMDEBox: StyledComponent<any, any> = styled.div`
     word-wrap: break-word;
     box-sizing: border-box;
     border: 1px solid ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorBorder};
+  }
 
+  .editor-preview-side,
+  .editor-preview-full {
     h1,
     h2,
     h3,
@@ -728,6 +731,20 @@ export const SimpleMDEBox: StyledComponent<any, any> = styled.div`
     ol,
     img {
       margin-bottom: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.main};
+    }
+
+    img {
+      width: 100%;
+      display: block;
+    }
+
+    a {
+      font-weight: bold;
+      color: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorLinkActive};
+
+      &:hover {
+        color: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorLink};
+      }
     }
 
     ul {
@@ -884,7 +901,6 @@ export const SimpleMDEBox: StyledComponent<any, any> = styled.div`
     }
 
     .cm-url {
-      padding: 0 0.2rem;
       color: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorLinkActive};
     }
 
