@@ -36,7 +36,7 @@ export default function MarkDownEditorComponent({ id, name, defaultValue, placeh
             if (!!child && !!power) setContent(Editor.removeTool({ child }));
             else if (type === "trash") setContent(Editor.deleteWholeTree());
             else if (!child && !power && type === "view") setView(view === "md" ? "preview" : "md");
-            else if (type) setContent(Editor.addTool({ type, position: positionSelect, options }));
+            else if (type) setContent(Editor.addTool({ type, position: positionSelect, options: { ...options, value: content.slice(positionSelect.selectionStart, positionSelect.selectionEnd) } }));
           }}
         />
 

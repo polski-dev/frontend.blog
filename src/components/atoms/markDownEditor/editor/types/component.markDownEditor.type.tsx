@@ -37,7 +37,7 @@ export interface callBackToolsPropsTypes {
   power?: boolean;
   child?: childInTreeType;
   position?: positionSelectType;
-  options?: { depth?: number };
+  options?: { depth?: number; value?: string };
 }
 
 export interface ToolForEditorComponentPropsTypes {

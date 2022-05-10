@@ -83,17 +83,34 @@ export default class EditorWizard extends createChild {
   }
 
   addTool({ type, power, position, options }: callBackToolsPropsTypes): string {
-    // console.log(type, position, options);
+    console.log(type, position, options);
     const changeStatus = (children: any[]) => {
       let arr: any[] = [];
       children.forEach((child: childInTreeType, index: number): void => {
         if (child.position.start.offset <= (position?.selectionStart || 0) && child.position.end.offset >= (position?.selectionEnd || 0)) {
-          console.log({ ...child, type, ...options }, "ok");
           if (type === "heading" || type === "code" || type === "blockquote" || type === "list") arr.push({ ...child, type, ...options });
+          if (child.children != null) changeStatus(child.children);
           else arr.push(child);
         } else arr.push(child);
 
-        if (children.length === index + 1 && child.position.end.offset < (position?.selectionStart || 0)) arr.push({ type, ...options, child: [] });
+        if (children.length === index + 1 && child.position.end.offset < (position?.selectionStart || 0)) {
+          switch (type) {
+            case "heading":
+              arr.push(
+                this.createHeading({
+                  depth: options?.depth || 1,
+                  position: {
+                    start: { line: child.position.start.line + 1, column: 1, offset: 2 + child.position.end.offset },
+                    end: { line: child.position.end.line + 1, column: 1, offset: 2 + child.position.end.offset + (options?.depth || 1) + (options?.value?.length || 0) },
+                  },
+                  value: options?.value,
+                })
+              );
+              break;
+          }
+
+          // arr.push({ type, ...options, child: [] });
+        }
       });
       return arr;
     };
