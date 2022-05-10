@@ -1,15 +1,12 @@
 import { useForm } from "react-hook-form";
 import { useSession } from "next-auth/react";
-import dynamic from "next/dynamic";
-const SimpleMDE = dynamic(() => import("react-simplemde-editor"), { ssr: false });
-import "easymde/dist/easymde.min.css";
 
 import React, { Children, useEffect, useState, useMemo } from "react";
 import { ButtonSubmit } from "components/atoms/button/component.button.index";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
 import { Section, Header, Title, Form, Preview } from "./component.section.dasbordUserAddArticle.style";
 import { Input, Radio, InputForTags, MarkDownEditor, enumInputType } from "components/molecules/form/component.form.index";
-import { stopCoverage } from "v8";
+import SimpleMDEComponent from "components/atoms/simpleMDE/component.simpleMDE.index";
 
 export default function SectionDasbordAddArticle({ data: { title } }: { data: { title: string } }) {
   const { data: session, status } = useSession();
@@ -81,15 +78,13 @@ export default function SectionDasbordAddArticle({ data: { title } }: { data: { 
               </Col>
             )}
             <Col xs={12}>
-              <MarkDownEditor setValue={setValue} id="description" name="description" error={errors.tags} placeholder="Dodaj opis..." defaultValue={undefined} register={register} required />
+              <SimpleMDEComponent />
             </Col>
 
             <Col xs={12}>
               <InputForTags setValue={setValue} id="tags" name="tags" error={errors.tags} placeholder="Dodaj tagi..." defaultValue={undefined} register={register} required />
             </Col>
-            <Col xs={12}>
-              <SimpleMDE options={autofocusNoSpellcheckerOptions} value={valueEditor} onChange={onChange} />;
-            </Col>
+
             <Col xs={12}>
               <ButtonSubmit title="dodaj">Dodaj</ButtonSubmit>
             </Col>
