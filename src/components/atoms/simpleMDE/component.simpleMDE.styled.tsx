@@ -473,7 +473,11 @@ export const SimpleMDEBox: StyledComponent<any, any> = styled.div`
     }
 
     .CodeMirror-placeholder {
-      opacity: 0.5;
+      top: -1.5rem;
+      left: 0.75rem;
+      display: block;
+      position: absolute;
+      color: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorTextDesactive};
     }
 
     .CodeMirror-focused {
@@ -890,8 +894,8 @@ export const SimpleMDEBox: StyledComponent<any, any> = styled.div`
       font-size: 1.5rem;
     }
     .cm-comment {
-      background: red;
-      border-radius: 2px;
+      color: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorLinkActive};
+      background-color: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorPostBg};
     }
 
     .cm-link {
@@ -901,6 +905,8 @@ export const SimpleMDEBox: StyledComponent<any, any> = styled.div`
     }
 
     .cm-url {
+      padding: 0rem;
+      font-weight: normal;
       color: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorLinkActive};
     }
 
