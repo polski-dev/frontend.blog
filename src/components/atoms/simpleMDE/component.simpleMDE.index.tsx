@@ -1,11 +1,11 @@
 import dynamic from "next/dynamic";
-import React, { useEffect, useState, useMemo } from "react";
-import { SimpleMDEBox } from "./component.simpleMDE.styled";
+import React, { useEffect, useState, useMemo, useRef, MutableRefObject } from "react";
+import { SimpleMDEBox, Input } from "./component.simpleMDE.styled";
 const SimpleMDE = dynamic(() => import("react-simplemde-editor"), { ssr: false });
 
 export default function SimpleMDEComponent({ placeholder }: { placeholder?: string }): JSX.Element {
   const [value, setValue] = useState("");
-
+  const fileUpload: MutableRefObject<HTMLInputElement | null> = useRef(null);
   const onChange = (value: string) => {
     setValue(value);
   };
@@ -39,14 +39,25 @@ export default function SimpleMDEComponent({ placeholder }: { placeholder?: stri
         "quote",
         {
           name: "image",
-          action: function customFunction(editor: any) {
-            var cm = editor.codemirror;
-            var output = "";
-            var selectedText = cm.getSelection();
-            var text = selectedText || "placeholder";
+          action: function addImage(editor: any) {
+            const input: HTMLInputElement | null = fileUpload.current;
+            if (input) {
+              fileUpload.current?.click();
+              fileUpload.current?.addEventListener("change", (e: Event) => {
+                const target: HTMLInputElement = e?.target as HTMLInputElement;
+                const file: File | null | undefined = target.files?.item(0);
+                if (!!file) {
+                  const cm = editor.codemirror;
+                  console.log(cm);
+                  let output = "";
+                  const selectedText = cm.getSelection();
+                  const text = selectedText || "placeholder";
 
-            output = `![][https://www.uxu.pl]`;
-            cm.replaceSelection(output);
+                  output = `![${file.name}](https://if-koubou.com/img/images/what-is-a-url-uniform-resource-locator.png)`;
+                  cm.replaceSelection(output);
+                }
+              });
+            }
           },
           className: "fa fa-image",
           title: "Add image",
@@ -62,14 +73,14 @@ export default function SimpleMDEComponent({ placeholder }: { placeholder?: stri
         "|",
         "side-by-side",
         "preview",
-        "|",
-        "guide",
+        "fullscreen",
       ],
     };
   }, [placeholder]);
 
   return (
     <SimpleMDEBox>
+      <Input ref={fileUpload} type="file" id="editorUploadImage" onChange={(e) => console.log(e)} name="editorUploadImage" accept="image/jpeg,image/jpg,image/png" />
       <SimpleMDE options={options} value={value} onChange={onChange} style={{ width: "100%" }} />
     </SimpleMDEBox>
   );

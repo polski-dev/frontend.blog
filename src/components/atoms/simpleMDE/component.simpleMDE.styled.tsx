@@ -155,106 +155,11 @@ export const SimpleMDEBox: StyledComponent<any, any> = styled.div`
     bottom: 0;
     position: absolute;
   }
-  .cm-s-default {
-    .cm-header {
-      color: $color_3;
-    }
-    .cm-quote {
-      color: $color_4;
-    }
-    .cm-keyword {
-      color: $color_7;
-    }
-    .cm-atom {
-      color: $color_8;
-    }
-    .cm-number {
-      color: $color_9;
-    }
-    .cm-def {
-      color: $color_3;
-    }
-    .cm-variable-2 {
-      color: $color_10;
-    }
-    .cm-type {
-      color: $color_11;
-    }
-    .cm-variable-3 {
-      color: $color_11;
-    }
-    .cm-comment {
-      color: $color_12;
-    }
-    .cm-string {
-      color: $color_13;
-    }
-    .cm-string-2 {
-      color: $color_14;
-    }
-    .cm-meta {
-      color: $color_15;
-    }
-    .cm-qualifier {
-      color: $color_15;
-    }
-    .cm-builtin {
-      color: $color_16;
-    }
-    .cm-bracket {
-      color: $color_17;
-    }
-    .cm-tag {
-      color: $color_18;
-    }
-    .cm-attribute {
-      color: $color_19;
-    }
-    .cm-hr {
-      color: $color_2;
-    }
-    .cm-link {
-      color: $color_19;
-    }
-    .cm-error {
-      color: $color_20;
-    }
-  }
-  .cm-negative {
-    color: $color_5;
-  }
-  .cm-positive {
-    color: $color_6;
-  }
-  .cm-header {
-    font-weight: 700;
-  }
-  .cm-strong {
-    font-weight: 700;
-  }
-  .cm-em {
-    font-style: italic;
-  }
-  .cm-link {
-    text-decoration: underline;
-  }
-  .cm-strikethrough {
-    text-decoration: line-through;
-  }
-  .cm-invalidchar {
-    color: $color_20;
-  }
+
   .CodeMirror-composing {
     border-bottom: 2px solid;
   }
-  div.CodeMirror {
-    span.CodeMirror-matchingbracket {
-      color: $color_21;
-    }
-    span.CodeMirror-nonmatchingbracket {
-      color: $color_22;
-    }
-  }
+
   .CodeMirror-matchingtag {
     background: rgba(255, 150, 0, 0.3);
   }
@@ -420,10 +325,7 @@ export const SimpleMDEBox: StyledComponent<any, any> = styled.div`
       background: #d7d4f0;
     }
   }
-  .cm-searching {
-    background-color: $background-color_4;
-    background-color: $background-color_5;
-  }
+
   .cm-force-border {
     padding-right: 0.1px;
   }
@@ -881,25 +783,29 @@ export const SimpleMDEBox: StyledComponent<any, any> = styled.div`
     .cm-header-2 {
       font-size: 3.5rem;
     }
+
     .cm-header-3 {
       font-size: 2.8rem;
     }
+
     .cm-header-4 {
       font-size: 2.5rem;
     }
+
     .cm-header-5 {
       font-size: 1.8rem;
     }
+
     .cm-header-6 {
       font-size: 1.5rem;
     }
+
     .cm-comment {
       color: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorLinkActive};
       background-color: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorPostBg};
     }
 
     .cm-link {
-      padding: 0 0.3rem;
       font-weight: bold;
       color: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorLink};
     }
@@ -978,4 +884,8 @@ export const SimpleMDEBox: StyledComponent<any, any> = styled.div`
       }
     }
   }
+`;
+
+export const Input = styled.input`
+  display: none;
 `;
