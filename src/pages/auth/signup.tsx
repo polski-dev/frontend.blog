@@ -14,7 +14,7 @@ const SingUp: NextPage<any, any> = ({ countUser }: { countUser: CountUserType })
       <Container>
         <Row>
           <Col xs={12}>
-            <SectionSingUp users={countUser.data.user.meta.pagination.total} />
+            <SectionSingUp users={countUser?.data?.user?.meta?.pagination?.total} />
           </Col>
         </Row>
       </Container>

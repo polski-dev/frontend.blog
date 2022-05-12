@@ -14,7 +14,7 @@ const Loggedcorrectly: NextPage<any, TagWithOnlyTitleType> = ({ countUser }: { c
       <Container>
         <Row>
           <Col xs={12}>
-            <SectionSessionInfo users={countUser.data.user.meta.pagination.total} />
+            <SectionSessionInfo users={countUser?.data?.user?.meta?.pagination?.total} />
           </Col>
         </Row>
       </Container>

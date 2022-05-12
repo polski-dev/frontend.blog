@@ -13,7 +13,7 @@ const SingIn: NextPage<any, TagWithOnlyTitleType> = ({ countUser }: { countUser:
       <Container>
         <Row>
           <Col xs={12}>
-            <SectionSingIn users={countUser.data.user.meta.pagination.total} />
+            <SectionSingIn users={countUser?.data?.user?.meta?.pagination?.total} />
           </Col>
         </Row>
       </Container>

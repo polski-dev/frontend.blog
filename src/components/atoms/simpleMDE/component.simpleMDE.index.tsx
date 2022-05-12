@@ -1,15 +1,24 @@
 import dynamic from "next/dynamic";
-import React, { useEffect, useState, useMemo, useRef, MutableRefObject } from "react";
+import { useSession } from "next-auth/react";
+
+import { uploadFile, UploadType } from "database/files/database.files.index";
 import { SimpleMDEBox, Input } from "./component.simpleMDE.styled";
+import React, { useEffect, useState, useMemo, useRef, MutableRefObject, ChangeEvent } from "react";
 const SimpleMDE = dynamic(() => import("react-simplemde-editor"), { ssr: false });
 
 export default function SimpleMDEComponent({ placeholder }: { placeholder?: string }): JSX.Element {
   const [value, setValue] = useState("");
+
   const fileUpload: MutableRefObject<HTMLInputElement | null> = useRef(null);
+
+  const { data: session, status } = useSession();
+
+  useEffect(() => {}, []);
+
   const onChange = (value: string) => {
     setValue(value);
   };
-
+  console.log(session);
   const options: {} = useMemo(() => {
     return {
       showIcons: ["code", "table"],
@@ -39,24 +48,22 @@ export default function SimpleMDEComponent({ placeholder }: { placeholder?: stri
         "quote",
         {
           name: "image",
-          action: function addImage(editor: any) {
+          action: async function addImage(editor: any): Promise<void> {
+            const { codemirror } = editor;
             const input: HTMLInputElement | null = fileUpload.current;
-            if (input) {
-              fileUpload.current?.click();
-              fileUpload.current?.addEventListener("change", (e: Event) => {
-                const target: HTMLInputElement = e?.target as HTMLInputElement;
-                const file: File | null | undefined = target.files?.item(0);
-                if (!!file) {
-                  const cm = editor.codemirror;
-                  console.log(cm);
-                  let output = "";
-                  const selectedText = cm.getSelection();
-                  const text = selectedText || "placeholder";
+            input && input.click();
 
-                  output = `![${file.name}](https://if-koubou.com/img/images/what-is-a-url-uniform-resource-locator.png)`;
-                  cm.replaceSelection(output);
-                }
-              });
+            if (input && !!input?.files) {
+              const file: File = input?.files[0];
+              const fileUploadData: UploadType = await uploadFile({ file, authorization: `${session?.jwt}` });
+              if (fileUploadData.data?.length) {
+                let output = "";
+                const selectedText = codemirror.getSelection();
+                output = `![${fileUploadData.data[0].name}](${fileUploadData.data[0].url})`;
+                codemirror.replaceSelection(output);
+              } else {
+                alert("error");
+              }
             }
           },
           className: "fa fa-image",
@@ -76,11 +83,11 @@ export default function SimpleMDEComponent({ placeholder }: { placeholder?: stri
         "fullscreen",
       ],
     };
-  }, [placeholder]);
+  }, [placeholder, session, fileUpload]);
 
   return (
     <SimpleMDEBox>
-      <Input ref={fileUpload} type="file" id="editorUploadImage" onChange={(e) => console.log(e)} name="editorUploadImage" accept="image/jpeg,image/jpg,image/png" />
+      <Input ref={fileUpload} type="file" id="editorUploadImage" name="editorUploadImage" accept="image/jpeg,image/jpg,image/png" />
       <SimpleMDE options={options} value={value} onChange={onChange} style={{ width: "100%" }} />
     </SimpleMDEBox>
   );
