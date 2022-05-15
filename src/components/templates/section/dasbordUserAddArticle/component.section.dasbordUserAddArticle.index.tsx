@@ -1,24 +1,19 @@
 import { useForm } from "react-hook-form";
 import { useSession } from "next-auth/react";
-
-import React, { Children, useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo } from "react";
+import Popup from "components/atoms/popup/component.popup.index";
 import { ButtonSubmit } from "components/atoms/button/component.button.index";
+import { articeAdd, ArticeAddType } from "database/article/database.artice.index";
+import SimpleMDEComponent from "components/atoms/simpleMDE/component.simpleMDE.index";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
 import { Section, Header, Title, Form, Preview } from "./component.section.dasbordUserAddArticle.style";
 import { Input, Radio, InputForTags, enumInputType } from "components/molecules/form/component.form.index";
-import SimpleMDEComponent from "components/atoms/simpleMDE/component.simpleMDE.index";
 
 export default function SectionDasbordAddArticle({ data: { title } }: { data: { title: string } }) {
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const [preview, setPreview] = useState("");
-  const editorRef = React.useRef(null);
-  const testRef = React.useRef(null);
-
-  const [valueEditor, setValueEditor] = useState("Initial value");
-
-  const onChange = (value: string) => {
-    setValueEditor(value);
-  };
+  const [powerPopup, setPowerPopup] = useState(false);
+  const [addArticleStatus, setAddArticleStatus] = useState("pending");
 
   const autofocusNoSpellcheckerOptions = useMemo(() => {
     return {
@@ -28,6 +23,7 @@ export default function SectionDasbordAddArticle({ data: { title } }: { data: { 
   }, []);
 
   const {
+    reset,
     watch,
     register,
     setValue,
@@ -48,7 +44,30 @@ export default function SectionDasbordAddArticle({ data: { title } }: { data: { 
   return (
     <Section>
       <Header>{title}</Header>
-      <Form>
+      <Form
+        onSubmit={handleSubmit(async (data) => {
+          const { cover, content = "", tags = [], type = "article", title = "", youtube = "" }: { cover?: FileList | undefined; content?: string; tags?: string[]; type?: string; title?: string; youtube?: string } = data;
+          if (!session) return alert("zaloguj się !");
+          else if (!content.length) return alert("Dodaj opis artykułu");
+          else if (!cover?.length) return alert("Dodaj okładkę artykułu");
+          else if (!tags || !tags.length) return alert("Dodaj minimum 1 tag");
+          else if (type === "video" && !youtube) return alert("Dodaj link do video na youtube");
+
+          setPowerPopup(true);
+          const file: File = cover[0];
+          const addArticle: ArticeAddType = await articeAdd({ file, content, tags: tags.toString(), type, title, youtube, authorization: `Bearer ${session?.jwt}` });
+
+          if (addArticle.data?.id) {
+            reset();
+            setAddArticleStatus("resolved");
+          } else setAddArticleStatus("rejected");
+
+          setTimeout(() => {
+            setPowerPopup(false);
+            setAddArticleStatus("pending");
+          }, 5000);
+        })}
+      >
         <Container className="container">
           <Row>
             <Col xs={12}>
@@ -56,15 +75,15 @@ export default function SectionDasbordAddArticle({ data: { title } }: { data: { 
             </Col>
             <Col xs={12}></Col>
             <Col xs={6}>
-              <Radio name="typ" value="artykuł" error={errors.title} register={register} required checked />
+              <Radio name="type" value="article" error={errors.title} register={register} required checked />
             </Col>
 
             <Col xs={6}>
-              <Radio name="typ" value="video" error={errors.title} register={register} required />
+              <Radio name="type" value="video" error={errors.title} register={register} required />
             </Col>
 
             <Col xs={12}>
-              <Input id="tytuł wpisu" name="title" type={enumInputType.text} error={errors.title} placeholder="Tytuł wpisu" defaultValue={undefined} register={register} required />
+              <Input id="title" name="title" type={enumInputType.text} error={errors.title} placeholder="Tytuł wpisu" defaultValue={undefined} register={register} required />
             </Col>
 
             <Col xs={12}>
@@ -78,7 +97,7 @@ export default function SectionDasbordAddArticle({ data: { title } }: { data: { 
               </Col>
             )}
             <Col xs={12}>
-              <SimpleMDEComponent />
+              <SimpleMDEComponent id="content" name="content" error={errors.content} placeholder="Napisz coś o sobie..." register={register} setValue={setValue} />
             </Col>
 
             <Col xs={12}>
@@ -91,6 +110,12 @@ export default function SectionDasbordAddArticle({ data: { title } }: { data: { 
           </Row>
         </Container>
       </Form>
+      <Popup
+        power={powerPopup}
+        status={addArticleStatus === "pending" ? null : addArticleStatus === "rejected" ? false : true}
+        title={addArticleStatus === "pending" ? "Dodaje artykuł..." : addArticleStatus === "rejected" ? "Upss..." : "Udało się złotko !"}
+        description={addArticleStatus === "rejected" ? "Wystąpił problem z dodaniem artykułu...spróbuj jeszcze raz za kilka chwil" : "Twój artykuł dodany... :) Jak tylko nasi moderatorzy sprawdza czy wszystko jest ok zostanie dodany do poczekalni a po przekroczeniu 100 wyświetleń na główną :)"}
+      />
     </Section>
   );
 }

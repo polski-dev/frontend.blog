@@ -1,5 +1,7 @@
 import fetchGraphQLAPI from "database/fetchAPI/database.fetchAPI.graphQL";
 import fetchRestAPI from "database/fetchAPI/database.fetchAPI.restAPI";
+import restAPISendFile from "./../fetchAPI/database.fetchAPI.restAPISendFile";
+
 //
 import { ArticleShortType } from "./type/database.articeShort.type";
 import { articleShortQuery } from "./query/database.articleShort.query";
@@ -52,11 +54,11 @@ const articeAddCommentsGet: (description: string, articleId: number, authorizati
 const articeGetListComments: (articleId: number, page: number) => Promise<ArticeGetListCommentsType> = async (articleId: number, page: number): Promise<ArticeGetListCommentsType> =>
   await fetchRestAPI({ path: `${process.env.NEXT_PUBLIC_API_URL}/api/article/${articleId}/comment/${page}`, method: "GET" });
 
-const articeAddGet: ({ title, content, type, cover, tags, youtube, authorization }: { title: string; content: string; type: string; cover: File; tags: string; youtube?: string; authorization: string }) => Promise<ArticeAddType> = async ({
+const articeAdd: ({ title, content, type, file, tags, youtube, authorization }: { title: string; content: string; type: string; file: File; tags: string; youtube?: string; authorization: string }) => Promise<ArticeAddType> = async ({
   title,
   content,
   type,
-  cover,
+  file,
   tags,
   youtube = "",
   authorization,
@@ -64,11 +66,11 @@ const articeAddGet: ({ title, content, type, cover, tags, youtube, authorization
   title: string;
   content: string;
   type: string;
-  cover: File;
+  file: File;
   tags: string;
   youtube?: string;
   authorization: string;
-}): Promise<ArticeAddType> => await fetchRestAPI({ path: `https://polskidev.herokuapp.com/api/article`, body: { title, content, type, cover, tags, youtube }, authorization });
+}): Promise<ArticeAddType> => await restAPISendFile({ path: `http://localhost:1337/api/article`, name: "cover", file, body: { title, content, type, tags, youtube }, authorization });
 
 export type { ArticleShortType, ArticeFullByIdType, ArticeWithOnlyTitleType, ArticeAddViewType, ArticeAddGradeType, ArticeAddCommentsType, ArticeGetListCommentsType, ArticeGetListCommentsItemType, ArticeAddType };
 export {
@@ -86,6 +88,6 @@ export {
   articeAddCommentsInitialState,
   articeGetListComments,
   articeGetListCommentsInitialState,
-  articeAddGet,
+  articeAdd,
   articeAddInitialState,
 };

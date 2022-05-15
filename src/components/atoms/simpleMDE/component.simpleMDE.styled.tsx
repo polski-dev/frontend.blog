@@ -889,3 +889,7 @@ export const SimpleMDEBox: StyledComponent<any, any> = styled.div`
 export const Input = styled.input`
   display: none;
 `;
+
+export const TextArea = styled.textarea`
+  display: none;
+`;

@@ -6,7 +6,7 @@ export default function SimpleMDEHookComponent({ placeholder }: { placeholder?: 
   const actionInitialState: any = null;
   const { data: session } = useSession();
 
-  const [value, setValue] = useState("");
+  const [valueEditor, setValueEditor] = useState("");
   const [action, setAction] = useState(actionInitialState);
   const [statusUploadImage, setStatusUploadImage] = useState("pending");
   const [powerPopupUploadImage, setPowerPopupUploadImage] = useState(false);
@@ -86,5 +86,5 @@ export default function SimpleMDEHookComponent({ placeholder }: { placeholder?: 
     };
   }, [placeholder, inputfileUpload]);
 
-  return { options, uploadImage, value, setValue, action, setAction, inputfileUpload, statusUploadImage, powerPopupUploadImage };
+  return { options, uploadImage, valueEditor, setValueEditor, action, setAction, inputfileUpload, statusUploadImage, powerPopupUploadImage };
 }
