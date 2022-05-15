@@ -51,8 +51,7 @@ const userSubscriptionToggleGet: (idUser: number, authorization: string) => Prom
 
 const userStatisticsGet: (idUser: number) => Promise<UserStatisticsType> = async (idUser: number): Promise<UserStatisticsType> => await fetchRestAPI({ path: `${process.env.NEXT_PUBLIC_API_URL}/api/user/${idUser}/statistics` });
 
-const userHimselfDataGetPreview: (authorization: string) => Promise<UserHimselfDataType> = async (authorization: string): Promise<UserHimselfDataType> =>
-  await fetchRestAPI({ path: `${process.env.NEXT_PUBLIC_API_URL}/api/user/himself/data`, authorization });
+const userHimselfDataGetPreview: (authorization: string) => Promise<UserHimselfDataType> = async (authorization: string): Promise<UserHimselfDataType> => await fetchRestAPI({ path: `${process.env.NEXT_PUBLIC_API_URL}/api/user/himself/data`, authorization });
 
 const userHimselfDataEditEmailGetPreview: (authorization: string, email: string) => Promise<UserHimselfDataEditEmailType> = async (authorization: string, email: string): Promise<UserHimselfDataEditEmailType> =>
   await fetchRestAPI({ path: `${process.env.NEXT_PUBLIC_API_URL}/api/user/himself/data/email`, authorization, body: { email } });
@@ -60,32 +59,16 @@ const userHimselfDataEditEmailGetPreview: (authorization: string, email: string)
 const userHimselfDataEditPasswordGetPreview: (authorization: string, password: string) => Promise<UserHimselfDataEditPasswordType> = async (authorization: string, password: string): Promise<UserHimselfDataEditPasswordType> =>
   await fetchRestAPI({ path: `${process.env.NEXT_PUBLIC_API_URL}/api/user/himself/data/password`, authorization, body: { password } });
 
-const userHimselfDataEditPublicGetPreview: (
-  authorization: string,
-  data: { username?: string; about?: string; website?: string; youtube?: string; instagram?: string; tiktok?: string; github?: string; city?: string; country?: string }
-) => Promise<UserHimselfDataEditPublicType> = async (
+const userHimselfDataEditPublicGetPreview: (authorization: string, data: { username?: string; about?: string; website?: string; youtube?: string; instagram?: string; tiktok?: string; github?: string; city?: string; country?: string }) => Promise<UserHimselfDataEditPublicType> = async (
   authorization: string,
   data: { username?: string; about?: string; website?: string; youtube?: string; instagram?: string; tiktok?: string; github?: string; city?: string; country?: string }
 ): Promise<UserHimselfDataEditPublicType> => await fetchRestAPI({ path: `${process.env.NEXT_PUBLIC_API_URL}/api/user/himself/data/public`, authorization, body: { ...data } });
 
-const userHimselfDeleteTypeGetPreview: (authorization: string) => Promise<UserHimselfDeleteType> = async (authorization: string): Promise<UserHimselfDeleteType> =>
-  await fetchRestAPI({ path: `${process.env.NEXT_PUBLIC_API_URL}/api/user/himself/data/delete`, authorization });
+const userHimselfDeleteTypeGetPreview: (authorization: string) => Promise<UserHimselfDeleteType> = async (authorization: string): Promise<UserHimselfDeleteType> => await fetchRestAPI({ path: `${process.env.NEXT_PUBLIC_API_URL}/api/user/himself/data/delete`, authorization });
 
 // userHimselfChangeAvatar;
 
-export type {
-  UserByIdType,
-  UserGetListType,
-  UserSubscriptionStatusType,
-  UserSubscriptionToggleType,
-  UserStatisticsType,
-  UserHimselfDataType,
-  UserHimselfDataEditEmailType,
-  UserHimselfDataEditPasswordType,
-  UserHimselfDataEditPublicType,
-  UserHimselfDeleteType,
-  UserHimselfChangeAvatarType,
-};
+export type { UserByIdType, UserGetListType, UserSubscriptionStatusType, UserSubscriptionToggleType, UserStatisticsType, UserHimselfDataType, UserHimselfDataEditEmailType, UserHimselfDataEditPasswordType, UserHimselfDataEditPublicType, UserHimselfDeleteType, UserHimselfChangeAvatarType };
 export {
   userByIdGetPreview,
   userByIdInitialState,

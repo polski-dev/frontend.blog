@@ -24,6 +24,9 @@ import { articeAddCommentsInitialState } from "./initialState/database.articeAdd
 //
 import { ArticeGetListCommentsType, ArticeGetListCommentsItemType } from "./type/database.articeGetListComments.type";
 import { articeGetListCommentsInitialState } from "./initialState/database.articeGetListComments.initialState";
+//
+import { ArticeAddType } from "./type/database.articeAdd.type";
+import { articeAddInitialState } from "./initialState/database.articeAdd.initialState";
 
 // metchods
 const articleShortGetPreview: (page: number, waitingroom: boolean) => Promise<ArticleShortType> = async (page: number, waitingroom: boolean): Promise<ArticleShortType> => {
@@ -49,7 +52,25 @@ const articeAddCommentsGet: (description: string, articleId: number, authorizati
 const articeGetListComments: (articleId: number, page: number) => Promise<ArticeGetListCommentsType> = async (articleId: number, page: number): Promise<ArticeGetListCommentsType> =>
   await fetchRestAPI({ path: `${process.env.NEXT_PUBLIC_API_URL}/api/article/${articleId}/comment/${page}`, method: "GET" });
 
-export type { ArticleShortType, ArticeFullByIdType, ArticeWithOnlyTitleType, ArticeAddViewType, ArticeAddGradeType, ArticeAddCommentsType, ArticeGetListCommentsType, ArticeGetListCommentsItemType };
+const articeAddGet: ({ title, content, type, cover, tags, youtube, authorization }: { title: string; content: string; type: string; cover: File; tags: string; youtube?: string; authorization: string }) => Promise<ArticeAddType> = async ({
+  title,
+  content,
+  type,
+  cover,
+  tags,
+  youtube = "",
+  authorization,
+}: {
+  title: string;
+  content: string;
+  type: string;
+  cover: File;
+  tags: string;
+  youtube?: string;
+  authorization: string;
+}): Promise<ArticeAddType> => await fetchRestAPI({ path: `https://polskidev.herokuapp.com/api/article`, body: { title, content, type, cover, tags, youtube }, authorization });
+
+export type { ArticleShortType, ArticeFullByIdType, ArticeWithOnlyTitleType, ArticeAddViewType, ArticeAddGradeType, ArticeAddCommentsType, ArticeGetListCommentsType, ArticeGetListCommentsItemType, ArticeAddType };
 export {
   articleShortGetPreview,
   articleShortInitialState,
@@ -65,4 +86,6 @@ export {
   articeAddCommentsInitialState,
   articeGetListComments,
   articeGetListCommentsInitialState,
+  articeAddGet,
+  articeAddInitialState,
 };

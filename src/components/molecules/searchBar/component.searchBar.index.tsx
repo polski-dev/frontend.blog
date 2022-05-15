@@ -22,7 +22,7 @@ export default function SearchBar() {
   useEffect((): (() => void) => {
     let newSearchQueryResult = setTimeout(() => null, 500);
     clearTimeout(newSearchQueryResult);
-    newSearchQueryResult = !!searchQuery.length ? setTimeout(async (): Promise<void> => setSearchResult(await searchSugestContentGetPreview(searchQuery)), 500) : setTimeout(() => setSearchResult(searchSugestContentInitialState), 500);
+    newSearchQueryResult = !!searchQuery.length ? setTimeout(async (): Promise<void> => setSearchResult(await searchSugestContentGetPreview(searchQuery)), 10) : setTimeout(() => setSearchResult(searchSugestContentInitialState), 10);
     return () => clearTimeout(newSearchQueryResult);
   }, [searchQuery]);
 
