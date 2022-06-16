@@ -1,6 +1,6 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { authSingInPost, AuthSingInType, userByIdGetPreview, UserByIdType } from "database/database.graphQL.index";
+import { authSingInPost, AuthSingInType, userByIdGetPreview, UserByIdType } from "utils/database/database.graphQL.index";
 
 export default NextAuth({
   providers: [

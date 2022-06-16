@@ -12,7 +12,7 @@ import { TextArea } from "components/atoms/textarea/component.textarea.index";
 import { ButtonSubmit } from "components/atoms/button/component.button.index";
 import { ItemLoad } from "components/atoms/animation/comonent.animation.index";
 import { SquareComment } from "components/atoms/animation/comonent.animation.index";
-import { ArticeAddCommentsType, ArticeGetListCommentsType, ArticeGetListCommentsItemType, VideoAddCommentsType, VideoGetListCommentsType, VideoGetListCommentsItemType } from "database/database.graphQL.index";
+import { ArticeAddCommentsType, ArticeGetListCommentsType, ArticeGetListCommentsItemType, VideoAddCommentsType, VideoGetListCommentsType, VideoGetListCommentsItemType } from "utils/database/database.graphQL.index";
 import { Comments, BoxComments, BoxCommentsTitle, Form, BoxCommentAvatar, CommentContent, ListComments, Comment, CommentAuthorName, CommentDescription, BoxAuthorAvatar, ErrorMessageText, SuccesMessage } from "./component.comments.style";
 
 export default function CommentsComponent({ data, type, id, slug }: { data: ArticeGetListCommentsType | VideoGetListCommentsType; type: string; id: number; slug: string }): JSX.Element {

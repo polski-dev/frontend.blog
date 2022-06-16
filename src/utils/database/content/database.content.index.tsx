@@ -1,5 +1,5 @@
 import { orderBy } from "lodash";
-import fetchAPI from "database/fetchAPI/database.fetchAPI.graphQL";
+import fetchAPI from "utils/database/fetchAPI/database.fetchAPI.graphQL";
 //
 import { ContentShortType } from "./type/database.contentShort.type";
 import { contentShortQuery } from "./query/database.contentShort.query";

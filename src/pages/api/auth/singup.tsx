@@ -1,4 +1,4 @@
-import { authSingUpPost } from "database/database.graphQL.index";
+import { authSingUpPost } from "utils/database/database.graphQL.index";
 
 export default async function singUp(req: any, res: any): Promise<void> {
   const { username, email, password } = req.body;

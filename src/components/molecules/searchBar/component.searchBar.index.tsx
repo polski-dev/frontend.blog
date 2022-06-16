@@ -2,9 +2,9 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { kebabCase, deburr } from "lodash";
 import Search from "assets/icon/search.svg";
-import { setSlug } from "function/function.index";
+import { setSlug } from "utils/function/function.index";
 import { useState, useEffect, FormEvent } from "react";
-import { searchSugestContentInitialState, searchSugestContentGetPreview } from "database/database.restAPI.index";
+import { searchSugestContentInitialState, searchSugestContentGetPreview } from "utils/database/database.restAPI.index";
 import { Form, Input, Button, SugestBox, Item, IconBox, ContentBox, ContentTitle, ContentTags, ContentTag } from "./component.searchBar.style";
 
 export default function SearchBar() {

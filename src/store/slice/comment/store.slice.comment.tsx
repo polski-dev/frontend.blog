@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import initialState from "./initialState.comment";
-import { ArticeGetListCommentsType } from "database/article/database.artice.index";
+import { ArticeGetListCommentsType } from "utils/database/article/database.artice.index";
 
 export const articleCommentSlice = createSlice({
   name: "comment",

@@ -7,9 +7,9 @@ import Point from "assets/icon/point.svg";
 import Youtube from "assets/icon/youtube.svg";
 import Tiktok from "assets/icon/tiktok.svg";
 import Github from "assets/icon/github.svg";
-import { time } from "function/function.index";
+import { time } from "utils/function/function.index";
 import Instagram from "assets/icon/instagram.svg";
-import { UserByIdType } from "database/database.graphQL.index";
+import { UserByIdType } from "utils/database/database.graphQL.index";
 import { Button } from "components/atoms/button/component.button.index";
 import { UserInfoBox, Avatar, Name, Description, List, Item } from "./component.user.infoBox.style";
 
@@ -19,11 +19,7 @@ export default function UserInfoBoxComponent({ data: { user, slug } }: { data: {
   return (
     <UserInfoBox>
       <Avatar>
-        {!user?.data?.user?.data?.attributes?.avatar?.data?.attributes?.url ? (
-          <AvatarBasic />
-        ) : (
-          <Image width={120} height={120} placeholder="blur" blurDataURL="/img/blur.png" src={user.data?.user.data?.attributes.avatar.data.attributes.url} alt={user.data?.user.data?.attributes.username || ""} />
-        )}
+        {!user?.data?.user?.data?.attributes?.avatar?.data?.attributes?.url ? <AvatarBasic /> : <Image width={120} height={120} placeholder="blur" blurDataURL="/img/blur.png" src={user.data?.user.data?.attributes.avatar.data.attributes.url} alt={user.data?.user.data?.attributes.username || ""} />}
       </Avatar>
       <Button
         title={statusSubscription ? "Zrezygnuj z subskrypcji" : "Subskrybuj"}

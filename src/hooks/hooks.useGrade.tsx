@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useSession } from "next-auth/react";
-import { articeAddGradeGet, ArticeAddGradeType, articeAddGradeInitialState, videoAddGradeGet, VideoAddGradeType, videoAddGradeInitialState } from "database/database.restAPI.index";
+import { articeAddGradeGet, ArticeAddGradeType, articeAddGradeInitialState, videoAddGradeGet, VideoAddGradeType, videoAddGradeInitialState } from "utils/database/database.restAPI.index";
 
 export default function useGrade() {
   const { data: session } = useSession();

@@ -3,7 +3,7 @@ import { NextPage } from "next";
 import { MenuPrimary } from "components/templates/menu/component.menu.index";
 import { SectionSingUp } from "components/templates/section/component.section.index";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
-import { countUserGetPreview, CountUserType } from "database/database.graphQL.index";
+import { countUserGetPreview, CountUserType } from "utils/database/database.graphQL.index";
 
 const SingUp: NextPage<any, any> = ({ countUser }: { countUser: CountUserType }): JSX.Element => {
   return (

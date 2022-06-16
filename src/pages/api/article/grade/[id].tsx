@@ -1,4 +1,4 @@
-import { articeAddGradeGet, articeAddGradeInitialState } from "database/database.graphQL.index";
+import { articeAddGradeGet, articeAddGradeInitialState } from "utils/database/database.graphQL.index";
 
 export default async function ArticleAddGradeAPI(req: any, res: any): Promise<void> {
   const { id } = req.query;

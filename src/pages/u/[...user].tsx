@@ -5,7 +5,7 @@ import { MenuUser } from "components/templates/menu/component.menu.index";
 import { UserInfo } from "components/templates/user/component.user.index";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
 import { SectionArticleShortList } from "components/templates/section/component.section.index";
-import { userGetListPreview, UserGetListType, userByIdGetPreview, UserByIdType, ContentShortFromUserType, contentShortFromUserGetPreview } from "database/database.graphQL.index";
+import { userGetListPreview, UserGetListType, userByIdGetPreview, UserByIdType, ContentShortFromUserType, contentShortFromUserGetPreview } from "utils/database/database.graphQL.index";
 
 const UserPage: NextPage<any> = ({ user, content, slug }: { user: UserByIdType; content: ContentShortFromUserType; slug: string }): JSX.Element => {
   return (

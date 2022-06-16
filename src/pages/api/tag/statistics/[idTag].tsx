@@ -1,4 +1,4 @@
-import { tagStatisticsGet, tagStatisticsInitialState } from "database/database.graphQL.index";
+import { tagStatisticsGet, tagStatisticsInitialState } from "utils/database/database.graphQL.index";
 
 export default async function TagStatisticsAPI(req: any, res: any): Promise<void> {
   const { idTag } = req.query;

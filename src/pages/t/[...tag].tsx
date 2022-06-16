@@ -8,7 +8,7 @@ import { MenuPrimary } from "components/templates/menu/component.menu.index";
 import { InfoBoxTagPage } from "components/templates/boxInfo/component.boxInfo.index";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
 import { SectionArticleShortList } from "components/templates/section/component.section.index";
-import { tagWithOnlyTitleAllGetPreviewList, TagWithOnlyTitleType, tagFullByIdGetPreview, TagFullByIdType, contentShortWithTagGetPreview, ContentShortWithTagType } from "database/database.graphQL.index";
+import { tagWithOnlyTitleAllGetPreviewList, TagWithOnlyTitleType, tagFullByIdGetPreview, TagFullByIdType, contentShortWithTagGetPreview, ContentShortWithTagType } from "utils/database/database.graphQL.index";
 
 const TagPage: NextPage<any> = ({ tag, slug, slugVideo, slugArticle, slugFollowuser, content }: { tag: TagFullByIdType; slug: string; slugVideo: string; slugArticle: string; slugFollowuser: string; content: ContentShortWithTagType }): JSX.Element => {
   const { asPath } = useRouter();

@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, MutableRefObject } from "react";
 import { useSession } from "next-auth/react";
 import useWindowData from "hooks/hooks.windowData";
-import { articeGetListComments, ArticeGetListCommentsType, articeAddComments, ArticeAddCommentsType, videoGetListComments, VideoGetListCommentsType, videoAddComments, VideoAddCommentsType } from "database/database.restAPI.index";
+import { articeGetListComments, ArticeGetListCommentsType, articeAddComments, ArticeAddCommentsType, videoGetListComments, VideoGetListCommentsType, videoAddComments, VideoAddCommentsType } from "utils/database/database.restAPI.index";
 
 export default function useComments({ data, type, id }: { data: ArticeGetListCommentsType; type: string; id: number }) {
   const { height } = useWindowData();

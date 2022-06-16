@@ -1,4 +1,4 @@
-import restAPISendFile from "./../fetchAPI/database.fetchAPI.restAPISendFile";
+import restAPISendFile from "../fetchAPI/database.fetchAPI.restAPISendFile";
 
 // import type
 import { UploadType } from "./type/database.upload.type";

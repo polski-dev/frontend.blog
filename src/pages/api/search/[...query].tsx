@@ -1,4 +1,4 @@
-import { searchShortContentGetPreview, searchShortContentInitialState, SearchShortContentType } from "database/database.graphQL.index";
+import { searchShortContentGetPreview, searchShortContentInitialState, SearchShortContentType } from "utils/database/database.graphQL.index";
 
 export default async function searchAPI(req: any, res: any) {
   const [page, query] = req.query.query;

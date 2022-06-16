@@ -1,4 +1,4 @@
-import { videoWithOnlyTitleGetPreview, videoWithOnlyTitleInitialState } from "database/database.graphQL.index";
+import { videoWithOnlyTitleGetPreview, videoWithOnlyTitleInitialState } from "utils/database/database.graphQL.index";
 
 export default async function VideoWithOnlyTitle(req: any, res: any): Promise<void> {
   const { page } = req.query;

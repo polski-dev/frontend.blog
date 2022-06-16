@@ -1,8 +1,8 @@
 import Image from "next/image";
 import * as React from "react";
 import Avatar from "assets/icon/avatar.svg";
-import { time } from "function/function.index";
-import { ArticeGetListCommentsItemType } from "database/article/type/database.articeGetListComments.type";
+import { time } from "utils/function/function.index";
+import { ArticeGetListCommentsItemType } from "utils/database/article/type/database.articeGetListComments.type";
 import { BoxCommentAvatar, Comment, CommentAuthorName, CommentContent, CommentDescription, BoxAuthorAvatar } from "../component.comments.style";
 
 const CommentsItemComponent = React.forwardRef(({ data }: { data: ArticeGetListCommentsItemType }, ref?: any): JSX.Element => {

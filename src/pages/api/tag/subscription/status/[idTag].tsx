@@ -1,4 +1,4 @@
-import { tagSubscriptionStatusGet, tagSubscriptionStatusInitialState } from "database/database.graphQL.index";
+import { tagSubscriptionStatusGet, tagSubscriptionStatusInitialState } from "utils/database/database.graphQL.index";
 
 export default async function TagSubscriptionToggleAPI(req: any, res: any): Promise<void> {
   const { idTag } = req.query;

@@ -2,17 +2,7 @@ import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { NextRouter, useRouter } from "next/router";
 import useCallBackURL from "hooks/hooks.useCallBackURL";
-import {
-  tagSubscriptionStatusGet,
-  tagSubscriptionStatusInitialState,
-  TagSubscriptionStatusType,
-  tagSubscriptionToggleGet,
-  tagSubscriptionToggleInitialState,
-  TagSubscriptionToggleType,
-  tagStatisticsInitialState,
-  tagStatisticsGet,
-  TagStatisticsType,
-} from "database/database.restAPI.index";
+import { tagSubscriptionStatusGet, tagSubscriptionStatusInitialState, TagSubscriptionStatusType, tagSubscriptionToggleGet, tagSubscriptionToggleInitialState, TagSubscriptionToggleType, tagStatisticsInitialState, tagStatisticsGet, TagStatisticsType } from "utils/database/database.restAPI.index";
 
 export default function useTag({ id, slug }: { id: number; slug?: string }) {
   const router: NextRouter = useRouter();

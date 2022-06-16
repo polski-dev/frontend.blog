@@ -1,4 +1,4 @@
-import { articeAddCommentsGet, articeAddCommentsInitialState } from "database/database.graphQL.index";
+import { articeAddCommentsGet, articeAddCommentsInitialState } from "utils/database/database.graphQL.index";
 
 export default async function ArticleShortAPI(req: any, res: any): Promise<void> {
   const { id } = req.query;

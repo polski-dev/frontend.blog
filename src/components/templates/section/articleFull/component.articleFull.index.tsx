@@ -3,10 +3,10 @@ import Image from "next/image";
 import ReactMarkdown from "react-markdown";
 import { kebabCase, deburr } from "lodash";
 import Avatar from "assets/icon/avatar.svg";
-import { setSlug, time } from "function/function.index";
+import { setSlug, time } from "utils/function/function.index";
 import { MarkdownComponents } from "./component.articleFull.markdownblock";
 import CommentList from "components/orgamis/comments/component.comments.index";
-import { ArticeFullByIdType, ArticeGetListCommentsType } from "database/database.restAPI.index";
+import { ArticeFullByIdType, ArticeGetListCommentsType } from "utils/database/database.restAPI.index";
 import { Section, Title, Article, BoxContent, Content, BoxAuthor, BoxAuthorImg, BoxAuthorAvatar, AuthorData, AuthorName, DateAdded, TitleArticle, ListTags, Tag } from "./component.listShortArticle.style";
 
 export default function SectionArticleFull({ data: { article: post, comments }, type }: { data: { article: ArticeFullByIdType; comments: ArticeGetListCommentsType }; type: string }): JSX.Element {

@@ -1,4 +1,4 @@
-import { contentShortWithTagGetPreview, contentShortWithTagInitialState } from "database/database.graphQL.index";
+import { contentShortWithTagGetPreview, contentShortWithTagInitialState } from "utils/database/database.graphQL.index";
 
 export default async function contentWithTagAPI(req: any, res: any): Promise<void> {
   const [page, tagId] = req.query.query;

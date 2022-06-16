@@ -3,10 +3,10 @@ import Image from "next/image";
 import ReactMarkdown from "react-markdown";
 import { kebabCase, deburr } from "lodash";
 import Avatar from "assets/icon/avatar.svg";
-import { setSlug, time } from "function/function.index";
+import { setSlug, time } from "utils/function/function.index";
 import { MarkdownComponents } from "./component.videoFull.markdownblock";
 import CommentList from "components/orgamis/comments/component.comments.index";
-import { VideoFullByIdType, VideoGetListCommentsType } from "database/database.restAPI.index";
+import { VideoFullByIdType, VideoGetListCommentsType } from "utils/database/database.restAPI.index";
 import { Section, Title, Article, BoxContent, Content, BoxAuthor, BoxAuthorImg, BoxAuthorAvatar, AuthorData, AuthorName, DateAdded, TitleArticle, ListTags, Tag } from "./component.videoFull.style";
 
 export default function SectionVideoFull({ data: { video, comments }, type }: { data: { video: VideoFullByIdType; comments: VideoGetListCommentsType }; type: string }): JSX.Element {

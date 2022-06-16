@@ -1,5 +1,5 @@
-import fetchGraphQLAPI from "database/fetchAPI/database.fetchAPI.graphQL";
-import fetchRestAPI from "database/fetchAPI/database.fetchAPI.restAPI";
+import fetchGraphQLAPI from "utils/database/fetchAPI/database.fetchAPI.graphQL";
+import fetchRestAPI from "utils/database/fetchAPI/database.fetchAPI.restAPI";
 //
 import { UserByIdType } from "./type/database.userById.type";
 import { userByIdQuery } from "./query/database.userById.query";

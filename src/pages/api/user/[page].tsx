@@ -1,4 +1,4 @@
-import { userGetListPreview, userGetListInitialState } from "database/database.graphQL.index";
+import { userGetListPreview, userGetListInitialState } from "utils/database/database.graphQL.index";
 
 export default async function UserGetListShortAPI(req: any, res: any): Promise<void> {
   const { page } = req.query;

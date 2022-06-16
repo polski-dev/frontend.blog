@@ -1,4 +1,4 @@
-import { userHimselfDataEditEmailGetPreview, userHimselfDataEditEmailInitialState } from "database/database.graphQL.index";
+import { userHimselfDataEditEmailGetPreview, userHimselfDataEditEmailInitialState } from "utils/database/database.graphQL.index";
 
 export default async function userHimselfData(req: any, res: any): Promise<void> {
   const { email } = req.body;

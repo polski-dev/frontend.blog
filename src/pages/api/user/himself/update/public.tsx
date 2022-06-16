@@ -1,4 +1,4 @@
-import { userHimselfDataEditPublicGetPreview, userHimselfDataEditPublicInitialState } from "database/database.graphQL.index";
+import { userHimselfDataEditPublicGetPreview, userHimselfDataEditPublicInitialState } from "utils/database/database.graphQL.index";
 
 export default async function userHimselfData(req: any, res: any): Promise<void> {
   const { username, about, website, youtube, instagram, tiktok, github, city, country } = req.body;

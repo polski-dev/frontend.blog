@@ -1,4 +1,4 @@
-import { tagFullByIdGetPreview, tagFullByIdInitialState } from "database/database.graphQL.index";
+import { tagFullByIdGetPreview, tagFullByIdInitialState } from "utils/database/database.graphQL.index";
 
 export default async function TagWithOnlyTitleAllAPI(req: any, res: any): Promise<void> {
   const { tagID } = req.query;

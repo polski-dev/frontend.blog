@@ -1,4 +1,4 @@
-import { userStatisticsGet, userStatisticsInitialState } from "database/database.graphQL.index";
+import { userStatisticsGet, userStatisticsInitialState } from "utils/database/database.graphQL.index";
 
 export default async function UserStatisticsAPI(req: any, res: any): Promise<void> {
   const { idUser } = req.query;

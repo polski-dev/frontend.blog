@@ -1,4 +1,4 @@
-import fetchAPI from "database/fetchAPI/database.fetchAPI.graphQL";
+import fetchAPI from "utils/database/fetchAPI/database.fetchAPI.graphQL";
 import { emailRegex, passwordRegex } from "assets/regex/index.regex";
 //
 import { AuthSingUpType } from "./type/database.authSingUp.type";

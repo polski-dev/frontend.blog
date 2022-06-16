@@ -1,4 +1,4 @@
-import { articeWithOnlyTitleGetPreview, articeWithOnlyTitleInitialState } from "database/database.graphQL.index";
+import { articeWithOnlyTitleGetPreview, articeWithOnlyTitleInitialState } from "utils/database/database.graphQL.index";
 
 export default async function articeWithOnlyTitle(req: any, res: any): Promise<void> {
   const { page } = req.query;

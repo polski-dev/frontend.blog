@@ -21,7 +21,7 @@ import {
   UserHimselfChangeAvatarType,
   userHimselfChangeAvatarGetPreview,
   userHimselfChangeAvatarInitialState,
-} from "database/database.restAPI.index";
+} from "utils/database/database.restAPI.index";
 
 export default function useHimself() {
   const { data: session } = useSession();

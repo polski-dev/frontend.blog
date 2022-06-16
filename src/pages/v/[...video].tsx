@@ -5,7 +5,7 @@ import { MenuGrade } from "components/templates/menu/component.menu.index";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
 import { SquareShortArticle } from "components/atoms/animation/comonent.animation.index";
 import { SectionVideoFull } from "components/templates/section/component.section.index";
-import { videoWithOnlyTitleGetPreview, VideoWithOnlyTitleType, videoFullByIdGetPreview, VideoFullByIdType, videoGetListComments, VideoGetListCommentsType } from "database/database.graphQL.index";
+import { videoWithOnlyTitleGetPreview, VideoWithOnlyTitleType, videoFullByIdGetPreview, VideoFullByIdType, videoGetListComments, VideoGetListCommentsType } from "utils/database/database.graphQL.index";
 
 const VideoPage: NextPage<any> = ({ video, slug, comments }: { video: VideoFullByIdType; slug: string; comments: VideoGetListCommentsType }): JSX.Element => {
   return (

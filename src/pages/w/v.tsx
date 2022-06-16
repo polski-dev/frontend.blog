@@ -3,7 +3,7 @@ import { NextPage } from "next";
 import { MenuPrimary } from "components/templates/menu/component.menu.index";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
 import { SectionArticleShortList } from "components/templates/section/component.section.index";
-import { contentShortGetPreview, ContentShortType } from "database/database.graphQL.index";
+import { contentShortGetPreview, ContentShortType } from "utils/database/database.graphQL.index";
 
 const WaitingroomVideo: NextPage<any, ContentShortType> = ({ content }: { content: ContentShortType }): JSX.Element => {
   return (

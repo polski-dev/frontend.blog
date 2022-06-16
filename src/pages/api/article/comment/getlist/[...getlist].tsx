@@ -1,4 +1,4 @@
-import { articeGetListComments } from "database/database.graphQL.index";
+import { articeGetListComments } from "utils/database/database.graphQL.index";
 
 export default async function ArticeGetListCommentsAPI(req: any, res: any): Promise<void> {
   const [idArticle, page] = req.query.getlist;

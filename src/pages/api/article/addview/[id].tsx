@@ -1,4 +1,4 @@
-import { articeAddViewGet, articeAddViewInitialState } from "database/database.graphQL.index";
+import { articeAddViewGet, articeAddViewInitialState } from "utils/database/database.graphQL.index";
 
 export default async function articeAddViewTitle(req: any, res: any): Promise<void> {
   const { id } = req.query;

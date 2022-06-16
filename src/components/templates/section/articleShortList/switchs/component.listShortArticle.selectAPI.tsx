@@ -17,7 +17,7 @@ import {
   contentShortFromUserGetPreview,
   ContentShortWithTagType,
   contentShortWithTagGetPreview,
-} from "database/database.restAPI.index";
+} from "utils/database/database.restAPI.index";
 
 export const selectAPI = async ({ type, content, page, search, userId, tagId }: { type: string; content: any; page: number; search?: string; userId?: number; tagId?: number }) => {
   switch (type) {

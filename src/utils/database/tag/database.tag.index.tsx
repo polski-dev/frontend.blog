@@ -1,5 +1,5 @@
-import fetchGraphQLAPI from "database/fetchAPI/database.fetchAPI.graphQL";
-import fetchRestAPI from "database/fetchAPI/database.fetchAPI.restAPI";
+import fetchGraphQLAPI from "utils/database/fetchAPI/database.fetchAPI.graphQL";
+import fetchRestAPI from "utils/database/fetchAPI/database.fetchAPI.restAPI";
 //
 import { TagWithOnlyTitleType } from "./type/database.tagWithOnlyTitle.type";
 import { tagWithOnlyTitleQuery } from "./query/database.tagWithOnlyTitle.query";
@@ -33,15 +33,4 @@ const tagSubscriptionToggleGet: (idTag: number, authorization: string) => Promis
 const tagStatisticsGet: (idTag: number) => Promise<TagStatisticsType> = async (idTag: number): Promise<TagStatisticsType> => await fetchRestAPI({ path: `${process.env.NEXT_PUBLIC_API_URL}/api/tag/${idTag}/statistics` });
 
 export type { TagWithOnlyTitleType, TagFullByIdType, TagSubscriptionStatusType, TagSubscriptionToggleType, TagStatisticsType };
-export {
-  tagWithOnlyTitleAllGetPreviewList,
-  tagWithOnlyTitleInitialState,
-  tagFullByIdGetPreview,
-  tagFullByIdInitialState,
-  tagSubscriptionStatusGet,
-  tagSubscriptionStatusInitialState,
-  tagSubscriptionToggleGet,
-  tagSubscriptionToggleInitialState,
-  tagStatisticsGet,
-  tagStatisticsInitialState,
-};
+export { tagWithOnlyTitleAllGetPreviewList, tagWithOnlyTitleInitialState, tagFullByIdGetPreview, tagFullByIdInitialState, tagSubscriptionStatusGet, tagSubscriptionStatusInitialState, tagSubscriptionToggleGet, tagSubscriptionToggleInitialState, tagStatisticsGet, tagStatisticsInitialState };

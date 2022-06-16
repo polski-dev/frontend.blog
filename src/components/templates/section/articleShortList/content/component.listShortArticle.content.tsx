@@ -6,7 +6,7 @@ import Eye from "assets/icon/eye.svg";
 import Avatar from "assets/icon/avatar.svg";
 import { kebabCase, deburr } from "lodash";
 import Comment from "assets/icon/comment.svg";
-import { setSlug, time } from "function/function.index";
+import { setSlug, time } from "utils/function/function.index";
 import { ButtonLinkIn } from "components/atoms/button/component.button.index";
 import { Article, BoxContent, BoxAuthor, BoxAuthorImg, BoxAuthorAvatar, AuthorData, AuthorName, DateAdded, TitleArticle, ListTags, Tag, ListStats, Item } from "../style/component.listShortArticle.style";
 

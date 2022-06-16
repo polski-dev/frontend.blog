@@ -1,4 +1,4 @@
-import { userHimselfDataEditPasswordGetPreview, userHimselfDataEditPasswordInitialState } from "database/database.graphQL.index";
+import { userHimselfDataEditPasswordGetPreview, userHimselfDataEditPasswordInitialState } from "utils/database/database.graphQL.index";
 
 export default async function userHimselfData(req: any, res: any): Promise<void> {
   const { password } = req.body;

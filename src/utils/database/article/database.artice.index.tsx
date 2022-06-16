@@ -1,6 +1,6 @@
-import fetchGraphQLAPI from "database/fetchAPI/database.fetchAPI.graphQL";
-import fetchRestAPI from "database/fetchAPI/database.fetchAPI.restAPI";
-import restAPISendFile from "./../fetchAPI/database.fetchAPI.restAPISendFile";
+import fetchGraphQLAPI from "utils/database/fetchAPI/database.fetchAPI.graphQL";
+import fetchRestAPI from "utils/database/fetchAPI/database.fetchAPI.restAPI";
+import restAPISendFile from "../fetchAPI/database.fetchAPI.restAPISendFile";
 
 //
 import { ArticleShortType } from "./type/database.articeShort.type";

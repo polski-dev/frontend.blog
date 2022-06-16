@@ -1,4 +1,4 @@
-import { videoGetListComments } from "database/database.graphQL.index";
+import { videoGetListComments } from "utils/database/database.graphQL.index";
 
 export default async function VideoGetListCommentsAPI(req: any, res: any): Promise<void> {
   const [idArticle, page] = req.query.getlist;

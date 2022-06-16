@@ -1,5 +1,5 @@
 import { orderBy } from "lodash";
-import { searchSugestContentGetPreview, searchSugestContentInitialState, SearchSugestContentType } from "database/database.graphQL.index";
+import { searchSugestContentGetPreview, searchSugestContentInitialState, SearchSugestContentType } from "utils/database/database.graphQL.index";
 
 export default async function searchAPI(req: any, res: any) {
   const [page, query] = req.query.query;

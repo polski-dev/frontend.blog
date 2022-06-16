@@ -1,4 +1,4 @@
-import { videoFullByIdGetPreview, articleShortInitialState } from "database/database.graphQL.index";
+import { videoFullByIdGetPreview, articleShortInitialState } from "utils/database/database.graphQL.index";
 
 export default async function VideoFullById(req: any, res: any): Promise<void> {
   const { id } = req.query;

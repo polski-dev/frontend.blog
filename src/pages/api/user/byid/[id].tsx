@@ -1,4 +1,4 @@
-import { userByIdGetPreview, userByIdInitialState } from "database/database.graphQL.index";
+import { userByIdGetPreview, userByIdInitialState } from "utils/database/database.graphQL.index";
 
 export default async function userById(req: any, res: any): Promise<void> {
   const { id } = req.query;

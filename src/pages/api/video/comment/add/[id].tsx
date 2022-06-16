@@ -1,4 +1,4 @@
-import { videoAddCommentsGet, videoAddCommentsInitialState } from "database/database.graphQL.index";
+import { videoAddCommentsGet, videoAddCommentsInitialState } from "utils/database/database.graphQL.index";
 
 export default async function VideoShortAPI(req: any, res: any): Promise<void> {
   const { id } = req.query;

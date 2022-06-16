@@ -1,4 +1,4 @@
-import { videoAddViewGet, videoAddViewInitialState } from "database/database.graphQL.index";
+import { videoAddViewGet, videoAddViewInitialState } from "utils/database/database.graphQL.index";
 
 export default async function VideoAddViewTitle(req: any, res: any): Promise<void> {
   const { id } = req.query;

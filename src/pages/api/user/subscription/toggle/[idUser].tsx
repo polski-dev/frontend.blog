@@ -1,4 +1,4 @@
-import { userSubscriptionToggleGet, userSubscriptionToggleInitialState } from "database/database.graphQL.index";
+import { userSubscriptionToggleGet, userSubscriptionToggleInitialState } from "utils/database/database.graphQL.index";
 
 export default async function UserSubscriptionToggleAPI(req: any, res: any): Promise<void> {
   const { idUser } = req.query;

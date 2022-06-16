@@ -12,7 +12,7 @@ import {
   userSubscriptionToggleInitialState,
   UserSubscriptionToggleType,
   userStatisticsInitialState,
-} from "database/database.restAPI.index";
+} from "utils/database/database.restAPI.index";
 
 export default function useUser({ id, slug }: { id: number; slug?: string }) {
   const router: NextRouter = useRouter();

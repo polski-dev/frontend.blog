@@ -1,5 +1,5 @@
-import fetchGraphQLAPI from "database/fetchAPI/database.fetchAPI.graphQL";
-import fetchRestAPI from "database/fetchAPI/database.fetchAPI.restAPI";
+import fetchGraphQLAPI from "utils/database/fetchAPI/database.fetchAPI.graphQL";
+import fetchRestAPI from "utils/database/fetchAPI/database.fetchAPI.restAPI";
 //
 import { VideoShortType } from "./type/database.videoShort.type";
 import { videoShortQuery } from "./query/database.videoShort.query";

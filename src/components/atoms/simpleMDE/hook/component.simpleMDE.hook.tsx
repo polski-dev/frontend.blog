@@ -1,6 +1,6 @@
 import { useSession } from "next-auth/react";
 import { useState, useMemo, useRef, MutableRefObject } from "react";
-import { uploadFile, UploadType } from "database/files/database.files.index";
+import { uploadFile, UploadType } from "utils/database/files/database.files.index";
 
 export default function SimpleMDEHookComponent({ placeholder }: { placeholder?: string }) {
   const actionInitialState: any = null;

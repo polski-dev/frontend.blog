@@ -1,4 +1,4 @@
-import { contentShortGetPreview, contentShortInitialState } from "database/database.graphQL.index";
+import { contentShortGetPreview, contentShortInitialState } from "utils/database/database.graphQL.index";
 
 export default async function contentAPI(req: any, res: any): Promise<void> {
   const { page } = req.query;

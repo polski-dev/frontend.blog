@@ -1,4 +1,4 @@
-import { userHimselfDataGetPreview, userHimselfDataInitialState } from "database/database.graphQL.index";
+import { userHimselfDataGetPreview, userHimselfDataInitialState } from "utils/database/database.graphQL.index";
 
 export default async function userHimselfData(req: any, res: any): Promise<void> {
   // i check page number

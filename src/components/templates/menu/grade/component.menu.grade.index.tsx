@@ -10,7 +10,7 @@ import { polyfill } from "smoothscroll-polyfill";
 import { NextRouter, useRouter } from "next/router";
 import useAddCallBackURL from "hooks/hooks.useCallBackURL";
 import { MenuGradeType } from "./component.menu.grade.type";
-import { ArticeAddGradeType } from "database/database.restAPI.index";
+import { ArticeAddGradeType } from "utils/database/database.restAPI.index";
 import { Button } from "components/atoms/button/component.button.index";
 import { ItemLoad } from "components/atoms/animation/comonent.animation.index";
 import { BoxMenu, BoxContent, List, Item, Quantity, Title } from "./component.menu.grade.style";
