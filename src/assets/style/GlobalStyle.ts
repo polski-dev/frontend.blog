@@ -1,5 +1,5 @@
 import * as styled from "styled-components";
-import { MainSettingsTemplate } from "utils/types/types.mainSettingsTemplate";
+import { MainSettingsTemplate } from "types/types.mainSettingsTemplate";
 
 type GlobalStyleProps = {
   theme: MainSettingsTemplate;

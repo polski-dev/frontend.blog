@@ -1,4 +1,4 @@
-import { TagStateType } from "utils/types/types.tagState";
+import { TagStateType } from "types/types.tagState";
 
 const initialStateTag: TagStateType = {
   home: {

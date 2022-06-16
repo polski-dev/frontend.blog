@@ -9,48 +9,41 @@ import Youtube from "assets/icon/youtube.svg";
 import Instagram from "assets/icon/instagram.svg";
 import { MenuContext } from "providers/providers.menu";
 import { ButtonLinkIn } from "components/atoms/button/component.button.index";
-import { GlobalStyle, Bg, BoxMenu, Cover, OffMenu, BoxContent, FiltrListContent, FiltrListContentItem, BoxTypeContentQuantity, Title, List, SocialMedia } from "./component.menu.primary.style";
+import { GlobalStyle, Bg, BoxMenu, Cover, OffMenu, BoxContent, FiltrListContent, FiltrListContentItem, BoxTypeContentQuantity, Title, List, SocialMedia } from "./component.menu.main.style";
 
-type menuPromaryType = {
-  title: string;
-  cover?: string | boolean;
-  data: { slug: string; title: string; quantity: number }[];
-};
-
-export default function MenuPrimary({ title, data, cover }: menuPromaryType) {
+export default function MenuPrimary({ data }: { data?: { title?: string; cover?: { url: string; title?: string }; links?: { slug: string; title: string; count: number }[] } }) {
   const { asPath } = useRouter();
-  const { powerMenu, setPowerMenu, setShowMenu } = useContext(MenuContext);
+  const { showMenu, setShowMenu } = useContext(MenuContext);
 
-  setShowMenu(!!data?.length);
   return (
     <>
-      <GlobalStyle power={powerMenu} />
-      <Bg power={powerMenu} />
-      <BoxMenu power={powerMenu}>
-        <OffMenu onClick={() => setPowerMenu(false)}>
+      <GlobalStyle power={showMenu} />
+      <Bg power={showMenu} />
+      <BoxMenu power={showMenu}>
+        <OffMenu onClick={() => {}}>
           <span></span>
           <span></span>
         </OffMenu>
         <BoxContent>
-          {!!data?.length && data.filter((item) => !!item.quantity).length ? (
+          {!!data?.links?.length && (
             <>
-              {typeof cover === "string" && <Cover>{!cover ? <Avatar /> : <Image layout="fill" placeholder="blur" blurDataURL="/img/blur.png" src={cover} alt={"pl"} />}</Cover>}
-              <Title>{title}</Title>
+              {typeof data.cover?.url === "string" && <Cover>{!data?.cover.url ? <Avatar /> : <Image layout="fill" placeholder="blur" blurDataURL="/img/blur.png" src={data?.cover.url} alt={data?.cover?.title} />}</Cover>}
+              <Title>{data?.title || "Dodaj tytuł"}</Title>
               <FiltrListContent>
-                {data.map((item, i: number) => {
-                  if (!!item.quantity)
+                {data.links.map((item, i: number) => {
+                  if (!!item.count)
                     return (
                       <FiltrListContentItem key={i}>
-                        <ButtonLinkIn onClick={() => setPowerMenu(false)} href={item.slug} title={item.title} active={asPath === item.slug ? true : false}>
+                        <ButtonLinkIn onClick={() => setShowMenu(false)} href={item.slug} title={item.title} active={asPath === item.slug ? true : false}>
                           {item.title}
                         </ButtonLinkIn>
-                        <BoxTypeContentQuantity>{item.quantity}</BoxTypeContentQuantity>
+                        <BoxTypeContentQuantity>{item.count}</BoxTypeContentQuantity>
                       </FiltrListContentItem>
                     );
                 })}
               </FiltrListContent>
             </>
-          ) : null}
+          )}
 
           <List>
             <SocialMedia>
