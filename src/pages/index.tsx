@@ -4,7 +4,7 @@ import { PostsFindType, postsFindBackEnd } from "utils/requests/posts/find";
 import { MenuPrimary } from "components/templates/menu/component.menu.index";
 import { PostsCountType, postsCountBackEnd } from "utils/requests/posts/count";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
-import { SectionArticleShortList } from "components/templates/section/component.section.index";
+import { SectionContentShortList } from "components/templates/section/component.section.index";
 
 const Home: NextPage<any, {}> = ({ countPosts, content }: { countPosts: PostsCountType; content: PostsFindType }): JSX.Element => {
   return (
@@ -19,13 +19,13 @@ const Home: NextPage<any, {}> = ({ countPosts, content }: { countPosts: PostsCou
               title: "Filtruj",
               links: [
                 { slug: "/", title: "Wszystko", count: countPosts.data?.publishedAll || 0 },
-                { slug: "/post", title: "Posty", count: countPosts.data?.publishedAllArticle || 0 },
+                { slug: "/article", title: "Artykuły", count: countPosts.data?.publishedAllArticle || 0 },
                 { slug: "/video", title: "Video", count: countPosts.data?.publishedAllVideo || 0 },
               ],
             }}
           />
           <Col xs={12} md={9}>
-            <SectionArticleShortList data={{ content }} />
+            <SectionContentShortList data={{ content, title: "Wszystko" }} />
           </Col>
         </Row>
       </Container>

@@ -3,7 +3,8 @@ import Image from "next/image";
 import ReactMarkdown from "react-markdown";
 import { kebabCase, deburr } from "lodash";
 import Avatar from "assets/icon/avatar.svg";
-import { setSlug, time } from "utils/lib/function.index";
+import time from "utils/lib/utils.lib.time";
+
 import { MarkdownComponents } from "./component.articleFull.markdownblock";
 import CommentList from "components/orgamis/comments/component.comments.index";
 import { ArticeFullByIdType, ArticeGetListCommentsType } from "utils/database/database.restAPI.index";
@@ -27,7 +28,7 @@ export default function SectionArticleFull({ data: { article: post, comments }, 
               )}
             </BoxAuthorImg>
             <AuthorData>
-              <Link href={`/${new setSlug("user").setContent}/${post?.data?.article?.data?.attributes?.author?.data?.id}/${kebabCase(deburr(post?.data?.article?.data?.attributes?.author?.data?.attributes?.username.toLowerCase()))}`}>
+              <Link href={`/post/${post?.data?.article?.data?.attributes?.author?.data?.id}/${kebabCase(deburr(post?.data?.article?.data?.attributes?.author?.data?.attributes?.username.toLowerCase()))}`}>
                 <a title={post?.data?.article?.data?.attributes?.author?.data?.attributes?.username}>
                   <AuthorName>
                     {post?.data?.article?.data?.attributes?.author?.data?.attributes?.username}
@@ -45,7 +46,7 @@ export default function SectionArticleFull({ data: { article: post, comments }, 
             {post?.data?.article?.data?.attributes?.tags?.data.map((tag: any, i: number) => {
               return (
                 <Tag key={i}>
-                  <Link href={`/${new setSlug("tag").setContent}/${tag.id}/${deburr(tag.attributes.title.toLowerCase())}`}>
+                  <Link href={`/post/${tag.id}/${deburr(tag.attributes.title.toLowerCase())}`}>
                     <a>
                       <span>#</span>
                       {tag.attributes.title}

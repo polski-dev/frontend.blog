@@ -4,7 +4,6 @@ import * as React from "react";
 import Wow from "assets/icon/wow.svg";
 import Eye from "assets/icon/eye.svg";
 import Avatar from "assets/icon/avatar.svg";
-import { kebabCase, deburr } from "lodash";
 import Comment from "assets/icon/comment.svg";
 import { slugFromTitle } from "utils/lib/utils.lib.slug";
 import { PostType } from "types/database/types.database.post";
@@ -15,8 +14,6 @@ import { ButtonLinkIn } from "components/atoms/button/component.button.index";
 import { Article, BoxContent, BoxAuthor, BoxAuthorImg, BoxAuthorAvatar, AuthorData, AuthorName, DateAdded, TitleArticle, ListTags, Tag, ListStats, Item } from "../style/component.listShortArticle.style";
 
 const ContentShortArticle = React.forwardRef(({ data }: { data: { post: PostType } }, ref: any): JSX.Element => {
-  // const slug = new setSlug(data.post.attributes.typ).setContent;
-
   return (
     <Article ref={ref}>
       <Link href={`/post/${data.post.id}/${slugFromTitle(data.post.attributes.title)}`} passHref>
@@ -67,20 +64,20 @@ const ContentShortArticle = React.forwardRef(({ data }: { data: { post: PostType
               );
             })}
         </ListTags>
-        {/* <ListStats>
+        <ListStats>
           <Item title="oceniono">
             <Wow />
             <span>{}</span>
           </Item>
           <Item title="skomentowno">
             <Comment />
-            <span>{data.attributes.comments.data.length}</span>
+            <span>{data.post.attributes.views}</span>
           </Item>
           <Item title="wyświetlono">
             <Eye />
-            <span>{data.attributes.views}</span>
+            <span>{data.post.attributes.views}</span>
           </Item>
-        </ListStats> */}
+        </ListStats>
         <ButtonLinkIn href={`/post/${data.post.id}/${slugFromTitle(data.post.attributes.title)}`} title="więcej" className="btnMore">
           więcej
         </ButtonLinkIn>

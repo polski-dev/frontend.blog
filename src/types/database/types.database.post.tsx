@@ -1,3 +1,4 @@
+import { RatingType } from "./types.database.rating";
 import { TagType } from "types/database/types.database.tag";
 import { UserType } from "types/database/types.database.user";
 import { ImageFromDatabaseType } from "types/database/types.database.image";
@@ -24,5 +25,6 @@ export interface PostType {
       data?: TagType[] | null;
     };
     author?: { data?: UserType | null };
+    ratings?: { data?: RatingType[] | null };
   };
 }

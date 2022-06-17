@@ -1,16 +1,13 @@
 import Confetti from "react-confetti";
 import useWindowData from "hooks/hooks.windowData";
 import React, { useEffect, useRef, useState } from "react";
-import { selectAPI } from "./switchs/component.listShortArticle.selectAPI";
-import { PostsFindType, postsFindFrontEnd } from "utils/requests/posts/find";
+import { PostsFindType } from "utils/requests/posts/find";
 import { PostType } from "types/database/types.database.post";
-import { selectHeader } from "./switchs/component.listShortArticle.selectHeader";
-import { setTypeContent } from "./switchs/component.listShortArticle.setTypeContent";
 import { SquareShortArticle } from "components/atoms/animation/comonent.animation.index";
-import selectTemplateForContent from "./switchs/component.listShortArticle.selectTemplate";
+import selectTemplateForContent from "./switchs/component.contentShortList.switch.theme";
 import { Section, Title, BoxInformation, Info, NotFound } from "./style/component.listShortArticle.style";
 
-export default function SectionArticleShortList({ data }: { data?: { content?: PostsFindType } }): JSX.Element {
+export default function SectionContentShortList({ data }: { data?: { content?: PostsFindType; title: string } }): JSX.Element {
   console.log(data);
   const { width, height } = useWindowData();
   const [page, setPage] = useState(1);
@@ -53,8 +50,7 @@ export default function SectionArticleShortList({ data }: { data?: { content?: P
 
   return (
     <Section>
-      {/* <Title>{selectHeader(type, search)}</Title> */}
-
+      <Title>{data?.title}</Title>
       {content?.content?.data?.length && content?.content?.data.map((item: PostType, i: number): JSX.Element | undefined => selectTemplateForContent(item, i, postRef))}
 
       {iAmWaitingForAnswer ? (

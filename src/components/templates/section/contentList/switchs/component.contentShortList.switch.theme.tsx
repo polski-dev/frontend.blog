@@ -1,9 +1,9 @@
-import TagShortArticle from "../tag/component.listShortArticle.tag";
-import UserShortArticle from "../user/content.listShortArticle.user";
+import TagShortArticle from "../theme/component.contentShortList.theme.tag";
+import UserShortArticle from "../theme/component.contentShortList.theme.user";
 import { PostType, PostsTypEnum } from "types/database/types.database.post";
-import ContentShortArticle from "../content/component.listShortArticle.content";
+import ContentShortArticle from "../theme/component.contentShortList.theme.post";
 
-export default function selectTemplateForContent(item: PostType, i: number, postRef: any): JSX.Element | undefined {
+export default function switchTcheme(item: PostType, i: number, postRef: any): JSX.Element | undefined {
   switch (item.attributes.typ) {
     case PostsTypEnum.article:
     case PostsTypEnum.video:

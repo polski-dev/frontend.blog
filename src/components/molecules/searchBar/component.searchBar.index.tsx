@@ -2,7 +2,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { kebabCase, deburr } from "lodash";
 import Search from "assets/icon/search.svg";
-import { setSlug } from "utils/lib/function.index";
 import { useState, useEffect, FormEvent } from "react";
 import { searchSugestContentInitialState, searchSugestContentGetPreview } from "utils/database/database.restAPI.index";
 import { Form, Input, Button, SugestBox, Item, IconBox, ContentBox, ContentTitle, ContentTags, ContentTag } from "./component.searchBar.style";
@@ -46,7 +45,7 @@ export default function SearchBar() {
       <SugestBox style={{ opacity: focus && searchResult.data.all?.data.length ? "1" : "0" }} onFocus={() => setFocus(true)}>
         {searchResult.data.all?.data.slice(0, 5).map((item: any, i: number) => (
           <Item key={i}>
-            <Link href={`/${new setSlug(item.type).setContent}/${item.id}/${item.type === "user" ? kebabCase(deburr(item.attributes.username.toLowerCase())) : kebabCase(deburr(item.attributes.title.toLowerCase()))}`}>
+            <Link href={`/d/${item.id}/${item.type === "user" ? kebabCase(deburr(item.attributes.username.toLowerCase())) : kebabCase(deburr(item.attributes.title.toLowerCase()))}`}>
               <a>
                 {item.type === "user" && item?.attributes?.avatar?.data?.attributes?.formats?.thumbnail?.url ? (
                   <IconBox style={{ backgroundImage: `url(${item.attributes.avatar.data.attributes.formats.thumbnail.url})` }} />
