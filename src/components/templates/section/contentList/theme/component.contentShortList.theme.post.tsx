@@ -1,20 +1,29 @@
 import Link from "next/link";
 import Image from "next/image";
-import * as React from "react";
+import time from "utils/lib/utils.lib.time";
+import React, { useEffect, useState } from "react";
+import { slugFromTitle } from "utils/lib/utils.lib.slug";
+import { TagType } from "types/database/types.database.tag";
+import { PostType } from "types/database/types.database.post";
+import { ComponentAnimationCircleLoad } from "components/atoms/animation";
+import { ButtonLinkIn } from "components/atoms/button/component.button.index";
+import { postsCountFrontEnd, postCountState } from "utils/requests/posts/count";
+import { Article, BoxContent, BoxAuthor, BoxAuthorImg, BoxAuthorAvatar, AuthorData, AuthorName, DateAdded, TitleArticle, ListTags, Tag, ListStats, Item } from "../style/component.listShortArticle.style";
+
 import Wow from "assets/icon/wow.svg";
 import Eye from "assets/icon/eye.svg";
 import Avatar from "assets/icon/avatar.svg";
 import Comment from "assets/icon/comment.svg";
-import { slugFromTitle } from "utils/lib/utils.lib.slug";
-import { PostType } from "types/database/types.database.post";
-import { TagType } from "types/database/types.database.tag";
-import time from "utils/lib/utils.lib.time";
-import { ComponentAnimationCircleLoad } from "components/atoms/animation";
-
-import { ButtonLinkIn } from "components/atoms/button/component.button.index";
-import { Article, BoxContent, BoxAuthor, BoxAuthorImg, BoxAuthorAvatar, AuthorData, AuthorName, DateAdded, TitleArticle, ListTags, Tag, ListStats, Item } from "../style/component.listShortArticle.style";
 
 const ContentShortArticle = React.forwardRef(({ data }: { data: { post: PostType } }, ref: any): JSX.Element => {
+  const [stats, setStats] = useState(postCountState);
+
+  useEffect(() => {
+    (async () => {
+      setStats(await postsCountFrontEnd(data.post.id));
+    })();
+  }, [data]);
+
   return (
     <Article ref={ref}>
       <Link href={`/post/${data.post.id}/${slugFromTitle(data.post.attributes.title)}`} passHref>
@@ -68,21 +77,15 @@ const ContentShortArticle = React.forwardRef(({ data }: { data: { post: PostType
         <ListStats>
           <Item title="oceniono">
             <Wow />
-            <span>
-              <ComponentAnimationCircleLoad size={1.6} />
-            </span>
+            <span>{typeof stats?.data?.ratings === "number" ? stats.data.ratings : <ComponentAnimationCircleLoad size={1.6} />}</span>
           </Item>
           <Item title="skomentowno">
             <Comment />
-            <span>
-              <ComponentAnimationCircleLoad size={1.6} />
-            </span>
+            <span>{typeof stats?.data?.comments === "number" ? stats.data.comments : <ComponentAnimationCircleLoad size={1.6} />}</span>
           </Item>
           <Item title="wyświetlono">
             <Eye />
-            <span>
-              <ComponentAnimationCircleLoad size={1.6} />
-            </span>
+            <span>{typeof stats?.data?.views === "number" ? stats?.data?.views : <ComponentAnimationCircleLoad size={1.6} />}</span>
           </Item>
         </ListStats>
         <ButtonLinkIn href={`/post/${data.post.id}/${slugFromTitle(data.post.attributes.title)}`} title="więcej" className="btnMore">
