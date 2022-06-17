@@ -53,18 +53,19 @@ export default function SectionContentShortList({ data }: { data?: { content?: P
       <Title>{data?.title}</Title>
       {content?.content?.data?.length && content?.content?.data.map((item: PostType, i: number): JSX.Element | undefined => selectTemplateForContent(item, i, postRef))}
 
-      {iAmWaitingForAnswer ? (
+      {iAmWaitingForAnswer &&
         new Array(10).fill(undefined).map((_: undefined, i: number): JSX.Element => {
           return <SquareShortArticle key={i} last={new Array(10).length - 1 === i} />;
-        })
-      ) : page === data?.content?.meta?.pagination?.pageCount && !!data?.content?.data?.length ? (
+        })}
+
+      {page === data?.content?.meta?.pagination?.pageCount && !!data?.content?.data?.length && (
         <BoxInformation>
           <Info>Właśnie dotarłeś do końca internetów, brawo :)</Info>
           <Confetti width={width} height={2 * height} style={{ width: "100%", position: "absolute" }} />
         </BoxInformation>
-      ) : (
-        <NotFound>Niestety nic nie znaleźliśmy :(</NotFound>
       )}
+
+      {!data?.content?.data?.length && <NotFound>Niestety nic nie znaleźliśmy :(</NotFound>}
     </Section>
   );
 }

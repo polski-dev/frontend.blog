@@ -35,10 +35,6 @@ export const Article: StyledComponent<any, any> = styled.article`
     }
   }
 
-  &:last-of-type {
-    margin-bottom: 0;
-  }
-
   .titleArticle {
     width: 100%;
     display: block;
