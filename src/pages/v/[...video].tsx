@@ -3,7 +3,7 @@ import { NextPage } from "next";
 import { kebabCase, deburr } from "lodash";
 import { MenuGrade } from "components/templates/menu/component.menu.index";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
-import { SquareShortArticle } from "components/atoms/animation/comonent.animation.index";
+import { SquareShortArticle } from "components/atoms/animation/index";
 import { SectionVideoFull } from "components/templates/section/component.section.index";
 import { videoWithOnlyTitleGetPreview, VideoWithOnlyTitleType, videoFullByIdGetPreview, VideoFullByIdType, videoGetListComments, VideoGetListCommentsType } from "utils/database/database.graphQL.index";
 

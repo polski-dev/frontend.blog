@@ -3,7 +3,7 @@ import dynamic from "next/dynamic";
 import SimpleMDEHook from "./hook/component.simpleMDE.hook";
 import Popup from "components/atoms/popup/component.popup.index";
 import { SimpleMDEBox, Input, TextArea } from "./component.simpleMDE.styled";
-import { ItemLoad } from "components/atoms/animation/comonent.animation.index";
+import { ItemLoad } from "components/atoms/animation/index";
 const SimpleMDE = dynamic(() => import("react-simplemde-editor"), { ssr: false, loading: () => <ItemLoad height={30} /> });
 
 export default function SimpleMDEComponent({

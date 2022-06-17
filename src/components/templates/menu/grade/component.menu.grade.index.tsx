@@ -12,7 +12,7 @@ import useAddCallBackURL from "hooks/hooks.useCallBackURL";
 import { MenuGradeType } from "./component.menu.grade.type";
 import { ArticeAddGradeType } from "utils/database/database.restAPI.index";
 import { Button } from "components/atoms/button/component.button.index";
-import { ItemLoad } from "components/atoms/animation/comonent.animation.index";
+import { ItemLoad } from "components/atoms/animation/index";
 import { BoxMenu, BoxContent, List, Item, Quantity, Title } from "./component.menu.grade.style";
 
 export default function MenuGrade({ gradeStats, views, comments, id, type, slug }: MenuGradeType): JSX.Element {

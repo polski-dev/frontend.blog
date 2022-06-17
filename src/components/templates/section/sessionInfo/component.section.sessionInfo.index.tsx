@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import useCallBackURL from "hooks/hooks.useCallBackURL";
 import { Section, BoxContent, BoxInfo, BoxError } from "./component.section.sessionInfo.style";
-import { ItemLoad } from "components/atoms/animation/comonent.animation.index";
+import { ItemLoad } from "components/atoms/animation/index";
 
 export default function SectionSessionInfo({ users }: { users: number }) {
   const router = useRouter();

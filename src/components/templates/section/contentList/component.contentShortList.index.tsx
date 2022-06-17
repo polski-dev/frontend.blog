@@ -3,7 +3,7 @@ import useWindowData from "hooks/hooks.windowData";
 import React, { useEffect, useRef, useState } from "react";
 import { PostsFindType } from "utils/requests/posts/find";
 import { PostType } from "types/database/types.database.post";
-import { SquareShortArticle } from "components/atoms/animation/comonent.animation.index";
+import { SquareShortArticle } from "components/atoms/animation/index";
 import selectTemplateForContent from "./switchs/component.contentShortList.switch.theme";
 import { Section, Title, BoxInformation, Info, NotFound } from "./style/component.listShortArticle.style";
 

@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import useHimself from "hooks/hooks.useHimself";
 import { emailRegex, passwordRegex } from "assets/regex/index.regex";
 import { ButtonSubmit } from "components/atoms/button/component.button.index";
-import { ItemLoad } from "components/atoms/animation/comonent.animation.index";
+import { ItemLoad } from "components/atoms/animation/index";
 import { Input, TextArea, enumInputType } from "components/molecules/form/component.form.index";
 import { Section, Header, Title, Content, AuthorAvatr, Form, InfoInput, BoxInfo } from "./component.section.dasbordUserEditData.style";
 

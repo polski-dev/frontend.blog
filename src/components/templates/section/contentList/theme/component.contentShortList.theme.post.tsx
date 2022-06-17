@@ -9,6 +9,7 @@ import { slugFromTitle } from "utils/lib/utils.lib.slug";
 import { PostType } from "types/database/types.database.post";
 import { TagType } from "types/database/types.database.tag";
 import time from "utils/lib/utils.lib.time";
+import { ComponentAnimationCircleLoad } from "components/atoms/animation";
 
 import { ButtonLinkIn } from "components/atoms/button/component.button.index";
 import { Article, BoxContent, BoxAuthor, BoxAuthorImg, BoxAuthorAvatar, AuthorData, AuthorName, DateAdded, TitleArticle, ListTags, Tag, ListStats, Item } from "../style/component.listShortArticle.style";
@@ -67,15 +68,21 @@ const ContentShortArticle = React.forwardRef(({ data }: { data: { post: PostType
         <ListStats>
           <Item title="oceniono">
             <Wow />
-            <span>{}</span>
+            <span>
+              <ComponentAnimationCircleLoad size={1.6} />
+            </span>
           </Item>
           <Item title="skomentowno">
             <Comment />
-            <span>{data.post.attributes.views}</span>
+            <span>
+              <ComponentAnimationCircleLoad size={1.6} />
+            </span>
           </Item>
           <Item title="wyświetlono">
             <Eye />
-            <span>{data.post.attributes.views}</span>
+            <span>
+              <ComponentAnimationCircleLoad size={1.6} />
+            </span>
           </Item>
         </ListStats>
         <ButtonLinkIn href={`/post/${data.post.id}/${slugFromTitle(data.post.attributes.title)}`} title="więcej" className="btnMore">

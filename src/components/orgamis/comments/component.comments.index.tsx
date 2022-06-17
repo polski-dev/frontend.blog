@@ -10,8 +10,8 @@ import useCallBackURL from "hooks/hooks.useCallBackURL";
 import CommentsItemComponent from "./item/component.comments.item";
 import { TextArea } from "components/atoms/textarea/component.textarea.index";
 import { ButtonSubmit } from "components/atoms/button/component.button.index";
-import { ItemLoad } from "components/atoms/animation/comonent.animation.index";
-import { SquareComment } from "components/atoms/animation/comonent.animation.index";
+import { ItemLoad } from "components/atoms/animation/index";
+import { SquareComment } from "components/atoms/animation/index";
 import { ArticeAddCommentsType, ArticeGetListCommentsType, ArticeGetListCommentsItemType, VideoAddCommentsType, VideoGetListCommentsType, VideoGetListCommentsItemType } from "utils/database/database.graphQL.index";
 import { Comments, BoxComments, BoxCommentsTitle, Form, BoxCommentAvatar, CommentContent, ListComments, Comment, CommentAuthorName, CommentDescription, BoxAuthorAvatar, ErrorMessageText, SuccesMessage } from "./component.comments.style";
 

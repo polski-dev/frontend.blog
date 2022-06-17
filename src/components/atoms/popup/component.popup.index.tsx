@@ -1,4 +1,4 @@
-import { ItemLoad } from "../animation/comonent.animation.index";
+import { ItemLoad } from "../animation/index";
 import { GlobalStyle, PopupWrapper, Popup, Info, Header } from "./component.popup.styled";
 
 export default function PopupComponent({ power = false, status = false, title = "Upss...", description = "Coś poszło nie tak ..." }: { power?: boolean; status?: boolean | null; title?: string; description?: string }): JSX.Element {

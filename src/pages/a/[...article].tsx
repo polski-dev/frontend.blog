@@ -3,7 +3,7 @@ import { NextPage } from "next";
 import { kebabCase, deburr } from "lodash";
 import { MenuGrade } from "components/templates/menu/component.menu.index";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
-import { SquareShortArticle } from "components/atoms/animation/comonent.animation.index";
+import { SquareShortArticle } from "components/atoms/animation/index";
 import { SectionArticleFull } from "components/templates/section/component.section.index";
 import { articeWithOnlyTitleGetPreview, ArticeWithOnlyTitleType, articeFullByIdGetPreview, ArticeFullByIdType, articeGetListComments, ArticeGetListCommentsType } from "utils/database/database.graphQL.index";
 
@@ -16,14 +16,7 @@ const Article: NextPage<any> = ({ article, slug, comments }: { article: ArticeFu
       {!!article ? (
         <Container>
           <Row>
-            <MenuGrade
-              slug={slug}
-              type="article"
-              comments={comments.meta?.pagination.total || 0}
-              views={article.data.article.data.attributes.views}
-              id={parseInt(article?.data?.article?.data?.id)}
-              gradeStats={article?.data?.article?.data?.attributes?.grades}
-            />
+            <MenuGrade slug={slug} type="article" comments={comments.meta?.pagination.total || 0} views={article.data.article.data.attributes.views} id={parseInt(article?.data?.article?.data?.id)} gradeStats={article?.data?.article?.data?.attributes?.grades} />
             <Col xs={12} md={9}>
               <SectionArticleFull data={{ article, comments }} type="article" />
             </Col>
