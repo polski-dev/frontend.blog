@@ -1,6 +1,6 @@
 import { TagType } from "types/database/types.database.tag";
 import { UserType } from "types/database/types.database.user";
-import { ImageFromDatabaseFormatsType } from "types/database/types.database.image";
+import { ImageFromDatabaseType } from "types/database/types.database.image";
 
 export enum PostsTypEnum {
   article = "article",
@@ -19,7 +19,7 @@ export interface PostType {
     updatedAt: Date | null;
     publishedAt: Date | null;
     typ: PostsTypEnum;
-    cover?: { data?: ImageFromDatabaseFormatsType | null };
+    cover?: { data?: ImageFromDatabaseType | null };
     tags?: {
       data?: TagType[] | null;
     };

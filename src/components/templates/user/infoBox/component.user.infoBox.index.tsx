@@ -7,7 +7,7 @@ import Point from "assets/icon/point.svg";
 import Youtube from "assets/icon/youtube.svg";
 import Tiktok from "assets/icon/tiktok.svg";
 import Github from "assets/icon/github.svg";
-import { time } from "utils/function/function.index";
+import { time } from "utils/lib/function.index";
 import Instagram from "assets/icon/instagram.svg";
 import { UserByIdType } from "utils/database/database.graphQL.index";
 import { Button } from "components/atoms/button/component.button.index";

@@ -6,25 +6,29 @@ import Eye from "assets/icon/eye.svg";
 import Avatar from "assets/icon/avatar.svg";
 import { kebabCase, deburr } from "lodash";
 import Comment from "assets/icon/comment.svg";
-import { setSlug, time } from "utils/function/function.index";
+import { slugFromTitle } from "utils/lib/utils.lib.slug";
+import { PostType } from "types/database/types.database.post";
+import { TagType } from "types/database/types.database.tag";
+import time from "utils/lib/utils.lib.time";
+
 import { ButtonLinkIn } from "components/atoms/button/component.button.index";
 import { Article, BoxContent, BoxAuthor, BoxAuthorImg, BoxAuthorAvatar, AuthorData, AuthorName, DateAdded, TitleArticle, ListTags, Tag, ListStats, Item } from "../style/component.listShortArticle.style";
 
-const ContentShortArticle = React.forwardRef(({ data }: any, ref: any) => {
-  const slug = new setSlug(data.type).setContent;
+const ContentShortArticle = React.forwardRef(({ data }: { data: { post: PostType } }, ref: any): JSX.Element => {
+  // const slug = new setSlug(data.post.attributes.typ).setContent;
 
   return (
     <Article ref={ref}>
-      <Link href={`/${slug}/${data.id}/${kebabCase(deburr(data.attributes.title.toLowerCase()))}`} passHref>
-        <a title={data.attributes.title} className="img">
-          {data.attributes.cover && <Image width={930} height={300} alt={data.attributes.title} src={data.attributes.cover.data.attributes.url} />}
+      <Link href={`/post/${data.post.id}/${slugFromTitle(data.post.attributes.title)}`} passHref>
+        <a title={data.post.attributes.title} className="img">
+          {data?.post?.attributes?.cover?.data?.attributes?.url && <Image width={930} height={300} alt={data.post.attributes.title} src={data?.post?.attributes?.cover?.data?.attributes?.url} />}
         </a>
       </Link>
       <BoxContent>
         <BoxAuthor>
           <BoxAuthorImg>
-            {data?.attributes?.author?.data?.attributes?.avatar?.data?.attributes?.url ? (
-              <Image width={42} height={42} placeholder="blur" blurDataURL="/img/blur.png" alt={data.attributes.author.data.attributes.username} src={data.attributes.author.data.attributes.avatar.data.attributes.url} />
+            {data?.post?.attributes?.author?.data?.attributes?.avatar?.data?.attributes?.url ? (
+              <Image width={42} height={42} placeholder="blur" blurDataURL="/img/blur.png" alt={data?.post?.attributes?.author?.data?.attributes?.username} src={data?.post?.attributes?.author?.data?.attributes?.avatar?.data?.attributes?.url} />
             ) : (
               <BoxAuthorAvatar>
                 <Avatar />
@@ -32,40 +36,41 @@ const ContentShortArticle = React.forwardRef(({ data }: any, ref: any) => {
             )}
           </BoxAuthorImg>
           <AuthorData>
-            <Link href={`/${new setSlug("user").setContent}/${data?.attributes?.author?.data?.id}/${kebabCase(deburr(data?.attributes?.author?.data?.attributes?.username.toLowerCase()))}`}>
-              <a title={data?.attributes?.author?.data?.attributes?.username}>
-                <AuthorName>{data?.attributes?.author?.data?.attributes?.username}</AuthorName>
+            <Link href={`/user/${data?.post?.attributes?.author?.data?.id}/${slugFromTitle(data?.post?.attributes?.author?.data?.attributes?.username || "")}`}>
+              <a title={data?.post?.attributes?.author?.data?.attributes?.username}>
+                <AuthorName>{data?.post?.attributes?.author?.data?.attributes?.username}</AuthorName>
               </a>
             </Link>
 
             <DateAdded>
-              {time.nameOfTheMonths(data.attributes.createdAt)} ( {time.countDays(data.attributes.createdAt)} )
+              {time.nameOfTheMonths(data?.post?.attributes?.createdAt || new Date())} ( {time.countDays(data?.post?.attributes?.createdAt || new Date())} )
             </DateAdded>
           </AuthorData>
         </BoxAuthor>
-        <Link href={`/${slug}/${data.id}/${kebabCase(deburr(data.attributes.title.toLowerCase()))}`} passHref>
-          <a title={data.attributes.title} className="titleArticle">
-            <TitleArticle>{data.attributes.title}</TitleArticle>
+        <Link href={`/post/${data.post.id}/${slugFromTitle(data.post.attributes.title)}`} passHref>
+          <a title={data.post.attributes.title} className="titleArticle">
+            <TitleArticle>{data.post.attributes.title}</TitleArticle>
           </a>
         </Link>
         <ListTags>
-          {data?.attributes.tags?.data?.map((tag: any, i: number) => {
-            return (
-              <Tag key={i}>
-                <Link href={`/${new setSlug("tag").setContent}/${tag.id}/${kebabCase(deburr(tag.attributes.title.toLowerCase()))}`}>
-                  <a>
-                    <span>#</span>
-                    {tag.attributes.title}
-                  </a>
-                </Link>
-              </Tag>
-            );
-          })}
+          {data?.post?.attributes?.tags?.data &&
+            data?.post?.attributes?.tags?.data.map((tag: TagType, i: number) => {
+              return (
+                <Tag key={i}>
+                  <Link href={`/tag/${tag.id}/${slugFromTitle(tag.attributes.title)}`}>
+                    <a>
+                      <span>#</span>
+                      {tag.attributes.title}
+                    </a>
+                  </Link>
+                </Tag>
+              );
+            })}
         </ListTags>
-        <ListStats>
+        {/* <ListStats>
           <Item title="oceniono">
             <Wow />
-            <span>{data.attributes.grades.data.length}</span>
+            <span>{}</span>
           </Item>
           <Item title="skomentowno">
             <Comment />
@@ -75,8 +80,8 @@ const ContentShortArticle = React.forwardRef(({ data }: any, ref: any) => {
             <Eye />
             <span>{data.attributes.views}</span>
           </Item>
-        </ListStats>
-        <ButtonLinkIn href={`/${slug}/${data.id}/${kebabCase(deburr(data.attributes.title.toLowerCase()))}`} title="więcej" className="btnMore">
+        </ListStats> */}
+        <ButtonLinkIn href={`/post/${data.post.id}/${slugFromTitle(data.post.attributes.title)}`} title="więcej" className="btnMore">
           więcej
         </ButtonLinkIn>
       </BoxContent>

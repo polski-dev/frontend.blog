@@ -3,7 +3,7 @@ import Image from "next/image";
 import ReactMarkdown from "react-markdown";
 import { kebabCase, deburr } from "lodash";
 import Avatar from "assets/icon/avatar.svg";
-import { setSlug, time } from "utils/function/function.index";
+import { setSlug, time } from "utils/lib/function.index";
 import { MarkdownComponents } from "./component.articleFull.markdownblock";
 import CommentList from "components/orgamis/comments/component.comments.index";
 import { ArticeFullByIdType, ArticeGetListCommentsType } from "utils/database/database.restAPI.index";

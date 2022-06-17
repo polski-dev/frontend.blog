@@ -1,7 +1,7 @@
 import Image from "next/image";
 import * as React from "react";
 import Avatar from "assets/icon/avatar.svg";
-import { time } from "utils/function/function.index";
+import { time } from "utils/lib/function.index";
 import { ArticeGetListCommentsItemType } from "utils/database/article/type/database.articeGetListComments.type";
 import { BoxCommentAvatar, Comment, CommentAuthorName, CommentContent, CommentDescription, BoxAuthorAvatar } from "../component.comments.style";
 

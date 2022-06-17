@@ -3,7 +3,7 @@ import Image from "next/image";
 import * as React from "react";
 import { kebabCase, deburr } from "lodash";
 import Avatar from "assets/icon/avatar.svg";
-import { setSlug, time } from "utils/function/function.index";
+import { setSlug, time } from "utils/lib/function.index";
 import { ButtonLinkIn } from "components/atoms/button/component.button.index";
 import { Article, BoxContent, BoxAuthor, BoxAuthorImg, BoxAuthorAvatar, AuthorData, AuthorName, DateAdded } from "../style/component.listShortArticle.style";
 

@@ -1,4 +1,4 @@
-import { ImageFromDatabaseFormatsType } from "./types.database.image";
+import { ImageFromDatabaseType } from "./types.database.image";
 
 export interface UserType {
   id: number;
@@ -18,6 +18,6 @@ export interface UserType {
     country: string;
     createdAt: Date | null;
     updatedAt: Date | null;
-    avatar?: { data?: ImageFromDatabaseFormatsType | null };
+    avatar?: { data?: ImageFromDatabaseType | null };
   };
 }
