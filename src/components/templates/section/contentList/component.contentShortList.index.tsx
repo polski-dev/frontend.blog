@@ -37,8 +37,11 @@ export default function SectionContentShortList({ data }: { data: { typ: Content
     (async (): Promise<void> => {
       if (iAmWaitingForAnswer) {
         let res: PostsFindType | undefined = await query({ content, typ: data.typ, page: (content?.meta?.pagination?.page || 1) + 1 });
-        setContent(res);
-        setIamWaitingForAnswer(false);
+        console.log(res);
+        if (res?.data) {
+          setContent(res);
+          setIamWaitingForAnswer(false);
+        } else alert("Upss.. Coś poszło nie tak :(");
       }
     })();
   }, [iAmWaitingForAnswer, data, content]);
