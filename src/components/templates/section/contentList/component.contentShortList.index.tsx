@@ -5,11 +5,11 @@ import { PostsFindType } from "utils/query/posts/find";
 import { PostType } from "types/database/types.database.post";
 import { query } from "./switchs/component.contentShortList.switch.query";
 import { ComponentAnimationShortArticle } from "components/atoms/animation/index";
-import { SectionContentShortListEnum } from "./types/component.contentShortList.types";
 import selectTemplateForContent from "./switchs/component.contentShortList.switch.theme";
+import { ContentEnum } from "types/database/types.database.contentEnum";
 import { Section, Title, BoxInformation, Info, NotFound } from "./style/component.listShortArticle.style";
 
-export default function SectionContentShortList({ data }: { data: { typ: SectionContentShortListEnum; content?: PostsFindType; title: string } }): JSX.Element {
+export default function SectionContentShortList({ data }: { data: { typ: ContentEnum; content?: PostsFindType; title: string } }): JSX.Element {
   const { width, height } = useWindowData();
   const [content, setContent] = useState(data.content);
   const [iAmWaitingForAnswer, setIamWaitingForAnswer] = useState(false);
@@ -64,5 +64,3 @@ export default function SectionContentShortList({ data }: { data: { typ: Section
     </Section>
   );
 }
-
-export { SectionContentShortListEnum };

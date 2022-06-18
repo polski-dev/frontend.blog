@@ -1,17 +1,24 @@
 import axios from "axios";
-import { PostsTypEnum } from "types/database/types.database.post";
+import { ContentEnum } from "types/database/types.database.contentEnum";
 
-export async function postsFindBackEnd({ published = true, typ = PostsTypEnum.all, page = 1 }: { published?: boolean; typ?: PostsTypEnum; page?: number }) {
+export async function postsFindBackEnd({ published = true, typ = ContentEnum.all, page = 1 }: { published?: boolean; typ?: ContentEnum; page?: number }) {
   const res = await axios.get(
     process.env.BACKEND_API_URL +
       `/api/post?pagination[page]=${page}&sort=createdAt%3Adesc&publicationState=preview&filters[publishedAt][$null]=${!published}${
-        typ === PostsTypEnum.all ? "" : typ === PostsTypEnum.article ? `&filters[typ][$eq]=article` : `&filters[typ][$eq]=video`
+        typ === ContentEnum.all ? "" : typ === ContentEnum.article ? `&filters[typ][$eq]=article` : `&filters[typ][$eq]=video`
       }&populate=cover&populate=tags&populate=author&populate=author.avatar&populate=author.avatar`
   );
   return !!res?.data?.error ? res.data : res?.data;
 }
 
-export async function postsFindFrontEnd({ page }: { page: number }) {
-  const res = page ? await axios.get(`/api/post/find/${page}`) : await axios.get(`/api/post/find/`);
+export async function postsFindFrontEnd({ published = true, typ = ContentEnum.all, page = 1 }: { published?: boolean; typ?: ContentEnum; page?: number }) {
+  const res = await axios.get(`/api/post/find/`, {
+    params: {
+      typ: typ,
+      page: page,
+      published: published,
+    },
+  });
+
   return !!res?.data?.error ? res.data : res?.data;
 }
