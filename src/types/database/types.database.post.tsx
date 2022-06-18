@@ -7,7 +7,7 @@ import { ImageFromDatabaseType } from "types/database/types.database.image";
 export enum PostsTypEnum {
   article = "article",
   video = "video",
-  all = 0,
+  post = "post",
 }
 
 export interface PostType {

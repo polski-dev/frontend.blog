@@ -1,6 +1,6 @@
 import Image from "next/image";
 import SyntaxHighlighter from "react-syntax-highlighter";
-import { BoxCodeTitle } from "./component.listShortArticle.style";
+import { BoxCodeTitle } from "./component.postFull.style";
 import { isblEditorDark } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 
 export const MarkdownComponents: object = {

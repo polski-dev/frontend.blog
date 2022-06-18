@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { NextPage } from "next";
 import { slugFromTitle } from "utils/lib/utils.lib.slug";
-import { SectionArticleFull } from "components/templates/section/index";
+import { SectionPostFull } from "components/templates/section/index";
 import { postsFindBackEnd, PostsFindType } from "utils/query/posts/find";
 import { MenuGrade } from "components/templates/menu/component.menu.index";
 import { PostType, PostFullType } from "types/database/types.database.post";
@@ -12,13 +12,13 @@ const Post: NextPage<any> = ({ post }: { post: PostFullType }): JSX.Element => {
   return (
     <>
       <Head>
-        <title>{post.data.attributes?.title || "Dodaj tytuł"} | POLSKI.DEV 👩‍💻👨‍💻</title>
+        <title>{post?.data?.attributes?.title || "Dodaj tytuł"} | POLSKI.DEV 👩‍💻👨‍💻</title>
       </Head>
       <Container>
         <Row>
           {/* <MenuGrade slug={slug} type="article" comments={comments.meta?.pagination.total || 0} views={article.data.article.data.attributes.views} id={parseInt(article?.data?.article?.data?.id)} gradeStats={article?.data?.article?.data?.attributes?.grades} /> */}
           <Col xs={12} md={9}>
-            {/* <SectionArticleFull data={{ article, comments }}  /> */}
+            <SectionPostFull post={post} />
           </Col>
         </Row>
       </Container>
