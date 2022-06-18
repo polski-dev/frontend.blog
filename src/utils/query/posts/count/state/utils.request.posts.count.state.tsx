@@ -1,4 +1,4 @@
-import { PostCountType, PostsCountType } from "./../types/utils.request.posts.count.types";
+import { PostCountType, PostsCountType } from "../types/utils.request.posts.count.types";
 
 export const postsCountState: PostsCountType = {
   data: null,

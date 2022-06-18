@@ -2,7 +2,7 @@ import Head from "next/head";
 import { NextPage } from "next";
 import { MenuPrimary } from "components/templates/menu/component.menu.index";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
-import { SectionSessionInfo } from "components/templates/section/component.section.index";
+import { SectionSessionInfo } from "components/templates/section/index";
 import { TagWithOnlyTitleType, countUserGetPreview, CountUserType } from "utils/database/database.graphQL.index";
 
 const Loggedcorrectly: NextPage<any, TagWithOnlyTitleType> = ({ countUser }: { countUser: CountUserType }): JSX.Element => {

@@ -1,18 +1,13 @@
 import styled, { css } from "styled-components";
 
-type ArticleType = {
-  last: boolean;
-};
-
-export const Article = styled.div<ArticleType>`
+export const Article = styled.div`
   width: 100%;
   overflow: hidden;
   position: relative;
   border-radius: 0.6rem;
-  margin-top: ${({ theme }) => theme.break.big};
+  margin-bottom: ${({ theme }) => theme.break.big};
   padding-bottom: ${({ theme }) => theme.break.main};
   background-color: ${({ theme }) => theme.colorPostBg};
-  margin-bottom: ${({ theme, last }) => last && theme.break.big};
 `;
 
 export const Img = styled.div`

@@ -6,7 +6,7 @@ import { NextRouter, useRouter } from "next/router";
 import useAddCallBackURL from "hooks/hooks.useCallBackURL";
 import { MenuPrimary } from "components/templates/menu/component.menu.index";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
-import { SectionDasbordUserEditData } from "components/templates/section/component.section.index";
+import { SectionDasbordUserEditData } from "components/templates/section/index";
 
 const UserPanelPage: NextPage<any> = (): JSX.Element => {
   const router: NextRouter = useRouter();

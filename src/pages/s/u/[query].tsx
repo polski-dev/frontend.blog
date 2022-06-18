@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { searchShortContentGetPreview, searchShortContentInitialState, SearchShortContentType } from "utils/database/database.restAPI.index";
 import { MenuPrimary } from "components/templates/menu/component.menu.index";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
-import { SectionArticleShortList } from "components/templates/section/component.section.index";
+import { SectionArticleShortList } from "components/templates/section/index";
 
 const Search: NextPage = () => {
   const { query } = useRouter().query;

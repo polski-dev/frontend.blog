@@ -1,10 +1,10 @@
 import Head from "next/head";
 import { NextPage } from "next";
-import { PostsFindType, postsFindBackEnd } from "utils/requests/posts/find";
+import { PostsFindType, postsFindBackEnd } from "utils/query/posts/find";
 import { MenuPrimary } from "components/templates/menu/component.menu.index";
-import { PostsCountType, postsCountBackEnd } from "utils/requests/posts/count";
+import { PostsCountType, postsCountBackEnd } from "utils/query/posts/count";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
-import { SectionContentShortList } from "components/templates/section/component.section.index";
+import { SectionContentShortList, SectionContentShortListEnum } from "components/templates/section/index";
 
 const Home: NextPage<any, {}> = ({ countPosts, content }: { countPosts: PostsCountType; content: PostsFindType }): JSX.Element => {
   return (
@@ -25,7 +25,7 @@ const Home: NextPage<any, {}> = ({ countPosts, content }: { countPosts: PostsCou
             }}
           />
           <Col xs={12} md={9}>
-            <SectionContentShortList data={{ content, title: "Wszystko" }} />
+            <SectionContentShortList data={{ typ: SectionContentShortListEnum.posts, content, title: "Wszystko" }} />
           </Col>
         </Row>
       </Container>

@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { MenuPrimary } from "components/templates/menu/component.menu.index";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
-import { SectionArticleShortList } from "components/templates/section/component.section.index";
+import { SectionArticleShortList } from "components/templates/section/index";
 import { SearchShortContentType, searchShortContentGetPreview, searchShortContentInitialState } from "utils/database/database.restAPI.index";
 
 const Search: NextPage = () => {

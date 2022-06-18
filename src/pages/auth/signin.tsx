@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { NextPage } from "next";
-import { SectionSingIn } from "components/templates/section/component.section.index";
+import { SectionSingIn } from "components/templates/section/index";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
 import { TagWithOnlyTitleType, countUserGetPreview, CountUserType } from "utils/database/database.graphQL.index";
 

@@ -1,6 +1,6 @@
 import { ItemLoad } from "./item/component.animation.item";
 import { SquareComment } from "./commnet/component.animation.commnet";
-import { SquareShortArticle } from "./content/component.animation.squareShortArticle";
+import { ComponentAnimationShortArticle } from "./shortArticle/component.animation.shortArticle.index";
 import { ComponentAnimationCircleLoad } from "./circle/component.animation.circle";
 
-export { SquareShortArticle, ItemLoad, SquareComment, ComponentAnimationCircleLoad };
+export { ComponentAnimationShortArticle, ItemLoad, SquareComment, ComponentAnimationCircleLoad };

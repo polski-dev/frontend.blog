@@ -6,7 +6,7 @@ import { NextRouter, useRouter } from "next/router";
 import useAddCallBackURL from "hooks/hooks.useCallBackURL";
 import { MenuPrimary } from "components/templates/menu/component.menu.index";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
-import { SectionDasbordUserAddArticle } from "components/templates/section/component.section.index";
+import { SectionDasbordUserAddArticle } from "components/templates/section/index";
 
 const UserPanelPage: NextPage<any> = (): JSX.Element => {
   const { status } = useSession();

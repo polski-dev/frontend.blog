@@ -2,7 +2,7 @@ import Head from "next/head";
 import { NextPage } from "next";
 import { MenuPrimary } from "components/templates/menu/component.menu.index";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
-import { SectionArticleShortList } from "components/templates/section/component.section.index";
+import { SectionArticleShortList } from "components/templates/section/index";
 import { contentShortGetPreview, ContentShortType } from "utils/database/database.graphQL.index";
 
 const Waitingroom: NextPage<any, ContentShortType> = ({ content }: { content: ContentShortType }): JSX.Element => {

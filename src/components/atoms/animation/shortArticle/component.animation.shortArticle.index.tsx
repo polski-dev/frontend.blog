@@ -1,8 +1,8 @@
 import React from "react";
-import { Article, Img, BoxContent, AuthorData, BoxAuthor, AuthorAvatar, Text, List, Item, BoxStats } from "./component.animation.squareShortArticle.style";
+import { Article, Img, BoxContent, AuthorData, BoxAuthor, AuthorAvatar, Text, List, Item, BoxStats } from "./component.animation.shortArticle.style";
 
-export const SquareShortArticle = ({ last = false, style }: { last?: boolean; style?: any }) => (
-  <Article last={last} style={style}>
+export const ComponentAnimationShortArticle = () => (
+  <Article>
     <Img />
     <BoxContent>
       <BoxAuthor>
@@ -29,9 +29,6 @@ export const SquareShortArticle = ({ last = false, style }: { last?: boolean; st
       </List>
       <BoxStats>
         <List>
-          <Item style={{ width: "4rem" }}>
-            <Text height={2.5} />
-          </Item>
           <Item style={{ width: "4rem" }}>
             <Text height={2.5} />
           </Item>

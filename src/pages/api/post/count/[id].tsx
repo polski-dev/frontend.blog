@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { postsCountBackEnd } from "utils/requests/posts/count/index";
+import { postsCountBackEnd } from "utils/query/posts/count/index";
 
 export default async function countUser(req: NextApiRequest, res: NextApiResponse): Promise<void> {
   const { id } = req.query;

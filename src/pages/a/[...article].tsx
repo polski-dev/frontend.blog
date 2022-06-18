@@ -4,7 +4,7 @@ import { kebabCase, deburr } from "lodash";
 import { MenuGrade } from "components/templates/menu/component.menu.index";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
 import { SquareShortArticle } from "components/atoms/animation/index";
-import { SectionArticleFull } from "components/templates/section/component.section.index";
+import { SectionArticleFull } from "components/templates/section/index";
 import { articeWithOnlyTitleGetPreview, ArticeWithOnlyTitleType, articeFullByIdGetPreview, ArticeFullByIdType, articeGetListComments, ArticeGetListCommentsType } from "utils/database/database.graphQL.index";
 
 const Article: NextPage<any> = ({ article, slug, comments }: { article: ArticeFullByIdType; slug: string; comments: ArticeGetListCommentsType }): JSX.Element => {
