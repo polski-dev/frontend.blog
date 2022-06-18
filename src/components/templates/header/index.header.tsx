@@ -79,7 +79,7 @@ const HeaderComponent = () => {
             </UserPanelBox>
 
             <Menu>
-              <Item active={pathname === "/" || pathname === "/v" ? true : false}>
+              <Item active={pathname === "/" || pathname === "/video" || pathname === "/article" ? true : false}>
                 <Link href="/">
                   <a title="wszystko">
                     <Search />
@@ -88,8 +88,8 @@ const HeaderComponent = () => {
                 </Link>
               </Item>
               <Item active={pathname === "/waiting" || pathname === "/waiting/article" || pathname === "/waiting/video" ? true : false}>
-                <Link href={pathname === "/waiting/video" || pathname === "/waiting/article" || pathname === "/video" ? "/waiting/video" : "/waiting"}>
-                  <a title={pathname === "/waiting/video" || pathname === "/video" ? "poczekalnia video" : pathname === "/waiting/article" || pathname === "/article" ? "poczekalnia artykułów" : "poczekalnia"}>
+                <Link href="/waiting">
+                  <a title="poczekalnia">
                     <Time />
                     Poczekalnia
                   </a>

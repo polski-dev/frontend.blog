@@ -8,11 +8,21 @@ const Contact: NextPage<any, any> = (): JSX.Element => {
   return (
     <>
       <Head>
-        <title>Blog | POLSKI.DEV 👩‍💻👨‍💻</title>
+        <title>Kontakt | POLSKI.DEV 👩‍💻👨‍💻</title>
       </Head>
       <Container>
         <Row>
-          <Col xs={12}>
+          <MenuPrimary
+            data={{
+              title: "Przydatne",
+              links: [
+                { slug: "https://github.com/polski-dev", title: "Kod źródłowy", count: 2 },
+                { slug: "/regulamin", title: "Regulamin", count: 1 },
+                { slug: "/privacy-policy", title: "Polityka prywatnosći", count: 1 },
+              ],
+            }}
+          />
+          <Col xs={12} md={9}>
             <h5 style={{ marginTop: "3rem", paddingBottom: "1.5rem" }}>Kontakt</h5>
             <div
               style={{
