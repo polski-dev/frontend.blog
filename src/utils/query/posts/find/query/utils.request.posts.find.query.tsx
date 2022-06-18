@@ -5,7 +5,7 @@ export async function postsFindBackEnd({ published = true, typ = ContentEnum.pos
   const res = await axios.get(
     process.env.BACKEND_API_URL +
       `/api/post?pagination[page]=${page}&sort=createdAt%3Adesc&publicationState=preview&filters[publishedAt][$null]=${!published}${
-        typ === ContentEnum.article ? `&filters[typ][$eq]=article` : typ === ContentEnum.video ? `&filters[typ][$eq]=video` : ""
+        typ === ContentEnum.article || typ === ContentEnum.unArticle ? `&filters[typ][$eq]=article` : typ === ContentEnum.video || typ === ContentEnum.unVideo ? `&filters[typ][$eq]=video` : ""
       }&populate=cover&populate=tags&populate=author&populate=author.avatar&populate=author.avatar`
   );
   return !!res?.data?.error ? res.data : res?.data;

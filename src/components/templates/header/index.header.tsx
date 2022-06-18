@@ -87,16 +87,16 @@ const HeaderComponent = () => {
                   </a>
                 </Link>
               </Item>
-              <Item active={pathname === "/w" || pathname === "/w/a" || pathname === "/w/v" ? true : false}>
-                <Link href={pathname === "/w/v" || pathname === "/w/a" || pathname === "/v" ? "/w/v" : "/w"}>
-                  <a title={pathname === "/w/v" || pathname === "/v" ? "poczekalnia video" : pathname === "/w/a" || pathname === "/a" ? "poczekalnia artykułów" : "poczekalnia"}>
+              <Item active={pathname === "/waiting" || pathname === "/waiting/article" || pathname === "/waiting/video" ? true : false}>
+                <Link href={pathname === "/waiting/video" || pathname === "/waiting/article" || pathname === "/video" ? "/waiting/video" : "/waiting"}>
+                  <a title={pathname === "/waiting/video" || pathname === "/video" ? "poczekalnia video" : pathname === "/waiting/article" || pathname === "/article" ? "poczekalnia artykułów" : "poczekalnia"}>
                     <Time />
                     Poczekalnia
                   </a>
                 </Link>
               </Item>
-              <Item active={pathname === "/c" ? true : false}>
-                <Link href="/c">
+              <Item active={pathname === "/contact" ? true : false}>
+                <Link href="/contact">
                   <a title="kontakt">
                     <Comment />
                     Kontakt
