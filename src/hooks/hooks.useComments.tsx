@@ -62,14 +62,14 @@ export default function useComments({ postId = 0, count = 0 }: { postId?: number
   };
 
   useEffect(() => {
-    if (!!postId && !commentsList?.data)
+    if (!!count && !!postId && !commentsList?.data)
       (async () => {
         setIAmWaitingForAnswerCommentsList(true);
         const res: PostCommentsListType = await postCommentsListFrontEnd({ postId, page: 1 });
         setIAmWaitingForAnswerCommentsList(false);
         setCommentsList(res);
       })();
-  }, [postId, commentsList]);
+  }, [count, postId, commentsList]);
 
   useEffect(() => {
     let check = setTimeout(() => {}, 200);
