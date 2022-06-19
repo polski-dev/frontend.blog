@@ -2,6 +2,7 @@ import styled, { css, StyledComponent, ThemeProps } from "styled-components";
 import { MainSettingsTemplate } from "assets/style/types.mainSettingsTemplate";
 
 export const Circle: StyledComponent<any, any> = styled.div`
+  display: inline-block;
   width: ${({ size }: { size: number }) => `${size}rem`};
   height: ${({ size }: { size: number }) => `${size}rem`};
   border: solid 0.3rem ${({ theme }: { theme: MainSettingsTemplate }) => theme.colorBorder};

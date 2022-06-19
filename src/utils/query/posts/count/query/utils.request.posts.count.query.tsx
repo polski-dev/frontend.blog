@@ -6,7 +6,6 @@ export async function postsCountBackEnd(id?: number) {
 }
 
 export async function postsCountFrontEnd(id?: number) {
-  let res = id ? await axios.get(`/api/post/count/${id}`) : await axios.get(`/api/post/count`);
-
+  let res = await axios.get(`/api/post/count/${id ? id : ""}`);
   return !!res?.data?.error ? res.data : res?.data;
 }

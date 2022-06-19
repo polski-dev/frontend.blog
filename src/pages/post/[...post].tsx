@@ -1,14 +1,23 @@
 import Head from "next/head";
 import { NextPage } from "next";
+import { useEffect, useState } from "react";
 import { slugFromTitle } from "utils/lib/utils.lib.slug";
 import { SectionPostFull } from "components/templates/section/index";
 import { postsFindBackEnd, PostsFindType } from "utils/query/posts/find";
 import { MenuGrade } from "components/templates/menu/component.menu.index";
 import { PostType, PostFullType } from "types/database/types.database.post";
+import { postsCountFrontEnd, postCountState } from "utils/query/posts/count";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
 
-const Post: NextPage<any> = ({ post }: { post: PostFullType }): JSX.Element => {
-  console.log(post);
+const Post: NextPage<any> = ({ post }: { post?: PostFullType }): JSX.Element => {
+  const [stats, setStats] = useState(postCountState);
+
+  useEffect(() => {
+    (async () => {
+      post?.data?.id && setStats(await postsCountFrontEnd(post.data.id));
+    })();
+  }, [post]);
+
   return (
     <>
       <Head>
@@ -18,7 +27,7 @@ const Post: NextPage<any> = ({ post }: { post: PostFullType }): JSX.Element => {
         <Row>
           {/* <MenuGrade slug={slug} type="article" comments={comments.meta?.pagination.total || 0} views={article.data.article.data.attributes.views} id={parseInt(article?.data?.article?.data?.id)} gradeStats={article?.data?.article?.data?.attributes?.grades} /> */}
           <Col xs={12} md={9}>
-            <SectionPostFull post={post} />
+            <SectionPostFull data={{ post, stats }} />
           </Col>
         </Row>
       </Container>
