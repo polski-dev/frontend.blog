@@ -6,7 +6,7 @@ import useComments from "hooks/hooks.useComments";
 import { NextRouter, useRouter } from "next/router";
 import { ErrorMessage } from "@hookform/error-message";
 import useCallBackURL from "hooks/hooks.useCallBackURL";
-import CommentsItemComponent from "./item/component.comments.item";
+import CommentsItemComponent from "./theme/component.comments.comment";
 import { TextArea } from "components/atoms/textarea/component.textarea.index";
 import { ButtonSubmit } from "components/atoms/button/component.button.index";
 import { ItemLoad } from "components/atoms/animation/index";
@@ -16,11 +16,12 @@ import { Comments, BoxComments, BoxCommentsTitle, Form, BoxCommentAvatar, Commen
 
 import { PostsCountType } from "utils/query/posts/count";
 import { PostCommentAddType } from "utils/query/posts/comment";
+import { CommentType } from "types/database/types.database.comment";
 
 export default function CommentsComponent({ data }: { data: { postId?: number; countComments?: number } }): JSX.Element {
   const [statusAddComment, setStatusAddComment] = useState(false);
   const [defaultValueComment, setDefaultValueComment] = useState("");
-  const { remindComment, addComment, iAmWaitingForAnswer, session } = useComments();
+  const { remindComment, addComment, iAmWaitingForAnswerAddComent, iAmWaitingForAnswerCommentsList, session, commentsList, commentRef } = useComments({ postId: data.postId, count: data.countComments });
 
   const {
     reset,
@@ -36,7 +37,7 @@ export default function CommentsComponent({ data }: { data: { postId?: number; c
   // }, [readCommentToAdd, setValue]);
 
   useEffect(() => {
-    const comment: { comment: string; postId: number } | null = remindComment({ postId: data?.postId || undefined });
+    const comment: { comment: string; postId: number } | null = remindComment();
     if (!!comment && data?.postId === comment.postId && !defaultValueComment.length) {
       setValue("comment", comment.comment);
       setDefaultValueComment(comment.comment);
@@ -50,7 +51,7 @@ export default function CommentsComponent({ data }: { data: { postId?: number; c
         <Form
           onSubmit={handleSubmit(({ comment }: any): void => {
             (async () => {
-              const addStatus: PostCommentAddType = await addComment({ postId: data.postId, comment });
+              const addStatus: PostCommentAddType = await addComment({ comment });
               if (!!addStatus?.error) return setError("comment", { message: addStatus?.error.message });
               else {
                 reset();
@@ -63,7 +64,7 @@ export default function CommentsComponent({ data }: { data: { postId?: number; c
           {statusAddComment && <SuccesMessage>komentarz dodany !</SuccesMessage>}
           <ErrorMessage errors={errors} name="comment" render={({ message }) => (!!message?.length ? <ErrorMessageText>{message}</ErrorMessageText> : null)} />
           <BoxCommentAvatar>
-            {iAmWaitingForAnswer ? (
+            {iAmWaitingForAnswerAddComent ? (
               <ItemLoad height={8} />
             ) : typeof session?.user?.image === "string" && session?.user?.name ? (
               <Image width={50} height={50} placeholder="blur" blurDataURL="/img/blur.png" src={session?.user?.image} alt={session?.user?.name} />
@@ -73,24 +74,24 @@ export default function CommentsComponent({ data }: { data: { postId?: number; c
               </BoxAuthorAvatar>
             )}
           </BoxCommentAvatar>
-          {iAmWaitingForAnswer ? <ItemLoad height={7.7} style={{ width: "calc(100% - 5.8rem)", marginLeft: "1.5rem" }} /> : <TextArea id="comment" defaultValue={defaultValueComment} name="comment" error={errors.comment} placeholder="Napisz komentarz..." register={register} required />}
-          {iAmWaitingForAnswer ? <ItemLoad height={2.9} style={{ width: "6rem", marginLeft: "auto" }} /> : <ButtonSubmit title="dodaj">Dodaj</ButtonSubmit>}
+          {iAmWaitingForAnswerAddComent ? <ItemLoad height={7.7} style={{ width: "calc(100% - 5.8rem)", marginLeft: "1.5rem" }} /> : <TextArea id="comment" defaultValue={defaultValueComment} name="comment" error={errors.comment} placeholder="Napisz komentarz..." register={register} required />}
+          {iAmWaitingForAnswerAddComent ? <ItemLoad height={2.9} style={{ width: "6rem", marginLeft: "auto" }} /> : <ButtonSubmit title="dodaj">Dodaj</ButtonSubmit>}
         </Form>
 
         <ListComments>
-          {/* {!!comments?.data?.length &&
-            comments?.data.map((comment: ArticeGetListCommentsItemType | VideoGetListCommentsItemType, i: number): JSX.Element => {
-              switch (comments.data.length - 1 === i) {
+          {!!commentsList?.data?.length &&
+            commentsList?.data.map((comment: CommentType, i: number): JSX.Element => {
+              switch ((commentsList.data?.length || 1) - 1 === i) {
                 case true:
-                  return <CommentsItemComponent key={i} data={comment} ref={itemsRef} />;
+                  return <CommentsItemComponent key={i} data={comment} ref={(commentsList.data?.length || 1) - 1 === i ? commentRef : null} />;
                 default:
                   return <CommentsItemComponent key={i} data={comment} />;
               }
             })}
-          {iAmWaitingForAnswer &&
+          {iAmWaitingForAnswerCommentsList &&
             new Array(10).fill(undefined).map((_: any, i: number) => {
               return <SquareComment key={i} />;
-            })} */}
+            })}
         </ListComments>
       </BoxComments>
     </Comments>

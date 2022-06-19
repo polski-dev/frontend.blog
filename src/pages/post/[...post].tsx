@@ -52,7 +52,6 @@ export async function getStaticPaths(): Promise<any> {
 }
 
 export async function getStaticProps({ params }: any): Promise<any> {
-  console.log(params);
   // post full
   const post: PostFullType = await postsFindBackEnd({ id: params.post[0] });
 

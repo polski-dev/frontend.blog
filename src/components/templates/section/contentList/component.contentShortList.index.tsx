@@ -37,7 +37,7 @@ export default function SectionContentShortList({ data }: { data: { typ: Content
     (async (): Promise<void> => {
       if (iAmWaitingForAnswer) {
         let res: PostsFindType | undefined = await query({ content, typ: data.typ, page: (content?.meta?.pagination?.page || 1) + 1 });
-        console.log(res);
+
         if (res?.data) {
           setContent(res);
           setIamWaitingForAnswer(false);

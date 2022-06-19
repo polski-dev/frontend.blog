@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { postCommentAddBackEnd, PostCommentAddType } from "utils/query/posts/comment";
+import { postCommentAddBackEnd, postCommentsListBackEnd } from "utils/query/posts/comment";
 
 export default async function commentInPost(req: NextApiRequest, res: NextApiResponse): Promise<void> {
   if (req.method === "POST") {
@@ -20,6 +20,24 @@ export default async function commentInPost(req: NextApiRequest, res: NextApiRes
       });
 
     res.status(200).json(await postCommentAddBackEnd({ postId: turstPostId, comment: comment || "", authToken: authorization }));
+  } else if (req.method === "GET") {
+    const { postId, page } = req.query;
+
+    const turstPostId: number = typeof postId === "string" ? parseInt(postId) : 0;
+    const turstPageId: number = typeof page === "string" ? parseInt(page) : 0;
+
+    if (!turstPostId)
+      return res.status(400).json({
+        data: null,
+        error: {
+          status: 400,
+          name: "Wrong field",
+          message: "Wrong one from fields",
+          details: {},
+        },
+      });
+
+    return res.status(200).json(await postCommentsListBackEnd({ postId: turstPostId, page: turstPageId }));
   } else
     res.status(404).json({
       data: null,
