@@ -31,7 +31,7 @@ export async function raitingUserInPostFindFoundFrontEnd({ postId, userId }: { p
       },
     };
 
-  const res: AxiosResponse<RaitingUserInPostFindType> = await axios.get(`/api/post/raiting?postId=${postId}&userId=${userId}`);
+  const res: AxiosResponse<RaitingUserInPostFindType> = await axios.get(`/api/post/rating?postId=${postId}&userId=${userId}`);
 
   return res.data;
 }
@@ -82,6 +82,8 @@ export async function raitingUserDeleteInPostBackEnd({ postId, authToken }: { po
       },
     };
 
+  console.log(authToken);
+
   const res: AxiosResponse<RaitingAddInPostType> = await axios.delete(process.env.BACKEND_API_URL + `/api/rating/delete`, { headers: { Authorization: authToken, postId } });
 
   return res.data;
@@ -99,7 +101,7 @@ export async function raitingUserDeleteInPostFrontEnd({ postId, authToken }: { p
       },
     };
 
-  const res: AxiosResponse<RaitingAddInPostType> = await axios.delete(process.env.BACKEND_API_URL + `/api/rating`, { headers: { Authorization: authToken, postId } });
+  const res: AxiosResponse<RaitingAddInPostType> = await axios.delete(`/api/post/rating`, { headers: { Authorization: `Bearer ${authToken}`, postId } });
 
   return res.data;
 }

@@ -2,53 +2,24 @@ import Wow from "assets/icon/wow.svg";
 import Wrr from "assets/icon/wrr.svg";
 import Eye from "assets/icon/eye.svg";
 import Best from "assets/icon/best.svg";
-import { useEffect, useState } from "react";
-import useGrade from "hooks/hooks.useRaitings";
-import { useSession } from "next-auth/react";
+
 import Comment from "assets/icon/comment.svg";
-import { polyfill } from "smoothscroll-polyfill";
-import { NextRouter, useRouter } from "next/router";
 import { PostCountType } from "utils/query/posts/count";
-import useAddCallBackURL from "hooks/hooks.useCallBackURL";
-import { MenuGradeType } from "./component.menu.raitings.type";
+
 import { Button } from "components/atoms/button/component.button.index";
-import { ArticeAddGradeType } from "utils/database/database.restAPI.index";
 import { BoxMenu, BoxContent, List, Item, Quantity, Title } from "./component.menu.raitings.style";
 import { ComponentAnimationCircleLoad, ComponentAnimationItemLoad } from "components/atoms/animation";
 
-import { PostType, PostFullType } from "types/database/types.database.post";
-
+import { PostFullType } from "types/database/types.database.post";
+import { RatingType, RatingEnum } from "types/database/types.database.rating";
 import useRaitings from "hooks/hooks.useRaitings";
 
 export default function MenuGrade({ data }: { data: { post?: PostFullType; stats?: PostCountType } }): JSX.Element {
-  const { iAmWaitingForAnswerRaigingsIsAdded } = useRaitings({ postId: data.post?.data.id, stats: data.stats });
-
+  const { raitingAdd, raitingDelete, raitingAdded, iAmWaitingForAnswerRaigingsIsAdded } = useRaitings({ postId: data.post?.data.id, stats: data.stats });
+  const raitingWow: boolean = !!(raitingAdded?.data?.length && !!raitingAdded?.data.filter((raiting: RatingType) => raiting.attributes.voice === RatingEnum.wow).length);
+  const raitingWrr: boolean = !!(raitingAdded?.data?.length && !!raitingAdded?.data.filter((raiting: RatingType) => raiting.attributes.voice === RatingEnum.wrr).length);
+  const raitingBest: boolean = !!(raitingAdded?.data?.length && !!raitingAdded?.data.filter((raiting: RatingType) => raiting.attributes.voice === RatingEnum.best).length);
   const scrollBoxComment = () => !!data.post?.data.id && document?.querySelector(`#boxCommentsId${data.post?.data.id}`)?.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
-
-  // const choiseGrande: (grade: string) => void = (grade: string) => {
-  //   setChangeGrade(true);
-  //   rememberChoiseGrade({ grade, type, id });
-  //   addGrade().then((res: ArticeAddGradeType) => {
-  //     if (res.err && !!res?.msg) {
-  //       switch (res.msg) {
-  //         case "singin":
-  //           setChangeGrade(false);
-  //           addCallBackURL({ to: `/${type === "article" ? "a" : "v"}${slug}`, name: type });
-  //           return router.replace("/auth/signin");
-  //       }
-  //     } else {
-  //       !!res?.data?.voice && setChoisedGrade(res?.data?.voice);
-  //       setChangeGrade(false);
-  //     }
-  //   });
-  // };
-
-  // useEffect(() => {
-  //   checkGrade({ type: type, id }).then((res: ArticeAddGradeType | { data: null; err: boolean; msg: string }) => {
-  //     if (!res.data && res?.err) return null;
-  //     res?.data?.voice && setChoisedGrade(res.data?.voice);
-  //   });
-  // }, [id, type, checkGrade]);
 
   return (
     <BoxMenu>
@@ -57,9 +28,9 @@ export default function MenuGrade({ data }: { data: { post?: PostFullType; stats
         <List>
           <Item>
             {iAmWaitingForAnswerRaigingsIsAdded ? (
-              <ComponentAnimationItemLoad height={3.2} style={{ marginBottom: "0.75rem" }} />
+              <ComponentAnimationItemLoad height={3.2} style={{ marginBottom: "0.75rem", width: "calc(100% - 8rem)" }} />
             ) : (
-              <Button title="dodaj ocenę wow" active={false} onClick={() => {}}>
+              <Button title="dodaj ocenę wow" active={raitingWow} onClick={() => (raitingWow ? raitingDelete() : raitingAdd({ voice: RatingEnum.wow }))}>
                 <Wow />
               </Button>
             )}
@@ -68,9 +39,9 @@ export default function MenuGrade({ data }: { data: { post?: PostFullType; stats
           </Item>
           <Item>
             {iAmWaitingForAnswerRaigingsIsAdded ? (
-              <ComponentAnimationItemLoad height={3.2} style={{ marginBottom: "0.75rem" }} />
+              <ComponentAnimationItemLoad height={3.2} style={{ marginBottom: "0.75rem", width: "calc(100% - 8rem)" }} />
             ) : (
-              <Button title="dodaj ocenę dobre!" active={false} onClick={() => {}}>
+              <Button title="dodaj ocenę dobre!" active={raitingBest} onClick={() => (raitingBest ? raitingDelete() : raitingAdd({ voice: RatingEnum.best }))}>
                 <Best />
               </Button>
             )}
@@ -79,9 +50,9 @@ export default function MenuGrade({ data }: { data: { post?: PostFullType; stats
           </Item>
           <Item>
             {iAmWaitingForAnswerRaigingsIsAdded ? (
-              <ComponentAnimationItemLoad height={3.2} style={{ marginBottom: "0.75rem" }} />
+              <ComponentAnimationItemLoad height={3.2} style={{ marginBottom: "0.75rem", width: "calc(100% - 8rem)" }} />
             ) : (
-              <Button title="dodaj ocenę wrr" active={false} onClick={() => {}}>
+              <Button title="dodaj ocenę wrr" active={raitingWrr} onClick={() => (raitingWrr ? raitingDelete() : raitingAdd({ voice: RatingEnum.wrr }))}>
                 <Wrr />
               </Button>
             )}

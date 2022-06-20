@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { RatingEnum } from "types/database/types.database.rating";
-import { raitingUserInPostFindFoundBackEnd, raitingAddInPostBackEnd, raitingUserDeleteInPostBackEnd } from "utils/query/posts/raiting";
+import { raitingUserInPostFindFoundBackEnd, raitingAddInPostBackEnd, raitingUserDeleteInPostBackEnd } from "utils/query/posts/rating";
 
 export default async function raitingInPost(req: NextApiRequest, res: NextApiResponse): Promise<void> {
   if (req.method === "GET") {

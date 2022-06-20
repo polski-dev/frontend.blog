@@ -4,7 +4,7 @@ import { NextRouter, useRouter } from "next/router";
 import useAddCallBackURL from "./hooks.useCallBackURL";
 import { PostCountType } from "utils/query/posts/count";
 import { RatingEnum } from "types/database/types.database.rating";
-import { RaitingUserInPostFindType, raitingUserInPostFindFoundFrontEnd, raitingUserInPostFindState } from "utils/query/posts/raiting";
+import { RaitingUserInPostFindType, raitingUserInPostFindFoundFrontEnd, raitingUserInPostFindState, raitingAddInPostFrontEnd, raitingUserDeleteInPostFrontEnd, RaitingAddInPostType, RaitingDeleteInPostType } from "utils/query/posts/rating";
 
 export default function useRaitings({ postId, stats }: { postId?: number; stats?: PostCountType }) {
   const router: NextRouter = useRouter();
@@ -13,16 +13,16 @@ export default function useRaitings({ postId, stats }: { postId?: number; stats?
   const [raitingAdded, setRaitingAdded] = useState(raitingUserInPostFindState);
   const [iAmWaitingForAnswerRaigingsIsAdded, setIAmWaitingForAnswerRaigingsIsAdded] = useState(true);
 
-  const addRaiting = async ({ raiting }: { raiting?: RatingEnum }): Promise<RaitingUserInPostFindType> => {
+  const raitingAdd = async ({ voice }: { voice?: RatingEnum }): Promise<RaitingAddInPostType> => {
     setIAmWaitingForAnswerRaigingsIsAdded(true);
-    if (!postId || !raiting) {
+    if (!postId || !voice) {
       setIAmWaitingForAnswerRaigingsIsAdded(false);
       return {
         data: null,
         error: {
           status: 400,
-          name: "Wrong field postId or raiting",
-          message: "Wrong field idPost or raiting or you need loged",
+          name: "Wrong field postId or voice",
+          message: "Wrong field postId or voice or you need loged",
           details: {},
         },
       };
@@ -40,11 +40,33 @@ export default function useRaitings({ postId, stats }: { postId?: number; stats?
         },
       };
     } else {
-      // const res = await postCommentAddFrontEnd({ postId, comment, authToken: `${session?.jwt}` });
-      //   !!res.data && setIamWaitingForAnswerAddRaiting(false);
-      //  if (!res?.error) forgetComment();
-      //  return res;
-      //  }
+      const resAdd: RaitingAddInPostType = await raitingAddInPostFrontEnd({ postId, voice, authToken: `${session?.jwt}` });
+      if (!resAdd?.error) {
+        const res: RaitingUserInPostFindType = await raitingUserInPostFindFoundFrontEnd({ postId, userId: typeof session?.id === "string" ? parseInt(session?.id) : 0 });
+        setRaitingAdded(res);
+      }
+      setIAmWaitingForAnswerRaigingsIsAdded(false);
+      return resAdd;
+    }
+  };
+
+  const raitingDelete = async (): Promise<RaitingDeleteInPostType> => {
+    setIAmWaitingForAnswerRaigingsIsAdded(true);
+    if (!postId) {
+      setIAmWaitingForAnswerRaigingsIsAdded(false);
+      return {
+        data: null,
+        error: {
+          status: 400,
+          name: "Wrong field postId ",
+          message: "Wrong field postId or you need loged",
+          details: {},
+        },
+      };
+    } else if (!session?.jwt) {
+      setIAmWaitingForAnswerRaigingsIsAdded(false);
+      addCallBackURL({ to: `/post/${postId}`, name: "post" });
+      router.replace("/auth/signin");
       return {
         data: null,
         error: {
@@ -54,6 +76,14 @@ export default function useRaitings({ postId, stats }: { postId?: number; stats?
           details: {},
         },
       };
+    } else {
+      const resDel: RaitingDeleteInPostType = await raitingUserDeleteInPostFrontEnd({ postId, authToken: `${session?.jwt}` });
+      if (!resDel?.error) {
+        const res: RaitingUserInPostFindType = await raitingUserInPostFindFoundFrontEnd({ postId, userId: typeof session?.id === "string" ? parseInt(session?.id) : 0 });
+        setRaitingAdded(res);
+      }
+      setIAmWaitingForAnswerRaigingsIsAdded(false);
+      return resDel;
     }
   };
 
@@ -64,8 +94,8 @@ export default function useRaitings({ postId, stats }: { postId?: number; stats?
         setRaitingAdded(res);
         setIAmWaitingForAnswerRaigingsIsAdded(false);
       })();
-    } else if (!session?.id) setIAmWaitingForAnswerRaigingsIsAdded(false);
+    } else if (!session?.id || stats?.data?.ratings?.count === 0) setIAmWaitingForAnswerRaigingsIsAdded(false);
   }, [postId, stats, session]);
 
-  return { addRaiting, raitingAdded, iAmWaitingForAnswerRaigingsIsAdded };
+  return { raitingAdd, raitingDelete, raitingAdded, iAmWaitingForAnswerRaigingsIsAdded };
 }
