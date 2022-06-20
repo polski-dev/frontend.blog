@@ -17,3 +17,16 @@ export interface RaitingAddInPostType {
   } | null;
   error?: ErrorType;
 }
+
+export interface RaitingDeleteInPostType {
+  data:
+    | {
+        id: number;
+        voice: string;
+        createdAt: Date;
+        updatedAt: Date;
+      }[]
+    | null;
+
+  error?: ErrorType;
+}

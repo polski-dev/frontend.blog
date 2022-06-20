@@ -69,3 +69,37 @@ export async function raitingAddInPostFrontEnd({ postId, authToken, voice }: { p
 
   return res.data;
 }
+
+export async function raitingUserDeleteInPostBackEnd({ postId, authToken }: { postId?: number; authToken?: string }): Promise<any> {
+  if (!postId || !authToken)
+    return {
+      data: null,
+      error: {
+        status: 400,
+        name: "Wrong field",
+        message: "Wrong someone fields postId, authToken, voice",
+        details: {},
+      },
+    };
+
+  const res: AxiosResponse<RaitingAddInPostType> = await axios.delete(process.env.BACKEND_API_URL + `/api/rating/delete`, { headers: { Authorization: authToken, postId } });
+
+  return res.data;
+}
+
+export async function raitingUserDeleteInPostFrontEnd({ postId, authToken }: { postId?: number; authToken?: string }): Promise<any> {
+  if (!postId || !authToken)
+    return {
+      data: null,
+      error: {
+        status: 400,
+        name: "Wrong field",
+        message: "Wrong someone fields postId, authToken, voice",
+        details: {},
+      },
+    };
+
+  const res: AxiosResponse<RaitingAddInPostType> = await axios.delete(process.env.BACKEND_API_URL + `/api/rating`, { headers: { Authorization: authToken, postId } });
+
+  return res.data;
+}
