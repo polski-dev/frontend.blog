@@ -2,9 +2,9 @@ import Head from "next/head";
 import { NextPage } from "next";
 import { useEffect, useState } from "react";
 import { slugFromTitle } from "utils/lib/utils.lib.slug";
+import { MenuRaitings } from "components/templates/menu/";
 import { SectionPostFull } from "components/templates/section/index";
 import { postsFindBackEnd, PostsFindType } from "utils/query/posts/find";
-import { MenuGrade } from "components/templates/menu/component.menu.index";
 import { PostType, PostFullType } from "types/database/types.database.post";
 import { postsCountFrontEnd, postCountState } from "utils/query/posts/count";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
@@ -25,7 +25,7 @@ const Post: NextPage<any> = ({ post }: { post?: PostFullType }): JSX.Element => 
       </Head>
       <Container>
         <Row>
-          {/* <MenuGrade slug={slug} type="article" comments={comments.meta?.pagination.total || 0} views={article.data.article.data.attributes.views} id={parseInt(article?.data?.article?.data?.id)} gradeStats={article?.data?.article?.data?.attributes?.grades} /> */}
+          <MenuRaitings data={{ post, stats }} />
           <Col xs={12} md={9}>
             <SectionPostFull data={{ post, stats }} />
           </Col>

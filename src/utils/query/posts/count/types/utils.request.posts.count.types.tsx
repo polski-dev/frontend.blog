@@ -16,7 +16,7 @@ export interface PostsCountType {
 
 export interface PostCountType {
   data?: {
-    ratings: number;
+    ratings?: { best?: number; wow?: number; wrr?: number; count?: number };
     views: number;
     comments: number;
   } | null;

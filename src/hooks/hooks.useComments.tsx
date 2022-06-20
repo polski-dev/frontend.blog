@@ -1,11 +1,15 @@
 import { useSession } from "next-auth/react";
 import useWindowData from "hooks/hooks.windowData";
+import { NextRouter, useRouter } from "next/router";
+import useAddCallBackURL from "./hooks.useCallBackURL";
 import { MutableRefObject, useEffect, useRef, useState } from "react";
 import { postCommentAddFrontEnd, PostCommentAddType, postCommentsListState, postCommentsListFrontEnd, PostCommentsListType } from "utils/query/posts/comment";
 
 export default function useComments({ postId = 0, count = 0 }: { postId?: number; count?: number }) {
   const { height } = useWindowData();
+  const router: NextRouter = useRouter();
   const { data: session } = useSession();
+  const { addCallBackURL } = useAddCallBackURL();
   const commentRef: MutableRefObject<any> = useRef(null);
   const [commentsList, setCommentsList] = useState(postCommentsListState);
   const [iAmWaitingForAnswerAddComent, setIamWaitingForAnswerAddComent] = useState(false);
@@ -43,6 +47,8 @@ export default function useComments({ postId = 0, count = 0 }: { postId?: number
       };
     } else if (!session?.jwt) {
       setIamWaitingForAnswerAddComent(false);
+      addCallBackURL({ to: `/post/${postId}`, name: "post" });
+      router.replace("/auth/signin");
       return {
         data: null,
         error: {

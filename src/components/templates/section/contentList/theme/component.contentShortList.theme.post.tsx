@@ -77,7 +77,7 @@ const ContentShortArticle = React.forwardRef(({ data }: { data: { post: PostType
         <ListStats>
           <Item title="oceniono">
             <Wow />
-            <span>{typeof stats?.data?.ratings === "number" ? stats.data.ratings : <ComponentAnimationCircleLoad size={1.6} />}</span>
+            <span>{typeof stats?.data?.ratings?.count === "number" ? stats.data.ratings.count : <ComponentAnimationCircleLoad size={1.6} />}</span>
           </Item>
           <Item title="skomentowno">
             <Comment />

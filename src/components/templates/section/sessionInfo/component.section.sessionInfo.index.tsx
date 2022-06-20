@@ -4,60 +4,31 @@ import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import useCallBackURL from "hooks/hooks.useCallBackURL";
 import { Section, BoxContent, BoxInfo, BoxError } from "./component.section.sessionInfo.style";
-import { ItemLoad } from "components/atoms/animation/index";
+import { ComponentAnimationItemLoad } from "components/atoms/animation/index";
 
 export default function SectionSessionInfo({ users }: { users: number }) {
   const router = useRouter();
   const { readCallBackURL } = useCallBackURL();
   const { data: session, status } = useSession();
-  const [messageSucces, setMessageSucces] = useState("");
 
   useEffect(() => {
     const stoper: ReturnType<typeof setTimeout> = setTimeout(async () => {
       if (!!readCallBackURL.to.length) await router.replace(readCallBackURL.to);
       else await router.replace("/");
-    }, 3000);
+    }, 500);
 
     return () => clearInterval(stoper);
   }, [router, readCallBackURL]);
 
-  useEffect(() => {
-    switch (readCallBackURL.name) {
-      case "article":
-        setMessageSucces("do artykułu");
-        break;
-      case "video":
-        setMessageSucces("do video");
-        break;
-      case "user":
-        setMessageSucces("do strony użytkownika");
-        break;
-      case "dasbord":
-        setMessageSucces("do panelu użytkownika");
-        break;
-      case "dasbordEdit":
-        setMessageSucces("do panelu edycji użytkownika");
-        break;
-      case "tag":
-        setMessageSucces("do strony tagu");
-        break;
-      case "dasbordAddArticle":
-        setMessageSucces("do tworzenia artykułu");
-      default:
-        setMessageSucces("na stronę główną");
-        break;
-    }
-  }, [readCallBackURL]);
-
   return (
     <Section>
-      <h5>{status === "loading" ? <ItemLoad /> : status === "authenticated" ? "Zalogowałeś się !" : "Coś poszło nie tak :("}</h5>
+      <h5>{status === "loading" ? <ComponentAnimationItemLoad /> : status === "authenticated" ? "Zalogowałeś się !" : "Coś poszło nie tak :("}</h5>
       <BoxContent>
         {status === "loading" ? (
-          <ItemLoad style={{ height: "6rem" }} />
+          <ComponentAnimationItemLoad height={6} />
         ) : status === "authenticated" ? (
           <BoxInfo>
-            {session?.user?.name} udało Ci się potwierdzić że jesteś jedną z {users} niesamiwitych osób, zaraz zostaniesz przekierowany {messageSucces}
+            {session?.user?.name} udało Ci się potwierdzić że jesteś jedną z {users} niesamiwitych osób !
           </BoxInfo>
         ) : (
           <BoxError>

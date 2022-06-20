@@ -1,19 +1,18 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
+import { MainSettingsTemplate } from "types/types.mainSettingsTemplate";
 
-type ItemType = {
-  height: number;
-  last?: boolean;
-};
+interface ItemType {
+  height?: number;
+}
 
 export const Item = styled.div<ItemType>`
   width: 100%;
   opacity: 0.07;
-  display: block;
   overflow: hidden;
   position: relative;
-  height: ${({ height }) => `${height}rem`};
-  background-color: ${({ theme }) => theme.colorText};
-  margin-bottom: ${({ last, theme }) => (last ? "0" : theme.break.main)};
+  display: inline-block;
+  height: ${({ height }: { height?: number }) => (height ? `${height}rem` : `1.6rem`)};
+  background-color: ${({ theme }: { mode?: string; theme: MainSettingsTemplate }): string => theme.colorText};
 
   &::after {
     top: 0;

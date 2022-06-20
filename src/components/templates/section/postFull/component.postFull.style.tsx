@@ -9,6 +9,7 @@ export const Section: StyledComponent<any, any> = styled.section`
 
 export const Title: StyledComponent<any, any> = styled.h5`
   width: 100%;
+  display: block;
   line-height: 1;
   padding-bottom: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.main};
 
@@ -85,6 +86,8 @@ export const BoxAuthor: StyledComponent<any, any> = styled.div`
 
 export const Content: StyledComponent<any, any> = styled.div`
   padding: 0;
+  width: 100%;
+  display: block;
   max-width: 100%;
   position: relative;
 
@@ -92,13 +95,13 @@ export const Content: StyledComponent<any, any> = styled.div`
     padding: 0 4.95rem;
   }
 
+  p,
   h1,
   h2,
   h3,
   h4,
   h5,
   h6,
-  p,
   ul,
   ol,
   img {
@@ -229,6 +232,7 @@ export const BoxAuthorAvatar: StyledComponent<any, any> = styled.div`
 
 export const AuthorData: StyledComponent<any, any> = styled.div`
   display: flex;
+  min-width: 15rem;
   position: relative;
   flex-direction: column;
   justify-content: center;
@@ -252,8 +256,9 @@ export const DateAdded: StyledComponent<any, any> = styled.p`
 `;
 
 export const TitleArticle: StyledComponent<any, any> = styled.h1`
-  display: flex;
-  width: max-content;
+  width: 100%;
+  display: block;
+  max-width: 100%;
   position: relative;
 
   span {

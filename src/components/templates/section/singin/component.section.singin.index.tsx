@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { signIn, useSession } from "next-auth/react";
 import { emailRegex } from "assets/regex/index.regex";
 import useCallBackURL from "hooks/hooks.useCallBackURL";
-import { ItemLoad } from "components/atoms/animation/index";
+import { ComponentAnimationItemLoad } from "components/atoms/animation";
 import { ButtonSubmit, Button } from "components/atoms/button/component.button.index";
 import { Input, enumInputType } from "components/molecules/form/component.form.index";
 import { Section, BoxContent, BoxAuth, Title, Description, BoxErrorInfo, BoxOption, BoxRegistrationInfo, Form } from "./component.section.singin.style";
@@ -45,9 +45,9 @@ export default function SectionSingIn({ users }: { users: number }) {
 
           {send ? (
             <BoxOption>
-              <ItemLoad />
-              <ItemLoad height={10} />
-              <ItemLoad />
+              <ComponentAnimationItemLoad style={{ marginBottom: "1.5rem" }} />
+              <ComponentAnimationItemLoad height={10} style={{ marginBottom: "1.5rem" }} />
+              <ComponentAnimationItemLoad style={{ marginBottom: "1.5rem" }} />
             </BoxOption>
           ) : (
             <>
