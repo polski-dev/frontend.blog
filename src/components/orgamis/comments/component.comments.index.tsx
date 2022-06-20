@@ -66,7 +66,7 @@ export default function CommentsComponent({ data }: { data: { postId?: number; c
             )}
           </BoxCommentAvatar>
           {iAmWaitingForAnswerAddComent ? (
-            <ComponentAnimationItemLoad height={7.7} style={{ width: "calc(100% - 5.8rem)", marginLeft: "1.5rem" }} />
+            <ComponentAnimationItemLoad height={7.7} style={{ width: "calc(100% - 5.8rem)", marginLeft: "1.5rem", marginBottom: "1.5rem" }} />
           ) : (
             <TextArea id="comment" defaultValue={defaultValueComment} name="comment" error={errors.comment} placeholder="Napisz komentarz..." register={register} required />
           )}

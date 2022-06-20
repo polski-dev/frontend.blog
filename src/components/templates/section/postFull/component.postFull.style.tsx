@@ -2,8 +2,8 @@ import styled, { StyledComponent, ThemeProps } from "styled-components";
 import { MainSettingsTemplate } from "assets/style/types.mainSettingsTemplate";
 
 export const Section: StyledComponent<any, any> = styled.section`
-  display: flex;
-  flex-wrap: wrap;
+  display: block;
+  min-height: 100vh;
   padding: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.big} 0;
 `;
 
