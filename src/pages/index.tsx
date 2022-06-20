@@ -1,11 +1,11 @@
 import Head from "next/head";
 import { NextPage } from "next";
-import { PostsFindType, postsFindBackEnd } from "utils/query/posts/find";
-import { MenuPrimary } from "components/templates/menu/component.menu.index";
-import { PostsCountType, postsCountBackEnd } from "utils/query/posts/count";
-import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
+import { MenuPrimary } from "components/templates/menu";
 import { ContentEnum } from "types/database/types.database.contentEnum";
+import { PostsFindType, postsFindBackEnd } from "utils/query/posts/find";
+import { PostsCountType, postsCountBackEnd } from "utils/query/posts/count";
 import { SectionContentShortList } from "components/templates/section/index";
+import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
 
 const Home: NextPage<any, {}> = ({ countPosts, content }: { countPosts: PostsCountType; content: PostsFindType }): JSX.Element => {
   return (

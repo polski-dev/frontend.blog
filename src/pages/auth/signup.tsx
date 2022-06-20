@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { NextPage } from "next";
-import { MenuPrimary } from "components/templates/menu/component.menu.index";
+import { MenuPrimary } from "components/templates/menu";
 import { SectionSingUp } from "components/templates/section/index";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
 import { countUserGetPreview, CountUserType } from "utils/database/database.graphQL.index";

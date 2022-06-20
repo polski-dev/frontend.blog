@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { NextRouter, useRouter } from "next/router";
 import useAddCallBackURL from "hooks/hooks.useCallBackURL";
-import { MenuPrimary } from "components/templates/menu/component.menu.index";
+import { MenuPrimary } from "components/templates/menu";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
 import { SectionDasbordUserEditData } from "components/templates/section/index";
 
