@@ -45,6 +45,7 @@ export default NextAuth({
     async jwt({ token, user: members, account }: any): Promise<any> {
       if (members && account?.provider === "credentials") {
         token.jwt = members.jwt;
+        token.id = members.user.id;
         token.email = members?.user.email;
         token.name = members?.user.username;
         token.picture = members.user.picture;
@@ -53,6 +54,7 @@ export default NextAuth({
     },
 
     async session({ session, token }: any): Promise<any> {
+      session.id = token.id;
       session.jwt = token.jwt;
       return session;
     },
