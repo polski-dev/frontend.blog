@@ -15,7 +15,7 @@ import { UserFindOneType } from "utils/query/user/find";
 import { ContentEnum } from "types/database/types.database.contentEnum";
 import { ComponentAnimationItemLoad } from "components/atoms/animation";
 export default function SectionUserInfo({ data }: { data?: { user?: UserFindOneType } }) {
-  const { amISubscribeStatus, iAmWaitingForAnswerSubscribeStatus } = useSubscribe({ id: data?.user?.data?.id, typ: ContentEnum.user });
+  const { changeSubscribe, amISubscribeStatus, iAmWaitingForAnswerSubscribeStatus } = useSubscribe({ id: data?.user?.data?.id, typ: ContentEnum.user });
 
   return (
     <UserInfoBox>
@@ -29,10 +29,10 @@ export default function SectionUserInfo({ data }: { data?: { user?: UserFindOneT
           title={true ? "Zrezygnuj z subskrypcji" : "Subskrybuj"}
           className="btn"
           onClick={() => {
-            // subscriptionToggleGet();
+            changeSubscribe();
           }}
         >
-          {amISubscribeStatus ? "Subskrybujesz" : "Subskrybuj"}
+          {amISubscribeStatus.data?.subscribe ? "Subskrybujesz" : "Subskrybuj"}
         </Button>
       )}
       <Name>{data?.user?.data?.attributes.username || "Add user name"}</Name>
