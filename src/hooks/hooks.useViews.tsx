@@ -22,11 +22,11 @@ export default function useViews({ id, typ }: { id?: number; typ?: ContentEnum }
   useEffect(() => {
     (async () => {
       if (!remindView()) {
-        viewAddInPostFrontEnd({ postId: id });
+        typ === ContentEnum.post && viewAddInPostFrontEnd({ postId: id });
         rememberView();
       }
     })();
-  }, [id, remindView, rememberView]);
+  }, [typ, id, remindView, rememberView]);
 
   return { rememberView, remindView, forgetView };
 }
