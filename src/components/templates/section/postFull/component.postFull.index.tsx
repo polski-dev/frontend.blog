@@ -1,18 +1,21 @@
 import Link from "next/link";
 import Image from "next/image";
 import ReactMarkdown from "react-markdown";
+import useViews from "hooks/hooks.useViews";
 import Avatar from "assets/icon/avatar.svg";
 import time from "utils/lib/utils.lib.time";
+import { PostCountType } from "utils/query/posts/count";
 import { slugFromTitle } from "utils/lib/utils.lib.slug";
 import { TagType } from "types/database/types.database.tag";
-import { PostCountType } from "utils/query/posts/count";
-import { PostFullType, PostsTypEnum } from "types/database/types.database.post";
+import { ContentEnum } from "types/database/types.database.contentEnum";
+import { ComponentAnimationItemLoad } from "components/atoms/animation/";
 import { MarkdownComponents } from "./component.articleFull.markdownblock";
 import Comments from "components/orgamis/comments/component.comments.index";
-import { ComponentAnimationItemLoad } from "components/atoms/animation/";
+import { PostFullType, PostsTypEnum } from "types/database/types.database.post";
 import { Section, Title, Article, BoxContent, Content, BoxAuthor, BoxAuthorImg, BoxAuthorAvatar, AuthorData, AuthorName, DateAdded, TitleArticle, ListTags, Tag } from "./component.postFull.style";
 
 export default function SectionPostFull({ data }: { data?: { post?: PostFullType; stats?: PostCountType } }): JSX.Element {
+  useViews({ id: data?.post?.data.id, typ: ContentEnum.post });
   return (
     <Section>
       <Title>{data?.post?.data?.attributes?.typ === PostsTypEnum.video ? "Video" : data?.post?.data?.attributes?.typ === PostsTypEnum.article ? "Artykuł" : <ComponentAnimationItemLoad height={2.4} />}</Title>
@@ -71,23 +74,7 @@ export default function SectionPostFull({ data }: { data?: { post?: PostFullType
             {data?.post?.data?.attributes?.content ? (
               <ReactMarkdown components={MarkdownComponents}>{data?.post?.data?.attributes?.content}</ReactMarkdown>
             ) : (
-              <>
-                <ComponentAnimationItemLoad height={1.6} style={{ display: "block", marginBottom: "1rem" }} />
-                <ComponentAnimationItemLoad height={1.6} style={{ display: "block", marginBottom: "1rem" }} />
-                <ComponentAnimationItemLoad height={1.6} style={{ display: "block", marginBottom: "1rem" }} />
-                <ComponentAnimationItemLoad height={1.6} style={{ display: "block", marginBottom: "1rem" }} />
-                <ComponentAnimationItemLoad height={1.6} style={{ display: "block", marginBottom: "1rem" }} />
-                <ComponentAnimationItemLoad height={1.6} style={{ display: "block", marginBottom: "1rem" }} />
-                <ComponentAnimationItemLoad height={1.6} style={{ display: "block", marginBottom: "1rem" }} />
-                <ComponentAnimationItemLoad height={1.6} style={{ display: "block", marginBottom: "1rem" }} />
-                <ComponentAnimationItemLoad height={1.6} style={{ display: "block", marginBottom: "1rem" }} />
-                <ComponentAnimationItemLoad height={1.6} style={{ display: "block", marginBottom: "1rem" }} />
-                <ComponentAnimationItemLoad height={1.6} style={{ display: "block", marginBottom: "1rem" }} />
-                <ComponentAnimationItemLoad height={1.6} style={{ display: "block", marginBottom: "1rem" }} />
-                <ComponentAnimationItemLoad height={1.6} style={{ display: "block", marginBottom: "1rem" }} />
-                <ComponentAnimationItemLoad height={1.6} style={{ display: "block", marginBottom: "1rem" }} />
-                <ComponentAnimationItemLoad height={1.6} style={{ display: "block", marginBottom: "1rem" }} />
-              </>
+              new Array(15).fill(undefined).map((_: undefined, i: number): JSX.Element => <ComponentAnimationItemLoad height={1.6} style={{ display: "block", marginBottom: "1rem" }} key={i} />)
             )}
           </Content>
         </BoxContent>

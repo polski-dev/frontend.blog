@@ -20,6 +20,8 @@ export default async function raitingInPost(req: NextApiRequest, res: NextApiRes
         },
       });
 
+    console.log(postId, userId);
+
     return res.status(200).json(await raitingUserInPostFindFoundBackEnd({ postId: turstPostId, userId: turstUserId }));
   } else if (req.method === "PUT") {
     const { postId, voice } = req.body;

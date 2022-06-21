@@ -1,4 +1,4 @@
-import { RaitingUserInPostFindType, RaitingAddInPostType, RaitingDeleteInPostType } from "../types/utils.request.posts.raiting.types";
+import { RaitingUserInPostFindType, RaitingAddInPostType, RaitingDeleteInPostType } from "../types/utils.request.posts.rating.types";
 
 export const raitingUserInPostFindState: RaitingUserInPostFindType = {
   data: null,

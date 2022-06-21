@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios";
-import { RaitingUserInPostFindType, RaitingAddInPostType } from "../types/utils.request.posts.raiting.types";
+import { RaitingUserInPostFindType, RaitingAddInPostType } from "../types/utils.request.posts.rating.types";
 import { RatingEnum } from "types/database/types.database.rating";
 
 export async function raitingUserInPostFindFoundBackEnd({ postId, userId }: { postId?: number; userId?: number }): Promise<RaitingUserInPostFindType> {
@@ -81,8 +81,6 @@ export async function raitingUserDeleteInPostBackEnd({ postId, authToken }: { po
         details: {},
       },
     };
-
-  console.log(authToken);
 
   const res: AxiosResponse<RaitingAddInPostType> = await axios.delete(process.env.BACKEND_API_URL + `/api/rating/delete`, { headers: { Authorization: authToken, postId } });
 
