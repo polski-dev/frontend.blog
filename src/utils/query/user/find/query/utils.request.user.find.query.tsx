@@ -6,7 +6,9 @@ export async function usersFindBackEnd({ page = 1 }: { page?: number }) {
   const users: AxiosResponse<UserType[]> = await axios.get(process.env.BACKEND_API_URL + `/api/users?start=${page - 1}&limit=10`);
 
   return {
-    data: users.data,
+    data: users.data.map((user: any): UserType => {
+      return { id: user.id, attributes: { ...user } };
+    }),
     meta: {
       pagination: {
         page,
@@ -18,9 +20,9 @@ export async function usersFindBackEnd({ page = 1 }: { page?: number }) {
   };
 }
 
-export async function userFindOneBackEnd({ id }: { id?: number }) {
-  const users: AxiosResponse<UserType> = await axios.get(process.env.BACKEND_API_URL + `/api/users/${id}?populate=avatar&populate=skilks&populate=learn`);
+export async function userFindOneBackEnd({ id }: { id: number }) {
+  const user: AxiosResponse<any> = await axios.get(process.env.BACKEND_API_URL + `/api/users/${id}?populate=avatar&populate=skilks&populate=learn`);
   return {
-    data: users.data,
+    data: { id: user?.data.id, attributes: { ...user.data } },
   };
 }

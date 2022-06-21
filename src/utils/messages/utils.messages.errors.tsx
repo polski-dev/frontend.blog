@@ -1,10 +1,12 @@
-export const MessageErrorInAPI = ({ status = 400, name, message }: { status?: number; name: string; message: string }) => {
+import { ErrorType } from "types/database/types.database.error";
+
+export const MessageErrorInAPI = ({ status = 400, name, message }: { status?: number; name: string; message: string }): { data: null; error: ErrorType } => {
   return {
     data: null,
     error: {
-      status: 404,
-      name: "NotFound",
-      message: "NotFound",
+      status,
+      name,
+      message,
       details: {},
     },
   };

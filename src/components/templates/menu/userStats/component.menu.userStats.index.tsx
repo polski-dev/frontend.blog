@@ -3,82 +3,64 @@ import User from "assets/icon/user.svg";
 import Hash from "assets/icon/hash.svg";
 import Comment from "assets/icon/comment.svg";
 import Document from "assets/icon/document.svg";
-import useUser from "hooks/hooks.useUser";
+
+import { UserCountType } from "utils/query/user/count";
+import { ComponentAnimationCircleLoad } from "components/atoms/animation";
+import { SkilksType, LearnType } from "types/database/types.database.user";
 import { MenuUserBox, BoxStats, List, Item, Header } from "./component.menu.userStats.style";
 
-export default function MenuUserComponent({
-  data: { id, learn, skilks },
-}: {
-  data: {
-    id: number;
-    learn: {
-      data: {
-        id: string;
-        attributes: {
-          title: string;
-        };
-      }[];
-    };
-    skilks: {
-      data: {
-        id: string;
-        attributes: {
-          title: string;
-        };
-      }[];
-    };
-  };
-}) {
-  const { statistics } = useUser({ id });
-
+export default function ComponentMenuUserStats({ data }: { data?: { stats?: UserCountType; skilks?: SkilksType[] | null; learn?: LearnType[] | null } }) {
   return (
     <>
       <MenuUserBox>
         <BoxStats>
           <List>
             <Item>
-              <User /> Subskrybuje {statistics.data?.followingmes} osób
+              <User /> Subskrybuje {typeof data?.stats?.data?.followingmes === "number" ? data?.stats?.data?.followingmes : <ComponentAnimationCircleLoad size={1.6} />} osób
             </Item>
             <Item>
-              <Document /> {statistics.data?.addPosts} opublikował postów
+              <User /> Obserwuje {typeof data?.stats?.data?.followusers === "number" ? data?.stats?.data?.followusers : <ComponentAnimationCircleLoad size={1.6} />} osób
             </Item>
             <Item>
-              <Comment /> Napisał {statistics.data?.comments} komentarzy
+              <Document /> Napisał {typeof data?.stats?.data?.posts === "number" ? data?.stats?.data?.posts : <ComponentAnimationCircleLoad size={1.6} />} postów
             </Item>
             <Item>
-              <Hash /> Obserwuje {statistics.data?.followTags} tagów
+              <Comment /> Napisał {typeof data?.stats?.data?.commentsAdded === "number" ? data?.stats?.data?.commentsAdded : <ComponentAnimationCircleLoad size={1.6} />} komentarzy
             </Item>
             <Item>
-              <Eye /> {statistics.data?.views} Wyświetleń
+              <Hash /> Obserwuje {typeof data?.stats?.data?.followtags === "number" ? data?.stats?.data?.followtags : <ComponentAnimationCircleLoad size={1.6} />} tagów
+            </Item>
+            <Item>
+              <Eye /> {typeof data?.stats?.data?.views === "number" ? data?.stats?.data?.views : <ComponentAnimationCircleLoad size={1.6} />} Wyświetleń
             </Item>
           </List>
         </BoxStats>
-        {!!skilks.data.length && (
+        {!!data?.skilks?.length && (
           <List className="menu">
             <Item>
               <Header>Umiejętności</Header>
             </Item>
-            {skilks.data.map((skill, i: number) => {
+            {data?.skilks?.map((skill: SkilksType, i: number): JSX.Element => {
               return (
                 <Item key={i}>
                   <span>#</span>
-                  {skill.attributes.title}
+                  {skill.title}
                 </Item>
               );
             })}
           </List>
         )}
 
-        {!!learn.data.length && (
+        {!!data?.learn?.length && (
           <List className="menu">
             <Item>
               <Header>Uczę się</Header>
             </Item>
-            {learn.data.map((subject, i: number) => {
+            {data?.learn.map((subject: LearnType, i: number): JSX.Element => {
               return (
                 <Item key={i}>
                   <span>#</span>
-                  {subject.attributes.title}
+                  {subject.title}
                 </Item>
               );
             })}

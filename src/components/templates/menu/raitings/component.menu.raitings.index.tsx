@@ -4,22 +4,20 @@ import Eye from "assets/icon/eye.svg";
 import Best from "assets/icon/best.svg";
 
 import Comment from "assets/icon/comment.svg";
+import useRaitings from "hooks/hooks.useRaitings";
 import { PostCountType } from "utils/query/posts/count";
-
+import { PostFindOneType } from "utils/query/posts/find";
 import { Button } from "components/atoms/button/component.button.index";
+import { RatingType, RatingEnum } from "types/database/types.database.rating";
 import { BoxMenu, BoxContent, List, Item, Quantity, Title } from "./component.menu.raitings.style";
 import { ComponentAnimationCircleLoad, ComponentAnimationItemLoad } from "components/atoms/animation";
 
-import { PostFullType } from "types/database/types.database.post";
-import { RatingType, RatingEnum } from "types/database/types.database.rating";
-import useRaitings from "hooks/hooks.useRaitings";
-
-export default function MenuGrade({ data }: { data: { post?: PostFullType; stats?: PostCountType } }): JSX.Element {
-  const { raitingAdd, raitingDelete, raitingAdded, iAmWaitingForAnswerRaigingsIsAdded } = useRaitings({ postId: data.post?.data.id, stats: data.stats });
+export default function MenuGrade({ data }: { data: { post?: PostFindOneType; stats?: PostCountType } }): JSX.Element {
+  const { raitingAdd, raitingDelete, raitingAdded, iAmWaitingForAnswerRaigingsIsAdded } = useRaitings({ postId: data.post?.data?.id, stats: data.stats });
   const raitingWow: boolean = !!(raitingAdded?.data?.length && !!raitingAdded?.data.filter((raiting: RatingType) => raiting.attributes.voice === RatingEnum.wow).length);
   const raitingWrr: boolean = !!(raitingAdded?.data?.length && !!raitingAdded?.data.filter((raiting: RatingType) => raiting.attributes.voice === RatingEnum.wrr).length);
   const raitingBest: boolean = !!(raitingAdded?.data?.length && !!raitingAdded?.data.filter((raiting: RatingType) => raiting.attributes.voice === RatingEnum.best).length);
-  const scrollBoxComment = () => !!data.post?.data.id && document?.querySelector(`#boxCommentsId${data.post?.data.id}`)?.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
+  const scrollBoxComment = () => !!data.post?.data?.id && document?.querySelector(`#boxCommentsId${data.post?.data.id}`)?.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
 
   return (
     <BoxMenu>
@@ -70,7 +68,7 @@ export default function MenuGrade({ data }: { data: { post?: PostFullType; stats
             <Button title="Wyświetlenia" active>
               <Eye />
             </Button>
-            <Quantity>{typeof data.post?.data.attributes.views === "number" ? data.post?.data.attributes.views : <ComponentAnimationCircleLoad size={1.6} />}</Quantity>
+            <Quantity>{typeof data.post?.data?.attributes.views === "number" ? data.post?.data.attributes.views : <ComponentAnimationCircleLoad size={1.6} />}</Quantity>
           </Item>
         </List>
       </BoxContent>

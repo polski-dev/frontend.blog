@@ -6,26 +6,27 @@ import Avatar from "assets/icon/avatar.svg";
 import time from "utils/lib/utils.lib.time";
 import { PostCountType } from "utils/query/posts/count";
 import { slugFromTitle } from "utils/lib/utils.lib.slug";
+import { PostFindOneType } from "utils/query/posts/find";
 import { TagType } from "types/database/types.database.tag";
+import { PostsTypEnum } from "types/database/types.database.post";
 import { ContentEnum } from "types/database/types.database.contentEnum";
 import { ComponentAnimationItemLoad } from "components/atoms/animation/";
 import { MarkdownComponents } from "./component.articleFull.markdownblock";
 import Comments from "components/orgamis/comments/component.comments.index";
-import { PostFullType, PostsTypEnum } from "types/database/types.database.post";
 import { Section, Title, Article, BoxContent, Content, BoxAuthor, BoxAuthorImg, BoxAuthorAvatar, AuthorData, AuthorName, DateAdded, TitleArticle, ListTags, Tag } from "./component.postFull.style";
 
-export default function SectionPostFull({ data }: { data?: { post?: PostFullType; stats?: PostCountType } }): JSX.Element {
-  useViews({ id: data?.post?.data.id, typ: ContentEnum.post });
+export default function SectionPostFull({ data }: { data?: { post?: PostFindOneType; stats?: PostCountType } }): JSX.Element {
+  useViews({ id: data?.post?.data?.id, typ: ContentEnum.post });
   return (
     <Section>
       <Title>{data?.post?.data?.attributes?.typ === PostsTypEnum.video ? "Video" : data?.post?.data?.attributes?.typ === PostsTypEnum.article ? "Artykuł" : <ComponentAnimationItemLoad height={2.4} />}</Title>
       <Article>
-        {data?.post?.data.attributes.cover?.data?.attributes.url ? <Image width={930} height={300} alt={data?.post?.data.attributes.title} src={data?.post?.data.attributes.cover?.data?.attributes.url} /> : <ComponentAnimationItemLoad height={30} />}
+        {data?.post?.data?.attributes.cover?.data?.attributes.url ? <Image width={930} height={300} alt={data?.post?.data.attributes.title} src={data?.post?.data?.attributes.cover?.data?.attributes.url} /> : <ComponentAnimationItemLoad height={30} />}
         <BoxContent>
           <BoxAuthor>
             <BoxAuthorImg>
               {data?.post?.data?.attributes?.author?.data?.attributes?.avatar?.data?.attributes?.url ? (
-                <Image width={42} height={42} placeholder="blur" blurDataURL="/img/blur.png" alt={data?.post?.data?.attributes?.author?.data?.attributes?.username} src={data?.post?.data?.attributes?.author?.data?.attributes?.avatar?.data?.attributes?.url} />
+                <Image width={42} height={42} placeholder="blur" blurDataURL="/img/blur.png" alt={data?.post?.data?.attributes?.author?.data?.attributes?.username || "Add name user"} src={data?.post?.data?.attributes?.author?.data?.attributes?.avatar?.data?.attributes?.url} />
               ) : (
                 <BoxAuthorAvatar>
                   <Avatar />
@@ -33,12 +34,12 @@ export default function SectionPostFull({ data }: { data?: { post?: PostFullType
               )}
             </BoxAuthorImg>
             <AuthorData>
-              <Link href={`/user/${data?.post?.data.attributes.author?.data?.id}/${slugFromTitle(data?.post?.data?.attributes?.author?.data?.attributes?.username || "")}`}>
-                <a title={data?.post?.data?.attributes?.author?.data?.attributes?.username}>
+              <Link href={`/user/${data?.post?.data?.attributes.author?.data?.id}/${slugFromTitle(data?.post?.data?.attributes?.author?.data?.attributes?.username || "")}`}>
+                <a title={data?.post?.data?.attributes?.author?.data?.attributes?.username || "Add title"}>
                   <AuthorName>{!!data?.post ? data?.post?.data?.attributes?.author?.data?.attributes?.username : <ComponentAnimationItemLoad height={1.6} style={{ display: "block", marginBottom: "0.3rem", width: "5rem" }} />}</AuthorName>
                 </a>
               </Link>
-              <DateAdded>{!!data?.post ? `${`${time.nameOfTheMonths(data?.post?.data.attributes.publishedAt || new Date())}  ( ${time.countDays(data?.post?.data.attributes.publishedAt || new Date())} )`}` : <ComponentAnimationItemLoad height={1} />}</DateAdded>
+              <DateAdded>{!!data?.post ? `${`${time.nameOfTheMonths(data?.post?.data?.attributes.publishedAt || new Date())}  ( ${time.countDays(data?.post?.data?.attributes.publishedAt || new Date())} )`}` : <ComponentAnimationItemLoad height={1} />}</DateAdded>
             </AuthorData>
           </BoxAuthor>
           <TitleArticle>{!!data?.post ? data?.post?.data?.attributes?.title : <ComponentAnimationItemLoad height={3} style={{ margin: "0.1rem" }} />}</TitleArticle>
@@ -78,7 +79,7 @@ export default function SectionPostFull({ data }: { data?: { post?: PostFullType
             )}
           </Content>
         </BoxContent>
-        <Comments data={{ postId: data?.post?.data.id, countComments: data?.stats?.data?.comments }} />
+        <Comments data={{ postId: data?.post?.data?.id, countComments: data?.stats?.data?.comments }} />
       </Article>
     </Section>
   );

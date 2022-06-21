@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { userFindOneBackEnd } from "utils/query/user/find";
 
-export default async function UserFind(req: NextApiRequest, res: NextApiResponse): Promise<void> {
+export default async function UserFindOneAPI(req: NextApiRequest, res: NextApiResponse): Promise<void> {
   if (req.method === "GET") {
     const { id } = req.query;
     const trustUserId: number = typeof id === "string" ? parseInt(id) : 0;

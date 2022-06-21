@@ -1,26 +1,28 @@
 import { ImageFromDatabaseType } from "./types.database.image";
-import { TagType } from "./types.database.tag";
+
+export type SkilksType = { createdAt: Date; description: string; id: number; publishedAt: Date; title: string; updatedAt: Date; views: number };
+export type LearnType = { createdAt: Date; description: string; id: number; publishedAt: Date; title: string; updatedAt: Date; views: number };
 
 export interface UserType {
   id: number;
   attributes: {
-    username: string;
-    provider: string;
-    confirmed: boolean;
-    blocked: boolean;
-    views: number;
-    about: string;
-    website: string;
-    youtube: string;
-    instagram: string;
-    tiktok: string;
-    github: string;
-    city: string;
-    country: string;
-    createdAt: Date | null;
-    updatedAt: Date | null;
+    username?: string | null;
+    provider?: string | null;
+    confirmed?: boolean;
+    blocked?: boolean;
+    views?: number;
+    about?: string | null;
+    website?: string | null;
+    youtube?: string | null;
+    instagram?: string | null;
+    tiktok?: string | null;
+    github?: string | null;
+    city?: string | null;
+    country?: string | null;
+    createdAt?: Date | null;
+    updatedAt?: Date | null;
     avatar?: { data?: ImageFromDatabaseType | null };
-    skilks?: TagType[] | null;
-    learn?: TagType[] | null;
+    skilks?: SkilksType[] | null;
+    learn?: LearnType[] | null;
   };
 }

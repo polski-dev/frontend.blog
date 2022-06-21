@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { usersFindState, usersFindBackEnd, UsersFindType } from "utils/query/user/find";
+import { usersFindBackEnd } from "utils/query/user/find";
 
-export default async function UserFind(req: NextApiRequest, res: NextApiResponse): Promise<void> {
+export default async function UserFindAPI(req: NextApiRequest, res: NextApiResponse): Promise<void> {
   if (req.method === "GET") {
     const { page } = req.query;
     const trustPage: number = typeof page === "string" ? parseInt(page) : 0;

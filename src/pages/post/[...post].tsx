@@ -3,13 +3,13 @@ import { NextPage } from "next";
 import { useEffect, useState } from "react";
 import { slugFromTitle } from "utils/lib/utils.lib.slug";
 import { MenuRaitings } from "components/templates/menu/";
+import { PostType } from "types/database/types.database.post";
 import { SectionPostFull } from "components/templates/section/index";
-import { postsFindBackEnd, PostsFindType } from "utils/query/posts/find";
-import { PostType, PostFullType } from "types/database/types.database.post";
 import { postsCountFrontEnd, postCountState } from "utils/query/posts/count";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
+import { postsFindBackEnd, PostsFindType, postFindOneBackEnd, PostFindOneType } from "utils/query/posts/find";
 
-const Post: NextPage<any> = ({ post }: { post?: PostFullType }): JSX.Element => {
+const Post: NextPage<any> = ({ post }: { post?: PostFindOneType }): JSX.Element => {
   const [stats, setStats] = useState(postCountState);
 
   useEffect(() => {
@@ -53,7 +53,7 @@ export async function getStaticPaths(): Promise<any> {
 
 export async function getStaticProps({ params }: any): Promise<any> {
   // post full
-  const post: PostFullType = await postsFindBackEnd({ postId: params.post[0] });
+  const post: PostFindOneType = await postFindOneBackEnd({ postId: params.post[0] });
 
   return {
     props: {
