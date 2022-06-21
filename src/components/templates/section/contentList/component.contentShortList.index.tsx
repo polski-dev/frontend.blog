@@ -9,13 +9,12 @@ import selectTemplateForContent from "./switchs/component.contentShortList.switc
 import { ContentEnum } from "types/database/types.database.contentEnum";
 import { Section, Title, BoxInformation, Info, NotFound } from "./style/component.listShortArticle.style";
 
-export default function SectionContentShortList({ data }: { data: { typ: ContentEnum; content?: PostsFindType; title: string } }): JSX.Element {
+export default function SectionContentShortList({ data }: { data: { typ: ContentEnum; content?: PostsFindType; title: string; id?: number } }): JSX.Element {
   const { width, height } = useWindowData();
   const [content, setContent] = useState(data.content);
   const [iAmWaitingForAnswer, setIamWaitingForAnswer] = useState(false);
   const postRef = useRef<HTMLDivElement>(null);
 
-  // i check if can download next contents
   useEffect(() => {
     let check = setTimeout(() => {}, 200);
 
@@ -36,7 +35,7 @@ export default function SectionContentShortList({ data }: { data: { typ: Content
   useEffect(() => {
     (async (): Promise<void> => {
       if (iAmWaitingForAnswer) {
-        let res: PostsFindType | undefined = await query({ content, typ: data.typ, page: (content?.meta?.pagination?.page || 1) + 1 });
+        let res: PostsFindType | undefined = await query({ content, typ: data.typ, page: (content?.meta?.pagination?.page || 1) + 1, id: data?.id });
 
         if (res?.data) {
           setContent(res);

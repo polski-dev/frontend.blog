@@ -4,13 +4,15 @@ import useViews from "hooks/hooks.useViews";
 import { useState, useEffect } from "react";
 import { slugFromTitle } from "utils/lib/utils.lib.slug";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid";
-import { SectionUserInfo } from "components/templates/section/index";
+
 import { ContentEnum } from "types/database/types.database.contentEnum";
 import { ComponentMenuUserStats } from "components/templates/menu/index";
+import { PostsFindType, postsFindBackEnd } from "utils/query/posts/find";
 import { userCountState, userCountFrontEnd } from "utils/query/user/count";
+import { SectionUserInfo, SectionContentShortList } from "components/templates/section/index";
 import { usersFindBackEnd, UsersFindType, userFindOneBackEnd, UserFindOneType } from "utils/query/user/find";
 
-const UserPage: NextPage<any> = ({ user }: { user?: UserFindOneType }): JSX.Element => {
+const UserPage: NextPage<any> = ({ user, content }: { user?: UserFindOneType; content: PostsFindType }): JSX.Element => {
   useViews({ id: user?.data?.id, typ: ContentEnum.user });
   const [stats, setStats] = useState(userCountState);
 
@@ -31,7 +33,7 @@ const UserPage: NextPage<any> = ({ user }: { user?: UserFindOneType }): JSX.Elem
           <ComponentMenuUserStats data={{ stats, skilks: user?.data?.attributes.skilks, learn: user?.data?.attributes.learn }} />
           <Col xs={12} md={9}>
             <SectionUserInfo data={{ user }} />
-            {/* <SectionArticleShortList data={content} userId={(user?.data?.user?.data?.id && parseInt(user?.data?.user?.data?.id)) || 0} type="allFromUser" /> */}
+            <SectionContentShortList data={{ typ: ContentEnum.userPost, content, title: `Posty ${user?.data?.attributes.username}`, id: user?.data?.id }} />
           </Col>
         </Row>
       </Container>
@@ -57,10 +59,12 @@ export async function getStaticPaths(): Promise<any> {
 
 export async function getStaticProps({ params }: any): Promise<any> {
   const user: UserFindOneType = await userFindOneBackEnd({ id: parseInt(params.user[0]) });
+  const content: PostsFindType = await postsFindBackEnd({ published: true, typ: ContentEnum.userPost, id: user.data?.id });
 
   return {
     props: {
       user,
+      content,
       slug: `/${params.user[0]}/${params.user[1]}`,
     },
   };

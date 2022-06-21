@@ -1,7 +1,7 @@
 import { postsFindFrontEnd, PostsFindType } from "utils/query/posts/find";
 import { ContentEnum } from "types/database/types.database.contentEnum";
 
-export const query = async ({ typ, content, page }: { typ: ContentEnum; content?: PostsFindType; page: number }): Promise<PostsFindType | undefined> => {
+export const query = async ({ typ, content, page, id }: { typ: ContentEnum; content?: PostsFindType; page: number; id?: number }): Promise<PostsFindType | undefined> => {
   switch (typ) {
     case ContentEnum.post:
       const resPost: PostsFindType = await postsFindFrontEnd({ page });
@@ -32,5 +32,12 @@ export const query = async ({ typ, content, page }: { typ: ContentEnum; content?
       const resUnVideo: PostsFindType = await postsFindFrontEnd({ published: false, page, typ: ContentEnum.unVideo });
       if (resUnVideo?.data && content?.data) resUnVideo.data = [...content?.data, ...resUnVideo.data];
       return resUnVideo;
+
+    case ContentEnum.userPost:
+      if (!!id) {
+        const userPosts: PostsFindType = await postsFindFrontEnd({ published: false, page, typ: ContentEnum.userPost, id });
+        if (userPosts?.data && content?.data) userPosts.data = [...content?.data, ...userPosts.data];
+        return userPosts;
+      }
   }
 };
