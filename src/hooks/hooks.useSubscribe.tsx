@@ -1,56 +1,102 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { NextRouter, useRouter } from "next/router";
-import useCallBackURL from "hooks/hooks.useCallBackURL";
-import {
-  userStatisticsGet,
-  UserStatisticsType,
-  userSubscriptionStatusGet,
-  userSubscriptionStatusInitialState,
-  UserSubscriptionStatusType,
-  userSubscriptionToggleGet,
-  userSubscriptionToggleInitialState,
-  UserSubscriptionToggleType,
-  userStatisticsInitialState,
-} from "utils/database/database.restAPI.index";
+import useAddCallBackURL from "./hooks.useCallBackURL";
+import { ContentEnum } from "types/database/types.database.contentEnum";
+import { userAmISubscribeFrontEnd, userAmISubscribeState, UserAmISubscribeType } from "utils/query/user/subscribe";
 
-export default function useSubscribe({ id, slug }: { id: number; slug?: string }) {
+export default function useSubscribe({ id, typ }: { id?: number; typ?: ContentEnum.user }) {
   const router: NextRouter = useRouter();
   const { data: session } = useSession();
-  const { addCallBackURL } = useCallBackURL();
-  const [statusSubscription, setStatusSubsctiption] = useState(false);
-  const [statistics, setStatistics] = useState(userStatisticsInitialState);
+  const { addCallBackURL } = useAddCallBackURL();
+  const [amISubscribeStatus, setAmISubscribeStatus] = useState(userAmISubscribeState);
+  const [iAmWaitingForAnswerSubscribeStatus, setIAmWaitingForAnswerSubscribeStatus] = useState(true);
 
-  const subscriptionStatusGet = async (): Promise<UserSubscriptionStatusType> => {
-    return !!session?.jwt ? await userSubscriptionStatusGet(id, `${session?.jwt}`) : userSubscriptionStatusInitialState;
-  };
+  // const raitingAdd = async ({ voice }: { voice?: RatingEnum }): Promise<RaitingAddInPostType> => {
+  //   setIAmWaitingForAnswerRaigingsIsAdded(true);
+  //   if (!postId || !voice) {
+  //     setIAmWaitingForAnswerRaigingsIsAdded(false);
+  //     return {
+  //       data: null,
+  //       error: {
+  //         status: 400,
+  //         name: "Wrong field postId or voice",
+  //         message: "Wrong field postId or voice or you need loged",
+  //         details: {},
+  //       },
+  //     };
+  //   } else if (!session?.jwt) {
+  //     setIAmWaitingForAnswerRaigingsIsAdded(false);
+  //     addCallBackURL({ to: `/post/${postId}`, name: "post" });
+  //     router.replace("/auth/signin");
+  //     return {
+  //       data: null,
+  //       error: {
+  //         status: 400,
+  //         name: "You don't have access",
+  //         message: "When you want add comment you need to be log",
+  //         details: {},
+  //       },
+  //     };
+  //   } else {
+  //     const resAdd: RaitingAddInPostType = await raitingAddInPostFrontEnd({ postId, voice, authToken: `${session?.jwt}` });
+  //     if (!resAdd?.error) {
+  //       const res: RaitingUserInPostFindType = await raitingUserInPostFindFoundFrontEnd({ postId, userId: typeof session?.id === "string" ? parseInt(session?.id) : 0 });
+  //       setRaitingAdded(res);
+  //     }
+  //     setIAmWaitingForAnswerRaigingsIsAdded(false);
+  //     return resAdd;
+  //   }
+  // };
 
-  const statisticsGet = async (): Promise<UserStatisticsType> => {
-    return await userStatisticsGet(id);
-  };
-
-  const subscriptionToggleGet = async (): Promise<UserSubscriptionToggleType | void> => {
-    if (!session) {
-      addCallBackURL({ name: "user", to: slug || "" });
-      router.replace("/auth/signin");
-    } else !!session?.jwt ? await userSubscriptionToggleGet(id, `${session?.jwt}`) : userSubscriptionToggleInitialState;
-    const newStatus: UserSubscriptionStatusType = await subscriptionStatusGet();
-    newStatus?.data?.status != statusSubscription && setStatusSubsctiption(!!newStatus?.data?.status);
-  };
+  // const raitingDelete = async (): Promise<RaitingDeleteInPostType> => {
+  //   setIAmWaitingForAnswerRaigingsIsAdded(true);
+  //   if (!postId) {
+  //     setIAmWaitingForAnswerRaigingsIsAdded(false);
+  //     return {
+  //       data: null,
+  //       error: {
+  //         status: 400,
+  //         name: "Wrong field postId ",
+  //         message: "Wrong field postId or you need loged",
+  //         details: {},
+  //       },
+  //     };
+  //   } else if (!session?.jwt) {
+  //     setIAmWaitingForAnswerRaigingsIsAdded(false);
+  //     addCallBackURL({ to: `/post/${postId}`, name: "post" });
+  //     router.replace("/auth/signin");
+  //     return {
+  //       data: null,
+  //       error: {
+  //         status: 400,
+  //         name: "You don't have access",
+  //         message: "When you want add comment you need to be log",
+  //         details: {},
+  //       },
+  //     };
+  //   } else {
+  //     const resDel: RaitingDeleteInPostType = await raitingUserDeleteInPostFrontEnd({ postId, authToken: `${session?.jwt}` });
+  //     if (!resDel?.error) {
+  //       const res: RaitingUserInPostFindType = await raitingUserInPostFindFoundFrontEnd({ postId, userId: typeof session?.id === "string" ? parseInt(session?.id) : 0 });
+  //       setRaitingAdded(res);
+  //     }
+  //     setIAmWaitingForAnswerRaigingsIsAdded(false);
+  //     return resDel;
+  //   }
+  // };
 
   useEffect(() => {
-    (async () => {
-      const status = !!session?.jwt ? await userSubscriptionStatusGet(id, `${session?.jwt}`) : userSubscriptionStatusInitialState;
-      status.data?.status && setStatusSubsctiption(status.data?.status);
-    })();
-  }, [session, id]);
+    if (typeof session?.jwt === "string" && !!id && !!typ) {
+      (async () => {
+        if (typ === ContentEnum.user) {
+          const res: UserAmISubscribeType = await userAmISubscribeFrontEnd({ userId: id, authToken: `${session?.jwt}` });
+          setAmISubscribeStatus(res);
+        }
+        setIAmWaitingForAnswerSubscribeStatus(false);
+      })();
+    } else if (!session?.jwt || !id || !typ) setIAmWaitingForAnswerSubscribeStatus(false);
+  }, [id, typ, session]);
 
-  useEffect(() => {
-    (async () => {
-      const feshStatistics = await userStatisticsGet(id);
-      setStatistics(feshStatistics);
-    })();
-  }, [id]);
-
-  return { session, statistics, statusSubscription, setStatusSubsctiption, subscriptionStatusGet, subscriptionToggleGet, statisticsGet };
+  return { amISubscribeStatus, iAmWaitingForAnswerSubscribeStatus };
 }

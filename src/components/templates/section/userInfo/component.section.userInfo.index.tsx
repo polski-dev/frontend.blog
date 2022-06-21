@@ -1,5 +1,5 @@
 import Image from "next/image";
-import useUser from "hooks/hooks.useSubscribe";
+import useSubscribe from "hooks/hooks.useSubscribe";
 import AvatarBasic from "assets/icon/avatar.svg";
 import Birthday from "assets/icon/birthday.svg";
 import LinkIcon from "assets/icon/link.svg";
@@ -9,27 +9,32 @@ import Tiktok from "assets/icon/tiktok.svg";
 import Github from "assets/icon/github.svg";
 import time from "utils/lib/utils.lib.time";
 import Instagram from "assets/icon/instagram.svg";
-import { UserByIdType } from "utils/database/database.graphQL.index";
 import { Button } from "components/atoms/button/component.button.index";
 import { UserInfoBox, Avatar, Name, Description, List, Item } from "./component.section.userInfo.style";
-import { usersFindBackEnd, UsersFindType, userFindOneBackEnd, UserFindOneType } from "utils/query/user/find";
+import { UserFindOneType } from "utils/query/user/find";
+import { ContentEnum } from "types/database/types.database.contentEnum";
+import { ComponentAnimationItemLoad } from "components/atoms/animation";
 export default function SectionUserInfo({ data }: { data?: { user?: UserFindOneType } }) {
-  //const { statusSubscription, subscriptionToggleGet } = useUser({ id: (user?.data?.user?.data?.id && parseInt(user?.data?.user?.data?.id)) || 0, slug });
+  const { amISubscribeStatus, iAmWaitingForAnswerSubscribeStatus } = useSubscribe({ id: data?.user?.data?.id, typ: ContentEnum.user });
 
   return (
     <UserInfoBox>
       <Avatar>
         {data?.user?.data?.attributes?.avatar?.data?.attributes?.url ? <Image width={120} height={120} placeholder="blur" blurDataURL="/img/blur.png" src={data?.user?.data?.attributes?.avatar?.data?.attributes?.url} alt={data?.user?.data?.attributes.username || "Add user name"} /> : <AvatarBasic />}
       </Avatar>
-      <Button
-        title={true ? "Zrezygnuj z subskrypcji" : "Subskrybuj"}
-        className="btn"
-        onClick={() => {
-          // subscriptionToggleGet();
-        }}
-      >
-        {true ? "Subskrybujesz" : "Subskrybuj"}
-      </Button>
+      {iAmWaitingForAnswerSubscribeStatus ? (
+        <ComponentAnimationItemLoad height={3.1} className="btn" style={{ maxWidth: "12.5rem" }} />
+      ) : (
+        <Button
+          title={true ? "Zrezygnuj z subskrypcji" : "Subskrybuj"}
+          className="btn"
+          onClick={() => {
+            // subscriptionToggleGet();
+          }}
+        >
+          {amISubscribeStatus ? "Subskrybujesz" : "Subskrybuj"}
+        </Button>
+      )}
       <Name>{data?.user?.data?.attributes.username || "Add user name"}</Name>
       <Description>{data?.user?.data?.attributes.about || "He did not yet add description"}</Description>
       <List>
