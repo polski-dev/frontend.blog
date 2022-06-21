@@ -1,6 +1,6 @@
-import { PostsFindType } from "./types/utils.request.posts.find.types";
-import { postsFindState } from "./state/utils.request.posts.find.state";
-import { postsFindBackEnd, postsFindFrontEnd } from "./query/utils.request.posts.find.query";
+import { PostsFindType, PostFindOneType } from "./types/utils.request.posts.find.types";
+import { postsFindState, postFindOneState } from "./state/utils.request.posts.find.state";
+import { postsFindBackEnd, postsFindFrontEnd, postFindOneBackEnd } from "./query/utils.request.posts.find.query";
 
-export type { PostsFindType };
-export { postsFindState, postsFindBackEnd, postsFindFrontEnd };
+export type { PostsFindType, PostFindOneType };
+export { postsFindState, postsFindBackEnd, postsFindFrontEnd, postFindOneState, postFindOneBackEnd };

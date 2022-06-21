@@ -7,3 +7,9 @@ export interface PostsFindType {
   meta?: MetaType;
   error?: ErrorType;
 }
+
+export interface PostFindOneType {
+  data: PostType | null;
+  meta?: MetaType;
+  error?: ErrorType;
+}
