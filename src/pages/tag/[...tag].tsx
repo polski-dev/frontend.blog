@@ -5,7 +5,7 @@ import useTag from "hooks/hooks.useTag";
 import { useEffect, useState } from "react";
 import { kebabCase, deburr, parseInt } from "lodash";
 import { MenuPrimary } from "components/templates/menu/index";
-import { InfoBoxTagPage } from "components/templates/boxInfo/component.boxInfo.index";
+import { InfoBoxTagPage } from "components/templates/section/boxInfo/component.boxInfo.index";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid";
 import { SectionArticleShortList } from "components/templates/section/index";
 import { tagWithOnlyTitleAllGetPreviewList, TagWithOnlyTitleType, tagFullByIdGetPreview, TagFullByIdType, contentShortWithTagGetPreview, ContentShortWithTagType } from "utils/database/database.graphQL.index";

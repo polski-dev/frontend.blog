@@ -1,17 +1,17 @@
 import Head from "next/head";
 import { NextPage } from "next";
-import { slugFromTitle } from "utils/lib/utils.lib.slug";
-import { ComponentMenuUserStats } from "components/templates/menu/index";
-import { UserInfo } from "components/templates/user/component.user.index";
-import { Container, Row, Col } from "components/orgamis/flexboxgrid";
-// import { SectionArticleShortList } from "components/templates/section/index";
-import { userGetListPreview, UserGetListType, userByIdGetPreview, UserByIdType, ContentShortFromUserType, contentShortFromUserGetPreview } from "utils/database/database.graphQL.index";
-import { usersFindBackEnd, UsersFindType, userFindOneBackEnd, UserFindOneType } from "utils/query/user/find";
-import { UserType } from "types/database/types.database.user";
-import { userCountState, userCountFrontEnd } from "utils/query/user/count";
+import useViews from "hooks/hooks.useViews";
 import { useState, useEffect } from "react";
+import { slugFromTitle } from "utils/lib/utils.lib.slug";
+import { Container, Row, Col } from "components/orgamis/flexboxgrid";
+import { SectionUserInfo } from "components/templates/section/index";
+import { ContentEnum } from "types/database/types.database.contentEnum";
+import { ComponentMenuUserStats } from "components/templates/menu/index";
+import { userCountState, userCountFrontEnd } from "utils/query/user/count";
+import { usersFindBackEnd, UsersFindType, userFindOneBackEnd, UserFindOneType } from "utils/query/user/find";
 
-const UserPage: NextPage<any> = ({ user }: { user: UserFindOneType }): JSX.Element => {
+const UserPage: NextPage<any> = ({ user }: { user?: UserFindOneType }): JSX.Element => {
+  useViews({ id: user?.data?.id, typ: ContentEnum.user });
   const [stats, setStats] = useState(userCountState);
 
   useEffect(() => {
@@ -30,8 +30,7 @@ const UserPage: NextPage<any> = ({ user }: { user: UserFindOneType }): JSX.Eleme
         <Row>
           <ComponentMenuUserStats data={{ stats, skilks: user?.data?.attributes.skilks, learn: user?.data?.attributes.learn }} />
           <Col xs={12} md={9}>
-            <>ij</>
-            {/* <UserInfo data={{ user, slug }} /> */}
+            <SectionUserInfo data={{ user }} />
             {/* <SectionArticleShortList data={content} userId={(user?.data?.user?.data?.id && parseInt(user?.data?.user?.data?.id)) || 0} type="allFromUser" /> */}
           </Col>
         </Row>
@@ -58,9 +57,6 @@ export async function getStaticPaths(): Promise<any> {
 
 export async function getStaticProps({ params }: any): Promise<any> {
   const user: UserFindOneType = await userFindOneBackEnd({ id: parseInt(params.user[0]) });
-
-  // content
-  //const content: ContentShortFromUserType = await contentShortFromUserGetPreview(0, params.user[0]);
 
   return {
     props: {

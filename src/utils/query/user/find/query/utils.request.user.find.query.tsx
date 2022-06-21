@@ -23,6 +23,6 @@ export async function usersFindBackEnd({ page = 1 }: { page?: number }) {
 export async function userFindOneBackEnd({ id }: { id: number }) {
   const user: AxiosResponse<any> = await axios.get(process.env.BACKEND_API_URL + `/api/users/${id}?populate=avatar&populate=skilks&populate=learn`);
   return {
-    data: { id: user?.data.id, attributes: { ...user.data } },
+    data: { id: user?.data.id, attributes: { ...user?.data, avatar: { data: { id: user?.data?.avatar.id, attributes: { ...user?.data?.avatar } } } } },
   };
 }
