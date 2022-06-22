@@ -21,7 +21,7 @@ export async function postsFindFrontEnd({ published = true, typ = ContentEnum.po
     },
   });
 
-  return !!res?.data?.error ? res.data : res?.data;
+  return res.data;
 }
 
 export async function postFindOneBackEnd({ postId }: { postId: number }) {

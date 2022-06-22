@@ -34,10 +34,8 @@ export const query = async ({ typ, content, page, id }: { typ: ContentEnum; cont
       return resUnVideo;
 
     case ContentEnum.userPost:
-      if (!!id) {
-        const userPosts: PostsFindType = await postsFindFrontEnd({ published: false, page, typ: ContentEnum.userPost, id });
-        if (userPosts?.data && content?.data) userPosts.data = [...content?.data, ...userPosts.data];
-        return userPosts;
-      }
+      const userPosts: PostsFindType = await postsFindFrontEnd({ page, typ: ContentEnum.userPost, id });
+      if (userPosts?.data && content?.data) userPosts.data = [...content?.data, ...userPosts.data];
+      return userPosts;
   }
 };
