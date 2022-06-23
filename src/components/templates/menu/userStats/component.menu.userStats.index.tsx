@@ -4,7 +4,7 @@ import Hash from "assets/icon/hash.svg";
 import Comment from "assets/icon/comment.svg";
 import Document from "assets/icon/document.svg";
 
-import { UserCountType } from "utils/query/user/count";
+import { UserCountType } from "utils/query/users/count";
 import { ComponentAnimationCircleLoad } from "components/atoms/animation";
 import { SkilksType, LearnType } from "types/database/types.database.user";
 import { MenuUserBox, BoxStats, List, Item, Header } from "./component.menu.userStats.style";

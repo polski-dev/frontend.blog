@@ -1,6 +1,6 @@
 import { useEffect, useCallback } from "react";
 import { viewAddInPostFrontEnd } from "utils/query/posts/view";
-import { userAddviewsInPageUserFrontEnd } from "utils/query/user/view";
+import { userAddviewsInPageUserFrontEnd } from "utils/query/users/view";
 import { ContentEnum } from "types/database/types.database.contentEnum";
 
 export default function useViews({ id, typ }: { id?: number; typ?: ContentEnum }) {

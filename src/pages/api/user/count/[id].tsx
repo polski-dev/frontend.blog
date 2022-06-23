@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { userCountBackEnd } from "utils/query/user/count";
+import { userCountBackEnd } from "utils/query/users/count";
 import { MessageErrorInAPI } from "utils/messages/utils.messages.errors";
 
 export default async function userCountAPI(req: NextApiRequest, res: NextApiResponse): Promise<void> {

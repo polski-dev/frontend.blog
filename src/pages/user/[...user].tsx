@@ -8,9 +8,9 @@ import { Container, Row, Col } from "components/orgamis/flexboxgrid";
 import { ContentEnum } from "types/database/types.database.contentEnum";
 import { ComponentMenuUserStats } from "components/templates/menu/index";
 import { PostsFindType, postsFindBackEnd } from "utils/query/posts/find";
-import { userCountState, userCountFrontEnd } from "utils/query/user/count";
+import { userCountState, userCountFrontEnd } from "utils/query/users/count";
 import { SectionUserInfo, SectionContentShortList } from "components/templates/section/index";
-import { usersFindBackEnd, UsersFindType, userFindOneBackEnd, UserFindOneType } from "utils/query/user/find";
+import { usersFindBackEnd, UsersFindType, userFindOneBackEnd, UserFindOneType } from "utils/query/users/find";
 
 const UserPage: NextPage<any> = ({ user, content }: { user?: UserFindOneType; content: PostsFindType }): JSX.Element => {
   useViews({ id: user?.data?.id, typ: ContentEnum.user });

@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { usersFindBackEnd } from "utils/query/user/find";
+import { usersFindBackEnd } from "utils/query/users/find";
 
 export default async function UserFindAPI(req: NextApiRequest, res: NextApiResponse): Promise<void> {
   if (req.method === "GET") {

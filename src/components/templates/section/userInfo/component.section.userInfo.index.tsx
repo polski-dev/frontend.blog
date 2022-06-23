@@ -11,7 +11,7 @@ import time from "utils/lib/utils.lib.time";
 import Instagram from "assets/icon/instagram.svg";
 import { Button } from "components/atoms/button/component.button.index";
 import { UserInfoBox, Avatar, Name, Description, List, Item } from "./component.section.userInfo.style";
-import { UserFindOneType } from "utils/query/user/find";
+import { UserFindOneType } from "utils/query/users/find";
 import { ContentEnum } from "types/database/types.database.contentEnum";
 import { ComponentAnimationItemLoad } from "components/atoms/animation";
 export default function SectionUserInfo({ data }: { data?: { user?: UserFindOneType } }) {
@@ -26,7 +26,7 @@ export default function SectionUserInfo({ data }: { data?: { user?: UserFindOneT
         <ComponentAnimationItemLoad height={3.1} className="btn" style={{ maxWidth: "12.5rem" }} />
       ) : (
         <Button
-          title={true ? "Zrezygnuj z subskrypcji" : "Subskrybuj"}
+          title={amISubscribeStatus.data?.subscribe ? "Zrezygnuj z subskrypcji" : "Subskrybuj"}
           className="btn"
           onClick={() => {
             changeSubscribe();

@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { userAddviewsInPageUserBackEnd } from "utils/query/user/view";
+import { userAddviewsInPageUserBackEnd } from "utils/query/users/view";
 import { MessageErrorInAPI } from "utils/messages/utils.messages.errors";
 
 export default async function viewInPost(req: NextApiRequest, res: NextApiResponse): Promise<void> {
