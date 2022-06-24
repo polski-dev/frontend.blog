@@ -9,6 +9,6 @@ export interface TagType {
     createdAt: Date | null;
     updatedAt: Date | null;
     publishedAt: Date | null;
-    cover?: ImageFromDatabaseType | null;
+    cover?: { data: ImageFromDatabaseType } | { data: null };
   };
 }
