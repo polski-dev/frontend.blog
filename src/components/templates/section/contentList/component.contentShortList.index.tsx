@@ -1,8 +1,8 @@
 import Confetti from "react-confetti";
 import useWindowData from "hooks/hooks.windowData";
-import { PostsFindType } from "utils/query/posts/find";
 import React, { useEffect, useRef, useState } from "react";
 import { PostType } from "types/database/types.database.post";
+import { PostsFindType, postsFindState } from "utils/query/posts/find";
 import { ContentEnum } from "types/database/types.database.contentEnum";
 import { query } from "./switchs/component.contentShortList.switch.query";
 import { ComponentAnimationShortArticle } from "components/atoms/animation/index";
@@ -11,9 +11,13 @@ import { Section, Title, BoxInformation, Info, NotFound } from "./style/componen
 
 export default function SectionContentShortList({ data }: { data: { typ: ContentEnum; content?: PostsFindType; title: string; id?: number } }): JSX.Element {
   const { width, height } = useWindowData();
-  const [content, setContent] = useState(data.content);
+  const [content, setContent] = useState(postsFindState);
   const [iAmWaitingForAnswer, setIamWaitingForAnswer] = useState(false);
   const postRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    data?.content && setContent(data.content);
+  }, [data]);
 
   useEffect(() => {
     let check = setTimeout(() => {}, 200);

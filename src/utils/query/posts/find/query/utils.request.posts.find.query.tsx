@@ -11,12 +11,13 @@ export async function postsFindBackEnd({ published = true, typ = ContentEnum.pos
   return !!res?.data?.error ? res.data : res?.data;
 }
 
-export async function postsFindFrontEnd({ published = true, typ = ContentEnum.post, page = 1, id }: { published?: boolean; typ?: ContentEnum; page?: number; id?: number }) {
+export async function postsFindFrontEnd({ published = true, typ = ContentEnum.post, page = 1, id, tagId }: { published?: boolean; typ?: ContentEnum; page?: number; id?: number; tagId?: number }) {
   const res = await axios.get(`/api/post/find/`, {
     params: {
       id: id,
       typ: typ,
       page: page,
+      tagId: tagId,
       published: published,
     },
   });
