@@ -1,6 +1,8 @@
 import { useEffect, useCallback } from "react";
+import { viewAddInTagFrontEnd } from "utils/query/tags/view";
 import { viewAddInPostFrontEnd } from "utils/query/posts/view";
 import { userAddviewsInPageUserFrontEnd } from "utils/query/users/view";
+
 import { ContentEnum } from "types/database/types.database.contentEnum";
 
 export default function useViews({ id, typ }: { id?: number; typ?: ContentEnum }) {
@@ -25,6 +27,7 @@ export default function useViews({ id, typ }: { id?: number; typ?: ContentEnum }
       if (!remindView()) {
         typ === ContentEnum.post && viewAddInPostFrontEnd({ postId: id });
         typ === ContentEnum.user && userAddviewsInPageUserFrontEnd({ userId: id });
+        typ === ContentEnum.tag && viewAddInTagFrontEnd({ tagId: id });
         rememberView();
       }
     })();

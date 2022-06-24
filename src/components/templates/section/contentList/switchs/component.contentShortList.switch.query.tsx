@@ -37,5 +37,20 @@ export const query = async ({ typ, content, page, id }: { typ: ContentEnum; cont
       const userPosts: PostsFindType = await postsFindFrontEnd({ page, typ: ContentEnum.userPost, id });
       if (userPosts?.data && content?.data) userPosts.data = [...content?.data, ...userPosts.data];
       return userPosts;
+
+    case ContentEnum.tagPost:
+      const tagPosts: PostsFindType = await postsFindFrontEnd({ page, typ: ContentEnum.post, id });
+      if (tagPosts?.data && content?.data) tagPosts.data = [...content?.data, ...tagPosts.data];
+      return tagPosts;
+
+    case ContentEnum.tagArticle:
+      const tagArticle: PostsFindType = await postsFindFrontEnd({ page, typ: ContentEnum.article, id });
+      if (tagArticle?.data && content?.data) tagArticle.data = [...content?.data, ...tagArticle.data];
+      return tagArticle;
+
+    case ContentEnum.tagVideo:
+      const tagVideo: PostsFindType = await postsFindFrontEnd({ page, typ: ContentEnum.video, id });
+      if (tagVideo?.data && content?.data) tagVideo.data = [...content?.data, ...tagVideo.data];
+      return tagVideo;
   }
 };

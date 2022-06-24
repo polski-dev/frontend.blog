@@ -1,9 +1,9 @@
-import { PostCountType, PostsCountType } from "../types/utils.request.posts.count.types";
+import { TagCountType, TagsCountType } from "../types/utils.request.posts.count.types";
 
-export const postsCountState: PostsCountType = {
+export const tagCountState: TagCountType = {
   data: null,
 };
 
-export const postCountState: PostCountType = {
+export const tagsCountState: TagsCountType = {
   data: null,
 };

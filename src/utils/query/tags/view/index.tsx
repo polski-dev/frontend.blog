@@ -1,6 +1,6 @@
-import { ViewAddInPostType } from "./types/utils.request.posts.view.types";
-import { viewAddInPostState } from "./state/utils.request.posts.view.state";
-import { viewAddInPostBackEnd, viewAddInPostFrontEnd } from "./query/utils.request.posts.view.query";
+import { ViewAddInTagType } from "./types/utils.request.tags.view.types";
+import { viewAddInTagState } from "./state/utils.request.tags.view.state";
+import { viewAddInTagBackEnd, viewAddInTagFrontEnd } from "./query/utils.request.tags.view.query";
 
-export type { ViewAddInPostType };
-export { viewAddInPostState, viewAddInPostBackEnd, viewAddInPostFrontEnd };
+export type { ViewAddInTagType };
+export { viewAddInTagState, viewAddInTagBackEnd, viewAddInTagFrontEnd };

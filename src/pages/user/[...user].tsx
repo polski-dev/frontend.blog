@@ -6,7 +6,7 @@ import { slugFromTitle } from "utils/lib/utils.lib.slug";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid";
 
 import { ContentEnum } from "types/database/types.database.contentEnum";
-import { ComponentMenuUserStats } from "components/templates/menu/index";
+import { MenuUserStats } from "components/templates/menu/index";
 import { PostsFindType, postsFindBackEnd } from "utils/query/posts/find";
 import { userCountState, userCountFrontEnd } from "utils/query/users/count";
 import { SectionUserInfo, SectionContentShortList } from "components/templates/section/index";
@@ -30,7 +30,7 @@ const UserPage: NextPage<any> = ({ user, content }: { user?: UserFindOneType; co
       <div style={{ width: "100%", height: "10rem", backgroundColor: "#5F6367" }}></div>
       <Container>
         <Row>
-          <ComponentMenuUserStats data={{ stats, skilks: user?.data?.attributes.skilks, learn: user?.data?.attributes.learn }} />
+          <MenuUserStats data={{ stats, skilks: user?.data?.attributes.skilks, learn: user?.data?.attributes.learn }} />
           <Col xs={12} md={9}>
             <SectionUserInfo data={{ user }} />
             <SectionContentShortList data={{ typ: ContentEnum.userPost, content, title: `Posty ${user?.data?.attributes.username}`, id: user?.data?.id }} />

@@ -1,12 +1,12 @@
 import Confetti from "react-confetti";
 import useWindowData from "hooks/hooks.windowData";
-import React, { useEffect, useRef, useState } from "react";
 import { PostsFindType } from "utils/query/posts/find";
+import React, { useEffect, useRef, useState } from "react";
 import { PostType } from "types/database/types.database.post";
+import { ContentEnum } from "types/database/types.database.contentEnum";
 import { query } from "./switchs/component.contentShortList.switch.query";
 import { ComponentAnimationShortArticle } from "components/atoms/animation/index";
 import selectTemplateForContent from "./switchs/component.contentShortList.switch.theme";
-import { ContentEnum } from "types/database/types.database.contentEnum";
 import { Section, Title, BoxInformation, Info, NotFound } from "./style/component.listShortArticle.style";
 
 export default function SectionContentShortList({ data }: { data: { typ: ContentEnum; content?: PostsFindType; title: string; id?: number } }): JSX.Element {

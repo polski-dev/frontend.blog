@@ -8,5 +8,8 @@ export enum ContentEnum {
   article = "article",
   unArticle = "unArticle",
   tag = "tag",
+  tagPost = "tagPost",
+  tagArticle = "tagArticle",
+  tagVideo = "tagVideo",
   user = "user",
 }
