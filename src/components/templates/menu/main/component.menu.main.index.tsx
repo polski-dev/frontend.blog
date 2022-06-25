@@ -20,7 +20,7 @@ export default function MenuPrimary({ data }: { data?: { title?: string; cover?:
       <GlobalStyle power={showMenu} />
       <Bg power={showMenu} />
       <BoxMenu power={showMenu}>
-        <OffMenu onClick={() => {}}>
+        <OffMenu onClick={() => setShowMenu(false)}>
           <span></span>
           <span></span>
         </OffMenu>

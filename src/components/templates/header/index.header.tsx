@@ -17,7 +17,7 @@ import { Header, Hambuger, Logo, SerachBox, UserPanelBox, Menu, Item, BoxAuthUse
 const HeaderComponent = () => {
   const { data } = useSession();
   const { pathname } = useRouter();
-  const { showMenu } = useContext(MenuContext);
+  const { showMenu, setShowMenu } = useContext(MenuContext);
   const [powerUserBox, setPowerUserBox] = useState(false);
 
   return (
@@ -25,13 +25,11 @@ const HeaderComponent = () => {
       <Header>
         <Container>
           <Row>
-            {showMenu && (
-              <Hambuger onClick={() => {}}>
-                <span></span>
-                <span></span>
-                <span></span>
-              </Hambuger>
-            )}
+            <Hambuger onClick={() => setShowMenu(!showMenu)}>
+              <span></span>
+              <span></span>
+              <span></span>
+            </Hambuger>
 
             <Logo>
               <Link href="/">

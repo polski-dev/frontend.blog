@@ -2,36 +2,15 @@ import styled, { css, StyledComponent } from "styled-components";
 import { MainSettingsTemplate } from "assets/style/types.mainSettingsTemplate";
 
 export const MenuTagStatsBox: StyledComponent<any, any> = styled.div`
-  bottom: 0;
   width: 100%;
-  z-index: 999;
-  height: 4.5rem;
+  display: block;
   position: relative;
-  transition: all 0.3s;
-  justify-content: center;
-
   background-color: ${({ theme }: { theme: MainSettingsTemplate }): string => theme.colorMainBg};
-  padding: ${({ theme }: { theme: MainSettingsTemplate }): string => theme.break.big} 0 ${({ theme }: { theme: MainSettingsTemplate }): string => theme.break.main} 0;
+  margin-top: ${({ theme }: { theme: MainSettingsTemplate }): string => theme.break.big};
 
   &::-webkit-scrollbar {
     display: none;
   }
-
-  ${({ theme }: { theme: MainSettingsTemplate }) => css`
-    @media all and (min-width: ${theme.breakPoint[theme.breakPoint.findIndex((item: any) => item.type === "md")].break}) {
-      top: 0;
-      left: 0;
-      z-index: 0;
-      width: auto;
-      height: auto;
-      bottom: auto;
-      overflow: unset;
-      position: relative;
-      background-color: transparent;
-      flex: 100%;
-      max-width: 100%;
-    }
-  `}
 `;
 
 export const BoxStats: StyledComponent<any, any> = styled.div`
