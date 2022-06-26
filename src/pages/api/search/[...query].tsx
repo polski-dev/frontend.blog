@@ -1,14 +1,26 @@
-import { searchShortContentGetPreview, searchShortContentInitialState, SearchShortContentType } from "utils/database/database.graphQL.index";
+import { NextApiRequest, NextApiResponse } from "next";
+import { searchBackEnd, SearchType } from "utils/query/search";
 
-export default async function searchAPI(req: any, res: any) {
-  const [page, query] = req.query.query;
+export default async function searchAPI(req: NextApiRequest, res: NextApiResponse): Promise<void> {
+  const query: string = req.query.query[0];
+  const page: string = req.query.query[1];
 
-  // i check data
-  if (parseInt(page) < 0) res.status(200).json(searchShortContentInitialState);
-  else if (parseInt(page) === 0 ? false : !parseInt(page)) res.status(400).json({ err: "wrong page number" });
+  const turstNumberPage: number = typeof page === "string" ? parseInt(page) : 1;
+  const turstQuery: string | undefined = typeof query === "string" ? query : undefined;
+
+  if ((!!page && !turstNumberPage) || !turstQuery)
+    return res.status(400).json({
+      data: null,
+      error: {
+        status: 400,
+        name: "Wrong field",
+        message: "Wrong one fields ,,query'' or ,,page'' ",
+        details: {},
+      },
+    });
 
   // query
-  const result: SearchShortContentType = await searchShortContentGetPreview(parseInt(page), false, query);
+  const result: SearchType = await searchBackEnd({ query: turstQuery, page: turstNumberPage });
 
   res.status(200).json(result);
 }

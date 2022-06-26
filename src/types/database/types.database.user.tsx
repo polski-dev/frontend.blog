@@ -1,6 +1,6 @@
 import { ImageFromDatabaseType } from "./types.database.image";
 
-export type SkilksType = { createdAt: Date; description: string; id: number; publishedAt: Date; title: string; updatedAt: Date; views: number };
+export type SkilkType = { createdAt: Date; description: string; id: number; publishedAt: Date; title: string; updatedAt: Date; views: number };
 export type LearnType = { createdAt: Date; description: string; id: number; publishedAt: Date; title: string; updatedAt: Date; views: number };
 
 export interface UserType {
@@ -22,7 +22,7 @@ export interface UserType {
     createdAt?: Date | null;
     updatedAt?: Date | null;
     avatar?: { data?: ImageFromDatabaseType | null };
-    skilks?: SkilksType[] | null;
+    skilks?: SkilkType[] | null;
     learn?: LearnType[] | null;
   };
 }

@@ -11,7 +11,10 @@ export interface ImageFromDatabaseFormatType {
 }
 
 export interface ImageFromDatabaseFormatsType {
-  formats: { large?: ImageFromDatabaseFormatType; small?: ImageFromDatabaseFormatType; medium?: ImageFromDatabaseFormatType; thumbnail?: ImageFromDatabaseFormatType };
+  large?: ImageFromDatabaseFormatType;
+  small?: ImageFromDatabaseFormatType;
+  medium?: ImageFromDatabaseFormatType;
+  thumbnail?: ImageFromDatabaseFormatType;
 }
 
 export interface ImageFromDatabaseType {

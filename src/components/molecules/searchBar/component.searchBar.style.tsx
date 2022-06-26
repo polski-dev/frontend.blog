@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { MainSettingsTemplate } from "types/types.mainSettingsTemplate";
 
 export const Form = styled.form`
   width: 100%;
@@ -11,7 +12,11 @@ export const Form = styled.form`
   border-radius: 0.6rem;
 `;
 
-export const Input = styled.input`
+type InputType = {
+  sugestBox: boolean;
+};
+
+export const Input = styled.input<InputType>`
   width: 100%;
   border: none;
   height: 3rem;
@@ -21,6 +26,8 @@ export const Input = styled.input`
   color: ${({ theme }) => theme.colorText};
   padding: ${({ theme }) => theme.break.main};
   background: ${({ theme }) => theme.colorInputBg};
+  border-bottom-left-radius: ${({ sugestBox }: { sugestBox: boolean }): string => (sugestBox ? "0rem" : "0.6rem")};
+  border-bottom-right-radius: ${({ sugestBox }: { sugestBox: boolean }): string => (sugestBox ? "0rem" : "0.6rem")};
 
   &:focus {
     outline: none;
@@ -135,4 +142,11 @@ export const ContentTag = styled.li`
   span {
     opacity: 0.3;
   }
+`;
+
+export const Title = styled.p`
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: ${({ theme }: { theme: MainSettingsTemplate }) => theme.colorTextDesactive};
+  padding: ${({ theme }) => theme.break.small} ${({ theme }) => theme.break.main};
 `;

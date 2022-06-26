@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { MenuPrimary } from "components/templates/menu/index";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid";
-import { SectionArticleShortList } from "components/templates/section/index";
+// import { SectionArticleShortList } from "components/templates/section/index";
 import { searchShortContentGetPreview, searchShortContentInitialState, SearchShortContentType } from "utils/database/database.restAPI.index";
 
 const Search: NextPage = () => {
@@ -30,18 +30,19 @@ const Search: NextPage = () => {
       </Head>
       <Container>
         <Row>
-          <MenuPrimary
-            title="Filtruj"
-            data={[
-              { slug: `/s/${query}`, title: "Wszystko", quantity: content.data.all?.meta.pagination.total || 0 },
-              { slug: `/s/a/${query}`, title: "Artykuły", quantity: content.data.article.meta.pagination.total || 0 },
-              { slug: `/s/v/${query}`, title: "Video", quantity: content.data.video.meta.pagination.total || 0 },
-              { slug: `/s/t/${query}`, title: "Tagi", quantity: content.data.tag.meta.pagination.total || 0 },
-              { slug: `/s/u/${query}`, title: "Użytkownicy", quantity: content.data.user.meta.pagination?.total || 0 },
-            ]}
-          />
+          {/* <MenuPrimary
+            data={{
+              title: "Filtruj",
+              links: [
+                { slug: `${slug}`, title: "Wszystko", count: stats?.data?.publishedPost || 0 },
+                { slug: `${slug}#article`, title: "Artykuły", count: stats?.data?.publishedArticle || 0 },
+                { slug: `${slug}#video`, title: "Video", count: stats?.data?.publishedVideo || 0 },
+              ],
+              cover: { url: tag?.data?.attributes?.cover?.data?.attributes?.url || "", title: tag?.data?.attributes.title },
+            }}
+          /> */}
           <Col xs={12} md={9}>
-            <SectionArticleShortList data={content} type="search" loadData={loadData} search={query?.toString()} />
+            {/* <SectionArticleShortList data={content} type="search" loadData={loadData} search={query?.toString()} /> */}
           </Col>
         </Row>
       </Container>
