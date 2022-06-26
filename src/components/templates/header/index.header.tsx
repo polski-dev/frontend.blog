@@ -58,11 +58,11 @@ const HeaderComponent = () => {
                   </BoxAuthorAvatar>
                   <BoxOptionUser power={powerUserBox}>
                     <BoxOptionUserHeader>Witaj, {data.user?.name}</BoxOptionUserHeader>
-                    <Link href="/d/a">
-                      <a title="panel użytkownika">Dodaj artykół</a>
+                    <Link href="/dashboard/add/post">
+                      <a title="panel użytkownika">Dodaj post</a>
                     </Link>
-                    <Link href="/d">
-                      <a title="panel użytkownika">Panel użytkownika</a>
+                    <Link href="/dashboard/edit/profil">
+                      <a title="panel użytkownika">Edytuj prpfil</a>
                     </Link>
                     <button onClick={() => signOut()} title="wyloguj">
                       Wyloguj

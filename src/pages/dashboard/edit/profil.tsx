@@ -6,16 +6,16 @@ import { NextRouter, useRouter } from "next/router";
 import useAddCallBackURL from "hooks/hooks.useCallBackURL";
 import { MenuPrimary } from "components/templates/menu";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
-import { SectionDasbordUserAddArticle } from "components/templates/section/index";
+import { SectionDasbordUserEditData } from "components/templates/section/index";
 
 const UserPanelPage: NextPage<any> = (): JSX.Element => {
-  const { status } = useSession();
   const router: NextRouter = useRouter();
+  const { data: session, status } = useSession();
   const { addCallBackURL } = useAddCallBackURL();
 
   useEffect(() => {
     if (status === "unauthenticated") {
-      addCallBackURL({ to: "/d/a", name: "dasbordAddArticle" });
+      addCallBackURL({ to: "/dashboard/edit/profil", name: "dasbordEdit" });
       router.push("/auth/signin");
     }
   }, [status, router, addCallBackURL]);
@@ -28,15 +28,16 @@ const UserPanelPage: NextPage<any> = (): JSX.Element => {
       <Container>
         <Row>
           <MenuPrimary
-            title="Panel użytkowania"
-            data={[
-              { slug: "/d", title: "Start", quantity: 1 },
-              { slug: "/d/a", title: "Dodaj wpis", quantity: 2 },
-              { slug: "/d/d", title: "Edycja danych", quantity: 3 },
-            ]}
+            data={{
+              title: "Panel użytkowania",
+              links: [
+                { slug: "/dashboard/add/post", title: "Dodaj post", count: 1 },
+                { slug: "/dashboard/edit/profil", title: "Edytuj profil", count: 2 },
+              ],
+            }}
           />
           <Col xs={12} md={9}>
-            <SectionDasbordUserAddArticle data={{ title: "Dodaj artykół" }} />
+            <SectionDasbordUserEditData data={{ session }} />
           </Col>
         </Row>
       </Container>

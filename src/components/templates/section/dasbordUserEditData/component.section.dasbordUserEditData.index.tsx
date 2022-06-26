@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import useHimself from "hooks/hooks.useHimself";
 import { emailRegex, passwordRegex } from "assets/regex/index.regex";
 import { ButtonSubmit } from "components/atoms/button/component.button.index";
-import { ItemLoad } from "components/atoms/animation/index";
+import { ComponentAnimationItemLoad } from "components/atoms/animation/index";
 import { Input, TextArea, enumInputType } from "components/molecules/form/component.form.index";
 import { Section, Header, Title, Content, AuthorAvatr, Form, InfoInput, BoxInfo } from "./component.section.dasbordUserEditData.style";
 
@@ -153,7 +153,7 @@ export default function SectionDasbordUserEditData({ data: { session } }: { data
           </Form>
         ) : (
           <div style={{ display: "flex", flexDirection: "column", width: "15rem", alignItems: "center" }}>
-            <ItemLoad
+            <ComponentAnimationItemLoad
               style={{
                 width: "15rem",
                 height: "15rem",
@@ -161,13 +161,13 @@ export default function SectionDasbordUserEditData({ data: { session } }: { data
               }}
             />
             <div style={{ display: "flex", flexWrap: "wrap", width: "15rem", alignItems: "center" }}>
-              <ItemLoad
+              <ComponentAnimationItemLoad
                 style={{
                   width: "10rem",
                   height: "3.2rem",
                 }}
               />
-              <ItemLoad
+              <ComponentAnimationItemLoad
                 style={{
                   width: "3.2rem",
                   height: "3.2rem",
@@ -175,7 +175,7 @@ export default function SectionDasbordUserEditData({ data: { session } }: { data
                 }}
               />
             </div>
-            <ItemLoad
+            <ComponentAnimationItemLoad
               style={{
                 width: "15rem",
                 height: "3.2rem",
@@ -199,15 +199,15 @@ export default function SectionDasbordUserEditData({ data: { session } }: { data
             </>
           ) : (
             <>
-              <ItemLoad height={3.2} />
-              <ItemLoad height={8} />
-              <ItemLoad height={3.2} />
-              <ItemLoad height={3.2} />
-              <ItemLoad height={3.2} />
-              <ItemLoad height={3.2} />
-              <ItemLoad height={3.2} />
-              <ItemLoad height={3.2} />
-              <ItemLoad height={3.2} />
+              <ComponentAnimationItemLoad height={3.2} />
+              <ComponentAnimationItemLoad height={8} />
+              <ComponentAnimationItemLoad height={3.2} />
+              <ComponentAnimationItemLoad height={3.2} />
+              <ComponentAnimationItemLoad height={3.2} />
+              <ComponentAnimationItemLoad height={3.2} />
+              <ComponentAnimationItemLoad height={3.2} />
+              <ComponentAnimationItemLoad height={3.2} />
+              <ComponentAnimationItemLoad height={3.2} />
             </>
           )}
         </Form>
@@ -221,8 +221,8 @@ export default function SectionDasbordUserEditData({ data: { session } }: { data
             </>
           ) : (
             <>
-              <ItemLoad height={3.2} />
-              <ItemLoad height={3.2} />
+              <ComponentAnimationItemLoad height={3.2} />
+              <ComponentAnimationItemLoad height={3.2} />
             </>
           )}
         </Form>
@@ -238,10 +238,10 @@ export default function SectionDasbordUserEditData({ data: { session } }: { data
             </>
           ) : (
             <>
-              <ItemLoad height={1.2} />
-              <ItemLoad height={3.2} />
-              <ItemLoad height={3.2} />
-              <ItemLoad height={3.2} />
+              <ComponentAnimationItemLoad height={1.2} />
+              <ComponentAnimationItemLoad height={3.2} />
+              <ComponentAnimationItemLoad height={3.2} />
+              <ComponentAnimationItemLoad height={3.2} />
             </>
           )}
         </Form>
@@ -254,7 +254,7 @@ export default function SectionDasbordUserEditData({ data: { session } }: { data
             </>
           ) : (
             <>
-              <ItemLoad height={3.2} />
+              <ComponentAnimationItemLoad height={3.2} />
             </>
           )}
         </Form>
