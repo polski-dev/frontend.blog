@@ -16,8 +16,8 @@ export default function SearchBar() {
   const [searchResult, setSearchResult] = useState(searchState);
 
   const search: (event: FormEvent<HTMLFormElement>) => void = (event: FormEvent<HTMLFormElement>): void => {
-    event.preventDefault();
     setFocus(false);
+    event.preventDefault();
     router.push(`/search/${searchQuery}`);
   };
 

@@ -12,4 +12,7 @@ export enum ContentEnum {
   tagArticle = "tagArticle",
   tagVideo = "tagVideo",
   user = "user",
+  searchPost = "searchPost",
+  searchTag = "searchTag",
+  searchUser = "searchUser",
 }
