@@ -6,7 +6,6 @@ import SectionUserInfo from "./userInfo/component.section.userInfo.index";
 import SectionSearchResult from "./searchResult/component.searchResult.index";
 import SectionSessionInfo from "./sessionInfo/component.section.sessionInfo.index";
 import SectionContentShortList from "./contentList/component.contentShortList.index";
-
 import SectionDasbordUserEditData from "./dasbordUserEditData/component.section.dasbordUserEditData.index";
 import SectionDasbordUserAddArticle from "./dasbordUserAddArticle/component.section.dasbordUserAddArticle.index";
 
