@@ -35,7 +35,7 @@ const ContentShortArticle = React.forwardRef(({ data }: { data: { post: PostType
         <BoxAuthor>
           <BoxAuthorImg>
             {data?.post?.attributes?.author?.data?.attributes?.avatar?.data?.attributes?.url ? (
-              <Image width={42} height={42} placeholder="blur" blurDataURL="/img/blur.png" alt={data?.post?.attributes?.author?.data?.attributes?.username} src={data?.post?.attributes?.author?.data?.attributes?.avatar?.data?.attributes?.url} />
+              <Image width={42} height={42} placeholder="blur" blurDataURL="/img/blur.png" alt={data?.post?.attributes?.author?.data?.attributes?.username || ""} src={data?.post?.attributes?.author?.data?.attributes?.avatar?.data?.attributes?.url} />
             ) : (
               <BoxAuthorAvatar>
                 <Avatar />
@@ -44,7 +44,7 @@ const ContentShortArticle = React.forwardRef(({ data }: { data: { post: PostType
           </BoxAuthorImg>
           <AuthorData>
             <Link href={`/user/${data?.post?.attributes?.author?.data?.id}/${slugFromTitle(data?.post?.attributes?.author?.data?.attributes?.username || "")}`}>
-              <a title={data?.post?.attributes?.author?.data?.attributes?.username}>
+              <a title={data?.post?.attributes?.author?.data?.attributes?.username || ""}>
                 <AuthorName>{data?.post?.attributes?.author?.data?.attributes?.username}</AuthorName>
               </a>
             </Link>

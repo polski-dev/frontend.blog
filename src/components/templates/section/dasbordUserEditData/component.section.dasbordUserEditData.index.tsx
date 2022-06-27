@@ -7,12 +7,12 @@ import useHimself from "hooks/hooks.useHimself";
 import { emailRegex, passwordRegex } from "assets/regex/index.regex";
 import { ButtonSubmit } from "components/atoms/button/component.button.index";
 import { ComponentAnimationItemLoad } from "components/atoms/animation/index";
-import { UserDataAvatarUpdateType, UserDataEmailUpdateType, UserDataPasswordUpdateType, UserDataPublicUpdateType, UserDataUserDeleteType } from "utils/query/users/data";
 import { Input, TextArea, enumInputType } from "components/molecules/form/component.form.index";
 import { Section, Header, Title, Content, AuthorAvatr, Form, InfoInput, BoxInfo } from "./component.section.dasbordUserEditData.style";
+import { UserDataAvatarUpdateType, UserDataEmailUpdateType, UserDataPasswordUpdateType, UserDataPublicUpdateType, UserDataUserDeleteType } from "utils/query/users/data";
 
 export default function SectionDasbordUserEditData() {
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const { userDataPublic, userEmail, userDataAvatarUpdate, userDataPublicUpdate, userDataEmailUpdate, userDataPasswordUpdate, userDataUserDelete } = useHimself();
 
   // avatar
@@ -36,7 +36,7 @@ export default function SectionDasbordUserEditData() {
       })();
   };
 
-  // Public data
+  // public data
   const [savePublicData, setSavePublicData] = useState(false);
   const [updatePublicData, setUpdatePublicData] = useState(false);
 

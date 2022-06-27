@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { emailRegex, passwordRegex } from "assets/regex/index.regex";
 import { errorComiunicat } from "./component.section.singup.errorComiunicat";
 import { ButtonSubmit } from "components/atoms/button/component.button.index";
-import { ItemLoad } from "components/atoms/animation/index";
+import { ComponentAnimationItemLoad } from "components/atoms/animation/index";
 import { Input, CheckBox, enumInputType } from "components/molecules/form/component.form.index";
 import { authSingUpPost, authSingUpInitialState, AuthSingUpType } from "utils/database/database.restAPI.index";
 import { Section, BoxContent, BoxAuth, Title, Description, BoxInfo, BoxOption, BoxRegistrationInfo, Form, InfoInput } from "./component.section.singup.style";
@@ -52,9 +52,7 @@ export default function SectionSingIn({ users }: { users: number }): JSX.Element
 
           {send ? (
             <BoxOption>
-              <ItemLoad />
-              <ItemLoad height={10} />
-              <ItemLoad />
+              <ComponentAnimationItemLoad height={10} />
             </BoxOption>
           ) : (
             <>

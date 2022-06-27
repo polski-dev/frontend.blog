@@ -2,7 +2,7 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 import { UserDataAvatarUpdateType, UserDataPublicUpdateType, UserDataEmailUpdateType, UserDataPasswordUpdateType, UserDataUserDeleteType } from "../types/utils.request.user.dataUpdate.types";
 
 export async function userDataAvatarUpdateFrontEnd({ file, authToken }: { file: File; authToken: string }): Promise<UserDataAvatarUpdateType> {
-  const count: AxiosResponse<UserDataAvatarUpdateType> = await axios.put(`http://localhost:1337/api/user/data/avatar`, { avatar: file }, { headers: { Authorization: `Bearer ${authToken}`, "Content-Type": "multipart/form-data" } });
+  const count: AxiosResponse<UserDataAvatarUpdateType> = await axios.put(`https://www.polski.dev/api/user/data/avatar`, { avatar: file }, { headers: { Authorization: `Bearer ${authToken}`, "Content-Type": "multipart/form-data" } });
   return count.data;
 }
 
