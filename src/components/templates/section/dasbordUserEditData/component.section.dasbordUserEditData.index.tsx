@@ -7,13 +7,13 @@ import useHimself from "hooks/hooks.useHimself";
 import { emailRegex, passwordRegex } from "assets/regex/index.regex";
 import { ButtonSubmit } from "components/atoms/button/component.button.index";
 import { ComponentAnimationItemLoad } from "components/atoms/animation/index";
-import { UserDataAvatarUpdateType, UserDataPublicUpdateType } from "utils/query/users/data";
+import { UserDataAvatarUpdateType, UserDataEmailUpdateType, UserDataPasswordUpdateType, UserDataPublicUpdateType, UserDataUserDeleteType } from "utils/query/users/data";
 import { Input, TextArea, enumInputType } from "components/molecules/form/component.form.index";
 import { Section, Header, Title, Content, AuthorAvatr, Form, InfoInput, BoxInfo } from "./component.section.dasbordUserEditData.style";
 
 export default function SectionDasbordUserEditData() {
   const { data: session, status } = useSession();
-  const { userDataPublic, userEmail, userDataAvatarUpdate, userDataPublicUpdate } = useHimself();
+  const { userDataPublic, userEmail, userDataAvatarUpdate, userDataPublicUpdate, userDataEmailUpdate, userDataPasswordUpdate, userDataUserDelete } = useHimself();
 
   // avatar
   const [saveAvatar, setSaveAvatar] = useState(false);
@@ -67,73 +67,65 @@ export default function SectionDasbordUserEditData() {
     formState: { errors: errorsEmail },
   } = useForm();
 
-  // const onSubmitEmail = (data: any): void => {
-  //   setUpdateEmail(true);
-  //   (async () => {
-  //     const update = await userHimselfDataEditEmailGet(data.email);
+  const onSubmitEmail = (email: string): void => {
+    setUpdateEmail(true);
+    (async () => {
+      const res: UserDataEmailUpdateType = await userDataEmailUpdate({ email });
 
-  //     setUpdateEmail(false);
-  //     if (!!update?.error)
-  //       setErrorEmail("email", {
-  //         message: "Email nie jest prawidłowy lub jest już używany",
-  //       });
-  //     else {
-  //       setSaveEmail(true);
-  //       setTimeout(() => setSaveEmail(false), 2000);
-  //     }
-  //   })();
-  // };
+      res?.data && setSaveEmail(true);
+      res?.data && setTimeout(() => setSaveEmail(false), 1000);
+      res?.error &&
+        setErrorEmail("email", {
+          message: "Email nie jest prawidłowy lub jest już używany",
+        });
+      setUpdateEmail(false);
+    })();
+  };
 
-  // PASSWORD START
+  // password
   const [updatePassword, setUpdatePassword] = useState(false);
   const [savePassword, setSavePassword] = useState(false);
 
   const {
+    reset: resetPassword,
     setError: setErrorPassword,
     register: registerPassword,
     handleSubmit: handleSubmitPassword,
     formState: { errors: errorsPassword },
   } = useForm();
 
-  // const onSubmitPassword = (data: any): void => {
-  //   setUpdatePassword(true);
-  //   (async () => {
-  //     if (data.password != data.passwordSecound) {
-  //       setErrorPassword("password", {
-  //         message: "Hasła nie są takie same ",
-  //       });
-  //       setErrorPassword("passwordSecound", {
-  //         message: "Hasła nie są takie same ",
-  //       });
-  //     } else {
-  //       const update = await userHimselfDataEditPasswordGet(data.password);
-  //       setUpdatePassword(false);
-  //       if (!!update?.error) {
-  //         setErrorPassword("passwordSecound", {
-  //           message: "Nie hasło jest nie prawidłowe lub spróbuj za kilka minut jeszcze raz",
-  //         });
-  //         setErrorPassword("password", {
-  //           message: "Nie hasło jest nie prawidłowe lub spróbuj za kilka minut jeszcze raz",
-  //         });
-  //       } else {
-  //         setSavePassword(true);
-  //         setTimeout(() => setSavePassword(false), 2000);
-  //       }
-  //     }
-  //   })();
-  // };
+  const onSubmitPassword = (password: string): void => {
+    setUpdatePassword(true);
+    (async () => {
+      const res: UserDataPasswordUpdateType = await userDataPasswordUpdate({ password });
+      res?.data && resetPassword();
+      res?.data && setSavePassword(true);
+      res?.data && setTimeout(() => setSavePassword(false), 1000);
+      res?.error &&
+        setErrorPassword("password", {
+          message: "Hasło nie jest prawidłowe",
+        });
+      setUpdatePassword(false);
+    })();
+  };
 
   // delete
   const [updateDelete, setUpdateDelete] = useState(false);
+  const [saveDelete, setSaveDelete] = useState(false);
 
   const { handleSubmit: handleSubmitDelete } = useForm();
 
-  // const onSubmitDelete = (): void => {
-  //   setUpdateDelete(true);
-  //   (async () => {
-  //     await userHimselfDeleteGet();
-  //   })();
-  // };
+  const onSubmitDelete = (): void => {
+    setUpdateDelete(true);
+    (async () => {
+      const res: UserDataUserDeleteType = await userDataUserDelete();
+
+      res?.data && setSaveDelete(true);
+      res?.data && setTimeout(() => setSaveDelete(false), 1000);
+
+      setUpdateDelete(false);
+    })();
+  };
 
   return (
     <Section>
@@ -217,8 +209,8 @@ export default function SectionDasbordUserEditData() {
         <Title>Dane prywatne</Title>
         <Form
           className="privateData"
-          onSubmit={handleSubmitEmail((data) => {
-            //  onSubmitEmail(data);
+          onSubmit={handleSubmitEmail((data: { email?: string }): void => {
+            data?.email && onSubmitEmail(data.email);
           })}
         >
           {!!userEmail?.data && !updateEmail ? (
@@ -235,7 +227,12 @@ export default function SectionDasbordUserEditData() {
           )}
         </Form>
 
-        <Form className="privateData" onSubmit={handleSubmitPassword((data) => onSubmitPassword(data))}>
+        <Form
+          className="privateData"
+          onSubmit={handleSubmitPassword((data) => {
+            data?.password && onSubmitPassword(data?.password);
+          })}
+        >
           {!!userDataPublic?.data && !updatePassword ? (
             <>
               {savePassword && <BoxInfo>Zapisano</BoxInfo>}
@@ -258,6 +255,7 @@ export default function SectionDasbordUserEditData() {
         <Form className="privateData" onSubmit={handleSubmitDelete(() => onSubmitDelete())}>
           {!!userDataPublic?.data && !updateDelete ? (
             <>
+              {saveDelete && <BoxInfo>Dane usunięto</BoxInfo>}
               <ButtonSubmit title="zapisz nowe hasło">Usuń bezpowrotnie swoje konto</ButtonSubmit>
             </>
           ) : (

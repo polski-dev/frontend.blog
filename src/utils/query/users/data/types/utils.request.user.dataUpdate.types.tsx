@@ -13,20 +13,46 @@ export interface UserDataAvatarUpdateType {
 
 export interface UserDataPublicUpdateType {
   data?: {
-    id: 13;
-    username: "dd!";
-    blocked: false;
-    views: 0;
-    createdAt: "2022-06-27T09:41:14.240Z";
-    updatedAt: "2022-06-27T17:42:24.973Z";
-    about: "dwad";
-    website: "dawd";
-    youtube: "daw";
-    instagram: "dawd";
-    tiktok: "dawdaw";
-    github: "dawd";
-    city: "dawdw";
-    country: "dwa";
+    id: number;
+    username: string | null;
+    blocked: boolean;
+    views: number;
+    createdAt: Date;
+    updatedAt: Date;
+    about: string | null;
+    website: string | null;
+    youtube: string | null;
+    instagram: string | null;
+    tiktok: string | null;
+    github: string | null;
+    city: string | null;
+    country: string | null;
+  } | null;
+  error?: ErrorType;
+}
+
+export interface UserDataEmailUpdateType {
+  data?: {
+    id: number;
+    username: string | null;
+    email: string | null;
+  } | null;
+  error?: ErrorType;
+}
+
+export interface UserDataPasswordUpdateType {
+  data?: {
+    id: number;
+    username: string | null;
+    password: string | null;
+  } | null;
+  error?: ErrorType;
+}
+
+export interface UserDataUserDeleteType {
+  data?: {
+    id: number;
+    username: string | null;
   } | null;
   error?: ErrorType;
 }

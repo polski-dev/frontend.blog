@@ -14,8 +14,6 @@ const Search: NextPage = () => {
   const [content, setSontent] = useState(searchState);
   const [iAmWaitingForAnswer, setIAmWaitingForAnswer] = useState(true);
 
-  console.log(router?.query?.query);
-
   useEffect(() => {
     (async () => {
       typeof router?.query?.search === "string" && setSontent(await searchFrontEnd({ query: router?.query?.search, page: 1 }));
@@ -23,7 +21,6 @@ const Search: NextPage = () => {
     })();
   }, [router]);
 
-  console.log(router.asPath.split(`/search/${router?.query?.search}` + "#")[1]);
   return (
     <>
       <Head>
