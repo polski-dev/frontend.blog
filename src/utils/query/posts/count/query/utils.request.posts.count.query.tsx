@@ -1,6 +1,8 @@
 import axios from "axios";
 
-export async function postsCountBackEnd(id?: number) {
+import { PostsCountType } from "./../types/utils.request.posts.count.types";
+
+export async function postsCountBackEnd(id?: number): Promise<any> {
   const res = id ? await axios.get(process.env.BACKEND_API_URL + `/api/post/count/${id}`) : await axios.get(process.env.BACKEND_API_URL + `/api/post/count`);
   return !!res?.data?.error ? res.data : res?.data;
 }
