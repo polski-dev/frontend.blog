@@ -9,7 +9,7 @@ import { Input, CheckBox, enumInputType } from "components/molecules/form/compon
 import { authSingUpPost, authSingUpInitialState, AuthSingUpType } from "utils/database/database.restAPI.index";
 import { Section, BoxContent, BoxAuth, Title, Description, BoxInfo, BoxOption, BoxRegistrationInfo, Form, InfoInput } from "./component.section.singup.style";
 
-export default function SectionSingIn({ users }: { users: number }): JSX.Element {
+export default function SectionSingIn({ users }: { users?: number }): JSX.Element {
   const router = useRouter();
   const [send, setSend] = useState(false);
   const [checked, setChecked] = useState(authSingUpInitialState);

@@ -114,7 +114,7 @@ export async function getStaticPaths(): Promise<any> {
   );
 
   return {
-    paths: [].concat.apply([], allTags).map((tag: TagType) => `/tag/${tag.id}/${slugFromTitle(tag.attributes.title)}`),
+    paths: [].concat.apply([], allTags).map((tag?: TagType) => `/tag/${tag?.id}/${slugFromTitle(tag?.attributes?.title || "")}`),
     fallback: true,
   };
 }

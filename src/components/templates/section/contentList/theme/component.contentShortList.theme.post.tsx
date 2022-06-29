@@ -7,7 +7,7 @@ import { TagType } from "types/database/types.database.tag";
 import { PostType } from "types/database/types.database.post";
 import { ComponentAnimationCircleLoad } from "components/atoms/animation";
 import { ButtonLinkIn } from "components/atoms/button/component.button.index";
-import { postsCountFrontEnd, postCountState } from "utils/query/posts/count";
+import { postCountFrontEnd, postCountState } from "utils/query/posts/count";
 import { Article, BoxContent, BoxAuthor, BoxAuthorImg, BoxAuthorAvatar, AuthorData, AuthorName, DateAdded, TitleArticle, ListTags, Tag, ListStats, Item } from "../style/component.listShortArticle.style";
 
 import Wow from "assets/icon/wow.svg";
@@ -20,7 +20,7 @@ const ContentShortArticle = React.forwardRef(({ data }: { data: { post: PostType
 
   useEffect(() => {
     (async () => {
-      setStats(await postsCountFrontEnd(data.post.id));
+      setStats(await postCountFrontEnd(data.post.id));
     })();
   }, [data]);
 

@@ -1,11 +1,9 @@
 import Head from "next/head";
 import { NextPage } from "next";
-import { MenuPrimary } from "components/templates/menu";
 import { SectionSingUp } from "components/templates/section/index";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
-import { countUserGetPreview, CountUserType } from "utils/database/database.graphQL.index";
-
-const SingUp: NextPage<any, any> = ({ countUser }: { countUser: CountUserType }): JSX.Element => {
+import { UsersCountType, userCountBackEnd } from "utils/query/users/count";
+const SingUp: NextPage<any, any> = ({ countUser }: { countUser?: CountUserType }): JSX.Element => {
   return (
     <>
       <Head>
@@ -13,9 +11,7 @@ const SingUp: NextPage<any, any> = ({ countUser }: { countUser: CountUserType })
       </Head>
       <Container>
         <Row>
-          <Col xs={12}>
-            <SectionSingUp users={countUser?.data?.user?.meta?.pagination?.total} />
-          </Col>
+          <Col xs={12}>{/* <SectionSingUp users={countUser?.data?.user?.meta?.pagination?.total} /> */}</Col>
         </Row>
       </Container>
     </>
@@ -24,7 +20,7 @@ const SingUp: NextPage<any, any> = ({ countUser }: { countUser: CountUserType })
 
 export async function getStaticProps(): Promise<any> {
   // cont user
-  const countUser: CountUserType = await countUserGetPreview();
+  const countUser: UserCountType = await userCountBackEnd();
 
   return {
     props: {

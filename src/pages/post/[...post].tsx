@@ -46,7 +46,7 @@ export async function getStaticPaths(): Promise<any> {
   );
 
   return {
-    paths: [].concat.apply([], allPosts).map((post: PostType) => `/post/${post.id}/${slugFromTitle(post.attributes.title)}`),
+    paths: [].concat.apply([], allPosts).map((post?: PostType) => `/post/${post?.id}/${slugFromTitle(post?.attributes?.title || "")}`),
     fallback: true,
   };
 }

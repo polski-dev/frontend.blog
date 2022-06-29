@@ -4,7 +4,7 @@ import { SectionSingIn } from "components/templates/section/index";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
 import { TagWithOnlyTitleType, countUserGetPreview, CountUserType } from "utils/database/database.graphQL.index";
 
-const SingIn: NextPage<any, TagWithOnlyTitleType> = ({ countUser }: { countUser: CountUserType }): JSX.Element => {
+const SingIn: NextPage<any, TagWithOnlyTitleType> = ({ countUser }: { countUser?: CountUserType }): JSX.Element => {
   return (
     <>
       <Head>
@@ -12,24 +12,22 @@ const SingIn: NextPage<any, TagWithOnlyTitleType> = ({ countUser }: { countUser:
       </Head>
       <Container>
         <Row>
-          <Col xs={12}>
-            <SectionSingIn users={countUser?.data?.user?.meta?.pagination?.total} />
-          </Col>
+          <Col xs={12}>{/* <SectionSingIn users={countUser?.data?.user?.meta?.pagination?.total} /> */}</Col>
         </Row>
       </Container>
     </>
   );
 };
 
-export async function getStaticProps(): Promise<any> {
-  // cont user
-  const countUser: CountUserType = await countUserGetPreview();
+// export async function getStaticProps(): Promise<any> {
+//   // cont user
+//   const countUser: CountUserType = await countUserGetPreview();
 
-  return {
-    props: {
-      countUser,
-    },
-  };
-}
+//   return {
+//     props: {
+//       countUser,
+//     },
+//   };
+// }
 
 export default SingIn;

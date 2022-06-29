@@ -6,7 +6,7 @@ import useCallBackURL from "hooks/hooks.useCallBackURL";
 import { Section, BoxContent, BoxInfo, BoxError } from "./component.section.sessionInfo.style";
 import { ComponentAnimationItemLoad } from "components/atoms/animation/index";
 
-export default function SectionSessionInfo({ users }: { users: number }) {
+export default function SectionSessionInfo({ users }: { users?: number }) {
   const router = useRouter();
   const { readCallBackURL } = useCallBackURL();
   const { data: session, status } = useSession();
