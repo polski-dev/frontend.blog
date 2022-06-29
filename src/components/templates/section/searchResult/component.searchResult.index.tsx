@@ -85,14 +85,14 @@ export default function SectionSearchResult({ data }: { data: { typ: ContentEnum
           return <ComponentAnimationShortArticle key={i} />;
         })}
 
-      {contentEnd && (
+      {(page || 1) >= (pageCount || 1) && !!(content?.data?.posts?.data?.length || content?.data?.tags?.data?.length || content?.data?.users?.data?.length) && (
         <BoxInformation style={{ top: "-3rem" }}>
           <Info>Właśnie dotarłeś do końca internetów, brawo :)</Info>
           <Confetti width={width} height={2 * height} style={{ width: "100%", position: "absolute" }} />
         </BoxInformation>
       )}
 
-      {((data.typ === ContentEnum.searchPost && !content?.data?.posts?.data?.length) || (data.typ === ContentEnum.searchTag && !content?.data?.tags?.data?.length) || (data.typ === ContentEnum.searchUser && !content?.data?.users?.data?.length)) && <NotFound>Niestety nic nie znaleźliśmy :(</NotFound>}
+      {!(content?.data?.posts?.data?.length || content?.data?.tags?.data?.length || content?.data?.users?.data?.length) && <NotFound>Niestety nic nie znaleźliśmy :(</NotFound>}
     </Section>
   );
 }
