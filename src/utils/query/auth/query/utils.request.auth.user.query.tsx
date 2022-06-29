@@ -57,9 +57,10 @@ export async function authUserSingUpBackEnd({ username, email, password }: { use
 
 export async function authUserSingUpFrontEnd({ username, email, password }: { username: string; email: string; password: number }): Promise<AuthSingUpUserType> {
   let data = {};
+  console.log(username, email, password);
   try {
     const res: AxiosResponse<AuthSingUpUserType> = await axios.post(`/api/auth/local/register`, { username, email, password });
-
+    console.log(res);
     data = res.data;
   } catch (err) {
     if (axios.isAxiosError(err)) {
