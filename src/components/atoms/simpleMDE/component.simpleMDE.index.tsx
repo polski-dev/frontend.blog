@@ -31,7 +31,7 @@ export default function SimpleMDEComponent({
 
   return (
     <SimpleMDEBox>
-      <Popup power={powerPopupUploadImage} status={statusUploadImage === "pending" ? null : statusUploadImage === "rejected" ? false : true} title="Dodaje zdjęcie..." description={statusUploadImage === "rejected" ? "Wystąpił problem z dodaniem zdjęcia..." : "Zdjęcie dodane... :)"} />
+      <Popup power={powerPopupUploadImage} status={statusUploadImage === "pending" ? null : statusUploadImage === "rejected" ? false : true} title="Dodaje plik..." description={statusUploadImage === "rejected" ? "Wystąpił problem z dodaniem zdjęcia..." : "Zdjęcie dodane... :)"} />
       <Input ref={inputfileUpload} onChange={() => uploadImage()} type="file" id="editorUploadImage" name="editorUploadImage" accept="image/jpeg,image/jpg,image/png" />
       <SimpleMDE options={options} value={valueEditor} onChange={(e) => setValueEditor(e)} style={{ width: "100%" }} />
       <TextArea id={id} name={name} error={!!error} {...(register(id, { pattern, required }) as any)}></TextArea>

@@ -15,12 +15,12 @@ export default function SectionDasbordAddArticle({ data: { title } }: { data: { 
   const [powerPopup, setPowerPopup] = useState(false);
   const [addArticleStatus, setAddArticleStatus] = useState("pending");
 
-  const autofocusNoSpellcheckerOptions = useMemo(() => {
-    return {
-      autofocus: true,
-      spellChecker: false,
-    };
-  }, []);
+  // const autofocusNoSpellcheckerOptions = useMemo(() => {
+  //   return {
+  //     autofocus: true,
+  //     spellChecker: false,
+  //   };
+  // }, []);
 
   const {
     reset,
@@ -91,7 +91,7 @@ export default function SectionDasbordAddArticle({ data: { title } }: { data: { 
               <Input id="cover" name="cover" type={enumInputType.file} error={errors.avatar} placeholder="Dodaj okładkę" register={register} accept="image/png, image/jpeg" required />
             </Col>
 
-            {watch().typ === "video" && (
+            {watch().type === "video" && (
               <Col xs={12}>
                 <Input id="youtube" name="youtube" type={enumInputType.text} error={errors.title} placeholder="YouTube url" defaultValue={undefined} register={register} required={watch().typ === "video"} />
               </Col>
