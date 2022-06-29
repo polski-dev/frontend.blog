@@ -1,11 +1,11 @@
 import Head from "next/head";
 import { NextPage } from "next";
 import { MenuPrimary } from "components/templates/menu";
-import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
 import { SectionSessionInfo } from "components/templates/section/index";
-import { TagWithOnlyTitleType, countUserGetPreview, CountUserType } from "utils/database/database.graphQL.index";
+import { usersCountBackEnd, UsersCountType } from "utils/query/users/count";
+import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
 
-const Loggedcorrectly: NextPage<any, TagWithOnlyTitleType> = ({ countUser }: { countUser?: CountUserType }): JSX.Element => {
+const Loggedcorrectly: NextPage<any> = ({ countUser }: { countUser?: UsersCountType }): JSX.Element => {
   return (
     <>
       <Head>
@@ -13,22 +13,24 @@ const Loggedcorrectly: NextPage<any, TagWithOnlyTitleType> = ({ countUser }: { c
       </Head>
       <Container>
         <Row>
-          <Col xs={12}>{/* <SectionSessionInfo users={countUser?.data?.user?.meta?.pagination?.total} /> */}</Col>
+          <Col xs={12}>
+            <SectionSessionInfo users={countUser?.data?.count} />
+          </Col>
         </Row>
       </Container>
     </>
   );
 };
 
-// export async function getStaticProps(): Promise<any> {
-//   // cont user
-//   const countUser: CountUserType = await countUserGetPreview();
+export async function getStaticProps(): Promise<any> {
+  // cont user
+  const countUser: UsersCountType = await usersCountBackEnd();
 
-//   return {
-//     props: {
-//       countUser,
-//     },
-//   };
-// }
+  return {
+    props: {
+      countUser,
+    },
+  };
+}
 
 export default Loggedcorrectly;
