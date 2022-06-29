@@ -37,10 +37,10 @@ export async function authUserSingInFrontEnd({ identifier, password }: { identif
   return data;
 }
 
-export async function authUserSingUpBackEnd({ username, identifier, password }: { username: string; identifier: string; password: number }): Promise<AuthSingUpUserType> {
+export async function authUserSingUpBackEnd({ username, email, password }: { username: string; email: string; password: number }): Promise<AuthSingUpUserType> {
   let data = {};
   try {
-    const res: AxiosResponse<AuthSingUpUserType> = await axios.post(process.env.BACKEND_API_URL + `/api/auth/local/register`, { username, identifier, password });
+    const res: AxiosResponse<AuthSingUpUserType> = await axios.post(process.env.BACKEND_API_URL + `/api/auth/local/register`, { username, email, password });
 
     data = { data: res.data };
   } catch (err) {
@@ -55,10 +55,10 @@ export async function authUserSingUpBackEnd({ username, identifier, password }: 
   return data;
 }
 
-export async function authUserSingUpFrontEnd({ username, identifier, password }: { username: string; identifier: string; password: number }): Promise<AuthSingUpUserType> {
+export async function authUserSingUpFrontEnd({ username, email, password }: { username: string; email: string; password: number }): Promise<AuthSingUpUserType> {
   let data = {};
   try {
-    const res: AxiosResponse<AuthSingUpUserType> = await axios.post(`/api/auth/local/register`, { username, identifier, password });
+    const res: AxiosResponse<AuthSingUpUserType> = await axios.post(`/api/auth/local/register`, { username, email, password });
 
     data = res.data;
   } catch (err) {
