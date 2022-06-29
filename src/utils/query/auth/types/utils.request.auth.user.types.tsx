@@ -1,0 +1,26 @@
+import { ErrorType } from "types/database/types.database.error";
+
+export interface AuthSingInUserType {
+  data?: {
+    jwt?: string | null;
+    user: {
+      id: 15;
+      username: string | null;
+      provider: string | null;
+      confirmed: boolean;
+      blocked: boolean;
+      views: number;
+      about: string | null;
+      website: string | null;
+      youtube: string | null;
+      instagram: string | null;
+      tiktok: string | null;
+      github: string | null;
+      city: string | null;
+      country: string | null;
+      createdAt: Date;
+      updatedAt: Date;
+    };
+  } | null;
+  error?: ErrorType;
+}
