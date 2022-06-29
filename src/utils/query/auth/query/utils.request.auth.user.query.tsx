@@ -1,15 +1,15 @@
 import axios, { AxiosResponse, AxiosError } from "axios";
-import { AuthSingInUserType, AuthSingInUserDataType } from "../types/utils.request.auth.user.types";
+import { AuthSingInUserType, AuthSingUpUserType } from "../types/utils.request.auth.user.types";
 
 export async function authUserSingInBackEnd({ identifier, password }: { identifier: string; password: number }): Promise<AuthSingInUserType> {
   let data = {};
   try {
-    const res: AxiosResponse<AuthSingInUserDataType> = await axios.post(process.env.BACKEND_API_URL + `/api/auth/local`, { identifier, password });
+    const res: AxiosResponse<AuthSingInUserType> = await axios.post(process.env.BACKEND_API_URL + `/api/auth/local`, { identifier, password });
 
     data = { data: res.data };
   } catch (err) {
     if (axios.isAxiosError(err)) {
-      const serverError = err as AxiosError<AuthSingInUserDataType>;
+      const serverError = err as AxiosError<AuthSingInUserType>;
       if (serverError && serverError.response) {
         data = serverError.response.data;
       }
@@ -37,15 +37,15 @@ export async function authUserSingInFrontEnd({ identifier, password }: { identif
   return data;
 }
 
-export async function authUserSingUpBackEnd({ username, identifier, password }: { username: string; identifier: string; password: number }): Promise<AuthSingInUserType> {
+export async function authUserSingUpBackEnd({ username, identifier, password }: { username: string; identifier: string; password: number }): Promise<AuthSingUpUserType> {
   let data = {};
   try {
-    const res: AxiosResponse<AuthSingInUserDataType> = await axios.post(process.env.BACKEND_API_URL + `/api/auth/local/register`, { username, identifier, password });
+    const res: AxiosResponse<AuthSingUpUserType> = await axios.post(process.env.BACKEND_API_URL + `/api/auth/local/register`, { username, identifier, password });
 
     data = { data: res.data };
   } catch (err) {
     if (axios.isAxiosError(err)) {
-      const serverError = err as AxiosError<AuthSingInUserDataType>;
+      const serverError = err as AxiosError<AuthSingUpUserType>;
       if (serverError && serverError.response) {
         data = serverError.response.data;
       }
@@ -55,15 +55,15 @@ export async function authUserSingUpBackEnd({ username, identifier, password }: 
   return data;
 }
 
-export async function authUserSingUpFrontEnd({ username, identifier, password }: { username: string; identifier: string; password: number }): Promise<AuthSingInUserType> {
+export async function authUserSingUpFrontEnd({ username, identifier, password }: { username: string; identifier: string; password: number }): Promise<AuthSingUpUserType> {
   let data = {};
   try {
-    const res: AxiosResponse<AuthSingInUserType> = await axios.post(`/api/auth/local/register`, { username, identifier, password });
+    const res: AxiosResponse<AuthSingUpUserType> = await axios.post(`/api/auth/local/register`, { username, identifier, password });
 
     data = res.data;
   } catch (err) {
     if (axios.isAxiosError(err)) {
-      const serverError = err as AxiosError<AuthSingInUserType>;
+      const serverError = err as AxiosError<AuthSingUpUserType>;
       if (serverError && serverError.response) {
         data = serverError.response.data;
       }
