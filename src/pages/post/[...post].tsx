@@ -5,7 +5,7 @@ import { slugFromTitle } from "utils/lib/utils.lib.slug";
 import { MenuRaitings } from "components/templates/menu/";
 import { PostType } from "types/database/types.database.post";
 import { SectionPostFull } from "components/templates/section/index";
-import { postsCountFrontEnd, postCountState } from "utils/query/posts/count";
+import { postCountFrontEnd, postCountState } from "utils/query/posts/count";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
 import { postsFindBackEnd, PostsFindType, postFindOneBackEnd, PostFindOneType } from "utils/query/posts/find";
 
@@ -14,7 +14,7 @@ const Post: NextPage<any> = ({ post }: { post?: PostFindOneType }): JSX.Element 
 
   useEffect(() => {
     (async () => {
-      post?.data?.id && setStats(await postsCountFrontEnd(post.data.id));
+      post?.data?.id && setStats(await postCountFrontEnd(post.data.id));
     })();
   }, [post]);
 

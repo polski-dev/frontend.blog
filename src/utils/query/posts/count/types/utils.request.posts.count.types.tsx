@@ -12,6 +12,7 @@ export interface PostsCountType {
     publishedAllVideo: number;
     unPublishedAllVideo: number;
   } | null;
+  error?: ErrorType;
 }
 
 export interface PostCountType {
