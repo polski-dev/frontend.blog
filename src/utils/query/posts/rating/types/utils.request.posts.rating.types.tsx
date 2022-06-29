@@ -3,7 +3,7 @@ import { ErrorType } from "types/database/types.database.error";
 import { RatingType } from "types/database/types.database.rating";
 
 export interface RaitingUserInPostFindType {
-  data: RatingType[] | null;
+  data?: RatingType[] | null;
   error?: ErrorType;
   meta?: MetaType;
 }
@@ -19,7 +19,7 @@ export interface RaitingAddInPostType {
 }
 
 export interface RaitingDeleteInPostType {
-  data:
+  data?:
     | {
         id: number;
         voice: string;
