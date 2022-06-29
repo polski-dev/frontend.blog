@@ -12,7 +12,8 @@ export default NextAuth({
         const { identifier, password } = credentials;
 
         const res: AuthSingInUserType = await authUserSingInBackEnd({ identifier, password });
-        const resDataPublic: UserDataPublicReadType = await userDataPublicReadBackEnd({ authToken: res?.data?.jwt || "" });
+        const resDataPublic: UserDataPublicReadType = await userDataPublicReadBackEnd({ authToken: `Bearer ${res?.data?.jwt}` });
+
         let data: { jwt?: string | boolean; user: { id: number; blocked: boolean; username: string; email: string; picture: string } } = { jwt: false, user: { id: 0, blocked: true, username: "", email: "", picture: "" } };
 
         if (!!identifier) data.user.email = identifier;
