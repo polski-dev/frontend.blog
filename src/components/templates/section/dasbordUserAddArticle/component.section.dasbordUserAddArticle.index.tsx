@@ -15,13 +15,6 @@ export default function SectionDasbordAddArticle({ data: { title } }: { data: { 
   const [powerPopup, setPowerPopup] = useState(false);
   const [addArticleStatus, setAddArticleStatus] = useState("pending");
 
-  // const autofocusNoSpellcheckerOptions = useMemo(() => {
-  //   return {
-  //     autofocus: true,
-  //     spellChecker: false,
-  //   };
-  // }, []);
-
   const {
     reset,
     watch,
@@ -55,6 +48,7 @@ export default function SectionDasbordAddArticle({ data: { title } }: { data: { 
 
           setPowerPopup(true);
           const file: File = cover[0];
+          console.log({ file, content, tags: tags.toString(), type, title, youtube, authorization: `Bearer ${session?.jwt}` });
           const addArticle: ArticeAddType = await articeAdd({ file, content, tags: tags.toString(), type, title, youtube, authorization: `Bearer ${session?.jwt}` });
 
           if (addArticle.data?.id) {
@@ -113,7 +107,7 @@ export default function SectionDasbordAddArticle({ data: { title } }: { data: { 
       <Popup
         power={powerPopup}
         status={addArticleStatus === "pending" ? null : addArticleStatus === "rejected" ? false : true}
-        title={addArticleStatus === "pending" ? "Dodaje artykuł..." : addArticleStatus === "rejected" ? "Upss..." : "Udało się złotko !"}
+        title={addArticleStatus === "pending" ? "Dodaje post..." : addArticleStatus === "rejected" ? "Upss..." : "Udało się złotko !"}
         description={addArticleStatus === "rejected" ? "Wystąpił problem z dodaniem artykułu...spróbuj jeszcze raz za kilka chwil" : "Twój artykuł dodany... :) Jak tylko nasi moderatorzy sprawdza czy wszystko jest ok zostanie dodany do poczekalni a po przekroczeniu 100 wyświetleń na główną :)"}
       />
     </Section>
