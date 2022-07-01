@@ -8,7 +8,7 @@ export async function postCreateFrontEnd({ typ, title, cover, content, tags, you
 
   let data = {};
   try {
-    const res: AxiosResponse<PostCreateType> = await axios.post(`http://localhost:1337/api/post`, { typ, title, cover, content, tags }, { headers: { Authorization: `Bearer ${authToken}`, "Content-Type": "multipart/form-data" } });
+    const res: AxiosResponse<PostCreateType> = await axios.post(`https://polskidev.herokuapp.com/api/post`, { typ, title, cover, content, tags }, { headers: { Authorization: `Bearer ${authToken}`, "Content-Type": "multipart/form-data" } });
     res.data;
 
     data = res.data;
