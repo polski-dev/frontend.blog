@@ -4,7 +4,7 @@ import useViews from "hooks/hooks.useViews";
 import { useState, useEffect } from "react";
 import { slugFromTitle } from "utils/lib/utils.lib.slug";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid";
-
+import { UserType } from "types/database/types.database.user";
 import { ContentEnum } from "types/database/types.database.contentEnum";
 import { MenuUserStats } from "components/templates/menu/index";
 import { PostsFindType, postsFindBackEnd } from "utils/query/posts/find";
@@ -46,13 +46,13 @@ export async function getStaticPaths(): Promise<any> {
 
   const allUsers: any[] = await Promise.all(
     new Array(count.meta?.pagination?.pageCount || 1).fill(undefined).map(async (_: undefined, i: number): Promise<any> => {
-      const posts: UsersFindType = await usersFindBackEnd({ page: i + 1 });
-      return posts.data;
+      const res: UsersFindType = await usersFindBackEnd({ page: i + 1 });
+      return res.data;
     })
   );
 
   return {
-    paths: [].concat.apply([], allUsers).map((user: any) => `/user/${user?.id}/${slugFromTitle(`${user?.username}`)}`),
+    paths: [].concat.apply([], allUsers).map((user: UserType) => `/user/${user.id}/${slugFromTitle(`${user.attributes.username}`)}`),
     fallback: true,
   };
 }

@@ -23,7 +23,7 @@ export const MarkdownComponents: object = {
       if (item.tagName === "img") {
         const image = node.children[0];
         const alt = image.properties.alt?.replace(/ *\{[^)]*\} */g, "");
-        return <Image src={image.properties.src} placeholder="blur" blurDataURL="/img/blur.png" width={600} alt={alt} />;
+        return image?.properties?.src && <Image src={image.properties.src} placeholder="blur" blurDataURL="/img/blur.png" width={600} alt={alt} />;
       }
     });
 

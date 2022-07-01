@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { slugFromTitle } from "utils/lib/utils.lib.slug";
 import { MenuRaitings } from "components/templates/menu/";
 import { PostType } from "types/database/types.database.post";
-import { SectionPostFull } from "components/templates/section/index";
+import { SectionPostFull } from "components/templates/section";
 import { postCountFrontEnd, postCountState } from "utils/query/posts/count";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
 import { postsFindBackEnd, PostsFindType, postFindOneBackEnd, PostFindOneType } from "utils/query/posts/find";
