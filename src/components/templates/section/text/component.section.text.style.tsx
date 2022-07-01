@@ -49,7 +49,10 @@ export const Section: StyledComponent<any, any> = styled.section`
 
     ul {
       list-style: disc;
-      margin-left: 1.5rem;
+      margin-left: 3rem;
+      li {
+        padding: 0.3rem 0;
+      }
     }
 
     ol {
@@ -116,6 +119,29 @@ export const Section: StyledComponent<any, any> = styled.section`
           display: flex !important;
         }
       }
+    }
+
+    .tableBox {
+      width: 100%;
+      display: block;
+      overflow-x: auto;
+      position: relative;
+      margin: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.big} 0;
+    }
+
+    table,
+    th,
+    td {
+      border-collapse: collapse;
+      border: 1px solid ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorBorder};
+    }
+    th,
+    td {
+      text-align: left;
+      padding: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.main} ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.break.small};
+    }
+    th {
+      background-color: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorMainBg};
     }
   }
 `;
