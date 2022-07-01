@@ -52,14 +52,14 @@ export async function getStaticPaths(): Promise<any> {
   );
 
   return {
-    paths: [].concat.apply([], allUsers).map((user: UserType) => `/user/${user.id}/${slugFromTitle(`${user.attributes.username}`)}`),
+    paths: [].concat.apply([], allUsers).map((user: UserType) => `/user/${user?.id}/${slugFromTitle(`${user?.attributes?.username}`)}`),
     fallback: true,
   };
 }
 
 export async function getStaticProps({ params }: any): Promise<any> {
   const user: UserFindOneType = await userFindOneBackEnd({ id: parseInt(params.user[0]) });
-  const content: PostsFindType = await postsFindBackEnd({ published: true, typ: ContentEnum.userPost, id: user.data?.id });
+  const content: PostsFindType = await postsFindBackEnd({ published: true, typ: ContentEnum.userPost, id: user?.data?.id });
 
   return {
     props: {
