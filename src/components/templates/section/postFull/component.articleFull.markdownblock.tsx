@@ -5,12 +5,12 @@ import { isblEditorDark } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 
 export const MarkdownComponents: object = {
   code: (code: any) => {
-    const language = code.className.split("language-")[1];
+    //  const language = code.className.split("language-")[1];
 
     return (
       <>
         <BoxCodeTitle>KOD:</BoxCodeTitle>
-        <SyntaxHighlighter language={!!language ? language : "javascript"} style={isblEditorDark}>
+        <SyntaxHighlighter language={"javascript"} style={isblEditorDark}>
           {code.children[0]}
         </SyntaxHighlighter>
       </>
