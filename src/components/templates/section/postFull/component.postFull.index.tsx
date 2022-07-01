@@ -72,13 +72,13 @@ export default function SectionPostFull({ data }: { data?: { post?: PostFindOneT
               </>
             )}
           </ListTags>
-          <Content>
+          {/* <Content>
             {data?.post?.data?.attributes?.content ? (
               <ReactMarkdown components={MarkdownComponents}>{data?.post?.data?.attributes?.content}</ReactMarkdown>
             ) : (
               new Array(15).fill(undefined).map((_: undefined, i: number): JSX.Element => <ComponentAnimationItemLoad height={1.6} style={{ display: "block", marginBottom: "1rem" }} key={i} />)
             )}
-          </Content>
+          </Content> */}
         </BoxContent>
         <Comments data={{ postId: data?.post?.data?.id, countComments: data?.stats?.data?.comments }} />
       </Article>
