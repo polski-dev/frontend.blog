@@ -17,9 +17,10 @@ const Contact: NextPage<any, any> = (): JSX.Element => {
             data={{
               title: "Przydatne",
               links: [
-                { slug: "https://github.com/polski-dev", title: "Kod źródłowy", count: 2 },
-                { slug: "/regulamin", title: "Regulamin", count: 1 },
-                { slug: "/privacy-policy", title: "Polityka prywatnosći", count: 1 },
+                { slug: "/contact", title: "Kod źródłowy", count: 1 },
+                { slug: "/regulamin", title: "Regulamin", count: 2 },
+                { slug: "/privacy-policy", title: "Polityka prywatnosći", count: 3 },
+                { slug: "https://github.com/polski-dev", title: "Kod źródłowy", count: 4 },
               ],
             }}
           />
