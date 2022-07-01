@@ -50,7 +50,7 @@ export async function getStaticPaths(): Promise<any> {
       return res.data;
     })
   );
-
+  console.log([].concat.apply([], allUsers).map((user: UserType) => `/user/${user?.id}/${slugFromTitle(`${user?.attributes?.username}`)}`));
   return {
     paths: [].concat.apply([], allUsers).map((user: UserType) => `/user/${user?.id}/${slugFromTitle(`${user?.attributes?.username}`)}`),
     fallback: true,
