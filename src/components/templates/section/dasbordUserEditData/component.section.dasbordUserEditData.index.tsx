@@ -2,6 +2,7 @@ import Image from "next/image";
 import { useForm } from "react-hook-form";
 import Avatar from "assets/icon/avatar.svg";
 import { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
 import useHimself from "hooks/hooks.useHimself";
 import { emailRegex, passwordRegex } from "assets/regex/index.regex";
 import { ButtonSubmit } from "components/atoms/button/component.button.index";
@@ -9,8 +10,10 @@ import { ComponentAnimationItemLoad } from "components/atoms/animation/index";
 import { Input, TextArea, enumInputType } from "components/molecules/form/component.form.index";
 import { Section, Header, Title, Content, AuthorAvatr, Form, InfoInput, BoxInfo } from "./component.section.dasbordUserEditData.style";
 
-export default function SectionDasbordUserEditData({ data: { session } }: { data: { session?: { user?: { email?: string | undefined | null; image?: string | undefined | null; name?: string | undefined | null } } | null } }) {
-  const { userHimselfData, userHimselfDataEditPublicGet, userHimselfDataEditEmailGet, userHimselfDataEditPasswordGet, userHimselfDeleteGet, userHimselfChangeAvatarGet } = useHimself();
+export default function SectionDasbordUserEditData() {
+  const { data: session, status } = useSession();
+
+  const { userDataPublic } = useHimself();
 
   // Change avatar
   const [saveAvatar, setSaveAvatar] = useState(false);
@@ -22,17 +25,17 @@ export default function SectionDasbordUserEditData({ data: { session } }: { data
     formState: { errors: errorsAvatar },
   } = useForm();
 
-  const onSubmitAvatar = ({ files }: { files: FileList }): void => {
-    setUpdateAvatar(true);
-    (async () =>
-      userHimselfChangeAvatarGet({ files }).then((d) => {
-        setUpdateAvatar(false);
-        if (!d?.data) {
-          setSaveAvatar(true);
-          setTimeout(() => setSaveAvatar(false), 1500);
-        }
-      }))();
-  };
+  // const onSubmitAvatar = ({ files }: { files: FileList }): void => {
+  //   setUpdateAvatar(true);
+  //   (async () =>
+  //     userHimselfChangeAvatarGet({ files }).then((d) => {
+  //       setUpdateAvatar(false);
+  //       if (!d?.data) {
+  //         setSaveAvatar(true);
+  //         setTimeout(() => setSaveAvatar(false), 1500);
+  //       }
+  //     }))();
+  // };
 
   // PUBLIC DATA START
   const [updatePublicData, setUpdatePublicData] = useState(false);
@@ -44,20 +47,20 @@ export default function SectionDasbordUserEditData({ data: { session } }: { data
     formState: { errors: errorsPublicData },
   } = useForm();
 
-  useEffect(() => {
-    let update: any;
-    const subscription = watchPublicData((value, { name, type }) => {
-      clearTimeout(update);
-      update = setTimeout(() => {
-        setUpdatePublicData(true);
-        setTimeout(() => {
-          setUpdatePublicData(false);
-        }, 1500);
-        userHimselfDataEditPublicGet({ data: { ...value } });
-      }, 2000);
-    });
-    return () => subscription.unsubscribe();
-  }, [watchPublicData, userHimselfDataEditPublicGet]);
+  // useEffect(() => {
+  //   let update: any;
+  //   const subscription = watchPublicData((value, { name, type }) => {
+  //     clearTimeout(update);
+  //     update = setTimeout(() => {
+  //       setUpdatePublicData(true);
+  //       setTimeout(() => {
+  //         setUpdatePublicData(false);
+  //       }, 1500);
+  //       userHimselfDataEditPublicGet({ data: { ...value } });
+  //     }, 2000);
+  //   });
+  //   return () => subscription.unsubscribe();
+  // }, [watchPublicData, userHimselfDataEditPublicGet]);
 
   // EMAIL START
   const [updateEmail, setUpdateEmail] = useState(false);
@@ -70,22 +73,22 @@ export default function SectionDasbordUserEditData({ data: { session } }: { data
     formState: { errors: errorsEmail },
   } = useForm();
 
-  const onSubmitEmail = (data: any): void => {
-    setUpdateEmail(true);
-    (async () => {
-      const update = await userHimselfDataEditEmailGet(data.email);
+  // const onSubmitEmail = (data: any): void => {
+  //   setUpdateEmail(true);
+  //   (async () => {
+  //     const update = await userHimselfDataEditEmailGet(data.email);
 
-      setUpdateEmail(false);
-      if (!!update?.error)
-        setErrorEmail("email", {
-          message: "Email nie jest prawidłowy lub jest już używany",
-        });
-      else {
-        setSaveEmail(true);
-        setTimeout(() => setSaveEmail(false), 2000);
-      }
-    })();
-  };
+  //     setUpdateEmail(false);
+  //     if (!!update?.error)
+  //       setErrorEmail("email", {
+  //         message: "Email nie jest prawidłowy lub jest już używany",
+  //       });
+  //     else {
+  //       setSaveEmail(true);
+  //       setTimeout(() => setSaveEmail(false), 2000);
+  //     }
+  //   })();
+  // };
 
   // PASSWORD START
   const [updatePassword, setUpdatePassword] = useState(false);
@@ -98,45 +101,45 @@ export default function SectionDasbordUserEditData({ data: { session } }: { data
     formState: { errors: errorsPassword },
   } = useForm();
 
-  const onSubmitPassword = (data: any): void => {
-    setUpdatePassword(true);
-    (async () => {
-      if (data.password != data.passwordSecound) {
-        setErrorPassword("password", {
-          message: "Hasła nie są takie same ",
-        });
-        setErrorPassword("passwordSecound", {
-          message: "Hasła nie są takie same ",
-        });
-      } else {
-        const update = await userHimselfDataEditPasswordGet(data.password);
-        setUpdatePassword(false);
-        if (!!update?.error) {
-          setErrorPassword("passwordSecound", {
-            message: "Nie hasło jest nie prawidłowe lub spróbuj za kilka minut jeszcze raz",
-          });
-          setErrorPassword("password", {
-            message: "Nie hasło jest nie prawidłowe lub spróbuj za kilka minut jeszcze raz",
-          });
-        } else {
-          setSavePassword(true);
-          setTimeout(() => setSavePassword(false), 2000);
-        }
-      }
-    })();
-  };
+  // const onSubmitPassword = (data: any): void => {
+  //   setUpdatePassword(true);
+  //   (async () => {
+  //     if (data.password != data.passwordSecound) {
+  //       setErrorPassword("password", {
+  //         message: "Hasła nie są takie same ",
+  //       });
+  //       setErrorPassword("passwordSecound", {
+  //         message: "Hasła nie są takie same ",
+  //       });
+  //     } else {
+  //       const update = await userHimselfDataEditPasswordGet(data.password);
+  //       setUpdatePassword(false);
+  //       if (!!update?.error) {
+  //         setErrorPassword("passwordSecound", {
+  //           message: "Nie hasło jest nie prawidłowe lub spróbuj za kilka minut jeszcze raz",
+  //         });
+  //         setErrorPassword("password", {
+  //           message: "Nie hasło jest nie prawidłowe lub spróbuj za kilka minut jeszcze raz",
+  //         });
+  //       } else {
+  //         setSavePassword(true);
+  //         setTimeout(() => setSavePassword(false), 2000);
+  //       }
+  //     }
+  //   })();
+  // };
 
   // Delete Acount
   const [updateDelete, setUpdateDelete] = useState(false);
 
   const { handleSubmit: handleSubmitDelete } = useForm();
 
-  const onSubmitDelete = (): void => {
-    setUpdateDelete(true);
-    (async () => {
-      await userHimselfDeleteGet();
-    })();
-  };
+  // const onSubmitDelete = (): void => {
+  //   setUpdateDelete(true);
+  //   (async () => {
+  //     await userHimselfDeleteGet();
+  //   })();
+  // };
 
   return (
     <Section>
@@ -144,10 +147,15 @@ export default function SectionDasbordUserEditData({ data: { session } }: { data
 
       <Content>
         <Title>Dane publiczne</Title>
-        {!!userHimselfData?.data && !updateAvatar ? (
-          <Form className="avatarData" onSubmit={handleSubmitAvatar((data) => onSubmitAvatar({ files: data.avatar }))}>
+        {!!userDataPublic?.data && !updateAvatar ? (
+          <Form
+            className="avatarData"
+            onSubmit={handleSubmitAvatar((data) => {
+              //onSubmitAvatar({ files: data.avatar })
+            })}
+          >
             {saveAvatar && <BoxInfo>Zapisano</BoxInfo>}
-            <AuthorAvatr>{!!userHimselfData?.data?.avatar?.url && !!session ? <Image width={150} height={150} placeholder="blur" blurDataURL="/img/blur.png" alt={userHimselfData?.data?.username} src={userHimselfData?.data?.avatar?.url} /> : <Avatar />}</AuthorAvatr>
+            <AuthorAvatr>{userDataPublic?.data?.avatar?.attributes?.url ? <Image width={150} height={150} placeholder="blur" blurDataURL="/img/blur.png" alt={userDataPublic?.data?.username || ""} src={userDataPublic?.data?.avatar?.attributes?.url} /> : <Avatar />}</AuthorAvatr>
             <Input id="avatar" name="avatar" type={enumInputType.file} error={errorsAvatar.avatar} placeholder="dodaj..." register={registerAvatar} accept="image/png, image/jpeg" required />
             <ButtonSubmit title="zmień">{!!session ? "Zmień" : "Dodaj"}</ButtonSubmit>
           </Form>
@@ -163,15 +171,17 @@ export default function SectionDasbordUserEditData({ data: { session } }: { data
             <div style={{ display: "flex", flexWrap: "wrap", width: "15rem", alignItems: "center" }}>
               <ComponentAnimationItemLoad
                 style={{
-                  width: "10rem",
+                  width: "10.7rem",
                   height: "3.2rem",
+                  marginTop: "0.3rem",
                 }}
               />
               <ComponentAnimationItemLoad
                 style={{
-                  width: "3.2rem",
+                  width: "4rem",
                   height: "3.2rem",
-                  marginLeft: "1.8rem",
+                  marginLeft: "0.3rem",
+                  marginTop: "0.3rem",
                 }}
               />
             </div>
@@ -179,38 +189,40 @@ export default function SectionDasbordUserEditData({ data: { session } }: { data
               style={{
                 width: "15rem",
                 height: "3.2rem",
+                marginTop: "0.3rem",
               }}
             />
           </div>
         )}
         <Form className="publicData" onSubmit={handleSubmitPublicData((e: any) => e.preventDefault(e))}>
-          {!!userHimselfData?.data ? (
+          {!!userDataPublic?.data ? (
             <>
               {updatePublicData && <BoxInfo>Zapisano</BoxInfo>}
-              <Input id="username" name="username" type={enumInputType.text} error={errorsPublicData.username} placeholder="Imię i nazwisko lub nick" defaultValue={!!userHimselfData?.data?.username ? userHimselfData?.data?.username : undefined} register={registerPublicData} required />
-              <TextArea id="about" name="commentsDescription" error={errorsPublicData.about} defaultValue={!!userHimselfData?.data?.about ? userHimselfData?.data?.about : undefined} placeholder="Napisz coś o sobie..." register={registerPublicData} />
-              <Input id="city" name="city" type={enumInputType.text} error={errorsPublicData.city} placeholder="Miasto" defaultValue={!!userHimselfData?.data?.city ? userHimselfData?.data?.city : undefined} register={registerPublicData} required />
-              <Input id="country" name="country" type={enumInputType.text} error={errorsPublicData.country} placeholder="Kraj" defaultValue={!!userHimselfData?.data?.country ? userHimselfData?.data?.country : undefined} register={registerPublicData} required />
-              <Input id="website" name="website" type={enumInputType.text} error={errorsPublicData.website} placeholder="Portfolio url" defaultValue={!!userHimselfData?.data?.website ? userHimselfData?.data?.website : undefined} register={registerPublicData} required />
-              <Input id="instagram" name="instagram" type={enumInputType.text} error={errorsPublicData.instagram} placeholder="Instagram url twojego profilu" defaultValue={!!userHimselfData?.data?.instagram ? userHimselfData?.data?.instagram : undefined} register={registerPublicData} />
-              <Input id="youtube" name="youtube" type={enumInputType.text} error={errorsPublicData.youtube} placeholder="YouTube url Twojego kanału" defaultValue={!!userHimselfData?.data?.youtube ? userHimselfData?.data?.youtube : undefined} register={registerPublicData} />
-              <Input id="tiktok" name="tiktok" type={enumInputType.text} error={errorsPublicData.tiktok} placeholder="TikTok url twojego profilu" defaultValue={!!userHimselfData?.data?.tiktok ? userHimselfData?.data?.tiktok : undefined} register={registerPublicData} />
-              <Input id="github" name="github" type={enumInputType.text} error={errorsPublicData.github} placeholder="Github url twojego profilu" defaultValue={!!userHimselfData?.data?.github ? userHimselfData?.data?.github : undefined} register={registerPublicData} />
+              <Input id="username" name="username" type={enumInputType.text} error={errorsPublicData.username} placeholder="Imię i nazwisko lub nick" defaultValue={!!userDataPublic?.data?.username ? userDataPublic?.data?.username : undefined} register={registerPublicData} required />
+              <TextArea id="about" name="commentsDescription" error={errorsPublicData.about} defaultValue={!!userDataPublic?.data.about ? userDataPublic?.data?.about : undefined} placeholder="Napisz coś o sobie..." register={registerPublicData} />
+              <Input id="city" name="city" type={enumInputType.text} error={errorsPublicData.city} placeholder="Miasto" defaultValue={!!userDataPublic?.data?.city ? userDataPublic?.data?.city : undefined} register={registerPublicData} required />
+              <Input id="country" name="country" type={enumInputType.text} error={errorsPublicData.country} placeholder="Kraj" defaultValue={!!userDataPublic?.data?.country ? userDataPublic?.data?.country : undefined} register={registerPublicData} required />
+              <Input id="website" name="website" type={enumInputType.text} error={errorsPublicData.website} placeholder="Portfolio url" defaultValue={!!userDataPublic?.data?.website ? userDataPublic?.data?.website : undefined} register={registerPublicData} required />
+              <Input id="instagram" name="instagram" type={enumInputType.text} error={errorsPublicData.instagram} placeholder="Instagram url twojego profilu" defaultValue={!!userDataPublic?.data?.instagram ? userDataPublic?.data?.instagram : undefined} register={registerPublicData} />
+              <Input id="youtube" name="youtube" type={enumInputType.text} error={errorsPublicData.youtube} placeholder="YouTube url Twojego kanału" defaultValue={!!userDataPublic?.data?.youtube ? userDataPublic?.data?.youtube : undefined} register={registerPublicData} />
+              <Input id="tiktok" name="tiktok" type={enumInputType.text} error={errorsPublicData.tiktok} placeholder="TikTok url twojego profilu" defaultValue={!!userDataPublic?.data?.tiktok ? userDataPublic?.data?.tiktok : undefined} register={registerPublicData} />
+              <Input id="github" name="github" type={enumInputType.text} error={errorsPublicData.github} placeholder="Github url twojego profilu" defaultValue={!!userDataPublic?.data?.github ? userDataPublic?.data?.github : undefined} register={registerPublicData} />
             </>
           ) : (
             <>
               <ComponentAnimationItemLoad height={3.2} />
-              <ComponentAnimationItemLoad height={8} />
-              <ComponentAnimationItemLoad height={3.2} />
-              <ComponentAnimationItemLoad height={3.2} />
-              <ComponentAnimationItemLoad height={3.2} />
-              <ComponentAnimationItemLoad height={3.2} />
-              <ComponentAnimationItemLoad height={3.2} />
-              <ComponentAnimationItemLoad height={3.2} />
-              <ComponentAnimationItemLoad height={3.2} />
+              <ComponentAnimationItemLoad height={8} style={{ marginTop: "0.3rem" }} />
+              <ComponentAnimationItemLoad height={3.2} style={{ marginTop: "0.3rem" }} />
+              <ComponentAnimationItemLoad height={3.2} style={{ marginTop: "0.3rem" }} />
+              <ComponentAnimationItemLoad height={3.2} style={{ marginTop: "0.3rem" }} />
+              <ComponentAnimationItemLoad height={3.2} style={{ marginTop: "0.3rem" }} />
+              <ComponentAnimationItemLoad height={3.2} style={{ marginTop: "0.3rem" }} />
+              <ComponentAnimationItemLoad height={3.2} style={{ marginTop: "0.3rem" }} />
+              <ComponentAnimationItemLoad height={3.2} style={{ marginTop: "0.3rem" }} />
             </>
           )}
         </Form>
+        {/* 
         <Title>Dane prywatne</Title>
         <Form className="privateData" onSubmit={handleSubmitEmail((data) => onSubmitEmail(data))}>
           {!!userHimselfData?.data && !updateEmail ? (
@@ -222,7 +234,7 @@ export default function SectionDasbordUserEditData({ data: { session } }: { data
           ) : (
             <>
               <ComponentAnimationItemLoad height={3.2} />
-              <ComponentAnimationItemLoad height={3.2} />
+              <ComponentAnimationItemLoad height={3.2} style={{ marginTop: "0.3rem" }} />
             </>
           )}
         </Form>
@@ -239,9 +251,9 @@ export default function SectionDasbordUserEditData({ data: { session } }: { data
           ) : (
             <>
               <ComponentAnimationItemLoad height={1.2} />
-              <ComponentAnimationItemLoad height={3.2} />
-              <ComponentAnimationItemLoad height={3.2} />
-              <ComponentAnimationItemLoad height={3.2} />
+              <ComponentAnimationItemLoad height={3.2} style={{ marginTop: "0.3rem" }} />
+              <ComponentAnimationItemLoad height={3.2} style={{ marginTop: "0.3rem" }} />
+              <ComponentAnimationItemLoad height={3.2} style={{ marginTop: "0.3rem" }} />
             </>
           )}
         </Form>
@@ -257,7 +269,7 @@ export default function SectionDasbordUserEditData({ data: { session } }: { data
               <ComponentAnimationItemLoad height={3.2} />
             </>
           )}
-        </Form>
+        </Form> */}
       </Content>
     </Section>
   );

@@ -19,12 +19,12 @@ const HeaderComponent = () => {
 
             <Menu>
               <Item>
-                <Link href="/">
+                <Link href="/privacy-policy">
                   <a title="polityka prywatności">Polityka Prywatności</a>
                 </Link>
               </Item>
               <Item>
-                <Link href="/w">
+                <Link href="/regulamin">
                   <a title="regulamin">Regulamin</a>
                 </Link>
               </Item>

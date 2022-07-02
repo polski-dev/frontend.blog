@@ -3,14 +3,14 @@ import { NextPage } from "next";
 import { useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { NextRouter, useRouter } from "next/router";
-import useAddCallBackURL from "hooks/hooks.useCallBackURL";
 import { MenuPrimary } from "components/templates/menu";
-import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
+import useAddCallBackURL from "hooks/hooks.useCallBackURL";
 import { SectionDasbordUserEditData } from "components/templates/section/index";
+import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
 
 const UserPanelPage: NextPage<any> = (): JSX.Element => {
+  const { status } = useSession();
   const router: NextRouter = useRouter();
-  const { data: session, status } = useSession();
   const { addCallBackURL } = useAddCallBackURL();
 
   useEffect(() => {
@@ -37,7 +37,7 @@ const UserPanelPage: NextPage<any> = (): JSX.Element => {
             }}
           />
           <Col xs={12} md={9}>
-            <SectionDasbordUserEditData data={{ session }} />
+            <SectionDasbordUserEditData />
           </Col>
         </Row>
       </Container>
