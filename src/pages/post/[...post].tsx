@@ -49,6 +49,7 @@ const Post: NextPage<any> = ({ post, slug }: { post?: PostFindOneType; slug: str
     “height”: ${post?.data?.attributes.author?.data?.attributes.avatar?.data?.attributes.formats.thumbnail?.height}
     }
     }
+  }
   `;
 
   return (
