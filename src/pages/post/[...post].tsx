@@ -8,6 +8,7 @@ import { SectionPostFull } from "components/templates/section";
 import { postCountFrontEnd, postCountState } from "utils/query/posts/count";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
 import { postsFindBackEnd, PostsFindType, postFindOneBackEnd, PostFindOneType } from "utils/query/posts/find";
+import { TagType } from "types/database/types.database.tag";
 
 const Post: NextPage<any> = ({ post, slug }: { post?: PostFindOneType; slug: string }): JSX.Element => {
   const [stats, setStats] = useState(postCountState);
@@ -20,36 +21,31 @@ const Post: NextPage<any> = ({ post, slug }: { post?: PostFindOneType; slug: str
 
   const schemaData = `
   {
-    "@context": "https://schema.org",
-    “@type”: “BlogPosting”,
-    “mainEntityOfPage”:{
-    “@type”:”WebPage”,
-    “@id”:'https://www.polski.dev${slug}'
-    },
-    “headline”: '${post?.data?.attributes.title}',
-    “image”: {
-    “@type”: 'ImageObject',
-    “url”: "${post?.data?.attributes.cover?.data?.attributes.url}",
-    “height”: ${post?.data?.attributes.cover?.data?.attributes.height},
-    “width”: ${post?.data?.attributes.cover?.data?.attributes.width}
-    },
-    “datePublished”: "${post?.data?.attributes.createdAt}",
+		"@context":"http://schema.org",
+		"@type": "BlogPosting",
+		"image": "${post?.data?.attributes.cover?.data?.attributes.url}",
+		"url": "https://www.polski.dev${slug}",
+		"headline": "${post?.data?.attributes.title}",
+		"alternativeHeadline": "${post?.data?.attributes.title} | POLSKI.DEV 👩‍💻👨‍💻",
+    "dateCreated": "${post?.data?.attributes.createdAt}",
+    “datePublished”: "${post?.data?.attributes.publishedAt}",
     “dateModified”: "${post?.data?.attributes.updatedAt}",
-    “author”: {
-    “@type”: 'Person',
-    “name”: "${post?.data?.attributes.author?.data?.attributes.username}"
-    },
-    “publisher”: {
-    “@type”: 'Organization',
-    “name”: "${post?.data?.attributes.author?.data?.attributes.username}",
-    “logo”: {
-    “@type”: “ImageObject”,
-    “url”: "${post?.data?.attributes.author?.data?.attributes.avatar?.data?.attributes.formats.thumbnail?.url}",
-    “width”: ${post?.data?.attributes.author?.data?.attributes.avatar?.data?.attributes.formats.thumbnail?.width},
-    “height”: ${post?.data?.attributes.author?.data?.attributes.avatar?.data?.attributes.formats.thumbnail?.height}
-    }
-    }
-  }
+		"inLanguage": "pl-PL",
+		"isFamilyFriendly": "true",
+		"copyrightYear": "2022",
+		"copyrightHolder": "",
+
+		"author": {
+			"@type": "Person",
+			"name": "${post?.data?.attributes.author?.data?.attributes.username}",
+			"url": "https://www.polski.dev/user/${post?.data?.attributes.author?.data?.attributes.username ? slugFromTitle(post?.data?.attributes.author?.data?.attributes.username) : ""}"
+		},
+		"mainEntityOfPage": "True",
+		"keywords": ${post?.data?.attributes.tags?.data?.map((tag: TagType) => {
+      return `${tag.attributes.title}`;
+    })},
+		"articleSection": "Uncategorized posts",
+	}
   `;
 
   return (
