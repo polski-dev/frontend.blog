@@ -48,9 +48,6 @@ const Post: NextPage<any> = ({ post, slug }: { post?: PostFindOneType; slug: str
     “width”: ${post?.data?.attributes.author?.data?.attributes.avatar?.data?.attributes.formats.thumbnail?.width},
     “height”: ${post?.data?.attributes.author?.data?.attributes.avatar?.data?.attributes.formats.thumbnail?.height}
     }
-    },
-    “description”: "${post?.data?.attributes?.content.slice(0, 160)}",
-    “articleBody”: "${post?.data?.attributes?.content}"
     }
   `;
 
