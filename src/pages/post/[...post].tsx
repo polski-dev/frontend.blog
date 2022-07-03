@@ -20,7 +20,7 @@ const Post: NextPage<any> = ({ post, slug }: { post?: PostFindOneType; slug: str
 
   const schemaData = `
   {
-    “@context”: 'http://schema.org',
+    "@context": "https://schema.org",
     “@type”: “BlogPosting”,
     “mainEntityOfPage”:{
     “@type”:”WebPage”,
