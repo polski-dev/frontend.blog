@@ -1,8 +1,6 @@
 import fs from "fs";
 import path from "path";
-import React from "react";
 import { NextApiResponse } from "next";
-import { Name } from "components/templates/section/userInfo/component.section.userInfo.style";
 
 const Sitemap = () => {};
 
