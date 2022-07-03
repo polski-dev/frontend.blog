@@ -11,9 +11,9 @@ export const getServerSideProps = ({ res }: { res: NextApiResponse }) => {
   }["production"];
 
   const staticPages: string[] = fs
-    .readdirSync("./src/pages")
+    .readdirSync(__dirname)
     .filter((staticPage: string): boolean => {
-      return !["post", "user", "tag", "search", "index.tsx", "dashboard", "auth", "api", "404.tsx", "_app.tsx", "_document.tsx", "_error.tsx", "sitemap.xml.tsx"].includes(staticPage);
+      return !["post", "user", "tag", "search", "index.js", "dashboard", "auth", "api", "404.js", "_app.js", "_document.js", "_error.js", "sitemap.xml.js"].includes(staticPage);
     })
     .map((staticPagePath) => {
       return `${baseUrl}/${path.basename(staticPagePath, path.extname(staticPagePath))}`;
