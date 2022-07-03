@@ -9,6 +9,7 @@ const SingUp: NextPage<any, any> = ({ countUser }: { countUser?: UsersCountType 
     <>
       <Head>
         <title>Rejstracja | POLSKI.DEV 👩‍💻👨‍💻</title>
+        <meta name="Description" content="Dołącz się do naszej społeczności" />
       </Head>
       <Container>
         <Row>

@@ -9,7 +9,7 @@ import { postCountFrontEnd, postCountState } from "utils/query/posts/count";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
 import { postsFindBackEnd, PostsFindType, postFindOneBackEnd, PostFindOneType } from "utils/query/posts/find";
 
-const Post: NextPage<any> = ({ post }: { post?: PostFindOneType }): JSX.Element => {
+const Post: NextPage<any> = ({ post, slug }: { post?: PostFindOneType; slug: string }): JSX.Element => {
   const [stats, setStats] = useState(postCountState);
 
   useEffect(() => {
@@ -18,11 +18,48 @@ const Post: NextPage<any> = ({ post }: { post?: PostFindOneType }): JSX.Element 
     })();
   }, [post]);
 
+  const schemaData = `
+  {
+    “@context”: “http://schema.org”,
+    “@type”: “BlogPosting”,
+    “mainEntityOfPage”:{
+    “@type”:”WebPage”,
+    “@id”:”https://www.polski.dev/${slug}”
+    },
+    “headline”: “${post?.data?.attributes.title}”,
+    “image”: {
+    “@type”: “ImageObject”,
+    “url”: “${post?.data?.attributes.cover?.data?.attributes.url}”,
+    “height”: ${post?.data?.attributes.cover?.data?.attributes.height},
+    “width”: ${post?.data?.attributes.cover?.data?.attributes.width}
+    },
+    “datePublished”: "${post?.data?.attributes.createdAt}",
+    “dateModified”: "${post?.data?.attributes.updatedAt}",
+    “author”: {
+    “@type”: “Person”,
+    “name”: “${post?.data?.attributes.author?.data?.attributes.username}”
+    },
+    “publisher”: {
+    “@type”: “Organization”,
+    “name”: “${post?.data?.attributes.author?.data?.attributes.username}”,
+    “logo”: {
+    “@type”: “ImageObject”,
+    “url”: “${post?.data?.attributes.author?.data?.attributes.avatar?.data?.attributes.formats.thumbnail?.url}”,
+    “width”: ${post?.data?.attributes.author?.data?.attributes.avatar?.data?.attributes.formats.thumbnail?.width},
+    “height”: ${post?.data?.attributes.author?.data?.attributes.avatar?.data?.attributes.formats.thumbnail?.height}
+    }
+    },
+    “description”: "${post?.data?.attributes?.content.slice(0, 160)}",
+    “articleBody”: "${post?.data?.attributes?.content}"
+    }
+  `;
+
   return (
     <>
       <Head>
         <title>{post?.data?.attributes?.title || "Dodaj tytuł"} | POLSKI.DEV 👩‍💻👨‍💻</title>
         {post?.data?.attributes?.content && <meta name="Description" content={post?.data?.attributes?.content.slice(0, 160)} />}
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
       </Head>
       <Container>
         <Row>

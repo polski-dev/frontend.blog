@@ -9,6 +9,7 @@ const SingIn: NextPage<any> = ({ countUser }: { countUser?: UsersCountType }): J
     <>
       <Head>
         <title>Logowanie | POLSKI.DEV 👩‍💻👨‍💻</title>
+        <meta name="Description" content="Zaloguj się do naszej społeczności" />
       </Head>
       <Container>
         <Row>
