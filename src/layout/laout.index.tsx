@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Header from "components/templates/header/index.header";
 import Footer from "components/templates/footer/index.footer";
+import PopupWithAllowCookies from "components/templates/popupWithAllowCookies/component.popupWithAllowCookies.index";
 
 export default function Laout({ children }: any) {
   return (
@@ -11,6 +12,7 @@ export default function Laout({ children }: any) {
       <Header />
       {children}
       <Footer />
+      <PopupWithAllowCookies />
     </>
   );
 }
