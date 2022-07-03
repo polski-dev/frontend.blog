@@ -12,6 +12,7 @@ const Waiting: NextPage<any, {}> = ({ countPosts, content }: { countPosts: Posts
     <>
       <Head>
         <title>Poczekalnia | POLSKI.DEV 👩‍💻👨‍💻</title>
+        <meta name="Description" content="Lista postów w poczekalni" />
       </Head>
       <Container>
         <Row>

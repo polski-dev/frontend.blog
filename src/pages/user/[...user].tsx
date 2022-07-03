@@ -26,6 +26,7 @@ const UserPage: NextPage<any> = ({ user, content }: { user?: UserFindOneType; co
     <>
       <Head>
         <title>{user?.data?.attributes?.username || "Add name user"} | POLSKI.DEV 👩‍💻👨‍💻</title>
+        {user?.data?.attributes?.about && <meta name="Description" content={user?.data?.attributes?.about.slice(0, 160)} />}
       </Head>
       <div style={{ width: "100%", height: "10rem", backgroundColor: "#5F6367" }}></div>
       <Container>

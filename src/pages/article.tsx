@@ -12,6 +12,7 @@ const Home: NextPage<any, {}> = ({ countPosts, content }: { countPosts: PostsCou
     <>
       <Head>
         <title>Artykuły | POLSKI.DEV 👩‍💻👨‍💻</title>
+        <meta name="Description" content="Lista artykułów" />
       </Head>
       <Container>
         <Row>

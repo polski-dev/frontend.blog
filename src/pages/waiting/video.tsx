@@ -12,6 +12,7 @@ const WaitingVideo: NextPage<any, {}> = ({ countPosts, content }: { countPosts: 
     <>
       <Head>
         <title>Poczekalnia video | POLSKI.DEV 👩‍💻👨‍💻</title>
+        <meta name="Description" content="Lista artykułów zawierajacych video w poczekalni" />
       </Head>
       <Container>
         <Row>

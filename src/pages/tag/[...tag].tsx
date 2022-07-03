@@ -59,6 +59,7 @@ const TagPage: NextPage<any> = ({ tag, posts, slug }: { tag?: TagFindOneType; po
     <>
       <Head>
         <title>{tag?.data?.attributes.title || "Add title for tag"} | POLSKI.DEV 👩‍💻👨‍💻</title>
+        {tag?.data?.attributes?.description && <meta name="Description" content={tag?.data?.attributes?.description.slice(0, 160)} />}
       </Head>
       <Container>
         <Row>

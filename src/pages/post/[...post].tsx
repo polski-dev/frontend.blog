@@ -22,6 +22,7 @@ const Post: NextPage<any> = ({ post }: { post?: PostFindOneType }): JSX.Element 
     <>
       <Head>
         <title>{post?.data?.attributes?.title || "Dodaj tytuł"} | POLSKI.DEV 👩‍💻👨‍💻</title>
+        {post?.data?.attributes?.content && <meta name="Description" content={post?.data?.attributes?.content.slice(0, 160)} />}
       </Head>
       <Container>
         <Row>

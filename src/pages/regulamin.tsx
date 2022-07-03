@@ -10,6 +10,7 @@ const Contact: NextPage<any, any> = (): JSX.Element => {
     <>
       <Head>
         <title>Regulamin | POLSKI.DEV 👩‍💻👨‍💻</title>
+        <meta name="Description" content="Regulamin serwisu polski.dev" />
       </Head>
       <Container>
         <Row>
@@ -19,7 +20,7 @@ const Contact: NextPage<any, any> = (): JSX.Element => {
               links: [
                 { slug: "/contact", title: "Kontakt", count: 1 },
                 { slug: "/regulamin", title: "Regulamin", count: 2 },
-                { slug: "/privacy-policy", title: "Polityka prywatnosći", count: 3 },
+                { slug: "/privacy-policy", title: "Polityka prywatności", count: 3 },
                 { slug: "https://github.com/polski-dev", title: "Kod źródłowy", count: 4 },
               ],
             }}
