@@ -77,6 +77,8 @@ export default function MenuPrimary({ data }: { data?: { title?: string; cover?:
           </List>
         </BoxContent>
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4518094843351143" type="module" />
+        <ins className="adsbygoogle" style={{ display: "block" }} data-ad-client="ca-pub-4518094843351143" data-ad-slot="4360537289" data-ad-format="auto" data-full-width-responsive="true" />
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
       </BoxMenu>
     </>
   );
