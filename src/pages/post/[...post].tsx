@@ -59,7 +59,7 @@ const Post: NextPage<any> = ({ post, slug }: { post?: PostFindOneType; slug: str
       <Head>
         <title>{post?.data?.attributes?.title || "Dodaj tytuł"} | POLSKI.DEV 👩‍💻👨‍💻</title>
         {post?.data?.attributes?.content && <meta name="Description" content={post?.data?.attributes?.content.slice(0, 160)} />}
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: schemaData }} />
       </Head>
       <Container>
         <Row>
