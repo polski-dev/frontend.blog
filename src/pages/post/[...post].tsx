@@ -24,7 +24,7 @@ const Post: NextPage<any> = ({ post, slug }: { post?: PostFindOneType; slug: str
     “@type”: “BlogPosting”,
     “mainEntityOfPage”:{
     “@type”:”WebPage”,
-    “@id”:”https://www.polski.dev/${slug}”
+    “@id”:”https://www.polski.dev${slug}”
     },
     “headline”: “${post?.data?.attributes.title}”,
     “image”: {
