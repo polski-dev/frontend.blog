@@ -76,6 +76,7 @@ export default function MenuPrimary({ data }: { data?: { title?: string; cover?:
             </SocialMedia>
           </List>
         </BoxContent>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4518094843351143" type="module" />
       </BoxMenu>
     </>
   );
