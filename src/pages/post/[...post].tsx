@@ -29,22 +29,22 @@ const Post: NextPage<any> = ({ post, slug }: { post?: PostFindOneType; slug: str
     “headline”: '${post?.data?.attributes.title}',
     “image”: {
     “@type”: 'ImageObject',
-    “url”: '${post?.data?.attributes.cover?.data?.attributes.url}',
+    “url”: "${post?.data?.attributes.cover?.data?.attributes.url}",
     “height”: ${post?.data?.attributes.cover?.data?.attributes.height},
     “width”: ${post?.data?.attributes.cover?.data?.attributes.width}
     },
-    “datePublished”: '${post?.data?.attributes.createdAt}',
-    “dateModified”: '${post?.data?.attributes.updatedAt}',
+    “datePublished”: "${post?.data?.attributes.createdAt}",
+    “dateModified”: "${post?.data?.attributes.updatedAt}",
     “author”: {
     “@type”: 'Person',
-    “name”: '${post?.data?.attributes.author?.data?.attributes.username}'
+    “name”: "${post?.data?.attributes.author?.data?.attributes.username}"
     },
     “publisher”: {
     “@type”: 'Organization',
-    “name”: '${post?.data?.attributes.author?.data?.attributes.username}',
+    “name”: "${post?.data?.attributes.author?.data?.attributes.username}",
     “logo”: {
     “@type”: “ImageObject”,
-    “url”: '${post?.data?.attributes.author?.data?.attributes.avatar?.data?.attributes.formats.thumbnail?.url}',
+    “url”: "${post?.data?.attributes.author?.data?.attributes.avatar?.data?.attributes.formats.thumbnail?.url}",
     “width”: ${post?.data?.attributes.author?.data?.attributes.avatar?.data?.attributes.formats.thumbnail?.width},
     “height”: ${post?.data?.attributes.author?.data?.attributes.avatar?.data?.attributes.formats.thumbnail?.height}
     }
