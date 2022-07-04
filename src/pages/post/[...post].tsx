@@ -33,7 +33,7 @@ const Post: NextPage<any> = ({ post, slug }: { post?: PostFindOneType; slug: str
     "dateCreated": "${post?.data?.attributes.createdAt && formatDate(new Date(post?.data?.attributes.createdAt))}",
 		"inLanguage": "pl-PL",
 		"isFamilyFriendly": "true",
-		"copyrightYear": "2022",
+		"copyrightYear": "${new Date().getFullYear()}",
 		"copyrightHolder": "",
 
 		"author": {

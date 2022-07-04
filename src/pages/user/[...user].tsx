@@ -12,7 +12,7 @@ import { userCountState, userCountFrontEnd } from "utils/query/users/count";
 import { SectionUserInfo, SectionContentShortList } from "components/templates/section/index";
 import { usersFindBackEnd, UsersFindType, userFindOneBackEnd, UserFindOneType } from "utils/query/users/find";
 
-const UserPage: NextPage<any> = ({ user, content }: { user?: UserFindOneType; content: PostsFindType }): JSX.Element => {
+const UserPage: NextPage<any> = ({ user, content, slug }: { user?: UserFindOneType; content: PostsFindType; slug: string }): JSX.Element => {
   useViews({ id: user?.data?.id, typ: ContentEnum.user });
   const [stats, setStats] = useState(userCountState);
 
@@ -22,11 +22,22 @@ const UserPage: NextPage<any> = ({ user, content }: { user?: UserFindOneType; co
     })();
   }, [user]);
 
+  const schemaData = `
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+   ${user?.data?.attributes.avatar?.data?.attributes.url ? `"image": "${user?.data?.attributes.avatar?.data?.attributes.url}",` : ""} 
+    "name": "${user?.data?.attributes.username}",
+    "url": "https://www.polski.dev${slug}"
+  }
+  `;
+
   return (
     <>
       <Head>
         <title>{user?.data?.attributes?.username || "Add name user"} | POLSKI.DEV 👩‍💻👨‍💻</title>
         {user?.data?.attributes?.about && <meta name="Description" content={user?.data?.attributes?.about.slice(0, 160)} />}
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: schemaData }} />
       </Head>
       <div style={{ width: "100%", height: "10rem", backgroundColor: "#5F6367" }}></div>
       <Container>

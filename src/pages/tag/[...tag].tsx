@@ -55,11 +55,27 @@ const TagPage: NextPage<any> = ({ tag, posts, slug }: { tag?: TagFindOneType; po
     }
   }, [router, tag, slug, posts]);
 
+  const schemaData = `
+  {
+    "@context": "https://schema.org/",
+    "@type": "CategoryCodeSet",
+    "@id": "${tag?.data?.attributes.title}",
+    "name": "${tag?.data?.attributes.title}",
+    "hasCategoryCode": {
+           "@type": "CategoryCode",
+           "name": "${tag?.data?.attributes.title}",
+           "description": "${tag?.data?.attributes.description}",
+           "inCodeSet": "${tag?.data?.attributes.title}"
+         }
+   }
+  `;
+
   return (
     <>
       <Head>
         <title>{tag?.data?.attributes.title || "Add title for tag"} | POLSKI.DEV 👩‍💻👨‍💻</title>
         {tag?.data?.attributes?.description && <meta name="Description" content={tag?.data?.attributes?.description.slice(0, 160)} />}
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: schemaData }} />
       </Head>
       <Container>
         <Row>
