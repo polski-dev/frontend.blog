@@ -19,6 +19,9 @@ const Post: NextPage<any> = ({ post, slug }: { post?: PostFindOneType; slug: str
     })();
   }, [post]);
 
+  const padTo2Digits = (num: number): string => num.toString().padStart(2, "0");
+  const formatDate = (date: Date): string => [date?.getFullYear(), padTo2Digits(date?.getMonth() + 1), padTo2Digits(date?.getDate())].join("-");
+
   const schemaData = `
   {
 		"@context":"http://schema.org",
@@ -26,10 +29,8 @@ const Post: NextPage<any> = ({ post, slug }: { post?: PostFindOneType; slug: str
 		"image": "${post?.data?.attributes.cover?.data?.attributes.url}",
 		"url": "https://www.polski.dev${slug}",
 		"headline": "${post?.data?.attributes.title}",
-		"alternativeHeadline": "${post?.data?.attributes.title} | POLSKI.DEV 👩‍💻👨‍💻",
-    "dateCreated": "${post?.data?.attributes.createdAt}",
-    “datePublished”: "${post?.data?.attributes.publishedAt}",
-    “dateModified”: "${post?.data?.attributes.updatedAt}",
+		"alternativeHeadline": "${post?.data?.attributes.title} | POLSKI.DEV",
+    "dateCreated": "${post?.data?.attributes.createdAt && formatDate(new Date(post?.data?.attributes.createdAt))}",
 		"inLanguage": "pl-PL",
 		"isFamilyFriendly": "true",
 		"copyrightYear": "2022",
@@ -41,10 +42,7 @@ const Post: NextPage<any> = ({ post, slug }: { post?: PostFindOneType; slug: str
 			"url": "https://www.polski.dev/user/${post?.data?.attributes.author?.data?.attributes.username ? slugFromTitle(post?.data?.attributes.author?.data?.attributes.username) : ""}"
 		},
 		"mainEntityOfPage": "True",
-		"keywords": ${post?.data?.attributes.tags?.data?.map((tag: TagType) => {
-      return `${tag.attributes.title}`;
-    })},
-		"articleSection": "Uncategorized posts",
+		"articleSection": "Uncategorized posts"
 	}
   `;
 
