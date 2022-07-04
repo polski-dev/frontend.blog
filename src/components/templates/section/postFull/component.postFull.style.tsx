@@ -187,9 +187,6 @@ export const Content: StyledComponent<any, any> = styled.div`
       margin-top: 0;
       border-radius: 0.6rem;
       border: 1px solid ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorBorder};
-      code {
-        display: flex !important;
-      }
     }
   }
 `;
