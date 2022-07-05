@@ -50,6 +50,11 @@ const Post: NextPage<any> = ({ post, slug }: { post?: PostFindOneType; slug: str
     <>
       <Head>
         <title>{post?.data?.attributes?.title || "Dodaj tytuł"} | POLSKI.DEV 👩‍💻👨‍💻</title>
+        <meta property="og:title" content={`${post?.data?.attributes?.title} | POLSKI.DEV 👩‍💻👨‍💻`} />
+        <meta property="og:type" content="text/html" />
+        <meta property="og:description" content={post?.data?.attributes?.content.slice(0, 160)} />
+        <meta property="og:url" content={`https://www.polski.dev${slug}`} />
+        <meta property="og:image" content={post?.data?.attributes.cover?.data?.attributes.url} />
         {post?.data?.attributes?.content && <meta name="Description" content={post?.data?.attributes?.content.slice(0, 160)} />}
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: schemaData }} />
       </Head>

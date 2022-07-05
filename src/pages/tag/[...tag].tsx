@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { NextPage } from "next";
-import { useEffect, useState } from "react";
 import useViews from "hooks/hooks.useViews";
+import { useEffect, useState } from "react";
 import { NextRouter, useRouter } from "next/router";
 import { slugFromTitle } from "utils/lib/utils.lib.slug";
 import { TagType } from "types/database/types.database.tag";
