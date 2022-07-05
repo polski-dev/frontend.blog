@@ -13,6 +13,11 @@ const Home: NextPage<any, {}> = ({ countPosts, content }: { countPosts: PostsCou
       <Head>
         <title>Artykuły | POLSKI.DEV 👩‍💻👨‍💻</title>
         <meta name="Description" content="Lista artykułów" />
+        <meta property="og:title" content="Artykuły | POLSKI.DEV 👩‍💻👨‍💻" />
+        <meta property="og:type" content="text/html" />
+        <meta property="og:description" content="Lista artykułów" />
+        <meta property="og:url" content={`https://www.polski.dev/article`} />
+        <meta property="og:image" content="./../assets/img/shareSocialMedia.png" />
       </Head>
       <Container>
         <Row>
