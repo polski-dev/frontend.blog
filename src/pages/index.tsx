@@ -11,8 +11,13 @@ const Home: NextPage<any, {}> = ({ countPosts, content }: { countPosts?: PostsCo
   return (
     <>
       <Head>
-        <title>Blog | POLSKI.DEV 👩‍💻👨‍💻</title>
+        <title>Blog dla programistów od programistów | POLSKI.DEV 👩‍💻👨‍💻</title>
         <meta name="Description" content="polski.dev to coś więcej niż blog dla programistów to miejsce spotkań dla programistów to ich autorskie pamiętniki" />
+        <meta property="og:title" content="Blog dla programistów od programistów | POLSKI.DEV 👩‍💻👨‍💻" />
+        <meta property="og:type" content="text/html" />
+        <meta property="og:description" content="polski.dev to coś więcej niż blog dla programistów to miejsce spotkań dla programistów to ich autorskie pamiętniki" />
+        <meta property="og:url" content={`https://www.polski.dev`} />
+        <meta property="og:image" content="./../assets/img/shareSocialMedia.png" />
       </Head>
       <Container>
         <Row>

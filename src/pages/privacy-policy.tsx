@@ -11,6 +11,11 @@ const Contact: NextPage<any, any> = (): JSX.Element => {
       <Head>
         <title>Polityka prywatności | POLSKI.DEV 👩‍💻👨‍💻</title>
         <meta name="Description" content="Polityka prywatności serwisu internetowego polski.dev" />
+        <meta property="og:title" content="Polityka prywatności | POLSKI.DEV 👩‍💻👨‍💻" />
+        <meta property="og:type" content="text/html" />
+        <meta property="og:description" content="Polityka prywatności serwisu internetowego polski.dev" />
+        <meta property="og:url" content={`https://www.polski.dev/privacy-policy`} />
+        <meta property="og:image" content="./../assets/img/shareSocialMedia.png" />
       </Head>
       <Container>
         <Row>
