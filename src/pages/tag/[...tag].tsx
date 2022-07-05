@@ -74,6 +74,11 @@ const TagPage: NextPage<any> = ({ tag, posts, slug }: { tag?: TagFindOneType; po
     <>
       <Head>
         <title>{tag?.data?.attributes.title || "Add title for tag"} | POLSKI.DEV 👩‍💻👨‍💻</title>
+        <meta property="og:title" content={`${tag?.data?.attributes?.title} | POLSKI.DEV 👩‍💻👨‍💻`} />
+        <meta property="og:type" content="text/html" />
+        <meta property="og:description" content={tag?.data?.attributes?.description} />
+        <meta property="og:url" content={`https://www.polski.dev${slug}`} />
+        <meta property="og:image" content={tag?.data?.attributes.cover?.data?.attributes.url} />
         {tag?.data?.attributes?.description && <meta name="Description" content={tag?.data?.attributes?.description.slice(0, 160)} />}
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: schemaData }} />
       </Head>
