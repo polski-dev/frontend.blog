@@ -13,6 +13,11 @@ const Waiting: NextPage<any, {}> = ({ countPosts, content }: { countPosts: Posts
       <Head>
         <title>Poczekalnia | POLSKI.DEV 👩‍💻👨‍💻</title>
         <meta name="Description" content="Lista postów w poczekalni" />
+        <meta property="og:title" content="Poczekalnia | POLSKI.DEV 👩‍💻👨‍💻" />
+        <meta property="og:type" content="text/html" />
+        <meta property="og:description" content="Lista postów w poczekalni" />
+        <meta property="og:url" content={`https://www.polski.dev/waiting`} />
+        <meta property="og:image" content="./../assets/img/shareSocialMedia.png" />
       </Head>
       <Container>
         <Row>
