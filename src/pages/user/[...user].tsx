@@ -36,6 +36,11 @@ const UserPage: NextPage<any> = ({ user, content, slug }: { user?: UserFindOneTy
     <>
       <Head>
         <title>{user?.data?.attributes?.username || "Add name user"} | POLSKI.DEV 👩‍💻👨‍💻</title>
+        <meta property="og:title" content={`${user?.data?.attributes?.username} | POLSKI.DEV 👩‍💻👨‍💻`} />
+        <meta property="og:type" content="text/html" />
+        <meta property="og:description" content={`${user?.data?.attributes?.about}`} />
+        <meta property="og:url" content={`https://www.polski.dev${slug}`} />
+        <meta property="og:image" content={user?.data?.attributes.avatar?.data?.attributes.url} />
         {user?.data?.attributes?.about && <meta name="Description" content={user?.data?.attributes?.about.slice(0, 160)} />}
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: schemaData }} />
       </Head>
