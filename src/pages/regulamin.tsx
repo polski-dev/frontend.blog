@@ -11,6 +11,11 @@ const Contact: NextPage<any, any> = (): JSX.Element => {
       <Head>
         <title>Regulamin | POLSKI.DEV 👩‍💻👨‍💻</title>
         <meta name="Description" content="Regulamin serwisu polski.dev" />
+        <meta property="og:title" content="Regulamin | POLSKI.DEV 👩‍💻👨‍💻" />
+        <meta property="og:type" content="text/html" />
+        <meta property="og:description" content="Regulamin serwisu polski.dev" />
+        <meta property="og:url" content={`https://www.polski.dev/regulamin`} />
+        <meta property="og:image" content="./../assets/img/shareSocialMedia.png" />
       </Head>
       <Container>
         <Row>
