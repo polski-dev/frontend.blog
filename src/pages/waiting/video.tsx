@@ -12,6 +12,12 @@ const WaitingVideo: NextPage<any, {}> = ({ countPosts, content }: { countPosts: 
     <>
       <Head>
         <title>Poczekalnia video | POLSKI.DEV 👩‍💻👨‍💻</title>
+        <meta name="Description" content="Lista artykułów zawierajacych video w poczekalni" />
+        <meta property="og:title" content="Poczekalnia video | POLSKI.DEV 👩‍💻👨‍💻" />
+        <meta property="og:type" content="text/html" />
+        <meta property="og:description" content="Lista artykułów zawierajacych video w poczekalni" />
+        <meta property="og:url" content={`https://www.polski.dev/waiting/video`} />
+        <meta property="og:image" content="./../assets/img/shareSocialMedia.png" />
       </Head>
       <Container>
         <Row>

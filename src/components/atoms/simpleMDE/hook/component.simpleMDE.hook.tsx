@@ -1,6 +1,6 @@
 import { useSession } from "next-auth/react";
 import { useState, useMemo, useRef, MutableRefObject } from "react";
-import { uploadFile, UploadType } from "utils/database/files/database.files.index";
+import { filesUploadFrontEnd, FilesUploadType } from "utils/query/files";
 
 export default function SimpleMDEHookComponent({ placeholder }: { placeholder?: string }) {
   const actionInitialState: any = null;
@@ -24,10 +24,10 @@ export default function SimpleMDEHookComponent({ placeholder }: { placeholder?: 
     const { codemirror } = action;
     const file: File = input?.files[0];
     file && setPowerPopupUploadImage(true);
-    const fileUploadData: UploadType = await uploadFile({ file, authorization: `${session?.jwt}` });
+    const fileUploadData: FilesUploadType = await filesUploadFrontEnd({ file, authToken: `${session?.jwt}` });
 
     if (!!fileUploadData?.data?.length) {
-      codemirror && (await codemirror.replaceSelection(`![${fileUploadData.data[0].name}](${fileUploadData.data[0].url})`));
+      codemirror && (await codemirror.replaceSelection(`![${fileUploadData.data[0].attributes.name}](${fileUploadData.data[0].attributes.url})`));
       setStatusUploadImage("resolved");
     } else setStatusUploadImage("rejected");
 

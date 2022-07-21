@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { NextPage } from "next";
-import { useEffect, useState } from "react";
 import useViews from "hooks/hooks.useViews";
+import { useEffect, useState } from "react";
 import { NextRouter, useRouter } from "next/router";
 import { slugFromTitle } from "utils/lib/utils.lib.slug";
 import { TagType } from "types/database/types.database.tag";
@@ -55,10 +55,32 @@ const TagPage: NextPage<any> = ({ tag, posts, slug }: { tag?: TagFindOneType; po
     }
   }, [router, tag, slug, posts]);
 
+  const schemaData = `
+  {
+    "@context": "https://schema.org/",
+    "@type": "CategoryCodeSet",
+    "@id": "${tag?.data?.attributes.title}",
+    "name": "${tag?.data?.attributes.title}",
+    "hasCategoryCode": {
+           "@type": "CategoryCode",
+           "name": "${tag?.data?.attributes.title}",
+           "description": "${tag?.data?.attributes.description}",
+           "inCodeSet": "${tag?.data?.attributes.title}"
+         }
+   }
+  `;
+
   return (
     <>
       <Head>
         <title>{tag?.data?.attributes.title || "Add title for tag"} | POLSKI.DEV 👩‍💻👨‍💻</title>
+        <meta property="og:title" content={`${tag?.data?.attributes?.title} | POLSKI.DEV 👩‍💻👨‍💻`} />
+        <meta property="og:type" content="text/html" />
+        <meta property="og:description" content={tag?.data?.attributes?.description} />
+        <meta property="og:url" content={`https://www.polski.dev${slug}`} />
+        <meta property="og:image" content={tag?.data?.attributes.cover?.data?.attributes.url} />
+        {tag?.data?.attributes?.description && <meta name="Description" content={tag?.data?.attributes?.description.slice(0, 160)} />}
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: schemaData }} />
       </Head>
       <Container>
         <Row>
@@ -114,7 +136,7 @@ export async function getStaticPaths(): Promise<any> {
   );
 
   return {
-    paths: [].concat.apply([], allTags).map((tag: TagType) => `/tag/${tag.id}/${slugFromTitle(tag.attributes.title)}`),
+    paths: [].concat.apply([], allTags).map((tag?: TagType) => `/tag/${tag?.id}/${slugFromTitle(tag?.attributes?.title || "")}`),
     fallback: true,
   };
 }

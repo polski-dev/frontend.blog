@@ -1,6 +1,7 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { authSingInPost, AuthSingInType, userByIdGetPreview, UserByIdType } from "utils/database/database.graphQL.index";
+import { authUserSingInBackEnd, AuthSingInUserType } from "utils/query/auth/index";
+import { userDataPublicReadBackEnd, UserDataPublicReadType } from "utils/query/users/data/index";
 
 export default NextAuth({
   providers: [
@@ -10,16 +11,17 @@ export default NextAuth({
       async authorize(credentials: any): Promise<null | any> {
         const { identifier, password } = credentials;
 
-        const res: AuthSingInType = await authSingInPost(identifier.toString(), password.toString());
-        const avatar: UserByIdType = await userByIdGetPreview(parseInt(res.data?.login.user.id || "0"));
-        let data: { jwt?: JsonWebKey | boolean; user: { id: string; blocked: boolean; username: string; email: string; picture: string } } = { jwt: false, user: { id: "", blocked: true, username: "", email: "", picture: "" } };
+        const res: AuthSingInUserType = await authUserSingInBackEnd({ identifier, password });
+        const resDataPublic: UserDataPublicReadType = await userDataPublicReadBackEnd({ authToken: `Bearer ${res?.data?.jwt}` });
+
+        let data: { jwt?: string | boolean; user: { id: number; blocked: boolean; username: string; email: string; picture: string } } = { jwt: false, user: { id: 0, blocked: true, username: "", email: "", picture: "" } };
 
         if (!!identifier) data.user.email = identifier;
-        if (res?.data?.login?.jwt) data.jwt = res.data?.login.jwt;
-        if (res?.data?.login?.user?.id) data.user.id = res?.data?.login?.user?.id;
-        if (res?.data?.login?.user?.blocked) data.user.blocked = res?.data?.login?.user?.blocked;
-        if (res?.data?.login?.user?.username) data.user.username = res?.data?.login?.user?.username;
-        if (avatar?.data?.user?.data?.attributes?.avatar?.data?.attributes?.url) data.user.picture = avatar?.data?.user?.data?.attributes?.avatar?.data?.attributes?.url;
+        if (res?.data?.jwt) data.jwt = res?.data?.jwt;
+        if (res?.data?.user?.id) data.user.id = res?.data?.user?.id;
+        if (res?.data?.user?.blocked) data.user.blocked = res?.data?.user?.blocked;
+        if (res?.data?.user?.username) data.user.username = res?.data?.user?.username;
+        if (resDataPublic?.data?.avatar?.attributes.url) data.user.picture = resDataPublic?.data?.avatar?.attributes.url;
         if (!data.jwt) return null;
 
         return data;

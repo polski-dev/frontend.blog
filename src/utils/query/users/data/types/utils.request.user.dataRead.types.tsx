@@ -21,3 +21,12 @@ export interface UserDataPublicReadType {
   } | null;
   error?: ErrorType;
 }
+
+export interface UserEmailReadType {
+  data?: {
+    id: number;
+    username: string;
+    email: string;
+  } | null;
+  error?: ErrorType;
+}

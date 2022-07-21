@@ -2,17 +2,18 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { emailRegex, passwordRegex } from "assets/regex/index.regex";
+import { MessageErrorInAPI } from "utils/messages/utils.messages.errors";
 import { errorComiunicat } from "./component.section.singup.errorComiunicat";
 import { ButtonSubmit } from "components/atoms/button/component.button.index";
-import { ItemLoad } from "components/atoms/animation/index";
+import { ComponentAnimationItemLoad } from "components/atoms/animation/index";
 import { Input, CheckBox, enumInputType } from "components/molecules/form/component.form.index";
-import { authSingUpPost, authSingUpInitialState, AuthSingUpType } from "utils/database/database.restAPI.index";
+import { authSingUpUserState, authUserSingUpFrontEnd, AuthSingUpUserType } from "utils/query/auth";
 import { Section, BoxContent, BoxAuth, Title, Description, BoxInfo, BoxOption, BoxRegistrationInfo, Form, InfoInput } from "./component.section.singup.style";
 
-export default function SectionSingIn({ users }: { users: number }): JSX.Element {
+export default function SectionSingIn({ users }: { users?: number }): JSX.Element {
   const router = useRouter();
   const [send, setSend] = useState(false);
-  const [checked, setChecked] = useState(authSingUpInitialState);
+  const [checked, setChecked] = useState(authSingUpUserState);
 
   const {
     setError,
@@ -21,29 +22,12 @@ export default function SectionSingIn({ users }: { users: number }): JSX.Element
     formState: { errors },
   } = useForm();
 
-  let errorsMessage: (message: string) => AuthSingUpType = (message: string): AuthSingUpType => ({
-    data: null,
-    errors: [
-      {
-        message,
-        extensions: {
-          error: {
-            name: "ApplicationError",
-            message,
-            details: {},
-          },
-          code: "NEXTJS_APPLICATION_ERROR",
-        },
-      },
-    ],
-  });
-
   return (
     <Section>
       <h5>Rejstracja</h5>
       <BoxContent>
         <BoxAuth>
-          {checked.data?.register.user.confirmed ? null : (
+          {checked?.data?.jwt ? null : (
             <>
               <Title>Już {users} osob promuje sie wzajemnie</Title>
               <Description>dołącz do nas i buduj razem z nami Twoją i naszą markę osobistą w świecie IT</Description>
@@ -52,15 +36,13 @@ export default function SectionSingIn({ users }: { users: number }): JSX.Element
 
           {send ? (
             <BoxOption>
-              <ItemLoad />
-              <ItemLoad height={10} />
-              <ItemLoad />
+              <ComponentAnimationItemLoad height={10} />
             </BoxOption>
           ) : (
             <>
               <BoxOption>
-                {checked.errors && errorComiunicat(checked.errors[0].message)}
-                {checked.data?.register.user.confirmed ? (
+                {checked?.error && errorComiunicat(checked?.error.message)}
+                {checked?.data?.jwt ? (
                   <BoxInfo>Gratuluje twoje konto zostało utworzone zaraz zostaniesz przekierowany do strony logowania</BoxInfo>
                 ) : (
                   <>
@@ -68,19 +50,21 @@ export default function SectionSingIn({ users }: { users: number }): JSX.Element
                       <span>Utwórz nowe konto</span>
                     </BoxRegistrationInfo>
                     <Form
-                      onSubmit={handleSubmit((data: any): void => {
+                      onSubmit={handleSubmit((data): void => {
                         const { username, email, password } = data;
-                        setChecked(authSingUpInitialState);
+
                         if (data.password !== data.passwordSecound) {
                           setError("password", {});
                           setError("passwordSecound", {});
-                          setChecked(errorsMessage("passwordAreNotSame"));
+                          setChecked(MessageErrorInAPI({ name: "ApplicationError", message: "passwordAreNotSame" }));
                         } else {
                           setSend(true);
                           (async () => {
-                            setChecked(await authSingUpPost(username, email, password));
+                            const res: AuthSingUpUserType = await authUserSingUpFrontEnd({ username, email, password });
+
+                            setChecked(res);
                             setSend(false);
-                            if (!checked.errors) {
+                            if (res?.data?.jwt) {
                               setTimeout(() => {
                                 router.push("/auth/signin");
                               }, 2000);

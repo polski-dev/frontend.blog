@@ -57,7 +57,7 @@ export default function CommentsComponent({ data }: { data: { postId?: number; c
           <BoxCommentAvatar>
             {iAmWaitingForAnswerAddComent ? (
               <ComponentAnimationItemLoad height={8} />
-            ) : typeof session?.user?.image === "string" && session?.user?.name ? (
+            ) : session?.user?.image && session?.user?.name ? (
               <Image width={50} height={50} placeholder="blur" blurDataURL="/img/blur.png" src={session?.user?.image} alt={session?.user?.name} />
             ) : (
               <BoxAuthorAvatar>

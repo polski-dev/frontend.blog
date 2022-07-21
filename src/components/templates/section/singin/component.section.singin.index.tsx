@@ -11,7 +11,7 @@ import { ButtonSubmit, Button } from "components/atoms/button/component.button.i
 import { Input, enumInputType } from "components/molecules/form/component.form.index";
 import { Section, BoxContent, BoxAuth, Title, Description, BoxErrorInfo, BoxOption, BoxRegistrationInfo, Form } from "./component.section.singin.style";
 
-export default function SectionSingIn({ users }: { users: number }) {
+export default function SectionSingIn({ users }: { users?: number }) {
   const router = useRouter();
   const { data: session } = useSession();
   const { readCallBackURL } = useCallBackURL();

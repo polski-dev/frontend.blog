@@ -1,6 +1,6 @@
-import { UserCountType } from "./types/utils.request.user.count.types";
-import { userCountState } from "./state/utils.request.user.count.state";
-import { userCountBackEnd, userCountFrontEnd } from "./query/utils.request.user.count.query";
+import { UsersCountType, UserCountType } from "./types/utils.request.user.count.types";
+import { usersCountState, userCountState } from "./state/utils.request.user.count.state";
+import { usersCountBackEnd, usersCountFrontEnd, userCountBackEnd, userCountFrontEnd } from "./query/utils.request.user.count.query";
 
-export type { UserCountType };
-export { userCountState, userCountBackEnd, userCountFrontEnd };
+export type { UsersCountType, UserCountType };
+export { usersCountState, usersCountBackEnd, usersCountFrontEnd, userCountState, userCountBackEnd, userCountFrontEnd };

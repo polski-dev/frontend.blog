@@ -3,9 +3,11 @@ import { useSession } from "next-auth/react";
 import React, { useEffect, useState, useMemo } from "react";
 import Popup from "components/atoms/popup/component.popup.index";
 import { ButtonSubmit } from "components/atoms/button/component.button.index";
-import { articeAdd, ArticeAddType } from "utils/database/article/database.artice.index";
 import SimpleMDEComponent from "components/atoms/simpleMDE/component.simpleMDE.index";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
+//import { articeAdd, ArticeAddType } from "utils/database/article/database.artice.index";
+import { postCreateFrontEnd, PostCreateType } from "utils/query/posts/create";
+import { PostsTypEnum } from "types/database/types.database.post";
 import { Section, Header, Title, Form, Preview } from "./component.section.dasbordUserAddArticle.style";
 import { Input, Radio, InputForTags, enumInputType } from "components/molecules/form/component.form.index";
 
@@ -14,13 +16,6 @@ export default function SectionDasbordAddArticle({ data: { title } }: { data: { 
   const [preview, setPreview] = useState("");
   const [powerPopup, setPowerPopup] = useState(false);
   const [addArticleStatus, setAddArticleStatus] = useState("pending");
-
-  const autofocusNoSpellcheckerOptions = useMemo(() => {
-    return {
-      autofocus: true,
-      spellChecker: false,
-    };
-  }, []);
 
   const {
     reset,
@@ -46,18 +41,19 @@ export default function SectionDasbordAddArticle({ data: { title } }: { data: { 
       <Header>{title}</Header>
       <Form
         onSubmit={handleSubmit(async (data) => {
-          const { cover, content = "", tags = [], type = "article", title = "", youtube = "" }: { cover?: FileList | undefined; content?: string; tags?: string[]; type?: string; title?: string; youtube?: string } = data;
+          const { cover, content = "", tags = [], typ = PostsTypEnum.article, title = "", youtube = "" }: { cover?: FileList | undefined; content?: string; tags?: string[]; typ?: PostsTypEnum; title?: string; youtube?: string } = data;
           if (!session) return alert("zaloguj się !");
           else if (!content.length) return alert("Dodaj opis artykułu");
           else if (!cover?.length) return alert("Dodaj okładkę artykułu");
           else if (!tags || !tags.length) return alert("Dodaj minimum 1 tag");
-          else if (type === "video" && !youtube) return alert("Dodaj link do video na youtube");
+          else if (typ === PostsTypEnum.video && !youtube) return alert("Dodaj link do video na youtube");
 
           setPowerPopup(true);
           const file: File = cover[0];
-          const addArticle: ArticeAddType = await articeAdd({ file, content, tags: tags.toString(), type, title, youtube, authorization: `Bearer ${session?.jwt}` });
 
-          if (addArticle.data?.id) {
+          const res: PostCreateType = await postCreateFrontEnd({ cover: file, content, tags: tags.toString(), typ, title, youtube, authToken: `${session?.jwt}` });
+
+          if (res.data?.id) {
             reset();
             setAddArticleStatus("resolved");
           } else setAddArticleStatus("rejected");
@@ -75,11 +71,11 @@ export default function SectionDasbordAddArticle({ data: { title } }: { data: { 
             </Col>
             <Col xs={12}></Col>
             <Col xs={6}>
-              <Radio name="type" value="article" error={errors.title} register={register} required checked />
+              <Radio name="typ" value={PostsTypEnum.article} error={errors.title} register={register} required checked />
             </Col>
 
             <Col xs={6}>
-              <Radio name="type" value="video" error={errors.title} register={register} required />
+              <Radio name="typ" value={PostsTypEnum.video} error={errors.title} register={register} required />
             </Col>
 
             <Col xs={12}>
@@ -91,7 +87,7 @@ export default function SectionDasbordAddArticle({ data: { title } }: { data: { 
               <Input id="cover" name="cover" type={enumInputType.file} error={errors.avatar} placeholder="Dodaj okładkę" register={register} accept="image/png, image/jpeg" required />
             </Col>
 
-            {watch().typ === "video" && (
+            {watch().typ === PostsTypEnum.video && (
               <Col xs={12}>
                 <Input id="youtube" name="youtube" type={enumInputType.text} error={errors.title} placeholder="YouTube url" defaultValue={undefined} register={register} required={watch().typ === "video"} />
               </Col>
@@ -113,7 +109,7 @@ export default function SectionDasbordAddArticle({ data: { title } }: { data: { 
       <Popup
         power={powerPopup}
         status={addArticleStatus === "pending" ? null : addArticleStatus === "rejected" ? false : true}
-        title={addArticleStatus === "pending" ? "Dodaje artykuł..." : addArticleStatus === "rejected" ? "Upss..." : "Udało się złotko !"}
+        title={addArticleStatus === "pending" ? "Dodaje post..." : addArticleStatus === "rejected" ? "Upss..." : "Udało się złotko !"}
         description={addArticleStatus === "rejected" ? "Wystąpił problem z dodaniem artykułu...spróbuj jeszcze raz za kilka chwil" : "Twój artykuł dodany... :) Jak tylko nasi moderatorzy sprawdza czy wszystko jest ok zostanie dodany do poczekalni a po przekroczeniu 100 wyświetleń na główną :)"}
       />
     </Section>

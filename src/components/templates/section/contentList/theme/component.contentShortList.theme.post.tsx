@@ -7,7 +7,7 @@ import { TagType } from "types/database/types.database.tag";
 import { PostType } from "types/database/types.database.post";
 import { ComponentAnimationCircleLoad } from "components/atoms/animation";
 import { ButtonLinkIn } from "components/atoms/button/component.button.index";
-import { postsCountFrontEnd, postCountState } from "utils/query/posts/count";
+import { postCountFrontEnd, postCountState } from "utils/query/posts/count";
 import { Article, BoxContent, BoxAuthor, BoxAuthorImg, BoxAuthorAvatar, AuthorData, AuthorName, DateAdded, TitleArticle, ListTags, Tag, ListStats, Item } from "../style/component.listShortArticle.style";
 
 import Wow from "assets/icon/wow.svg";
@@ -20,7 +20,7 @@ const ContentShortArticle = React.forwardRef(({ data }: { data: { post: PostType
 
   useEffect(() => {
     (async () => {
-      setStats(await postsCountFrontEnd(data.post.id));
+      setStats(await postCountFrontEnd(data.post.id));
     })();
   }, [data]);
 
@@ -35,7 +35,7 @@ const ContentShortArticle = React.forwardRef(({ data }: { data: { post: PostType
         <BoxAuthor>
           <BoxAuthorImg>
             {data?.post?.attributes?.author?.data?.attributes?.avatar?.data?.attributes?.url ? (
-              <Image width={42} height={42} placeholder="blur" blurDataURL="/img/blur.png" alt={data?.post?.attributes?.author?.data?.attributes?.username} src={data?.post?.attributes?.author?.data?.attributes?.avatar?.data?.attributes?.url} />
+              <Image width={42} height={42} placeholder="blur" blurDataURL="/img/blur.png" alt={data?.post?.attributes?.author?.data?.attributes?.username || ""} src={data?.post?.attributes?.author?.data?.attributes?.avatar?.data?.attributes?.url} />
             ) : (
               <BoxAuthorAvatar>
                 <Avatar />
@@ -44,7 +44,7 @@ const ContentShortArticle = React.forwardRef(({ data }: { data: { post: PostType
           </BoxAuthorImg>
           <AuthorData>
             <Link href={`/user/${data?.post?.attributes?.author?.data?.id}/${slugFromTitle(data?.post?.attributes?.author?.data?.attributes?.username || "")}`}>
-              <a title={data?.post?.attributes?.author?.data?.attributes?.username}>
+              <a title={data?.post?.attributes?.author?.data?.attributes?.username || ""}>
                 <AuthorName>{data?.post?.attributes?.author?.data?.attributes?.username}</AuthorName>
               </a>
             </Link>

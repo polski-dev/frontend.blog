@@ -6,10 +6,10 @@ import Document from "assets/icon/document.svg";
 
 import { UserCountType } from "utils/query/users/count";
 import { ComponentAnimationCircleLoad } from "components/atoms/animation";
-import { SkilksType, LearnType } from "types/database/types.database.user";
+import { SkilkType, LearnType } from "types/database/types.database.user";
 import { MenuUserBox, BoxStats, List, Item, Header } from "./component.menu.userStats.style";
 
-export default function ComponentMenuUserStats({ data }: { data?: { stats?: UserCountType; skilks?: SkilksType[] | null; learn?: LearnType[] | null } }) {
+export default function ComponentMenuUserStats({ data }: { data?: { stats?: UserCountType; skilks?: SkilkType[] | null; learn?: LearnType[] | null } }) {
   return (
     <>
       <MenuUserBox>
@@ -40,7 +40,7 @@ export default function ComponentMenuUserStats({ data }: { data?: { stats?: User
             <Item>
               <Header>Umiejętności</Header>
             </Item>
-            {data?.skilks?.map((skill: SkilksType, i: number): JSX.Element => {
+            {data?.skilks?.map((skill: SkilkType, i: number): JSX.Element => {
               return (
                 <Item key={i}>
                   <span>#</span>

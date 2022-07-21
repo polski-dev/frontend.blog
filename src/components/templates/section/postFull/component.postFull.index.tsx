@@ -17,6 +17,7 @@ import { Section, Title, Article, BoxContent, Content, BoxAuthor, BoxAuthorImg, 
 
 export default function SectionPostFull({ data }: { data?: { post?: PostFindOneType; stats?: PostCountType } }): JSX.Element {
   useViews({ id: data?.post?.data?.id, typ: ContentEnum.post });
+
   return (
     <Section>
       <Title>{data?.post?.data?.attributes?.typ === PostsTypEnum.video ? "Video" : data?.post?.data?.attributes?.typ === PostsTypEnum.article ? "Artykuł" : <ComponentAnimationItemLoad height={2.4} />}</Title>

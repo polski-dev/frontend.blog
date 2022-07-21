@@ -8,6 +8,12 @@ const Contact: NextPage<any, any> = (): JSX.Element => {
     <>
       <Head>
         <title>Kontakt | POLSKI.DEV 👩‍💻👨‍💻</title>
+        <meta name="Description" content="Dane kontaktowe serwisu internetowego polski.dev" />
+        <meta property="og:title" content="Kontakt | POLSKI.DEV 👩‍💻👨‍💻" />
+        <meta property="og:type" content="text/html" />
+        <meta property="og:description" content="Dane kontaktowe serwisu internetowego polski.dev" />
+        <meta property="og:url" content={`https://www.polski.dev/contact`} />
+        <meta property="og:image" content="./../assets/img/shareSocialMedia.png" />
       </Head>
       <Container>
         <Row>
@@ -15,9 +21,10 @@ const Contact: NextPage<any, any> = (): JSX.Element => {
             data={{
               title: "Przydatne",
               links: [
-                { slug: "https://github.com/polski-dev", title: "Kod źródłowy", count: 2 },
-                { slug: "/regulamin", title: "Regulamin", count: 1 },
-                { slug: "/privacy-policy", title: "Polityka prywatnosći", count: 1 },
+                { slug: "/contact", title: "Kontakt", count: 1 },
+                { slug: "/regulamin", title: "Regulamin", count: 2 },
+                { slug: "/privacy-policy", title: "Polityka prywatności", count: 3 },
+                { slug: "https://github.com/polski-dev", title: "Kod źródłowy", count: 4 },
               ],
             }}
           />

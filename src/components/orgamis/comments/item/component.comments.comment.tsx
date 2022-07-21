@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import * as React from "react";
 import Avatar from "assets/icon/avatar.svg";
 import time from "utils/lib/utils.lib.time";
@@ -11,13 +10,9 @@ const CommentsThemeComponent = React.forwardRef(({ data }: { data: CommentType }
   return (
     <Comment ref={ref}>
       <BoxCommentAvatar>
-        {/* {false ? ( */}
-        {/* <Image width={50} height={50} placeholder="blur" blurDataURL="/img/blur.png" src={data?.author?.avatar.url} alt={data.author.username} />
-        {/* ) : ( */}
         <BoxAuthorAvatar>
           <Avatar />
         </BoxAuthorAvatar>
-        {/* )} */}
       </BoxCommentAvatar>
       <CommentContent>
         <CommentAuthorName>

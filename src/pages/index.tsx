@@ -7,11 +7,17 @@ import { PostsCountType, postsCountBackEnd } from "utils/query/posts/count";
 import { SectionContentShortList } from "components/templates/section/index";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
 
-const Home: NextPage<any, {}> = ({ countPosts, content }: { countPosts: PostsCountType; content: PostsFindType }): JSX.Element => {
+const Home: NextPage<any, {}> = ({ countPosts, content }: { countPosts?: PostsCountType; content?: PostsFindType }): JSX.Element => {
   return (
     <>
       <Head>
-        <title>Blog | POLSKI.DEV 👩‍💻👨‍💻</title>
+        <title>Blog dla programistów od programistów | POLSKI.DEV 👩‍💻👨‍💻</title>
+        <meta name="Description" content="polski.dev to coś więcej niż blog dla programistów to miejsce spotkań dla programistów to ich autorskie pamiętniki" />
+        <meta property="og:title" content="Blog dla programistów od programistów | POLSKI.DEV 👩‍💻👨‍💻" />
+        <meta property="og:type" content="text/html" />
+        <meta property="og:description" content="polski.dev to coś więcej niż blog dla programistów to miejsce spotkań dla programistów to ich autorskie pamiętniki" />
+        <meta property="og:url" content={`https://www.polski.dev`} />
+        <meta property="og:image" content="./../assets/img/shareSocialMedia.png" />
       </Head>
       <Container>
         <Row>
@@ -19,9 +25,9 @@ const Home: NextPage<any, {}> = ({ countPosts, content }: { countPosts: PostsCou
             data={{
               title: "Filtruj",
               links: [
-                { slug: "/", title: "Wszystko", count: countPosts.data?.publishedAll || 0 },
-                { slug: "/article", title: "Artykuły", count: countPosts.data?.publishedAllArticle || 0 },
-                { slug: "/video", title: "Video", count: countPosts.data?.publishedAllVideo || 0 },
+                { slug: "/", title: "Wszystko", count: countPosts?.data?.publishedAll || 0 },
+                { slug: "/article", title: "Artykuły", count: countPosts?.data?.publishedAllArticle || 0 },
+                { slug: "/video", title: "Video", count: countPosts?.data?.publishedAllVideo || 0 },
               ],
             }}
           />

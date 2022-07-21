@@ -1,95 +1,97 @@
-import { useState, useEffect } from "react";
-import { NextRouter, useRouter } from "next/router";
 import { useSession, signOut } from "next-auth/react";
-
-import { userDataPublicReadState, userDataPublicReadFrontEnd, UserDataPublicReadType } from "utils/query/users/data";
+import { useState, useEffect, useCallback } from "react";
+import { MessageErrorInAPI } from "utils/messages/utils.messages.errors";
+import {
+  userDataPublicReadState,
+  userDataPublicReadFrontEnd,
+  UserDataPublicReadType,
+  userEmailReadState,
+  userEmailReadFrontEnd,
+  UserEmailReadType,
+  userDataAvatarUpdateFrontEnd,
+  UserDataAvatarUpdateType,
+  userDataPublicUpdateFrontEnd,
+  UserDataPublicUpdateType,
+  userDataEmailUpdateFrontEnd,
+  UserDataEmailUpdateType,
+  userDataPasswordUpdateFrontEnd,
+  UserDataPasswordUpdateType,
+  userDataUserDeleteFrontEnd,
+  UserDataUserDeleteType,
+} from "utils/query/users/data";
 
 export default function useHimself() {
   const { data: session } = useSession();
-  const router: NextRouter = useRouter();
 
+  const [userEmail, setUserEmail] = useState(userEmailReadState);
   const [userDataPublic, setUserDataPublic] = useState(userDataPublicReadState);
-  // const [userHimselfDelete, setUserHimselfDelete] = useState(userHimselfDeleteInitialState);
-  // const [userHimselfAvatar, setUserHimselfAvatar] = useState(userHimselfChangeAvatarInitialState);
-  // const [userHimselfDataEditEmail, setUserHimselfDataEditEmail] = useState(userHimselfDataEditEmailInitialState);
-  // const [userHimselfDataEditPublic, setUserHimselfDataEditPublic] = useState(userHimselfDataEditPublicInitialState);
-  // const [userHimselfDataEditPassword, setUserHimselfDataEditPassword] = useState(userHimselfDataEditPasswordInitialState);
 
-  useEffect(() => {
-    if (session?.jwt)
-      (async () => {
-        const jwt: string = typeof session?.jwt === "string" ? session?.jwt : "";
-        if (!!jwt.length) {
-          const data: UserDataPublicReadType = await userDataPublicReadFrontEnd({ authToken: jwt });
-          console.log(data, "data");
-          !data?.error && setUserDataPublic(data);
-        }
-      })();
+  const userDataAvatarUpdate = async ({ file }: { file: File }): Promise<UserDataAvatarUpdateType> => {
+    if (session?.jwt) {
+      const res: UserDataAvatarUpdateType = await userDataAvatarUpdateFrontEnd({ file, authToken: `${session?.jwt}` });
+      !res?.error && userDataRead();
+      return res;
+    } else return MessageErrorInAPI({ status: 400, name: "Mistake", message: "something walked wrong" });
+  };
+
+  const userDataRead = useCallback(async () => {
+    if (session?.jwt) {
+      const resUserDataPublicRead: UserDataPublicReadType = await userDataPublicReadFrontEnd({ authToken: `${session?.jwt}` });
+      !resUserDataPublicRead?.error && setUserDataPublic(resUserDataPublicRead);
+      const resUserEmailRead: UserEmailReadType = await userEmailReadFrontEnd({ authToken: `${session?.jwt}` });
+      !resUserEmailRead?.error && setUserEmail(resUserEmailRead);
+    }
   }, [session]);
 
-  // const userHimselfDataEditEmailGet: (email: string) => Promise<UserHimselfDataEditEmailType> = async (email: string): Promise<UserHimselfDataEditEmailType> => {
-  //   const editEmailData = await userHimselfDataEditEmailGetPreview(typeof session?.jwt === "string" ? session?.jwt : "", email);
-  //   setUserHimselfDataEditEmail(editEmailData);
-  //   return editEmailData;
-  // };
+  const userDataEmailUpdate = async ({ email }: { email: string }): Promise<UserDataEmailUpdateType> => {
+    if (session?.jwt) {
+      const res: UserDataEmailUpdateType = await userDataEmailUpdateFrontEnd({ email, authToken: `${session?.jwt}` });
+      !res?.error && userDataRead();
+      return res;
+    } else return MessageErrorInAPI({ status: 403, name: "ForbiddenError", message: "Forbidden" });
+  };
 
-  // const userHimselfDataEditPasswordGet: (password: string) => Promise<UserHimselfDataEditPasswordType> = async (password: string): Promise<UserHimselfDataEditPasswordType> => {
-  //   const editPasswordData = await userHimselfDataEditPasswordGetPreview(typeof session?.jwt === "string" ? session?.jwt : "", password);
-  //   setUserHimselfDataEditPassword(editPasswordData);
-  //   return editPasswordData;
-  // };
+  const userDataPasswordUpdate = async ({ password }: { password: string }): Promise<UserDataPasswordUpdateType> => {
+    if (session?.jwt) {
+      const res: UserDataPasswordUpdateType = await userDataPasswordUpdateFrontEnd({ password, authToken: `${session?.jwt}` });
+      !res?.error && userDataRead();
+      return res;
+    } else return MessageErrorInAPI({ status: 403, name: "ForbiddenError", message: "Forbidden" });
+  };
 
-  // const userHimselfDataEditPublicGet: ({
-  //   data,
-  // }: {
-  //   data: {
-  //     username?: string;
-  //     about?: string;
-  //     website?: string;
-  //     youtube?: string;
-  //     instagram?: string;
-  //     tiktok?: string;
-  //     github?: string;
-  //     city?: string;
-  //     country?: string;
-  //   };
-  // }) => Promise<UserHimselfDataEditPublicType> = async ({
-  //   data,
-  // }: {
-  //   data: {
-  //     username?: string;
-  //     about?: string;
-  //     website?: string;
-  //     youtube?: string;
-  //     instagram?: string;
-  //     tiktok?: string;
-  //     github?: string;
-  //     city?: string;
-  //     country?: string;
-  //   };
-  // }): Promise<UserHimselfDataEditPublicType> => {
-  //   const publicData: UserHimselfDataEditPublicType = await userHimselfDataEditPublicGetPreview(typeof session?.jwt === "string" ? session?.jwt : "", data);
-  //   setUserHimselfDataEditPublic(publicData);
+  const userDataPublicUpdate = async ({
+    data,
+  }: {
+    data: {
+      username: string;
+      about: string;
+      website: string;
+      youtube: string;
+      instagram: string;
+      tiktok: string;
+      github: string;
+      city: string;
+      country: string;
+    };
+  }): Promise<UserDataPublicUpdateType> => {
+    if (session?.jwt) {
+      const res: UserDataPublicUpdateType = await userDataPublicUpdateFrontEnd({ ...data, authToken: `${session?.jwt}` });
+      !res?.error && userDataRead();
+      return res;
+    } else return MessageErrorInAPI({ status: 400, name: "Mistake", message: "something walked wrong" });
+  };
 
-  //   return publicData;
-  // };
+  const userDataUserDelete = async (): Promise<UserDataUserDeleteType> => {
+    if (session?.jwt) {
+      const res: UserDataUserDeleteType = await userDataUserDeleteFrontEnd({ authToken: `${session?.jwt}` });
+      !res?.error && signOut();
+      return res;
+    } else return MessageErrorInAPI({ status: 403, name: "ForbiddenError", message: "Forbidden" });
+  };
 
-  // const userHimselfDeleteGet: () => Promise<UserHimselfDeleteType> = async (): Promise<UserHimselfDeleteType> => {
-  //   const deleteData: UserHimselfDeleteType = await userHimselfDeleteTypeGetPreview(typeof session?.jwt === "string" ? session?.jwt : "");
-  //   setUserHimselfDelete(deleteData);
-  //   if (deleteData?.data) {
-  //     signOut();
-  //     router.replace("/");
-  //   }
+  useEffect(() => {
+    userDataRead();
+  }, [userDataRead]);
 
-  //   return deleteData;
-  // };
-
-  // const userHimselfChangeAvatarGet: ({ files }: { files: FileList }) => Promise<UserHimselfChangeAvatarType> = async ({ files }: { files: FileList }): Promise<UserHimselfChangeAvatarType> => {
-  //   const ChangeAvatarStatus: UserHimselfChangeAvatarType = await userHimselfChangeAvatarGetPreview({ authorization: typeof session?.jwt === "string" ? session?.jwt : "", files });
-  //   setUserHimselfAvatar(ChangeAvatarStatus);
-  //   return ChangeAvatarStatus;
-  // };
-
-  return { userDataPublic };
+  return { userDataPublic, userEmail, userDataAvatarUpdate, userDataPublicUpdate, userDataEmailUpdate, userDataPasswordUpdate, userDataUserDelete };
 }

@@ -5,12 +5,12 @@ import { isblEditorDark } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 
 export const MarkdownComponents: object = {
   code: (code: any) => {
-    const language = code.className.split("language-")[1];
+    //  const language = code.className.split("language-")[1];
 
     return (
       <>
         <BoxCodeTitle>KOD:</BoxCodeTitle>
-        <SyntaxHighlighter language={!!language ? language : "javascript"} style={isblEditorDark}>
+        <SyntaxHighlighter language={"javascript"} style={isblEditorDark}>
           {code.children[0]}
         </SyntaxHighlighter>
       </>
@@ -23,7 +23,7 @@ export const MarkdownComponents: object = {
       if (item.tagName === "img") {
         const image = node.children[0];
         const alt = image.properties.alt?.replace(/ *\{[^)]*\} */g, "");
-        return <Image src={image.properties.src} placeholder="blur" blurDataURL="/img/blur.png" width={600} alt={alt} />;
+        return image?.properties?.src && <Image src={image.properties.src} placeholder="blur" blurDataURL="/img/blur.png" width={600} alt={alt} />;
       }
     });
 
