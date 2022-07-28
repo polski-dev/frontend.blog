@@ -30,6 +30,8 @@ export const Article: StyledComponent<any, any> = styled.article`
   background-color: ${({ theme }: ThemeProps<MainSettingsTemplate>): string => theme.colorPostBg};
 
   .img {
+    display: block;
+
     &:hover {
       opacity: 0.8;
     }

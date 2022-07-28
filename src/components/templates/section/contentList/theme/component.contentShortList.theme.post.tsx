@@ -28,7 +28,7 @@ const ContentShortArticle = React.forwardRef(({ data }: { data: { post: PostType
     <Article ref={ref}>
       <Link href={`/post/${data.post.id}/${slugFromTitle(data.post.attributes.title)}`} passHref>
         <a title={data.post.attributes.title} className="img">
-          {data?.post?.attributes?.cover?.data?.attributes?.url && <Image width={930} height={300} alt={data.post.attributes.title} src={data?.post?.attributes?.cover?.data?.attributes?.url} />}
+          {data?.post?.attributes?.cover?.data?.attributes?.url && <Image width={570} height={300} alt={data.post.attributes.title} src={data?.post?.attributes?.cover?.data?.attributes?.url} />}
         </a>
       </Link>
       <BoxContent>
