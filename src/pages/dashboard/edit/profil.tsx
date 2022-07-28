@@ -36,7 +36,7 @@ const UserPanelPage: NextPage<any> = (): JSX.Element => {
               ],
             }}
           />
-          <Col xs={12} md={9}>
+          <Col xs={12} md={6}>
             <SectionDasbordUserEditData />
           </Col>
         </Row>

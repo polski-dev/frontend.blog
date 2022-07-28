@@ -30,7 +30,7 @@ const Contact: NextPage<any, any> = (): JSX.Element => {
               ],
             }}
           />
-          <Col xs={12} md={9}>
+          <Col xs={12} md={6}>
             <SectionText data={{ title: "Polityka prywatności" }}>
               <p>
                 Poniżej przedstawiamy informacje dotyczące przetwarzania Państwa danych osobowych w związku z korzystaniem z naszego serwisu internetowego na stronie <Link href="https://www.polski.dev">www.polski.dev</Link> („Serwis”). Dbamy o ochronę bezpieczeństwa Państwa danych osobowych.

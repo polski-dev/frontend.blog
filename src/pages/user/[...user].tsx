@@ -48,7 +48,7 @@ const UserPage: NextPage<any> = ({ user, content, slug }: { user?: UserFindOneTy
       <Container>
         <Row>
           <MenuUserStats data={{ stats, skilks: user?.data?.attributes.skilks, learn: user?.data?.attributes.learn }} />
-          <Col xs={12} md={9}>
+          <Col xs={12} md={6}>
             <SectionUserInfo data={{ user }} />
             <SectionContentShortList data={{ typ: ContentEnum.userPost, content, title: `Posty ${user?.data?.attributes.username}`, id: user?.data?.id }} />
           </Col>

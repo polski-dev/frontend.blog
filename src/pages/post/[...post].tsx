@@ -71,7 +71,7 @@ const Post: NextPage<any> = ({ post, slug }: { post?: PostFindOneType; slug: str
       <Container>
         <Row>
           <MenuRaitings data={{ post, stats }} />
-          <Col xs={12} md={9}>
+          <Col xs={12} md={6}>
             <SectionPostFull data={{ post, stats }} />
           </Col>
         </Row>
