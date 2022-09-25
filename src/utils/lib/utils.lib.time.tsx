@@ -33,9 +33,10 @@ class time {
   countDays = (date: Date) => {
     const oneDay = 24 * 60 * 60 * 1000;
     const daysHavePassed = Math.round(Math.abs((new Date(date).getTime() - new Date().getTime()) / oneDay));
+
     if (daysHavePassed <= 31) return `${daysHavePassed === 0 ? `dziś` : `${daysHavePassed} dni temu`}`;
-    if (daysHavePassed > 31 && daysHavePassed < 365) return `${daysHavePassed / 30 === 1 ? "miesiąc" : `${daysHavePassed / 30} miesięcy`} temu`;
-    if (daysHavePassed >= 365) return `${daysHavePassed / 365 === 1 ? `rok` : `${daysHavePassed / 365} lata`} temu`;
+    if (daysHavePassed > 31 && daysHavePassed < 365) return `${daysHavePassed / 30 === 1 ? "miesiąc temu" : daysHavePassed / 30 < 10 ? `${Math.round(daysHavePassed / 30)} miesiące temu` : `${Math.round(daysHavePassed / 30)} miesięcy temu`}`;
+    if (daysHavePassed >= 365) return `${daysHavePassed / 365 === 1 ? `rok` : `${Math.round(daysHavePassed / 365)} lata temu`}`;
   };
 }
 
