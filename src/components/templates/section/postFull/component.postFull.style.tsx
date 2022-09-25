@@ -193,6 +193,14 @@ export const Content: StyledComponent<any, any> = styled.div`
 
 export const BoxCodeTitle: StyledComponent<any, any> = styled.p``;
 
+export const BoxCoverImg: StyledComponent<any, any> = styled.div`
+  width: 100%;
+  height: 300px;
+  display: block;
+  overflow: hidden;
+  position: relative;
+`;
+
 export const BoxAuthorImg: StyledComponent<any, any> = styled.div`
   min-width: 4.2rem;
   max-width: 4.2rem;

@@ -8,7 +8,7 @@ import { PostType } from "types/database/types.database.post";
 import { ComponentAnimationCircleLoad } from "components/atoms/animation";
 import { ButtonLinkIn } from "components/atoms/button/component.button.index";
 import { postCountFrontEnd, postCountState } from "utils/query/posts/count";
-import { Article, BoxContent, BoxAuthor, BoxAuthorImg, BoxAuthorAvatar, AuthorData, AuthorName, DateAdded, TitleArticle, ListTags, Tag, ListStats, Item } from "../style/component.listShortArticle.style";
+import { Article, BoxContent, BoxCoverImg, BoxAuthor, BoxAuthorImg, BoxAuthorAvatar, AuthorData, AuthorName, DateAdded, TitleArticle, ListTags, Tag, ListStats, Item } from "../style/component.listShortArticle.style";
 
 import Wow from "assets/icon/wow.svg";
 import Eye from "assets/icon/eye.svg";
@@ -28,7 +28,11 @@ const ContentShortArticle = React.forwardRef(({ data }: { data: { post: PostType
     <Article ref={ref}>
       <Link href={`/post/${data.post.id}/${slugFromTitle(data.post.attributes.title)}`} passHref>
         <a title={data.post.attributes.title} className="img">
-          {data?.post?.attributes?.cover?.data?.attributes?.url && <Image width={930} height={300} alt={data.post.attributes.title} src={data?.post?.attributes?.cover?.data?.attributes?.url} />}
+          {data?.post?.attributes?.cover?.data?.attributes?.url && (
+            <BoxCoverImg>
+              <Image layout="fill" objectFit="cover" alt={data.post.attributes.title} src={data?.post?.attributes?.cover?.data?.attributes?.url} />
+            </BoxCoverImg>
+          )}
         </a>
       </Link>
       <BoxContent>

@@ -78,6 +78,14 @@ export const BoxContent: StyledComponent<any, any> = styled.div`
   }
 `;
 
+export const BoxCoverImg: StyledComponent<any, any> = styled.div`
+  width: 100%;
+  height: 300px;
+  display: block;
+  overflow: hidden;
+  position: relative;
+`;
+
 export const BoxAuthor: StyledComponent<any, any> = styled.div`
   width: 100%;
   display: flex;
