@@ -247,6 +247,7 @@ export const NotFound: StyledComponent<any, any> = styled.div`
   display: flex;
   font-size: 2.4rem;
   font-weight: bold;
+  text-align: center;
   align-items: center;
   margin-bottom: 1.5rem;
   border-radius: 0.6rem;

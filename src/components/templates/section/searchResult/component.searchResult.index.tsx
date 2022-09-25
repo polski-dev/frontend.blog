@@ -76,9 +76,9 @@ export default function SectionSearchResult({ data }: { data: { typ: ContentEnum
   return (
     <Section>
       <Title>{data?.title}</Title>
-      {data.typ === ContentEnum.searchPost && content?.data?.posts?.data?.length && content?.data?.posts?.data.map((post: PostType, index: number): JSX.Element | undefined => selectTemplateForContent({ typ: data.typ, post, index, ref: postRef }))}
-      {data.typ === ContentEnum.searchTag && content?.data?.tags?.data?.length && content?.data?.tags?.data.map((tag: TagType, index: number): JSX.Element | undefined => selectTemplateForContent({ typ: data.typ, tag, index, ref: postRef }))}
-      {data.typ === ContentEnum.searchUser && content?.data?.users?.data?.length && content?.data?.users?.data.map((user: UserType, index: number): JSX.Element | undefined => selectTemplateForContent({ typ: data.typ, user, index, ref: postRef }))}
+      {data.typ === ContentEnum.searchPost && !!content?.data?.posts?.data?.length && content?.data?.posts?.data.map((post: PostType, index: number): JSX.Element | undefined => selectTemplateForContent({ typ: data.typ, post, index, ref: postRef }))}
+      {data.typ === ContentEnum.searchTag && !!content?.data?.tags?.data?.length && content?.data?.tags?.data.map((tag: TagType, index: number): JSX.Element | undefined => selectTemplateForContent({ typ: data.typ, tag, index, ref: postRef }))}
+      {data.typ === ContentEnum.searchUser && !!content?.data?.users?.data?.length && content?.data?.users?.data.map((user: UserType, index: number): JSX.Element | undefined => selectTemplateForContent({ typ: data.typ, user, index, ref: postRef }))}
 
       {iAmWaitingForAnswer &&
         new Array(10).fill(undefined).map((_: undefined, i: number): JSX.Element => {

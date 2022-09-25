@@ -48,7 +48,7 @@ export default function SectionContentShortList({ data }: { data: { typ: Content
   return (
     <Section>
       <Title>{data?.title}</Title>
-      {content?.data?.length && content?.data.map((item: PostType, i: number): JSX.Element | undefined => selectTemplateForContent(item, i, postRef))}
+      {!!content?.data?.length && content?.data.map((item: PostType, i: number): JSX.Element | undefined => selectTemplateForContent(item, i, postRef))}
 
       {iAmWaitingForAnswer &&
         new Array(10).fill(undefined).map((_: undefined, i: number): JSX.Element => {
