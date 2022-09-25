@@ -84,17 +84,19 @@ const TagPage: NextPage<any> = ({ tag, posts, slug }: { tag?: TagFindOneType; po
       </Head>
       <Container>
         <Row>
-          <MenuPrimary
-            data={{
-              title: "Filtruj",
-              links: [
-                { slug: `${slug}`, title: "Wszystko", count: stats?.data?.publishedPost || 0 },
-                { slug: `${slug}#article`, title: "Artykuły", count: stats?.data?.publishedArticle || 0 },
-                { slug: `${slug}#video`, title: "Video", count: stats?.data?.publishedVideo || 0 },
-              ],
-              cover: { url: tag?.data?.attributes?.cover?.data?.attributes?.url || "", title: tag?.data?.attributes.title },
-            }}
-          />
+          <Col xs={12} md={3}>
+            <MenuPrimary
+              data={{
+                title: "Filtruj",
+                links: [
+                  { slug: `${slug}`, title: "Wszystko", count: stats?.data?.publishedPost || 0 },
+                  { slug: `${slug}#article`, title: "Artykuły", count: stats?.data?.publishedArticle || 0 },
+                  { slug: `${slug}#video`, title: "Video", count: stats?.data?.publishedVideo || 0 },
+                ],
+                cover: { url: tag?.data?.attributes?.cover?.data?.attributes?.url || "", title: tag?.data?.attributes.title },
+              }}
+            />
+          </Col>
           <Col xs={12} md={9}>
             <SectionTagInfo data={{ tag }} />
             <MenuTagStats data={{ stats }} />

@@ -17,17 +17,19 @@ const Contact: NextPage<any, any> = (): JSX.Element => {
       </Head>
       <Container>
         <Row>
-          <MenuPrimary
-            data={{
-              title: "Przydatne",
-              links: [
-                { slug: "/contact", title: "Kontakt", count: 1 },
-                { slug: "/regulamin", title: "Regulamin", count: 2 },
-                { slug: "/privacy-policy", title: "Polityka prywatności", count: 3 },
-                { slug: "https://github.com/polski-dev", title: "Kod źródłowy", count: 4 },
-              ],
-            }}
-          />
+          <Col xs={12} md={3}>
+            <MenuPrimary
+              data={{
+                title: "Przydatne",
+                links: [
+                  { slug: "/contact", title: "Kontakt", count: 1 },
+                  { slug: "/regulamin", title: "Regulamin", count: 2 },
+                  { slug: "/privacy-policy", title: "Polityka prywatności", count: 3 },
+                  { slug: "https://github.com/polski-dev", title: "Kod źródłowy", count: 4 },
+                ],
+              }}
+            />
+          </Col>
           <Col xs={12} md={9}>
             <h5 style={{ marginTop: "3rem", paddingBottom: "1.5rem" }}>Kontakt</h5>
             <div

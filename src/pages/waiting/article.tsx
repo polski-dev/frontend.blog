@@ -21,16 +21,18 @@ const WaitingVideo: NextPage<any, {}> = ({ countPosts, content }: { countPosts: 
       </Head>
       <Container>
         <Row>
-          <MenuPrimary
-            data={{
-              title: "Filtruj",
-              links: [
-                { slug: "/waiting", title: "Wszystko", count: countPosts.data?.unPublishedAll || 0 },
-                { slug: "/waiting/article", title: "Artykuły", count: countPosts.data?.unPublishedAllArticle || 0 },
-                { slug: "/waiting/video", title: "Video", count: countPosts.data?.unPublishedAllVideo || 0 },
-              ],
-            }}
-          />
+          <Col xs={12} md={3}>
+            <MenuPrimary
+              data={{
+                title: "Filtruj",
+                links: [
+                  { slug: "/waiting", title: "Wszystko", count: countPosts.data?.unPublishedAll || 0 },
+                  { slug: "/waiting/article", title: "Artykuły", count: countPosts.data?.unPublishedAllArticle || 0 },
+                  { slug: "/waiting/video", title: "Video", count: countPosts.data?.unPublishedAllVideo || 0 },
+                ],
+              }}
+            />
+          </Col>
           <Col xs={12} md={9}>
             <SectionContentShortList data={{ typ: ContentEnum.unArticle, content, title: "Poczekalnia artykułów" }} />
           </Col>

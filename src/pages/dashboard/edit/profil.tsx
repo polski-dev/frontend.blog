@@ -27,15 +27,17 @@ const UserPanelPage: NextPage<any> = (): JSX.Element => {
       </Head>
       <Container>
         <Row>
-          <MenuPrimary
-            data={{
-              title: "Panel użytkowania",
-              links: [
-                { slug: "/dashboard/add/post", title: "Dodaj post", count: 1 },
-                { slug: "/dashboard/edit/profil", title: "Edytuj profil", count: 2 },
-              ],
-            }}
-          />
+          <Col xs={12} md={3}>
+            <MenuPrimary
+              data={{
+                title: "Panel użytkowania",
+                links: [
+                  { slug: "/dashboard/add/post", title: "Dodaj post", count: 1 },
+                  { slug: "/dashboard/edit/profil", title: "Edytuj profil", count: 2 },
+                ],
+              }}
+            />
+          </Col>
           <Col xs={12} md={9}>
             <SectionDasbordUserEditData />
           </Col>

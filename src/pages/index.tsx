@@ -21,16 +21,18 @@ const Home: NextPage<any, {}> = ({ countPosts, content }: { countPosts?: PostsCo
       </Head>
       <Container>
         <Row>
-          <MenuPrimary
-            data={{
-              title: "Filtruj",
-              links: [
-                { slug: "/", title: "Wszystko", count: countPosts?.data?.publishedAll || 0 },
-                { slug: "/article", title: "Artykuły", count: countPosts?.data?.publishedAllArticle || 0 },
-                { slug: "/video", title: "Video", count: countPosts?.data?.publishedAllVideo || 0 },
-              ],
-            }}
-          />
+          <Col xs={12} md={3}>
+            <MenuPrimary
+              data={{
+                title: "Filtruj",
+                links: [
+                  { slug: "/", title: "Wszystko", count: countPosts?.data?.publishedAll || 0 },
+                  { slug: "/article", title: "Artykuły", count: countPosts?.data?.publishedAllArticle || 0 },
+                  { slug: "/video", title: "Video", count: countPosts?.data?.publishedAllVideo || 0 },
+                ],
+              }}
+            />
+          </Col>
           <Col xs={12} md={9}>
             <SectionContentShortList data={{ typ: ContentEnum.post, content, title: "Wszystko" }} />
           </Col>
