@@ -48,7 +48,7 @@ const UserPage: NextPage<any> = ({ user, content, slug }: { user?: UserFindOneTy
       <Container>
         <Row>
           <MenuUserStats data={{ stats, skilks: user?.data?.attributes.skilks, learn: user?.data?.attributes.learn }} />
-          <Col xs={12} md={6}>
+          <Col xs={12} md={9}>
             <SectionUserInfo data={{ user }} />
             <SectionContentShortList data={{ typ: ContentEnum.userPost, content, title: `Posty ${user?.data?.attributes.username}`, id: user?.data?.id }} />
           </Col>
@@ -67,7 +67,6 @@ export async function getStaticPaths(): Promise<any> {
       return res.data;
     })
   );
-  console.log([].concat.apply([], allUsers).map((user: UserType) => `/user/${user?.id}/${slugFromTitle(`${user?.attributes?.username}`)}`));
   return {
     paths: [].concat.apply([], allUsers).map((user: UserType) => `/user/${user?.id}/${slugFromTitle(`${user?.attributes?.username}`)}`),
     fallback: true,

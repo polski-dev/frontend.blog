@@ -31,7 +31,7 @@ const Waiting: NextPage<any, {}> = ({ countPosts, content }: { countPosts: Posts
               ],
             }}
           />
-          <Col xs={12} md={6}>
+          <Col xs={12} md={9}>
             <SectionContentShortList data={{ typ: ContentEnum.unPost, content, title: "Poczekalnia" }} />
           </Col>
         </Row>

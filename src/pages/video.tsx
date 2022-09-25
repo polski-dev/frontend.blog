@@ -32,7 +32,7 @@ const Home: NextPage<any, {}> = ({ countPosts, content }: { countPosts: PostsCou
               ],
             }}
           />
-          <Col xs={12} md={6}>
+          <Col xs={12} md={9}>
             <SectionContentShortList data={{ typ: ContentEnum.video, content, title: "Video" }} />
           </Col>
         </Row>

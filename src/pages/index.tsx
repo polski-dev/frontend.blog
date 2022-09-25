@@ -31,7 +31,7 @@ const Home: NextPage<any, {}> = ({ countPosts, content }: { countPosts?: PostsCo
               ],
             }}
           />
-          <Col xs={12} md={6}>
+          <Col xs={12} md={9}>
             <SectionContentShortList data={{ typ: ContentEnum.post, content, title: "Wszystko" }} />
           </Col>
         </Row>

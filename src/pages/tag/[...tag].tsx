@@ -95,7 +95,7 @@ const TagPage: NextPage<any> = ({ tag, posts, slug }: { tag?: TagFindOneType; po
               cover: { url: tag?.data?.attributes?.cover?.data?.attributes?.url || "", title: tag?.data?.attributes.title },
             }}
           />
-          <Col xs={12} md={6}>
+          <Col xs={12} md={9}>
             <SectionTagInfo data={{ tag }} />
             <MenuTagStats data={{ stats }} />
             {iAmWaitingForAnswer ? (

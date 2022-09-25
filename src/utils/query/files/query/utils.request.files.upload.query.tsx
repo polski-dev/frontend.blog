@@ -19,7 +19,5 @@ export async function filesUploadFrontEnd({ file, authToken }: { file: File; aut
     } else data = { data: null };
   }
 
-  console.log(data);
-
   return data;
 }

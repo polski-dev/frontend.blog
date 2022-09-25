@@ -31,7 +31,7 @@ const WaitingVideo: NextPage<any, {}> = ({ countPosts, content }: { countPosts: 
               ],
             }}
           />
-          <Col xs={12} md={6}>
+          <Col xs={12} md={9}>
             <SectionContentShortList data={{ typ: ContentEnum.unVideo, content, title: "Poczekalnia video" }} />
           </Col>
         </Row>

@@ -30,7 +30,7 @@ const Contact: NextPage<any, any> = (): JSX.Element => {
               ],
             }}
           />
-          <Col xs={12} md={6}>
+          <Col xs={12} md={9}>
             <SectionText data={{ title: "Regulamin" }}>
               <p>Przed założeniem konta w Serwisie należy uważnie przeczytać poniższy Regulamin. Założenie konta jest równoznaczne z tym, że Użytkownik:</p>
               <ul>

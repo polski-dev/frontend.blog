@@ -38,7 +38,7 @@ const Search: NextPage = () => {
               ],
             }}
           />
-          <Col xs={12} md={6} style={{ paddingTop: iAmWaitingForAnswer ? "3rem" : "0rem" }}>
+          <Col xs={12} md={9} style={{ paddingTop: iAmWaitingForAnswer ? "3rem" : "0rem" }}>
             {iAmWaitingForAnswer ? (
               <>
                 <h5 style={{ paddingBottom: "1.5rem" }}>Wyniki wyszukiwania dla: {router?.query?.search}</h5>

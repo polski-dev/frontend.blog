@@ -36,7 +36,7 @@ export const BoxMenu = styled.div<PowerType>`
   padding: ${({ theme }) => theme.break.big} ${({ theme }) => theme.break.main};
 
   ${({ theme }) => css`
-    @media all and (min-width: ${theme.breakPoint[theme.breakPoint.findIndex((item: any) => item.type === "md")].break}) {
+    @media all and (min-width: ${theme.breakPoint[theme.breakPoint.findIndex((item: { type: string }): boolean => item.type === "md")].break}) {
       left: 0;
       z-index: 0;
       width: auto;

@@ -28,7 +28,7 @@ const Contact: NextPage<any, any> = (): JSX.Element => {
               ],
             }}
           />
-          <Col xs={12} md={6}>
+          <Col xs={12} md={9}>
             <h5 style={{ marginTop: "3rem", paddingBottom: "1.5rem" }}>Kontakt</h5>
             <div
               style={{
