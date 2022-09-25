@@ -37,7 +37,7 @@ const UserPanelPage: NextPage<any> = (): JSX.Element => {
             }}
           />
           <Col xs={12} md={9}>
-            <SectionDasbordUserAddArticle data={{ title: "Dodaj artykół" }} />
+            <SectionDasbordUserAddArticle data={{ title: "Dodaj post" }} />
           </Col>
         </Row>
       </Container>
