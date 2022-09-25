@@ -19,17 +19,19 @@ const Contact: NextPage<any, any> = (): JSX.Element => {
       </Head>
       <Container>
         <Row>
-          <MenuPrimary
-            data={{
-              title: "Przydatne",
-              links: [
-                { slug: "/contact", title: "Kontakt", count: 1 },
-                { slug: "/regulamin", title: "Regulamin", count: 2 },
-                { slug: "/privacy-policy", title: "Polityka prywatności", count: 3 },
-                { slug: "https://github.com/polski-dev", title: "Kod źródłowy", count: 4 },
-              ],
-            }}
-          />
+          <Col xs={12} md={3}>
+            <MenuPrimary
+              data={{
+                title: "Przydatne",
+                links: [
+                  { slug: "/contact", title: "Kontakt", count: 1 },
+                  { slug: "/regulamin", title: "Regulamin", count: 2 },
+                  { slug: "/privacy-policy", title: "Polityka prywatności", count: 3 },
+                  { slug: "https://github.com/polski-dev", title: "Kod źródłowy", count: 4 },
+                ],
+              }}
+            />
+          </Col>
           <Col xs={12} md={9}>
             <SectionText data={{ title: "Regulamin" }}>
               <p>Przed założeniem konta w Serwisie należy uważnie przeczytać poniższy Regulamin. Założenie konta jest równoznaczne z tym, że Użytkownik:</p>

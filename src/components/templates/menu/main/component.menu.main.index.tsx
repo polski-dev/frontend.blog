@@ -44,9 +44,9 @@ export default function MenuPrimary({ data }: { data?: { title?: string; cover?:
               </FiltrListContent>
             </>
           )}
-
+          <Title>Social Media</Title>
           <List>
-            {/* <SocialMedia>
+            <SocialMedia>
               <Link href="https://www.youtube.com">
                 <a title="YouTube">
                   <Youtube />
@@ -66,7 +66,7 @@ export default function MenuPrimary({ data }: { data?: { title?: string; cover?:
                   <Instagram />
                 </a>
               </Link>
-            </SocialMedia> */}
+            </SocialMedia>
             <SocialMedia>
               <Link href="https://github.com/polski-dev">
                 <a title="GitGub">

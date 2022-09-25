@@ -9,8 +9,12 @@ import { ContentEnum } from "types/database/types.database.contentEnum";
 import { SectionSearchResult } from "components/templates/section/index";
 import { ComponentAnimationShortArticle } from "components/atoms/animation";
 
+type listLinksType = { slug: string; title: string; count: number }[];
+const stateLinks: listLinksType = [];
+
 const Search: NextPage = () => {
   const router = useRouter();
+  const [links, setLinks] = useState(stateLinks);
   const [content, setSontent] = useState(searchState);
   const [iAmWaitingForAnswer, setIAmWaitingForAnswer] = useState(true);
 
@@ -21,6 +25,15 @@ const Search: NextPage = () => {
     })();
   }, [router]);
 
+  useEffect(() => {
+    let listLinks: listLinksType = [];
+    content.data?.posts?.meta?.pagination?.total && listLinks.push({ slug: `/search/${router?.query?.search}`, title: "Posty", count: content.data?.posts?.meta?.pagination?.total || 0 });
+    content.data?.tags?.meta?.pagination?.total && listLinks.push({ slug: `/search/${router?.query?.search}#tags`, title: "Tagi", count: content.data?.tags?.meta?.pagination?.total || 0 });
+    content.data?.users?.meta?.pagination?.total && listLinks.push({ slug: `/search/${router?.query?.search}#users`, title: "Użytkownicy", count: content.data?.users?.meta?.pagination?.total || 0 });
+
+    setLinks(listLinks);
+  }, [content, router]);
+
   return (
     <>
       <Head>
@@ -28,16 +41,14 @@ const Search: NextPage = () => {
       </Head>
       <Container>
         <Row>
-          <MenuPrimary
-            data={{
-              title: "Filtruj",
-              links: [
-                { slug: `/search/${router?.query?.search}`, title: "Posty", count: content.data?.posts?.meta?.pagination?.total || 0 },
-                { slug: `/search/${router?.query?.search}#tags`, title: "Tagi", count: content.data?.tags?.meta?.pagination?.total || 0 },
-                { slug: `/search/${router?.query?.search}#users`, title: "Użytkownicy", count: content.data?.users?.meta?.pagination?.total || 0 },
-              ],
-            }}
-          />
+          <Col xs={12} md={3}>
+            <MenuPrimary
+              data={{
+                title: "Filtruj",
+                links,
+              }}
+            />
+          </Col>
           <Col xs={12} md={9} style={{ paddingTop: iAmWaitingForAnswer ? "3rem" : "0rem" }}>
             {iAmWaitingForAnswer ? (
               <>

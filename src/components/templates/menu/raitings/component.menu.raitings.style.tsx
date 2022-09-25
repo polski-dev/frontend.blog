@@ -22,15 +22,13 @@ export const BoxMenu: StyledComponent<any, any> = styled.div`
       top: 0;
       left: 0;
       z-index: 0;
-      width: auto;
+      width: 100%;
       height: auto;
       bottom: auto;
       overflow: unset;
       position: relative;
       background-color: transparent;
-      flex: ${(100 * 3) / theme.gridCol}%;
-      max-width: ${(100 * 3) / theme.gridCol}%;
-      padding: ${theme.break.big} 0 ${theme.break.big} ${theme.break.main};
+      padding: ${theme.break.big} 0 0 ${theme.break.main};
     }
   `}
 `;

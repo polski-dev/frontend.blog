@@ -39,13 +39,11 @@ export const BoxMenu = styled.div<PowerType>`
     @media all and (min-width: ${theme.breakPoint[theme.breakPoint.findIndex((item: { type: string }): boolean => item.type === "md")].break}) {
       left: 0;
       z-index: 0;
-      width: auto;
+      width: 100%;
       height: auto;
       overflow: unset;
       position: relative;
       background-color: transparent;
-      flex: ${(100 * 3) / theme.gridCol}%;
-      max-width: ${(100 * 3) / theme.gridCol}%;
       padding: ${({ theme }) => theme.break.big} 0 ${({ theme }) => theme.break.big} ${({ theme }) => theme.break.main};
     }
   `}
