@@ -35,6 +35,17 @@ export const Article: StyledComponent<any, any> = styled.article`
       opacity: 0.8;
     }
   }
+  span {
+    position: relative !important;
+  }
+
+  .cover {
+    object-fit: contain;
+    width: 100% !important;
+    position: relative !important;
+    height: unset !important;
+    position: relative !important;
+  }
 
   &:last-of-type {
     margin-bottom: 0;
@@ -195,10 +206,7 @@ export const BoxCodeTitle: StyledComponent<any, any> = styled.p``;
 
 export const BoxCoverImg: StyledComponent<any, any> = styled.div`
   width: 100%;
-  height: 300px;
-  display: block;
-  overflow: hidden;
-  position: relative;
+  position: unset !important;
 `;
 
 export const BoxAuthorImg: StyledComponent<any, any> = styled.div`
