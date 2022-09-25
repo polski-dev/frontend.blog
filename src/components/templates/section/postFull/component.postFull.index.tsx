@@ -22,13 +22,7 @@ export default function SectionPostFull({ data }: { data?: { post?: PostFindOneT
     <Section>
       <Title>{data?.post?.data?.attributes?.typ === PostsTypEnum.video ? "Video" : data?.post?.data?.attributes?.typ === PostsTypEnum.article ? "Artykuł" : <ComponentAnimationItemLoad height={2.4} />}</Title>
       <Article>
-        {data?.post?.data?.attributes.cover?.data?.attributes.url ? (
-          <BoxCoverImg>
-            <Image layout="fill" objectFit="cover" alt={data?.post?.data.attributes.title} src={data?.post?.data?.attributes.cover?.data?.attributes.url} />
-          </BoxCoverImg>
-        ) : (
-          <ComponentAnimationItemLoad height={30} />
-        )}
+        {data?.post?.data?.attributes.cover?.data?.attributes.url ? <Image layout="fill" className="cover" alt={data?.post?.data.attributes.title} src={data?.post?.data?.attributes.cover?.data?.attributes.url} /> : <ComponentAnimationItemLoad height={30} />}
         <BoxContent>
           <BoxAuthor>
             <BoxAuthorImg>
