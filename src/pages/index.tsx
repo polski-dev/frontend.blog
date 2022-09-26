@@ -6,8 +6,12 @@ import { PostsFindType, postsFindBackEnd } from "utils/query/posts/find";
 import { PostsCountType, postsCountBackEnd } from "utils/query/posts/count";
 import { SectionContentShortList } from "components/templates/section/index";
 import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexboxgrid";
+import { useEffect } from "react";
 
 const Home: NextPage<any, {}> = ({ countPosts, content }: { countPosts?: PostsCountType; content?: PostsFindType }): JSX.Element => {
+  useEffect(() => {
+    console.log(window.matchMedia("(max-width: 600px)").matches);
+  }, []);
   return (
     <Container>
       <Row>
