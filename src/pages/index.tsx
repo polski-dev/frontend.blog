@@ -9,36 +9,25 @@ import { Container, Row, Col } from "components/orgamis/flexboxgrid/index.flexbo
 
 const Home: NextPage<any, {}> = ({ countPosts, content }: { countPosts?: PostsCountType; content?: PostsFindType }): JSX.Element => {
   return (
-    <>
-      <Head>
-        <title>Blog dla programistów od programistów | POLSKI.DEV 👩‍💻👨‍💻</title>
-        <meta name="Description" content="polski.dev to coś więcej niż blog dla programistów to miejsce spotkań dla programistów to ich autorskie pamiętniki" />
-        <meta property="og:title" content="Blog dla programistów od programistów | POLSKI.DEV 👩‍💻👨‍💻" />
-        <meta property="og:type" content="text/html" />
-        <meta property="og:description" content="polski.dev to coś więcej niż blog dla programistów to miejsce spotkań dla programistów to ich autorskie pamiętniki" />
-        <meta property="og:url" content={`https://www.polski.dev`} />
-        <meta property="og:image" content="./../assets/img/shareSocialMedia.png" />
-      </Head>
-      <Container>
-        <Row>
-          <Col xs={12} md={3}>
-            <MenuPrimary
-              data={{
-                title: "Filtruj",
-                links: [
-                  { slug: "/", title: "Wszystko", count: countPosts?.data?.publishedAll || 0 },
-                  { slug: "/article", title: "Artykuły", count: countPosts?.data?.publishedAllArticle || 0 },
-                  { slug: "/video", title: "Video", count: countPosts?.data?.publishedAllVideo || 0 },
-                ],
-              }}
-            />
-          </Col>
-          <Col xs={12} md={9}>
-            <SectionContentShortList data={{ typ: ContentEnum.post, content, title: "Wszystko" }} />
-          </Col>
-        </Row>
-      </Container>
-    </>
+    <Container>
+      <Row>
+        <Col xs={12} md={3}>
+          <MenuPrimary
+            data={{
+              title: "Filtruj",
+              links: [
+                { slug: "/", title: "Wszystko", count: countPosts?.data?.publishedAll || 0 },
+                { slug: "/article", title: "Artykuły", count: countPosts?.data?.publishedAllArticle || 0 },
+                { slug: "/video", title: "Video", count: countPosts?.data?.publishedAllVideo || 0 },
+              ],
+            }}
+          />
+        </Col>
+        <Col xs={12} md={9}>
+          <SectionContentShortList data={{ typ: ContentEnum.post, content, title: "Wszystko" }} />
+        </Col>
+      </Row>
+    </Container>
   );
 };
 
