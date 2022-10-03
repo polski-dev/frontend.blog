@@ -1,5 +1,5 @@
 import styled, { css, StyledComponent } from "styled-components";
-import { MainSettingsTemplate } from "assets/style/types.mainSettingsTemplate";
+import { MainSettingsTemplate } from "styles/types.mainSettingsTemplate";
 
 export const MenuUserBox: StyledComponent<any, any> = styled.div`
   bottom: 0;

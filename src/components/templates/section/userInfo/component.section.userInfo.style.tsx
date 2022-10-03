@@ -1,5 +1,5 @@
 import styled, { StyledComponent, ThemeProps } from "styled-components";
-import { MainSettingsTemplate } from "assets/style/types.mainSettingsTemplate";
+import { MainSettingsTemplate } from "styles/types.mainSettingsTemplate";
 
 export const UserInfoBox: StyledComponent<any, any> = styled.div`
   top: -4rem;

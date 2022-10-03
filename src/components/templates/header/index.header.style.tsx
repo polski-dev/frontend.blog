@@ -1,5 +1,5 @@
 import styled, { css, StyledComponent, ThemeProps } from "styled-components";
-import { MainSettingsTemplate } from "assets/style/types.mainSettingsTemplate";
+import { MainSettingsTemplate } from "styles/types.mainSettingsTemplate";
 
 export const Header = styled.header`
   width: 100%;

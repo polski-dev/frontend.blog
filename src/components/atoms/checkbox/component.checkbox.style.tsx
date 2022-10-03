@@ -1,5 +1,5 @@
 import styled, { css, StyledComponent, ThemeProps } from "styled-components";
-import { MainSettingsTemplate } from "assets/style/types.mainSettingsTemplate";
+import { MainSettingsTemplate } from "styles/types.mainSettingsTemplate";
 
 interface LabelProps {
   checkedInput: boolean;
@@ -23,8 +23,7 @@ export const CheckBoxClassicRoad: StyledComponent<any, any> = styled.div`
   position: relative;
   border-radius: 3rem;
   background-color: ${({ theme }: ThemeProps<MainSettingsTemplate>) => theme.colorMainBg};
-  border: ${({ theme, error, checkedInput }: { theme: MainSettingsTemplate; error: boolean; checkedInput: boolean }): string =>
-    checkedInput ? `1px solid ${theme.colorSuccessBorder}` : error && !checkedInput ? `1px solid ${theme.colorDangerBorder}` : `1px solid ${theme.colorBorder}`};
+  border: ${({ theme, error, checkedInput }: { theme: MainSettingsTemplate; error: boolean; checkedInput: boolean }): string => (checkedInput ? `1px solid ${theme.colorSuccessBorder}` : error && !checkedInput ? `1px solid ${theme.colorDangerBorder}` : `1px solid ${theme.colorBorder}`)};
 `;
 
 export const CheckBoxClassicFace: StyledComponent<any, any> = styled.i`

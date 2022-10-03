@@ -1,5 +1,5 @@
 import React from "react";
-import settings from "assets/style/settings";
+import { theme } from "theme";
 import { SessionProvider } from "next-auth/react";
 import { ThemeProvider } from "styled-components";
 import ProviderMenu from "providers/providers.menu";
@@ -13,7 +13,7 @@ const ProviderWrapper: React.FC<any> = ({ children, session }: ProviderWrapperTy
   return (
     <SessionProvider session={session}>
       <ProviderMenu>
-        <ThemeProvider theme={settings}>{children}</ThemeProvider>
+        <ThemeProvider theme={theme}>{children}</ThemeProvider>
       </ProviderMenu>
     </SessionProvider>
   );

@@ -1,5 +1,5 @@
 import styled, { css, createGlobalStyle, StyledComponent, ThemeProps } from "styled-components";
-import { MainSettingsTemplate } from "assets/style/types.mainSettingsTemplate";
+import { MainSettingsTemplate } from "styles/types.mainSettingsTemplate";
 
 type PowerType = {
   power: boolean;

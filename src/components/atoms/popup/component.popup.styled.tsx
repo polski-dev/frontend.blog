@@ -1,5 +1,5 @@
 import styled, { css, createGlobalStyle, ThemeProps } from "styled-components";
-import { MainSettingsTemplate } from "assets/style/types.mainSettingsTemplate";
+import { MainSettingsTemplate } from "styles/types.mainSettingsTemplate";
 
 interface GlobalStyleType {
   power: boolean;

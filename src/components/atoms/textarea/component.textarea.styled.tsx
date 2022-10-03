@@ -1,6 +1,6 @@
 import { InputStyledInterface } from "./component.textarea.type";
 import styled, { StyledComponent, ThemeProps } from "styled-components";
-import { MainSettingsTemplate } from "assets/style/types.mainSettingsTemplate";
+import { MainSettingsTemplate } from "styles/types.mainSettingsTemplate";
 
 export const Label: StyledComponent<any, any> = styled.label`
   width: 100%;

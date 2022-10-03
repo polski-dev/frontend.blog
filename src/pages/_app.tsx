@@ -1,6 +1,6 @@
 import Laout from "layout/laout.index";
 import type { AppProps } from "next/app";
-import GlobalStyle from "assets/style/GlobalStyle";
+import GlobalStyle from "styles/GlobalStyle";
 import ProviderWrapper from "providers/providers.wrapper";
 
 function MyApp({ Component, pageProps }: AppProps) {
